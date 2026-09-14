@@ -1,0 +1,46 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# --- Secrets: never commit ---
+.env
+.env.*
+!.env.example
+
+# --- Training outputs & checkpoints live on Google Drive, not in git ---
+runs/
+checkpoints/
+checkpoint-*/
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+wandb/
+tensorboard/
+
+# --- Caches (model cache stays on the VM disk) ---
+.cache/
+hf_cache/
+huggingface/
+
+# --- Read-only copies of the reference system (POC v1) used while porting; deleted before push ---
+_ref/
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# --- Scratch ---
+*.log
+tmp/
+
+# --- local GPU verification output (scripts/verify_on_gpu.sh) ---
+verify_out/

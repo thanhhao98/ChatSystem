@@ -1,0 +1,68 @@
+# Lộ trình — ba epic và mốc chung (2026-09-13 → 2026-11-29)
+
+Mọi ngày là **hạn hoàn thành** (Chủ nhật trừ khi ghi khác). ClickUp: `https://app.clickup.com/` (Space: **Chat System**),
+mỗi epic một list, `Tuần N` / `Việc N` / `Đầu ra cuối kỳ` là subtask của task EPIC. Mỗi task mang link tới tệp/notebook
+trong `https://github.com/thanhhao98/ChatSystem`. Trạng thái: to do · planning · in progress · at risk · update required ·
+on hold · in review · complete · cancelled.
+
+## Epic D — Dữ liệu: từ API spec đến bộ dữ liệu huấn luyện & đánh giá (list `D — Dữ liệu`)
+
+| Task | Hạn | Đầu ra / tiêu chí nhận | Phụ thuộc |
+|---|---|---|---|
+| **Tuần 1 — Dựng môi trường và khám phá bộ dữ liệu công khai xLAM (2k hàng gốc)** | 09-20 | `notebooks/data/01_explore_public_dataset.ipynb` chạy trên Colab từ `data/public/xlam_raw_2k.jsonl` (không tải, không token); cell báo cáo in: số hàng, tool/hàng, call/hàng, tham số/call, độ dài câu hỏi, top-20 tool, số JSON parse được → dán làm bình luận. Tuỳ chọn: tải bản gated đầy đủ với `HF_TOKEN` trong Colab Secrets. | — |
+| **Tuần 2 — Tiền xử lý về định dạng hàng huấn luyện (parity, `<tool_call>`) và chia train/val/test** | 09-27 | `notebooks/data/02_preprocess_to_chatml.ipynb` chạy `datagen/convert_xlam.py` (stdlib) → 1600/200/200 nhóm theo tập tool (0 tập chung), `xlam_2k.eval.json` từ test; `training/validate_dataset.py` thoát 0; một prompt render cho thấy khối `<tools>`; sha256 danh sách id khớp bản đã commit. Đầu vào Điểm đồng bộ 1. | Tuần 1 |
+| Việc 1 — Danh mục tool SGOD v1: ~20 tool chỉ đọc, schema function-calling (mô tả tiếng Việt), `x_sgod`, `tool_policy.json`, bảng tool→endpoint | 10-04 | `tools/sgod/sgod_tools.json`, `tool_policy.json`, `tool_api_mapping.md` sinh tự động (tool · service · method · endpoint · jwt_scoped · roles · params); `python tools/sgod/validate_tools.py` thoát 0 kèm số token. Đọc `docs/sgod/query_params.md` + `fixtures/sgod/`. | S Việc 1, S Việc 2 |
+| Việc 2 — Lõi eval do người viết (≥150 câu tiếng Việt, ≥3 câu/tool, ≥10 % ngoài phạm vi hoặc bị từ chối) | 10-08 (Thu) | Mỗi thành viên viết 50 câu chỉ từ danh mục tool + `docs/personas_sgod.md`, **trước** khi đọc bất kỳ prompt sinh nào; `data/sgod/eval_human_core.jsonl` (`source: human`) đóng băng, sha256 trong bình luận. | Việc 1 |
+| Việc 3 — Thiết kế prompt sinh kịch bản với GPT (persona, intent, đơn / đa ràng buộc / phụ thuộc, ngoài phạm vi; KHÔNG đa lượt) | 10-11 | `datagen/prompts/*.md`, `datagen/config_sgod.py` (DOMAIN_SYSTEM, CATEGORY_HINTS, ENTITY_POOLS từ fixtures, PARAM_SAMPLER theo tool, BUCKET_PLAN); pilot 50 hàng chạy qua `run_pipeline.sh` trên hạ tầng tham chiếu trước 10-13; pilot được review. | S Việc 3 |
+| Việc 4 — Xây và đóng băng bộ đánh giá SGOD `eval_v1` (lõi người viết + GPT bổ sung, alternates, độ đồng thuận) | 10-25 | `data/sgod/eval_v1.json` (mục tiêu 500, sàn 400; ≥15/tool; mọi vai trò; ≥10 % null; ≥10 % denied), `eval_v1.sha256`, `docs/eval_v1_card.md` (đếm theo nguồn/tool/vai trò/quyền, id model sinh + arbiter, tỷ lệ đồng thuận, Cohen's kappa trên 100 mẫu gán nhãn đôi). Hàng GPT-aug dùng bộ prompt **riêng** `datagen/prompts_eval/`; alternates do arbiter ≠ GPT bị chấm; quyền gán bằng luật. Giao cho F trước **10-20**: `data/sgod/pilot_train.jsonl` (≥50 hàng parity) + `pilot_eval.json` (≥30). = Điểm đồng bộ 2. | Việc 2, S Việc 4 |
+| Việc 5 — Sinh, gán nhãn, kiểm định và chia dữ liệu huấn luyện SGOD (chống rò rỉ với eval_v1) | 11-08 | `data/sgod/{raw,labeled,verified,quarantine}.json`, `{train,val}.jsonl` qua `build_parity_trainset.py` với preamble v1; `EVAL_SETS_FOR_LEAKAGE=[eval_v1]`, ngưỡng 0.65; báo cáo chất lượng gồm độ tương đồng tối đa với eval_v1, yield so với ngân sách 0.58, bộ đếm call/chi phí. | Điểm đồng bộ 2 |
+| Đầu ra cuối kỳ — Báo cáo, pull request, slide, demo | 11-29 | `docs/reports/D_final.md`; `scripts/check_provenance.py` thoát 0; mọi run có dòng trong `results/RUNLOG.md`. | Việc 5 |
+
+## Epic F — Huấn luyện & Phục vụ: từ hàng dữ liệu đến mô hình có số đo (list `F — Huấn luyện & Phục vụ`)
+
+| Task | Hạn | Đầu ra / tiêu chí nhận | Phụ thuộc |
+|---|---|---|---|
+| **Tuần 1 — Dựng môi trường Colab và chạy QLoRA SFT nhẹ (Qwen2.5-0.5B-Instruct) trên lát xLAM 2k** | 09-20 | `notebooks/finetune/01_qlora_sft_colab.ipynb`: cell 1 pin từ `requirements-train.txt`; cell 2 in tên GPU / VRAM / compute capability / `USE_BF16` và phiên bản thư viện (mong đợi `Tesla T4 · 15 GB · (7,5) · USE_BF16=False → fp16`); `--dry-run` khẳng định `<tools>` có trong prompt và số token completion không bị mask > 0; cấu hình T4 cố định (`--max-len 2560` — bằng `DEFAULT_MAX_LEN` của script; 1536 để 5 hàng train vượt giới hạn, hàng dài nhất 2.426 token; bs4×ga4, grad-ckpt, fp16, lưu mỗi 50 bước lên Drive); smoke 200 hàng rồi 3 epoch trên 1.6k; cố ý ngắt kết nối + `--resume-from-checkpoint` chứng minh tiếp tục từ bước 101. Cell báo cáo: VRAM đỉnh, thời gian, đường loss từ `log_history.json`, `ls` adapter, một lần sinh `<tool_call>` greedy. Chỉ 0.5B tuần này. | — |
+| **Tuần 2 — Đánh giá pretrained vs fine-tuned trên test công khai (tool-name, args, JSON validity, bootstrap CI, McNemar)** | 09-27 | `notebooks/finetune/02_eval_toolcalling.ipynb`: tải fp16, tool qua `apply_chat_template`, sinh theo batch trên `xlam_2k.eval.json` cho base và adapter → `results/{base,ft}_pred.jsonl` → `training/eval_toolcall.py` → `training/bootstrap_ci.py --run base=… --run ft=… --pair base ft`. Dán bảng + CI 95 % + McNemar (b, c, p). **Tuỳ chọn nâng cao**: `03_serve_vllm_colab.ipynb` (`--dtype half`, LoRA, hermes parser) + client OpenAI, p50 latency. | Tuần 1 |
+| Việc 1 — Lưới recipe cố định (≤6 lần chạy) trên lát xLAM và chọn recipe mặc định | 10-11 | `training/recipes/*.yaml`, `results.csv`; anchor 0.5B r16/α32 lr 1e-4 completion-only; arm một trục r=8, lr=2e-4, completion_only=0 (chỉ quan sát), anchor 1.5B, một arm tự chọn; 1 epoch trên 1.000 hàng cố định, seed 42; CI + McNemar so với anchor; `docs/reports/<date>_recipe_grid_xlam.md` đề xuất một mặc định (nói thẳng độ chồng lấn CI; kết quả mong đợi: giữ anchor). Kaggle cho run > 1 h. | Tuần 2 |
+| Việc 2 — Hoàn thiện harness đánh giá SGOD (`predict_toolcall.py` + `eval_toolcall.py`) và chấm baseline GPT | 10-25 (chấm trước 11-01) | Predictor chạy với mọi endpoint OpenAI-compatible với `tools=` + preamble + `user_role`; header sha256; scorer nhóm theo `source`, từ chối qua `tool_policy.json`; thử trên eval công khai và `pilot_eval.json`. GPT chạy trên eval_v1 đã đóng băng trên hạ tầng tham chiếu (S Việc 8, 10-29); nhóm F chấm → `results/sgod_eval_v1/gpt-<model>_<date>.{json,md}` = INDEX R001. | Điểm đồng bộ 2 |
+| Việc 3 — Diễn tập chuỗi SGOD end-to-end trên mẫu nhỏ (0.5B, 1 epoch) | 11-01 | `validate_dataset.py` → `finetune_qlora.py --dry-run` → chạy Colab trên `pilot_train.jsonl` với preamble v1 → `predict_toolcall.py` (backend transformers) → `eval_toolcall.py` → `bootstrap_ci.py` trên `pilot_eval.json`; mọi script chạy không đổi trên định dạng SGOD hoặc có PR sửa; không đánh giá con số. | D Việc 4 (pilot) |
+| Việc 4 — Huấn luyện trên bộ SGOD (0.5B + 1.5B trên T4, ≥3 seed) và lập bảng 4 arm (CI + McNemar + kết luận H1) | 11-15 | `training/recipes/sgod_v1.yaml`; adapter trên Drive; dự đoán theo seed; `docs/reports/<date>_sgod_sft_vs_gpt.md` với các dòng: 3B zero-shot (hạ tầng tham chiếu) · 1.5B SFT (T4) · 3B SFT (máy GPU của hạ tầng tham chiếu, recipe sản xuất) · GPT; mean ± std theo seed, CI hiệu ghép đôi, McNemar theo cặp, ghi rõ `H1 giữ / không giữ`; lát human-core và gpt-aug tách riêng. | D Việc 5, S Việc 8, S Việc 9 |
+| Việc 5 — Gói bàn giao adapter để phục vụ bằng vLLM (`docs/serving.md`) | 11-22 | Thư mục adapter PEFT (`adapter_config.json` + `adapter_model.safetensors`, `base_model_name_or_path` chính xác, r ≤ 16 hoặc ghi rõ), zip lên Drive chung, tên phục vụ, một request `chat.completions` mẫu với `tools=`; nhóm F nạp lại zip trong notebook 02 và tái lập số của mình. Phục vụ trên hạ tầng tham chiếu (S Việc 10). | Việc 4 |
+| Đầu ra cuối kỳ — Báo cáo, pull request, slide, demo | 11-29 | `docs/reports/F_final.md`; `check_provenance.py` thoát 0. | Việc 5 |
+
+## Epic S — Hệ thống & hạ tầng tham chiếu: tích hợp SGOD (list `S — Hệ thống & hạ tầng tham chiếu`, trạng thái `planning`, chưa gán)
+
+| Task | Hạn | Đầu ra | Phụ thuộc |
+|---|---|---|---|
+| Việc 1 — Trích OpenAPI từ `swagger-ui-init.js` và lập bảng tham số truy vấn | 09-27 | `docs/sgod/openapi-{auth,asset,chat}.json` (đã ẩn bí mật), `docs/sgod/query_params.md` (method · path · query params · enum) cho ~17 GET ở spec §2/§3. GET không cần xác thực; làm trong Drop 1 nếu kịp. | — |
+| Việc 2 — Bộ mẫu phản hồi thật (fixtures cho nhóm Dữ liệu) | 09-27 | `fixtures/sgod/<service>/<METHOD>_<slug>.json` cho ~17 GET + 4 ca âm (HTTP-200 `success:false`, 401, 401→refresh→retry, chat với token enterprise-user); PII che; `fixtures/sgod/README.md` liệt kê enum. | — |
+| Việc 3 — Thiết kế đăng nhập SGOD, ánh xạ vai trò và preamble v1-SGOD | 09-27 | `docs/contracts/roles.md`, `tools/sgod/roles.json`, `prompts/system_preamble_v1.txt`, `docs/personas_sgod.md` → đầu vào Điểm đồng bộ 1. | — |
+| Việc 4 — Xác minh `sgod_tools` v1 trên API thật và chốt (git tag `tools-v1`) | 10-08 | Mỗi route gọi một lần theo từng vai trò với JWT thật; sửa enum/tên tham số; `validate_tools.py` xanh; đẩy tag. | D Việc 1 |
+| Việc 5 — Chạy các bước LLM của pipeline dữ liệu từ PR của nhóm D (`datagen/run_pipeline.sh`) | cuốn chiếu 10-11 → 11-08 | Đầu ra từng stage commit ≤ 2 ngày làm việc sau mỗi PR; bộ đếm call/chi phí trong bình luận. | D Việc 3 |
+| Việc 6 — Bộ chuyển đổi SGOD trong `tool_executor` | 10-18 | `x-api-key` theo service, unwrap phong bì, rẽ nhánh `body.success`, refresh khi 401, `SGOD_BASE_URL`, route từ `sgod_tools.json`. | S Việc 4 |
+| Việc 7 — Cài đặt đăng nhập SGOD (backend + `LoginPage`/`AuthContext`/`client.ts`) | 10-25 | đăng nhập sessions, refresh, một `user_context` builder từ `roles.json`. | S Việc 3 |
+| Việc 8 — Baseline GPT trên eval_v1 đã đóng băng | 10-29 (Thu) | `results/sgod_eval_v1/gpt-<model>_<date>.predictions.jsonl` qua `predict_toolcall.py`. | Điểm đồng bộ 2 |
+| Việc 9 — Arm 3B trên máy GPU của hạ tầng tham chiếu (recipe sản xuất) + dự đoán 3B zero-shot | 11-12 (Thu) | Cùng SHA ChatSystem và sha256 dữ liệu với nhóm F; recipe `finetune_multi.py` (r16/α32, completion-only, lr 1e-4, eff batch 32, 4096, replay xLAM ~1.4×); hai model phục vụ trong một phiên vLLM; dự đoán + `adapter_config.json` + `training_metrics.json` commit. | D Việc 5 |
+| Việc 10 — Phục vụ adapter SGOD bằng vLLM trên máy GPU của hạ tầng tham chiếu (`training/serve_vllm.sh`) | 11-20 (Fri) | `/v1/models` + một phản hồi tool-call dán vào task. | F Việc 5 |
+| Việc 11 — Công tắc GPT / SLM trên tool SGOD và demo end-to-end | 11-22 | Đăng nhập → chat → cả hai mode → cùng đường trả lời; = Điểm đồng bộ 3. | S Việc 6, 7, 10 |
+
+## Chung — Mốc & Quy tắc (list `Chung — Mốc & Quy tắc`)
+
+| Mục | Ngày | Nội dung |
+|---|---|---|
+| Quy tắc bắt buộc — Nhánh, pull request, commit, changelog | thường trực | tiền tố `data/`, `ft/`, `sys/`; mọi thay đổi vào `main` qua PR; PR được review và merge sau khi CI xanh (người phụ trách merge) — không có branch protection, quy trình PR-only giữ bằng quy ước + workflow `main-guard`; tiêu đề PR mang mã việc `[D-V1] …`, `[F-T2] …`, `[S-V3] …`; conventional commits `type(scope): subject`; changelog cùng commit; checkbox PR template (đã chạy / chưa chạy, dòng INDEX cho mọi số mới, đầu ra `validate_tools.py` khi tool đổi). Chi tiết: `HUONG_DAN_LAM_VIEC.md` §2. |
+| Quy tắc bắt buộc — Mọi con số phải truy vết được (INDEX + RUNLOG + lệnh + commit) | thường trực | `results/RUNLOG.md` append-only một dòng/run (ngày · ai · nhóm · data@sha8 · recipe · seed · kết quả ± CI · results path); mỗi số báo cáo một dòng `results/INDEX.md` (R### · số · metric · results file · lệnh/notebook · git sha7 · eval@sha8 · tools@sha8 · model · ngày · ai); mọi md trong `docs/reports/` và `results/` bắt đầu bằng `Ghi chú trục đo`; `scripts/check_provenance.py` gác cả hai `Đầu ra cuối kỳ`. |
+| Nguồn sự thật & bí mật | thường trực | `docs/sgod-api-reference.md` là tài liệu API duy nhất (khóa + mật khẩu thử thay bằng placeholder; giá trị thật chỉ trong `.env` trên hạ tầng tham chiếu); không bao giờ commit khóa/token/mật khẩu; `HF_TOKEN` cá nhân chỉ trong Colab/Kaggle Secrets. |
+| Cách làm việc với Colab/Kaggle và Google Drive | thường trực | cache model trên đĩa VM, đầu ra run lên Drive; `save_strategy=steps`; phiên kết thúc bất ngờ (~90 phút idle, quota ngày); Kaggle (30 GPU-h/tuần, T4×2) khi hết quota Colab; không unsloth trên Colab. |
+| **Điểm đồng bộ 1 — Chốt định dạng hàng huấn luyện, vai trò và preamble v1** | **09-27** | hợp đồng 1 + 3 đóng băng; `validate_dataset.py` xanh trên đầu ra D Tuần 2. |
+| **Điểm đồng bộ 2 — Chốt eval_v1, metric, schema dự đoán/kết quả và giả thuyết H1** | **10-25** | sha256 của `eval_v1.json` trong bình luận; sau đó eval_v1 bất biến (sửa → `eval_v1.1` + errata + sha mới). |
+| **Điểm đồng bộ 3 — Demo end-to-end** | **11-22** | phụ thuộc S Việc 10, S Việc 11. |
+
+## Lịch drop — hệ thống & hạ tầng tham chiếu
+
+| Drop | Hạn | Nội dung |
+|---|---|---|
+| Drop 0 | 2026-09-13/14 | cây repo, `data/public/`, hợp đồng 1–2, preamble v0, notebook 01 (hai nhóm), CI, PR template, README, HUONG_DAN; `gh repo create` private; CI xanh đầu tiên; ClickUp 4 list ≈ 37 task; **hai notebook 01 được chạy kiểm chứng trên Colab T4 miễn phí trước khi thông báo**; thêm collaborator. |
+| Drop 1 | 2026-09-20 | notebook 02/03 (hai nhóm), `training/serve_vllm.sh`, `predict_toolcall.py` backend transformers, `docs/sgod/openapi-*.json` + `query_params.md`. |
+| Chuẩn bị 09-27 | 2026-09-27 | S Việc 2 fixtures, S Việc 3 roles / preamble v1 / personas; Điểm đồng bộ 1. |

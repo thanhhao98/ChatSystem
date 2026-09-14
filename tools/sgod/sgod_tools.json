@@ -1,0 +1,121 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "list_my_assets",
+      "description": "Liệt kê tài sản của tôi / của doanh nghiệp tôi (kết quả tự động giới hạn theo tài khoản đăng nhập). Có thể tìm theo từ khoá (tên, mã tài sản) hoặc lọc theo trạng thái; phân trang bằng limit và cursor.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string",
+            "description": "Từ khoá tìm kiếm tự do: tên tài sản, mã tài sản (assetCode), tên gọi khác"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active"],
+            "description": "Lọc theo trạng thái tài sản (hiện chỉ xác nhận giá trị active = đang sử dụng)"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Số tài sản tối đa trả về trong một trang (vd 5, 20)"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Con trỏ phân trang lấy từ kết quả trang trước; bỏ trống khi lấy trang đầu"
+          }
+        },
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/assets",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Spec §1 'Identity scoping': GET /assets trả về tài sản của tenant theo JWT — KHÔNG có tham số owner/tenant.",
+        "Spec §3 intent table: paginate with ?limit&cursor. Tên tham số q/status là giả định — chờ docs/sgod/query_params.md (S Việc 1).",
+        "Enum status: spec chỉ cho thấy giá trị 'active' (mẫu GET /assets). Các giá trị khác bổ sung sau khi có fixtures (S Việc 2).",
+        "Câu hỏi mở cho token enterprise-user: 'tài sản của tôi' là tài sản được giao cho tôi hay toàn tenant? Cần S Việc 2 xác nhận."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_asset",
+      "description": "Lấy thông tin chi tiết một tài sản cụ thể theo tên, mã tài sản (assetCode, vd 000000001) hoặc id. Truyền nguyên văn tên/mã người dùng nói; hệ thống tự tra ra id, không cần hỏi lại.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "asset_ref": {
+            "type": "string",
+            "description": "Tên tài sản, mã tài sản (assetCode) hoặc id của tài sản cần xem"
+          }
+        },
+        "required": ["asset_ref"]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/assets/{id}",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": ["asset_ref"],
+      "resolve": "GET /sgod-asset/v1/assets/suggest?q={asset_ref}",
+      "notes": [
+        "Chuỗi name→id giữ MỘT lượt gọi tool: executor chạy resolve (suggest) rồi GET /assets/{id}, giống _resolve_asset_ref ở hệ thống tham chiếu (POC v1).",
+        "Nếu asset_ref đã là ObjectId 24 hex hoặc assetCode 9 chữ số, executor có thể bỏ qua bước suggest (quy ước cho S Việc 6).",
+        "Phản hồi bọc trong data.asset (spec §2 mẫu GET /assets/{id})."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_maintenance_schedules",
+      "description": "Liệt kê lịch bảo trì tài sản của tôi / của doanh nghiệp tôi, có thể lọc theo trạng thái: active (lịch đang hiệu lực, sắp/cần bảo trì) hoặc complete (đã hoàn thành). Phân trang bằng limit và cursor.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["active", "complete"],
+            "description": "Lọc theo trạng thái lịch bảo trì: active = đang hiệu lực, complete = đã hoàn thành"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Số lịch tối đa trả về trong một trang"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Con trỏ phân trang lấy từ kết quả trang trước; bỏ trống khi lấy trang đầu"
+          }
+        },
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/maintenance/schedules",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Enum status suy từ spec §5: 'Đếm lịch active / complete theo user — CountMaintenanceScheduleTabs'.",
+        "KHÔNG dùng GET /maintenance/schedules/count-by-tab (spec §4: gRPC CountMaintenanceScheduleTabs not found).",
+        "Tên tham số status/limit/cursor là giả định — chờ docs/sgod/query_params.md (S Việc 1)."
+      ]
+    }
+  }
+]

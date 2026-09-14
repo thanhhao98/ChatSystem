@@ -1,0 +1,53 @@
+name: main-guard
+
+# Branch protection is not available on a private repo owned by a Free-plan personal account, so this
+# workflow is the guard: any push to main that was NOT made by the repository owner account (the account
+# that merges reviewed PRs) opens an issue for follow-up. PR merges performed by that account have
+# github.actor == the owner and are ignored.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  guard:
+    if: github.actor != 'thanhhao98'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const actor = context.actor;
+            const sha = context.sha.slice(0, 7);
+            const commits = (context.payload.commits || [])
+              .map(c => `- \`${c.id.slice(0, 7)}\` ${c.message.split('\n')[0]}`)
+              .join('\n') || '- (không có danh sách commit trong payload)';
+            const forced = context.payload.forced ? 'CÓ (force-push)' : 'không';
+            const title = `[main-guard] Push trực tiếp lên main bởi @${actor} (${sha})`;
+            const body = [
+              `@${actor} vừa push trực tiếp lên \`main\` (HEAD \`${sha}\`, force-push: ${forced}).`,
+              '',
+              '**Quy tắc** (`HUONG_DAN_LAM_VIEC.md`, mục 2): mọi thay đổi vào `main` đi qua pull request,',
+              'PR được review và merge sau khi CI xanh (người phụ trách merge); nhánh làm việc dùng tiền tố `data/`, `ft/`, `sys/`. Không force-push.',
+              '',
+              '**Commit trong lần push này:**',
+              commits,
+              '',
+              '**Việc cần làm:**',
+              '1. Không sửa lịch sử `main` (không revert/force-push tự ý).',
+              '2. Bình luận vào issue này giải thích ngắn gọn; việc giữ hay revert sẽ được quyết định khi review, bằng PR.',
+              '3. Lần sau: tạo nhánh từ `main`, mở PR với tiêu đề `[D-V1] …` / `[F-T2] …` / `[S-V3] …`.',
+              '',
+              `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+            ].join('\n');
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+            });
+            core.notice(`Opened main-guard issue for @${actor} @ ${sha}`);

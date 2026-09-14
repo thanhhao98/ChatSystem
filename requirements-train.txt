@@ -1,0 +1,26 @@
+# ChatSystem — training / eval pins for Colab & Kaggle (T4) and the reference-infrastructure GPU venv.
+# pins verified on <TBD>   <- filled in after the first verification run on Colab T4 / the reference-infrastructure GPU
+#
+# Rules
+#  * torch / torchvision are NOT pinned: the Colab/Kaggle preinstalled torch is used
+#    (bitsandbytes 0.50.x needs torch >= 2.4, < 3).
+#  * Every line is an exact == pin so all interns train on identical library code.
+#  * Anchor: transformers 5.12.1 (the version this repo was developed and dry-run against).
+#    trl 1.13.0 / peft 0.20.0 / accelerate 1.15.0 / datasets 5.0.1 were the newest stable
+#    releases on 2026-09-13 and all declare compatibility with transformers 5.x
+#    (trl requires transformers>=4.56.2, datasets>=4.7.0, accelerate>=1.4.0).
+#  * protobuf stays on the newest 6.x (tensorboard 2.21 accepts >=6.31.1,<8; Colab's preinstalled
+#    google packages still cap protobuf at <7, so 7.x would break the runtime image).
+#  * Bumping any pin is a contract change: PR + CHANGELOG + re-run of notebooks 01/02.
+transformers==5.12.1
+trl==1.13.0
+peft==0.20.0
+bitsandbytes==0.50.2
+accelerate==1.15.0
+datasets==5.0.1
+safetensors==0.8.0
+sentencepiece==0.2.2
+protobuf==6.33.6
+scikit-learn==1.9.1
+matplotlib==3.11.2
+tensorboard==2.21.0
