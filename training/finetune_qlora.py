@@ -456,10 +456,12 @@ def train(args, recipe=None):
         r=args.lora_rank, lora_alpha=lora_alpha, lora_dropout=args.lora_dropout,
         target_modules=TARGET_MODULES, bias="none", task_type="CAUSAL_LM",
     )
-    model = get_peft_model(model, lora_config)
-    for param in model.parameters():
-        if param.requires_grad or param.dtype == torch.bfloat16:
-            param.data = param.data.to(HALF)
+    model.config.torch_dtype = HALF
+    for p in model.parameters():
+        if p.dtype == torch.bfloat16:
+            p.data = p.data.to(HALF)
+    bfloat_params = [name for name, p in model.named_parameters() if p.dtype == torch.bfloat16]
+    print(f"BFloat16 params remaining: {len(bfloat_params)}")
     total = sum(p.numel() for p in model.parameters())
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Model loaded in {time.time() - t0:.0f}s · params {total / 1e6:.0f}M · "
