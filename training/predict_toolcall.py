@@ -85,6 +85,12 @@ import time
 from pathlib import Path
 from urllib.parse import urlparse
 
+try:
+    import peft.import_utils
+    peft.import_utils.is_torchao_available = lambda: False
+except Exception:
+    pass
+
 REPO = Path(__file__).resolve().parent.parent
 DEFAULT_PREAMBLE = REPO / "prompts" / "system_preamble_v0.txt"
 DEFAULT_ROLES = REPO / "tools" / "sgod" / "roles.json"
