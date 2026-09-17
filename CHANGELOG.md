@@ -3,6 +3,10 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
+## 2026-09-17 — [F-T1] cập nhật cờ --resume-from-checkpoint sang checkpoint-250 trong notebook 01
+
+- `notebooks/finetune/01_qlora_sft_colab.ipynb`: Đổi cờ `--resume-from-checkpoint $OUT/full/checkpoint-100` thành `checkpoint-250` ở Bước 4 (diễn tập ngắt kết nối) phù hợp với số checkpoint tối đa được giữ lại (`SAVE_TOTAL_LIMIT = 2`).
+
 ## 2026-09-17 — sửa torch_dtype=HALF, get_peft_model và fp16=False trong finetune_qlora.py
 
 - `training/finetune_qlora.py`: Phục hồi gọi `get_peft_model`, bảo toàn cờ `requires_grad=True` cho tham số LoRA trainable, và đặt `fp16=False` trong `SFTConfig` (vì QLoRA 4-bit đã tự động tính toán bằng `float16`), loại bỏ hoàn toàn việc PyTorch AMP kích hoạt `GradScaler` gây ra lỗi `NotImplementedError` hoặc `ValueError` trên GPU T4.
