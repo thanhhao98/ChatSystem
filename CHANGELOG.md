@@ -3,9 +3,10 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
-## 2026-09-17 — [F-T1] cập nhật cờ --resume-from-checkpoint sang checkpoint-250 trong notebook 01
+## 2026-09-17 — [F-T1] cập nhật cờ --resume-from-checkpoint sang checkpoint-250 và sửa lỗi torchao trong predict_toolcall.py
 
 - `notebooks/finetune/01_qlora_sft_colab.ipynb`: Đổi cờ `--resume-from-checkpoint $OUT/full/checkpoint-100` thành `checkpoint-250` ở Bước 4 (diễn tập ngắt kết nối) phù hợp với số checkpoint tối đa được giữ lại (`SAVE_TOTAL_LIMIT = 2`).
+- `training/predict_toolcall.py`: Thêm guard `is_torchao_available` nhằm bỏ qua kiểm tra phiên bản `torchao` cũ (<0.16.0) cài sẵn trên môi trường Colab mới, tránh gây ngắt `ImportError` khi nạp `PeftModel`.
 
 ## 2026-09-17 — sửa torch_dtype=HALF, get_peft_model và fp16=False trong finetune_qlora.py
 

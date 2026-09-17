@@ -424,6 +424,16 @@ class TransformersBackend:
                 from peft import PeftModel
             except ImportError as exc:
                 raise SystemExit(f"--adapter given but peft is missing ({exc})") from exc
+            try:
+                import peft.import_utils
+                peft.import_utils.is_torchao_available = lambda: False
+            except Exception:
+                pass
+            try:
+                import peft.tuners.lora.torchao
+                peft.tuners.lora.torchao.is_torchao_available = lambda: False
+            except Exception:
+                pass
             model = PeftModel.from_pretrained(model, self.adapter)
             print(f"  adapter loaded: {self.adapter}")
         self.model = model.to(self.device).eval()
