@@ -5,7 +5,7 @@ Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** v
 
 ## 2026-09-17 — sửa lỗi dtype/GradScaler khi huấn luyện fp16 trên GPU non-bf16 (Tesla T4)
 
-- `training/finetune_qlora.py`: Đặt `fp16=False` trong `SFTConfig` (do `bnb_4bit_compute_dtype=float16` đã tính toán float16, tránh PyTorch AMP `GradScaler` làm tràn số attention logits Qwen2.5 gây `loss=0.0000` / `eval_loss=nan`) + đặt `p.grad_dtype = None` trên Tesla T4.
+- `training/finetune_qlora.py`: Đặt `fp16=False` trong `SFTConfig` + patch `trainer._load_scaler` và `p.grad_dtype = None`, khắc phục triệt để lỗi `AttributeError: 'NoneType' object has no attribute 'load_state_dict'` khi resume từ checkpoint fp16 cũ trên Tesla T4.
 
 ## 2026-09-14 — rà soát từ ngữ, truy cập GitHub, phạm vi grep bí mật
 

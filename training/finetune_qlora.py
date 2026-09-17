@@ -526,9 +526,17 @@ def train(args, recipe=None):
         model=model, args=sft_config, processing_class=tokenizer,
         train_dataset=train_ds, eval_dataset=val_ds,
     )
+    # Safe _load_scaler when resuming from a checkpoint created with fp16=True
+    if hasattr(trainer, "_load_scaler"):
+        orig_load_scaler = trainer._load_scaler
+        def safe_load_scaler(chkpt):
+            if getattr(trainer.accelerator, "scaler", None) is not None:
+                orig_load_scaler(chkpt)
+        trainer._load_scaler = safe_load_scaler
+
     # On non-bf16 GPUs (Tesla T4), monkey-patch accelerator.unscale_gradients to ensure
     # all gradients are cast to float32 and p.grad_dtype=None before PyTorch's GradScaler processes them.
-    if not use_bf16 and hasattr(trainer, "accelerator"):
+    if not use_bf16 and hasattr(trainer, "accelerator") and getattr(trainer.accelerator, "scaler", None) is not None:
         orig_unscale = trainer.accelerator.unscale_gradients
         def safe_unscale_gradients(*a, **kw):
             if hasattr(trainer, "model"):
