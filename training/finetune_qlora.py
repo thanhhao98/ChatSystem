@@ -504,7 +504,7 @@ def train(args, recipe=None):
         max_grad_norm=MAX_GRAD_NORM,
         optim="paged_adamw_8bit",
         bf16=use_bf16,
-        fp16=not use_bf16,
+        fp16=False,  # QLoRA bnb_4bit_compute_dtype=float16 handles fp16; PyTorch AMP GradScaler causes Qwen2.5 attention overflow (loss=0 / eval_loss=nan)
         gradient_checkpointing=True,
         gradient_checkpointing_kwargs={"use_reentrant": False},
         logging_steps=args.logging_steps,
