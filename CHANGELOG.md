@@ -3,9 +3,9 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
-## 2026-09-17 — sửa torch_dtype=HALF và chuyển đổi tham số LoRA trong finetune_qlora.py
+## 2026-09-17 — sửa torch_dtype=HALF và fp16=False trong finetune_qlora.py
 
-- `training/finetune_qlora.py`: Gán `model.config.torch_dtype = HALF` và ép toàn bộ các tham số trainable/bfloat16 về `HALF` (`torch.float16`) bằng cách duyệt `model.parameters()` để tránh triệt để lỗi `NotImplementedError: _amp_foreach_non_finite_check_and_unscale_cuda not implemented for BFloat16` của PyTorch AMP GradScaler khi huấn luyện QLoRA trên GPU T4.
+- `training/finetune_qlora.py`: Đặt `fp16=False` trong `SFTConfig` (vì QLoRA 4-bit đã tự động tính toán bằng `bnb_4bit_compute_dtype=float16`), loại bỏ hoàn toàn việc PyTorch AMP kích hoạt `GradScaler` gây ra lỗi `NotImplementedError: _amp_foreach_non_finite_check_and_unscale_cuda not implemented for BFloat16` trên GPU T4.
 
 ## 2026-09-14 — rà soát từ ngữ, truy cập GitHub, phạm vi grep bí mật
 
