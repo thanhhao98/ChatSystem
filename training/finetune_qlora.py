@@ -445,8 +445,9 @@ def train(args, recipe=None):
         args.model,
         quantization_config=bnb_config,
         device_map={"": 0},   # one GPU; Kaggle's second T4 is intentionally left unused
-        torch_dtype=HALF,
+        dtype=HALF,
     )
+    model.config.torch_dtype = HALF
     model.config.use_cache = False  # incompatible with gradient checkpointing
     model = prepare_model_for_kbit_training(
         model, use_gradient_checkpointing=True,
@@ -456,9 +457,24 @@ def train(args, recipe=None):
         target_modules=TARGET_MODULES, bias="none", task_type="CAUSAL_LM",
     )
     model = get_peft_model(model, lora_config)
-    for p in model.parameters():
-        if p.requires_grad and p.dtype != HALF:
-            p.data = p.data.to(HALF)
+    model.config.torch_dtype = HALF
+
+    # On non-bf16 GPUs (Tesla T4), PyTorch 2.6+ tracks p.grad_dtype="BFloat16" and throws RuntimeError
+    # when assigning float32 gradients. Clear p.grad_dtype (set to None) and cast trainable parameters
+    # & bfloat16 parameters to float32 so GradScaler can unscale float32 gradients.
+    if not use_bf16:
+        for name, module in model.named_modules():
+            if hasattr(module, "weight") and module.weight is not None:
+                if module.weight.dtype == torch.bfloat16:
+                    module.weight.data = module.weight.data.to(torch.float32)
+            if hasattr(module, "bias") and module.bias is not None:
+                if module.bias.dtype == torch.bfloat16:
+                    module.bias.data = module.bias.data.to(torch.float32)
+        for p in model.parameters():
+            if hasattr(p, "grad_dtype"):
+                p.grad_dtype = None
+            if p.requires_grad or p.dtype == torch.bfloat16:
+                p.data = p.data.to(torch.float32)
     total = sum(p.numel() for p in model.parameters())
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Model loaded in {time.time() - t0:.0f}s · params {total / 1e6:.0f}M · "
@@ -510,6 +526,20 @@ def train(args, recipe=None):
         model=model, args=sft_config, processing_class=tokenizer,
         train_dataset=train_ds, eval_dataset=val_ds,
     )
+    # On non-bf16 GPUs (Tesla T4), monkey-patch accelerator.unscale_gradients to ensure
+    # all gradients are cast to float32 and p.grad_dtype=None before PyTorch's GradScaler processes them.
+    if not use_bf16 and hasattr(trainer, "accelerator"):
+        orig_unscale = trainer.accelerator.unscale_gradients
+        def safe_unscale_gradients(*a, **kw):
+            if hasattr(trainer, "model"):
+                for p in trainer.model.parameters():
+                    if hasattr(p, "grad_dtype"):
+                        p.grad_dtype = None
+                    if p.grad is not None and p.grad.dtype != torch.float32:
+                        p.grad = p.grad.to(torch.float32)
+            return orig_unscale(*a, **kw)
+        trainer.accelerator.unscale_gradients = safe_unscale_gradients
+
     print(f"Training: epochs={args.epochs} bs={args.batch_size}x{args.grad_accum} (eff {effective_batch}) "
           f"steps≈{total_steps} warmup={warmup_steps} lr={args.lr} r={args.lora_rank} alpha={lora_alpha} "
           f"completion_only={completion_only} max_len={args.max_len} seed={args.seed}")

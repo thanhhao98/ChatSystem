@@ -5,7 +5,7 @@ Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** v
 
 ## 2026-09-17 — sửa lỗi dtype/GradScaler khi huấn luyện fp16 trên GPU non-bf16 (Tesla T4)
 
-- `training/finetune_qlora.py`: Truyền `torch_dtype=HALF` khi khởi tạo `from_pretrained` và ép kiểu tất cả tham số trainable có `p.dtype != HALF` về `HALF`, khắc phục triệt để lỗi PyTorch `GradScaler` (`_amp_foreach_non_finite_check_and_unscale_cuda`) khi huấn luyện QLoRA.
+- `training/finetune_qlora.py`: Đặt `p.grad_dtype = None` để tránh lỗi PyTorch 2.6 `RuntimeError` khi gán gradient `float32` + chuyển tham số LoRA trainable về `float32` trên Tesla T4 cho PyTorch `GradScaler`.
 
 ## 2026-09-14 — rà soát từ ngữ, truy cập GitHub, phạm vi grep bí mật
 
