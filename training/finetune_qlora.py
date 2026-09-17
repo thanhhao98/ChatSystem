@@ -457,9 +457,9 @@ def train(args, recipe=None):
         target_modules=TARGET_MODULES, bias="none", task_type="CAUSAL_LM",
     )
     model = get_peft_model(model, lora_config)
-    for name, module in model.named_modules():
-        if "lora_" in name:
-            module.to(HALF)
+    for param in model.parameters():
+        if param.requires_grad or param.dtype == torch.bfloat16:
+            param.data = param.data.to(HALF)
     total = sum(p.numel() for p in model.parameters())
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Model loaded in {time.time() - t0:.0f}s · params {total / 1e6:.0f}M · "
