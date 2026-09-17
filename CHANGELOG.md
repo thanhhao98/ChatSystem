@@ -3,6 +3,10 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
+## 2026-09-17 — sửa torch_dtype=HALF và ép kiểu tham số LoRA trong finetune_qlora.py
+
+- `training/finetune_qlora.py`: Sửa `AutoModelForCausalLM.from_pretrained` dùng `torch_dtype=HALF` thay vì `dtype=HALF` và ép kiểu các tham số LoRA trainable về `HALF` (float16) để tránh lỗi `NotImplementedError: _amp_foreach_non_finite_check_and_unscale_cuda not implemented for BFloat16` trong PyTorch AMP GradScaler trên GPU T4.
+
 ## 2026-09-14 — rà soát từ ngữ, truy cập GitHub, phạm vi grep bí mật
 
 - Tài liệu gốc (`README.md`, `HUONG_DAN_LAM_VIEC.md`, `NOTICE.md`, `.env.example`, `data/public/ATTRIBUTION.md`, `main-guard.yml`, `requirements-train.txt`, `.gitignore`): mô tả công việc không theo cá nhân — mọi bước chạy bằng máy GPU / gateway LLM / khóa SGOD gọi là **hạ tầng tham chiếu**, đầu ra commit vào repo (`results/`, `fixtures/`, `docs/sgod/`, `data/sgod/`); hệ thống đi trước gọi là **hệ thống tham chiếu (POC v1)**; list S đổi tên thành `S — Hệ thống & hạ tầng tham chiếu`.

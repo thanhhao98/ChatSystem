@@ -445,7 +445,7 @@ def train(args, recipe=None):
         args.model,
         quantization_config=bnb_config,
         device_map={"": 0},   # one GPU; Kaggle's second T4 is intentionally left unused
-        dtype=HALF,
+        torch_dtype=HALF,
     )
     model.config.use_cache = False  # incompatible with gradient checkpointing
     model = prepare_model_for_kbit_training(
@@ -456,6 +456,9 @@ def train(args, recipe=None):
         target_modules=TARGET_MODULES, bias="none", task_type="CAUSAL_LM",
     )
     model = get_peft_model(model, lora_config)
+    for p in model.parameters():
+        if p.requires_grad and p.dtype != HALF:
+            p.data = p.data.to(HALF)
     total = sum(p.numel() for p in model.parameters())
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Model loaded in {time.time() - t0:.0f}s · params {total / 1e6:.0f}M · "
