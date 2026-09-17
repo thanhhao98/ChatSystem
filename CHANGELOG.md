@@ -3,6 +3,10 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
+## 2026-09-17 — sửa lỗi dtype/GradScaler khi huấn luyện fp16 trên GPU non-bf16 (Tesla T4)
+
+- `training/finetune_qlora.py`: Gán `model.config.torch_dtype = HALF` và ép kiểu các tham số LoRA trainable `bfloat16` về `HALF` (float16) khi `use_bf16=False`, khắc phục lỗi PyTorch `GradScaler` (`_amp_foreach_non_finite_check_and_unscale_cuda`) khi huấn luyện QLoRA trên GPU non-bf16 (Tesla T4).
+
 ## 2026-09-14 — rà soát từ ngữ, truy cập GitHub, phạm vi grep bí mật
 
 - Tài liệu gốc (`README.md`, `HUONG_DAN_LAM_VIEC.md`, `NOTICE.md`, `.env.example`, `data/public/ATTRIBUTION.md`, `main-guard.yml`, `requirements-train.txt`, `.gitignore`): mô tả công việc không theo cá nhân — mọi bước chạy bằng máy GPU / gateway LLM / khóa SGOD gọi là **hạ tầng tham chiếu**, đầu ra commit vào repo (`results/`, `fixtures/`, `docs/sgod/`, `data/sgod/`); hệ thống đi trước gọi là **hệ thống tham chiếu (POC v1)**; list S đổi tên thành `S — Hệ thống & hạ tầng tham chiếu`.
