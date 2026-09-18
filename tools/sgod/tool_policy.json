@@ -1,0 +1,5 @@
+{
+  "list_my_assets": {"writes": false, "roles": ["employee", "company_admin"]},
+  "get_asset": {"writes": false, "roles": ["employee", "company_admin"]},
+  "list_maintenance_schedules": {"writes": false, "roles": ["employee", "company_admin"]}
+}
