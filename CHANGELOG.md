@@ -1,4 +1,5 @@
 # CHANGELOG
+- 2026-09-18 — repo chuyển sang public + bảo vệ nhánh main (PR, 1 approve, CI `checks`); thay địa chỉ gateway nội bộ trong spec bằng placeholder `<SGOD_GATEWAY>`; secret grep CI thêm mẫu IP nội bộ.
 
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
