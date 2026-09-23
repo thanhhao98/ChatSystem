@@ -4,6 +4,17 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
+## 2026-09-23 — [F-T1] điều chỉnh dtypes tham số LoRA sang fp32 và khôi phục fp16=True trong SFTConfig theo feedback review
+
+- `training/finetune_qlora.py`: Ép các tham số LoRA trainable về `float32` (kế thừa cơ chế chuẩn của `prepare_model_for_kbit_training`), sử dụng `dtype=HALF` trong `from_pretrained`, và khôi phục `fp16=not use_bf16` trong `SFTConfig` nhằm bật PyTorch AMP GradScaler với loss scaling chống underflow/NaN khi chạy huấn luyện dài.
+- `training/predict_toolcall.py`: Đóng gói patch `is_torchao_available` thành helper gọn trước lệnh nạp `PeftModel`.
+- `notebooks/finetune/01_qlora_sft_colab.ipynb`: Thêm `pip uninstall -y -q torchao` ở Cell 2 để làm sạch môi trường Colab pre-installed packages.
+
+## 2026-09-17 — [F-T1] cập nhật cờ --resume-from-checkpoint sang checkpoint-250 và sửa lỗi torchao trong predict_toolcall.py
+
+- `notebooks/finetune/01_qlora_sft_colab.ipynb`: Đổi cờ `--resume-from-checkpoint $OUT/full/checkpoint-100` thành `checkpoint-250` ở Bước 4 (diễn tập ngắt kết nối) phù hợp với số checkpoint tối đa được giữ lại (`SAVE_TOTAL_LIMIT = 2`).
+- `training/predict_toolcall.py`: Thêm guard `is_torchao_available` nhằm bỏ qua kiểm tra phiên bản `torchao` cũ (<0.16.0) cài sẵn trên môi trường Colab mới.
+
 ## 2026-09-14 — rà soát từ ngữ, truy cập GitHub, phạm vi grep bí mật
 
 - Tài liệu gốc (`README.md`, `HUONG_DAN_LAM_VIEC.md`, `NOTICE.md`, `.env.example`, `data/public/ATTRIBUTION.md`, `main-guard.yml`, `requirements-train.txt`, `.gitignore`): mô tả công việc không theo cá nhân — mọi bước chạy bằng máy GPU / gateway LLM / khóa SGOD gọi là **hạ tầng tham chiếu**, đầu ra commit vào repo (`results/`, `fixtures/`, `docs/sgod/`, `data/sgod/`); hệ thống đi trước gọi là **hệ thống tham chiếu (POC v1)**; list S đổi tên thành `S — Hệ thống & hạ tầng tham chiếu`.
