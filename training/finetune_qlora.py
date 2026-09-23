@@ -445,10 +445,9 @@ def train(args, recipe=None):
         args.model,
         quantization_config=bnb_config,
         device_map={"": 0},   # one GPU; Kaggle's second T4 is intentionally left unused
-        torch_dtype=HALF,
+        dtype=HALF,
     )
     model.config.use_cache = False  # incompatible with gradient checkpointing
-    model.config.torch_dtype = HALF
     model = prepare_model_for_kbit_training(
         model, use_gradient_checkpointing=True,
         gradient_checkpointing_kwargs={"use_reentrant": False})
@@ -458,11 +457,8 @@ def train(args, recipe=None):
     )
     model = get_peft_model(model, lora_config)
     for p in model.parameters():
-        if p.requires_grad or p.dtype == torch.bfloat16:
-            was_trainable = p.requires_grad
-            p.data = p.data.to(HALF)
-            if was_trainable:
-                p.requires_grad = True
+        if p.requires_grad and p.dtype != torch.float32:
+            p.data = p.data.float()
     bfloat_params = [name for name, p in model.named_parameters() if p.dtype == torch.bfloat16]
     print(f"BFloat16 params remaining: {len(bfloat_params)}")
     total = sum(p.numel() for p in model.parameters())
@@ -494,7 +490,7 @@ def train(args, recipe=None):
         max_grad_norm=MAX_GRAD_NORM,
         optim="paged_adamw_8bit",
         bf16=use_bf16,
-        fp16=False,   # QLoRA 4-bit uses bnb_4bit_compute_dtype (float16) directly; disabling AMP GradScaler prevents BFloat16 unscale conflict
+        fp16=not use_bf16,
         gradient_checkpointing=True,
         gradient_checkpointing_kwargs={"use_reentrant": False},
         logging_steps=args.logging_steps,

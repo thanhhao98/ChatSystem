@@ -85,12 +85,6 @@ import time
 from pathlib import Path
 from urllib.parse import urlparse
 
-try:
-    import peft.import_utils
-    peft.import_utils.is_torchao_available = lambda: False
-except Exception:
-    pass
-
 REPO = Path(__file__).resolve().parent.parent
 DEFAULT_PREAMBLE = REPO / "prompts" / "system_preamble_v0.txt"
 DEFAULT_ROLES = REPO / "tools" / "sgod" / "roles.json"
@@ -426,20 +420,17 @@ class TransformersBackend:
         except TypeError:  # transformers < 4.56 spelled it torch_dtype
             model = AutoModelForCausalLM.from_pretrained(self.model_path, torch_dtype=self.dtype)
         if self.adapter:
-            try:
-                from peft import PeftModel
-            except ImportError as exc:
-                raise SystemExit(f"--adapter given but peft is missing ({exc})") from exc
+            # Colab environment may pre-install torchao < 0.16.0, which causes peft 0.20.0
+            # to raise an ImportError during tuner inspection. Patching is_torchao_available avoids this.
             try:
                 import peft.import_utils
                 peft.import_utils.is_torchao_available = lambda: False
             except Exception:
                 pass
             try:
-                import peft.tuners.lora.torchao
-                peft.tuners.lora.torchao.is_torchao_available = lambda: False
-            except Exception:
-                pass
+                from peft import PeftModel
+            except ImportError as exc:
+                raise SystemExit(f"--adapter given but peft is missing ({exc})") from exc
             model = PeftModel.from_pretrained(model, self.adapter)
             print(f"  adapter loaded: {self.adapter}")
         self.model = model.to(self.device).eval()
