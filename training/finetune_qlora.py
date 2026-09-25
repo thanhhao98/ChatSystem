@@ -456,6 +456,11 @@ def train(args, recipe=None):
         target_modules=TARGET_MODULES, bias="none", task_type="CAUSAL_LM",
     )
     model = get_peft_model(model, lora_config)
+    for p in model.parameters():
+        if p.requires_grad and p.dtype != torch.float32:
+            p.data = p.data.float()
+    bfloat_params = [name for name, p in model.named_parameters() if p.dtype == torch.bfloat16]
+    print(f"BFloat16 params remaining: {len(bfloat_params)}")
     total = sum(p.numel() for p in model.parameters())
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Model loaded in {time.time() - t0:.0f}s · params {total / 1e6:.0f}M · "
@@ -485,7 +490,7 @@ def train(args, recipe=None):
         max_grad_norm=MAX_GRAD_NORM,
         optim="paged_adamw_8bit",
         bf16=use_bf16,
-        fp16=not use_bf16,
+        fp16=False,   # QLoRA 4-bit uses bnb_4bit_compute_dtype (float16) directly; PyTorch AMP GradScaler crashes on 4-bit quantized base models
         gradient_checkpointing=True,
         gradient_checkpointing_kwargs={"use_reentrant": False},
         logging_steps=args.logging_steps,
