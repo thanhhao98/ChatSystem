@@ -6,3 +6,5 @@ không sửa dòng cũ. `data@sha8` = 8 hex đầu của sha256 tệp dữ liệ
 
 | ngày | ai | nhóm | data@sha8 | recipe | seed | kết quả ± CI | results path |
 |---|---|---|---|---|---|---|---|
+| 2026-09-25 | thanhlong | F | 6d8c803e | base zero-shot | 42 | strict 95.0% [92.0, 98.0] | results/public/base.json |
+| 2026-09-25 | thanhlong | F | 6d8c803e | qlora 0.5b full sft | 42 | strict 96.0% [93.0, 98.5] | results/public/ft.json |
