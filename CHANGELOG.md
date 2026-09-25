@@ -3,6 +3,10 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
+## 2026-09-25 — [F-T2] gỡ bỏ torchao ở Cell 2 notebook 02 tránh lỗi tương thích PEFT trên Colab
+
+- `notebooks/finetune/02_eval_toolcalling.ipynb`: Thêm pip uninstall -y -q torchao ở Cell 2.
+
 ## 2026-09-23 — [F-T1] điều chỉnh dtypes tham số LoRA sang fp32 và khôi phục fp16=True trong SFTConfig theo feedback review
 
 - `training/finetune_qlora.py`: Ép các tham số LoRA trainable về `float32` (kế thừa cơ chế chuẩn của `prepare_model_for_kbit_training`), sử dụng `dtype=HALF` trong `from_pretrained`, và khôi phục `fp16=not use_bf16` trong `SFTConfig` nhằm bật PyTorch AMP GradScaler với loss scaling chống underflow/NaN khi chạy huấn luyện dài.
