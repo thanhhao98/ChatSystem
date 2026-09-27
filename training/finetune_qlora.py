@@ -456,6 +456,11 @@ def train(args, recipe=None):
         target_modules=TARGET_MODULES, bias="none", task_type="CAUSAL_LM",
     )
     model = get_peft_model(model, lora_config)
+    for p in model.parameters():
+        if p.requires_grad and p.dtype != torch.float32:
+            p.data = p.data.float()
+    bfloat_params = [name for name, p in model.named_parameters() if p.dtype == torch.bfloat16]
+    print(f"BFloat16 params remaining: {len(bfloat_params)}")
     total = sum(p.numel() for p in model.parameters())
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Model loaded in {time.time() - t0:.0f}s · params {total / 1e6:.0f}M · "
@@ -485,7 +490,10 @@ def train(args, recipe=None):
         max_grad_norm=MAX_GRAD_NORM,
         optim="paged_adamw_8bit",
         bf16=use_bf16,
-        fp16=not use_bf16,
+        # fp16 AMP (GradScaler) stays ON by default on T4: LoRA params are fp32 (cast above), so the
+        # scaler has fp32 grads to unscale. --no-amp is the escape hatch if a runtime still crashes in
+        # grad_scaler.unscale_ (post the full traceback in the task when you need it).
+        fp16=(not use_bf16) and not args.no_amp,
         gradient_checkpointing=True,
         gradient_checkpointing_kwargs={"use_reentrant": False},
         logging_steps=args.logging_steps,
@@ -576,6 +584,8 @@ def build_parser():
     p.add_argument("--recipe", default=None,
                    help="YAML whose keys are these flags (underscore form); values become defaults, "
                         "explicit CLI flags still override")
+    p.add_argument("--no-amp", action="store_true",
+                   help="disable fp16 AMP/GradScaler on non-bf16 GPUs (T4 workaround; default: AMP on)")
     p.add_argument("--dry-run", action="store_true",
                    help="tokenizer only: render row 0, check <tools> and unmasked completion tokens, "
                         "run the truncation guard, exit 0/1")
