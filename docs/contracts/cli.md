@@ -30,6 +30,7 @@ python training/finetune_qlora.py
     [--completion-only 1] [--mask-fn-names 0.0] [--max-rows N] [--seed 42]
     [--save-steps 50] [--logging-steps 10] [--resume-from-checkpoint <dir>]
     [--dry-run]                              # render hàng 0, in prompt, assert "<tools>" có trong prompt và số token completion không bị mask > 0; đếm hàng bị cắt; không tải model
+    [--no-amp]                               # tắt fp16 AMP/GradScaler trên GPU không có bf16 (lối thoát cho T4; mặc định AMP bật)
     [--recipe training/recipes/<tên>.yaml]   # tùy chọn: khóa yaml = tên cờ (dạng gạch dưới) → giá trị mặc định; cờ gõ trên CLI ghi đè
 ```
 Định dạng prompt: `tokenizer.apply_chat_template(messages[:-1], tools=<tools>, tokenize=False, add_generation_prompt=True)`;
