@@ -8,3 +8,8 @@ không sửa dòng cũ. `data@sha8` = 8 hex đầu của sha256 tệp dữ liệ
 |---|---|---|---|---|---|---|---|
 | 2026-09-25 | thanhlong | F | 6d8c803e | base zero-shot | 42 | strict 95.0% [92.0, 98.0] | results/public/base.json |
 | 2026-09-25 | thanhlong | F | 6d8c803e | qlora 0.5b full sft | 42 | strict 96.0% [93.0, 98.5] | results/public/ft.json |
+| 2026-10-02 | thanhlong | F | 6d8c803e | public_anchor | 42 | strict 95.5% [92.5, 98.0] | results/public/anchor_results.json |
+| 2026-10-02 | thanhlong | F | 6d8c803e | recipe_arm_r8 | 42 | strict 95.5% [92.5, 98.0] | results/public/recipe_arm_r8_results.json |
+| 2026-10-02 | thanhlong | F | 6d8c803e | recipe_arm_lr2e4 | 42 | strict 95.0% [92.0, 98.0] | results/public/recipe_arm_lr2e4_results.json |
+| 2026-10-02 | thanhlong | F | 6d8c803e | recipe_arm_comp0 | 42 | strict 93.5% [90.0, 96.5] | results/public/recipe_arm_comp0_results.json |
+| 2026-10-02 | thanhlong | F | 6d8c803e | recipe_arm_free | 42 | strict 95.5% [92.5, 98.0] | results/public/recipe_arm_free_results.json |

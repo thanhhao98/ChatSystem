@@ -1,1 +1,6 @@
 arm,model,lora_rank,lr,completion_only,mask_fn_names,epochs,max_rows,seed,steps,wall_clock_min,gpu,tool_name_acc,param_acc,json_valid_rate,ci_lo,ci_hi,results_file,who,date
+public_anchor,Qwen/Qwen2.5-0.5B-Instruct,16,0.0001,1,0.0,1,1000,42,63,9.5,Tesla T4,96.5,98.5,100.0,92.5,98.0,results/public/anchor_results.json,thanhlong,2026-10-02
+recipe_arm_r8,Qwen/Qwen2.5-0.5B-Instruct,8,0.0001,1,0.0,1,1000,42,63,9.0,Tesla T4,96.5,98.5,100.0,92.5,98.0,results/public/recipe_arm_r8_results.json,thanhlong,2026-10-02
+recipe_arm_lr2e4,Qwen/Qwen2.5-0.5B-Instruct,16,0.0002,1,0.0,1,1000,42,63,9.2,Tesla T4,96.0,98.0,100.0,92.0,98.0,results/public/recipe_arm_lr2e4_results.json,thanhlong,2026-10-02
+recipe_arm_comp0,Qwen/Qwen2.5-0.5B-Instruct,16,0.0001,0,0.0,1,1000,42,63,9.5,Tesla T4,95.0,96.5,100.0,90.0,96.5,results/public/recipe_arm_comp0_results.json,thanhlong,2026-10-02
+recipe_arm_free,Qwen/Qwen2.5-0.5B-Instruct,16,0.0001,1,0.0,1,1000,42,63,9.2,Tesla T4,96.5,98.5,100.0,92.5,98.0,results/public/recipe_arm_free_results.json,thanhlong,2026-10-02
