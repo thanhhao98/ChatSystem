@@ -1,1 +1,7 @@
-arm,model,lora_rank,lr,completion_only,mask_fn_names,epochs,max_rows,seed,steps,wall_clock_min,gpu,tool_name_acc,param_acc,json_valid_rate,ci_lo,ci_hi,results_file,who,date
+arm,model,lora_rank,lr,completion_only,mask_fn_names,epochs,max_rows,seed,steps,wall_clock_min,train_loss,eval_loss,peak_vram_gb,gpu,strict_acc,tool_name_acc,param_acc,ci_lo,ci_hi,results_file,who,date
+public_anchor,Qwen/Qwen2.5-0.5B-Instruct,16,1.0e-4,1,0.0,1,1000,42,63,10.88,0.0938,0.0506,3.24,Tesla T4,95.5,96.5,98.9,92.5,98.0,results/public/ft_public_anchor_s42.json,vanquyen,2026-10-03
+public_r8,Qwen/Qwen2.5-0.5B-Instruct,8,1.0e-4,1,0.0,1,1000,42,63,10.87,0.0989,0.0503,3.23,Tesla T4,95.5,96.5,98.9,92.5,98.0,results/public/ft_public_r8_s42.json,vanquyen,2026-10-03
+public_lr2e4,Qwen/Qwen2.5-0.5B-Instruct,16,2.0e-4,1,0.0,1,1000,42,63,10.96,0.0896,0.0509,3.24,Tesla T4,94.5,95.5,98.9,91.5,97.5,results/public/ft_public_lr2e4_s42.json,vanquyen,2026-10-03
+public_full_loss,Qwen/Qwen2.5-0.5B-Instruct,16,1.0e-4,0,0.0,1,1000,42,63,14.30,0.7936,0.5266,3.24,Tesla T4,94.0,95.0,98.9,90.5,97.0,results/public/ft_public_full_loss_s42.json,vanquyen,2026-10-03
+public_1p5b,Qwen/Qwen2.5-1.5B-Instruct,16,1.0e-4,1,0.0,1,1000,42,63,23.92,0.0807,0.0363,6.20,Tesla T4,95.0,95.5,99.5,92.0,98.0,results/public/ft_public_1p5b_s42.json,vanquyen,2026-10-03
+public_mask_fn,Qwen/Qwen2.5-0.5B-Instruct,16,1.0e-4,1,0.5,1,1000,42,63,11.04,0.0926,0.0508,3.24,Tesla T4,94.5,96.0,98.4,91.0,97.5,results/public/ft_public_mask_fn_s42.json,vanquyen,2026-10-03
