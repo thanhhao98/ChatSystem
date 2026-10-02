@@ -3,27 +3,18 @@
     "type": "function",
     "function": {
       "name": "list_my_assets",
-      "description": "Liệt kê tài sản của tôi / của doanh nghiệp tôi (kết quả tự động giới hạn theo tài khoản đăng nhập). Có thể tìm theo từ khoá (tên, mã tài sản) hoặc lọc theo trạng thái; phân trang bằng limit và cursor.",
+      "description": "Dùng khi người dùng muốn xem danh sách tài sản trong phạm vi tài khoản hiện tại. SGOD tự giới hạn dữ liệu theo JWT; có thể phân trang bằng limit và cursor.",
       "parameters": {
         "type": "object",
         "properties": {
-          "q": {
-            "type": "string",
-            "description": "Từ khoá tìm kiếm tự do: tên tài sản, mã tài sản (assetCode), tên gọi khác"
-          },
-          "status": {
-            "type": "string",
-            "enum": ["active"],
-            "description": "Lọc theo trạng thái tài sản (hiện chỉ xác nhận giá trị active = đang sử dụng)"
-          },
           "limit": {
             "type": "integer",
             "minimum": 1,
-            "description": "Số tài sản tối đa trả về trong một trang (vd 5, 20)"
+            "description": "Số tài sản tối đa cần lấy trong một trang"
           },
           "cursor": {
             "type": "string",
-            "description": "Con trỏ phân trang lấy từ kết quả trang trước; bỏ trống khi lấy trang đầu"
+            "description": "Con trỏ phân trang từ kết quả trước; bỏ qua khi lấy trang đầu"
           }
         },
         "required": []
@@ -34,31 +25,31 @@
       "method": "GET",
       "path": "/sgod-asset/v1/assets",
       "jwt_scoped": true,
-      "allowed_roles": ["employee", "company_admin"],
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
       "writes": false,
       "id_params": [],
-      "notes": [
-        "Spec §1 'Identity scoping': GET /assets trả về tài sản của tenant theo JWT — KHÔNG có tham số owner/tenant.",
-        "Spec §3 intent table: paginate with ?limit&cursor. Tên tham số q/status là giả định — chờ docs/sgod/query_params.md (S Việc 1).",
-        "Enum status: spec chỉ cho thấy giá trị 'active' (mẫu GET /assets). Các giá trị khác bổ sung sau khi có fixtures (S Việc 2).",
-        "Câu hỏi mở cho token enterprise-user: 'tài sản của tôi' là tài sản được giao cho tôi hay toàn tenant? Cần S Việc 2 xác nhận."
-      ]
+      "notes": "Chỉ khai báo limit/cursor vì đây là query params được spec §3 xác nhận cho GET /assets; không đoán thêm filter."
     }
   },
   {
     "type": "function",
     "function": {
       "name": "get_asset",
-      "description": "Lấy thông tin chi tiết một tài sản cụ thể theo tên, mã tài sản (assetCode, vd 000000001) hoặc id. Truyền nguyên văn tên/mã người dùng nói; hệ thống tự tra ra id, không cần hỏi lại.",
+      "description": "Dùng khi người dùng muốn xem chi tiết một tài sản cụ thể theo tên, mã tài sản hoặc id. Truyền nguyên văn tham chiếu; executor tự tra tên sang id rồi lấy chi tiết trong cùng một lượt gọi tool.",
       "parameters": {
         "type": "object",
         "properties": {
           "asset_ref": {
             "type": "string",
-            "description": "Tên tài sản, mã tài sản (assetCode) hoặc id của tài sản cần xem"
+            "description": "Tên tài sản, assetCode hoặc id của tài sản"
           }
         },
-        "required": ["asset_ref"]
+        "required": [
+          "asset_ref"
+        ]
       }
     },
     "x_sgod": {
@@ -66,40 +57,26 @@
       "method": "GET",
       "path": "/sgod-asset/v1/assets/{id}",
       "jwt_scoped": true,
-      "allowed_roles": ["employee", "company_admin"],
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
       "writes": false,
-      "id_params": ["asset_ref"],
+      "id_params": [
+        "asset_ref"
+      ],
       "resolve": "GET /sgod-asset/v1/assets/suggest?q={asset_ref}",
-      "notes": [
-        "Chuỗi name→id giữ MỘT lượt gọi tool: executor chạy resolve (suggest) rồi GET /assets/{id}, giống _resolve_asset_ref ở hệ thống tham chiếu (POC v1).",
-        "Nếu asset_ref đã là ObjectId 24 hex hoặc assetCode 9 chữ số, executor có thể bỏ qua bước suggest (quy ước cho S Việc 6).",
-        "Phản hồi bọc trong data.asset (spec §2 mẫu GET /assets/{id})."
-      ]
+      "notes": "Resolve dùng endpoint /assets/suggest?q= đã được spec §3 xác nhận; model không cần gọi thêm tool tìm kiếm."
     }
   },
   {
     "type": "function",
     "function": {
       "name": "list_maintenance_schedules",
-      "description": "Liệt kê lịch bảo trì tài sản của tôi / của doanh nghiệp tôi, có thể lọc theo trạng thái: active (lịch đang hiệu lực, sắp/cần bảo trì) hoặc complete (đã hoàn thành). Phân trang bằng limit và cursor.",
+      "description": "Dùng khi người dùng muốn xem các lịch bảo trì tài sản trong phạm vi tài khoản hiện tại, ví dụ các tài sản có lịch bảo trì.",
       "parameters": {
         "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": ["active", "complete"],
-            "description": "Lọc theo trạng thái lịch bảo trì: active = đang hiệu lực, complete = đã hoàn thành"
-          },
-          "limit": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "Số lịch tối đa trả về trong một trang"
-          },
-          "cursor": {
-            "type": "string",
-            "description": "Con trỏ phân trang lấy từ kết quả trang trước; bỏ trống khi lấy trang đầu"
-          }
-        },
+        "properties": {},
         "required": []
       }
     },
@@ -108,14 +85,462 @@
       "method": "GET",
       "path": "/sgod-asset/v1/maintenance/schedules",
       "jwt_scoped": true,
-      "allowed_roles": ["employee", "company_admin"],
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
       "writes": false,
       "id_params": [],
-      "notes": [
-        "Enum status suy từ spec §5: 'Đếm lịch active / complete theo user — CountMaintenanceScheduleTabs'.",
-        "KHÔNG dùng GET /maintenance/schedules/count-by-tab (spec §4: gRPC CountMaintenanceScheduleTabs not found).",
-        "Tên tham số status/limit/cursor là giả định — chờ docs/sgod/query_params.md (S Việc 1)."
+      "notes": "Không khai báo status/limit/cursor vì tên query params của endpoint này chưa có query_params.md hoặc fixture xác nhận."
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_asset_transfers",
+      "description": "Dùng khi người dùng muốn xem danh sách phiếu chuyển giao tài sản trong phạm vi tài khoản hiện tại.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/asset-transfers",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [],
+      "notes": "Không đoán các filter theo tab, trạng thái hoặc phân trang khi chưa có query_params.md/fixture."
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_asset_statistics",
+      "description": "Dùng khi quản trị viên doanh nghiệp hỏi thống kê tài sản theo trạng thái hoặc chuỗi thống kê trạng thái tài sản.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/dashboard/statistics-asset",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [],
+      "notes": "Không đoán tham số khoảng ngày hoặc granularity khi chưa có query_params.md/fixture."
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_my_profile",
+      "description": "Dùng khi người dùng hỏi thông tin hồ sơ của chính tài khoản đang đăng nhập, ví dụ “tôi là ai” hoặc “hồ sơ của tôi”.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "auth",
+      "method": "GET",
+      "path": "/sgod-auth/v1/users/myself",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": []
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_my_permissions",
+      "description": "Dùng khi người dùng muốn xem vai trò hoặc quyền của phiên đăng nhập hiện tại. Chỉ dùng để hiển thị thông tin phiên, không tự suy diễn quyền mới.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "auth",
+      "method": "GET",
+      "path": "/sgod-auth/v1/session/context",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": []
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_my_conversations",
+      "description": "Dùng khi quản trị viên doanh nghiệp muốn xem các cuộc trò chuyện của tài khoản hiện tại. Chat-service hiện chỉ mở tool này cho chủ doanh nghiệp.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "chat",
+      "method": "GET",
+      "path": "/sgod-chat/v1/conversations",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [],
+      "notes": "Spec nói endpoint có phân trang nhưng chưa xác nhận tên query params, nên schema v1 không đoán limit/cursor."
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_unread_counts",
+      "description": "Dùng khi quản trị viên doanh nghiệp muốn xem số lượng tin nhắn hoặc cuộc trò chuyện chưa đọc của tài khoản hiện tại.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "chat",
+      "method": "GET",
+      "path": "/sgod-chat/v1/conversations/unread-counts",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": []
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_location",
+      "description": "Dùng khi cần lấy chi tiết một vị trí SGOD đã biết id, ví dụ sau khi thông tin tài sản trả về location id.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location_id": {
+            "type": "string",
+            "description": "Id của vị trí cần xem"
+          }
+        },
+        "required": [
+          "location_id"
+        ]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/locations/{id}",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [
+        "location_id"
       ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_asset_histories",
+      "description": "Dùng khi người dùng muốn xem lịch sử thay đổi của một tài sản cụ thể. Có thể truyền tên, assetCode hoặc id; executor tự resolve sang id trong cùng lượt gọi tool.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "asset_ref": {
+            "type": "string",
+            "description": "Tên tài sản, assetCode hoặc id của tài sản cần xem lịch sử"
+          }
+        },
+        "required": [
+          "asset_ref"
+        ]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/assets/{id}/histories",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [
+        "asset_ref"
+      ],
+      "resolve": "GET /sgod-asset/v1/assets/suggest?q={asset_ref}"
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_maintenance_schedule",
+      "description": "Dùng khi người dùng muốn xem chi tiết một lịch bảo trì và đã có id của lịch bảo trì.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "schedule_id": {
+            "type": "string",
+            "description": "Id của lịch bảo trì cần xem"
+          }
+        },
+        "required": [
+          "schedule_id"
+        ]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/maintenance/schedules/{id}",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [
+        "schedule_id"
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_maintenance_records",
+      "description": "Dùng khi người dùng muốn xem danh sách các bản ghi bảo trì tài sản trong phạm vi tài khoản hiện tại.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/maintenance/records",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [],
+      "notes": "Không đoán filter theo tài sản, ngày hoặc trạng thái khi chưa có query_params.md/fixture."
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_asset_transfer",
+      "description": "Dùng khi người dùng muốn xem chi tiết một phiếu chuyển giao tài sản và đã có id của phiếu.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "transfer_id": {
+            "type": "string",
+            "description": "Id của phiếu chuyển giao cần xem"
+          }
+        },
+        "required": [
+          "transfer_id"
+        ]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/asset-transfers/{id}",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [
+        "transfer_id"
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_transfer_summary",
+      "description": "Dùng khi người dùng muốn xem số lượng phiếu chuyển giao theo các nhóm gửi, nhận hoặc xác thực.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/asset-transfers/summary",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": []
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_staff_requests",
+      "description": "Dùng khi người dùng muốn xem danh sách yêu cầu nhân viên liên quan đến quy trình tài sản, như yêu cầu đổi trạng thái hoặc đổi vị trí.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/request-staff",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [],
+      "notes": "Không đoán filter theo tab hoặc trạng thái khi chưa có query_params.md/fixture."
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_categories",
+      "description": "Dùng khi người dùng muốn xem danh sách danh mục tài sản hiện có trong SGOD.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/categories",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [],
+      "notes": "Dùng endpoint danh sách phẳng; không đoán query param tìm kiếm."
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_locations",
+      "description": "Dùng khi người dùng muốn xem danh sách các vị trí hoặc kho được khai báo trong SGOD.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/locations",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "employee",
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [],
+      "notes": "Dùng endpoint danh sách phẳng; không đoán query param tìm kiếm."
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_enterprise_profile",
+      "description": "Dùng khi quản trị viên doanh nghiệp muốn xem hồ sơ doanh nghiệp của tài khoản hiện tại.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "auth",
+      "method": "GET",
+      "path": "/sgod-auth/v1/enterprises/profile",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [],
+      "notes": "Giữ company_admin-only theo candidate_tools v1 trong khi quyền employee chưa được fixture xác nhận."
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_enterprise_users",
+      "description": "Dùng khi quản trị viên doanh nghiệp muốn xem danh sách người dùng doanh nghiệp trong phạm vi JWT hiện tại.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "auth",
+      "method": "GET",
+      "path": "/sgod-auth/v1/enterprise-users",
+      "jwt_scoped": true,
+      "allowed_roles": [
+        "company_admin"
+      ],
+      "writes": false,
+      "id_params": [],
+      "notes": "Không đoán q hoặc tham số phân trang khi chưa có query_params.md/fixture; giữ company_admin-only theo candidate_tools v1."
     }
   }
 ]

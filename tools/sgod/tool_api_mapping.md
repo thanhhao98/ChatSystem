@@ -3,15 +3,32 @@
 
 Nguồn: `tools/sgod/sgod_tools.json` · `tools/sgod/tool_policy.json` · `tools/sgod/roles.json` · `docs/sgod-api-reference.md`. Sinh lại bằng `python tools/sgod/gen_tool_api_mapping.py`; kiểm tra đồng bộ bằng `--check`.
 
-Số tool: **3** · chỉ đọc (writes=false): **3/3** · số tool theo vai trò: employee: 3, company_admin: 3, system_admin: 0.
+Số tool: **20** · chỉ đọc (writes=false): **20/20** · số tool theo vai trò: employee: 15, company_admin: 20, system_admin: 0.
 
 Mọi tool đều gọi qua gateway với hai header (`x-api-key` của service + `Authorization: Bearer <JWT người dùng>`); `jwt_scoped` ✓ nghĩa là kết quả đã được SGOD giới hạn theo tenant/tài khoản của JWT, nên **không có** tham số company/tenant/enterprise id (spec §1). `Resolve` là bước tra tên → id mà executor chạy trước khi gọi endpoint (một lượt gọi tool duy nhất từ phía model). Tham số đánh dấu \* là bắt buộc.
 
 | Tool | Service | Method | Endpoint | jwt_scoped | Roles | Writes | Resolve | Tham số |
 |---|---|---|---|---|---|---|---|---|
-| `list_my_assets` | asset | GET | `/sgod-asset/v1/assets` | ✓ | employee, company_admin | ✗ | — | `q` (string); `status` (string enum: active); `limit` (integer); `cursor` (string) |
+| `list_my_assets` | asset | GET | `/sgod-asset/v1/assets` | ✓ | employee, company_admin | ✗ | — | `limit` (integer); `cursor` (string) |
 | `get_asset` | asset | GET | `/sgod-asset/v1/assets/{id}` | ✓ | employee, company_admin | ✗ | `GET /sgod-asset/v1/assets/suggest?q={asset_ref}` | `asset_ref`\* (string) |
-| `list_maintenance_schedules` | asset | GET | `/sgod-asset/v1/maintenance/schedules` | ✓ | employee, company_admin | ✗ | — | `status` (string enum: active, complete); `limit` (integer); `cursor` (string) |
+| `list_maintenance_schedules` | asset | GET | `/sgod-asset/v1/maintenance/schedules` | ✓ | employee, company_admin | ✗ | — | — |
+| `list_asset_transfers` | asset | GET | `/sgod-asset/v1/asset-transfers` | ✓ | employee, company_admin | ✗ | — | — |
+| `get_asset_statistics` | asset | GET | `/sgod-asset/v1/dashboard/statistics-asset` | ✓ | company_admin | ✗ | — | — |
+| `get_my_profile` | auth | GET | `/sgod-auth/v1/users/myself` | ✓ | employee, company_admin | ✗ | — | — |
+| `get_my_permissions` | auth | GET | `/sgod-auth/v1/session/context` | ✓ | employee, company_admin | ✗ | — | — |
+| `list_my_conversations` | chat | GET | `/sgod-chat/v1/conversations` | ✓ | company_admin | ✗ | — | — |
+| `get_unread_counts` | chat | GET | `/sgod-chat/v1/conversations/unread-counts` | ✓ | company_admin | ✗ | — | — |
+| `get_location` | asset | GET | `/sgod-asset/v1/locations/{id}` | ✓ | employee, company_admin | ✗ | — | `location_id`\* (string) |
+| `get_asset_histories` | asset | GET | `/sgod-asset/v1/assets/{id}/histories` | ✓ | employee, company_admin | ✗ | `GET /sgod-asset/v1/assets/suggest?q={asset_ref}` | `asset_ref`\* (string) |
+| `get_maintenance_schedule` | asset | GET | `/sgod-asset/v1/maintenance/schedules/{id}` | ✓ | employee, company_admin | ✗ | — | `schedule_id`\* (string) |
+| `list_maintenance_records` | asset | GET | `/sgod-asset/v1/maintenance/records` | ✓ | employee, company_admin | ✗ | — | — |
+| `get_asset_transfer` | asset | GET | `/sgod-asset/v1/asset-transfers/{id}` | ✓ | employee, company_admin | ✗ | — | `transfer_id`\* (string) |
+| `get_transfer_summary` | asset | GET | `/sgod-asset/v1/asset-transfers/summary` | ✓ | employee, company_admin | ✗ | — | — |
+| `list_staff_requests` | asset | GET | `/sgod-asset/v1/request-staff` | ✓ | employee, company_admin | ✗ | — | — |
+| `list_categories` | asset | GET | `/sgod-asset/v1/categories` | ✓ | employee, company_admin | ✗ | — | — |
+| `list_locations` | asset | GET | `/sgod-asset/v1/locations` | ✓ | employee, company_admin | ✗ | — | — |
+| `get_enterprise_profile` | auth | GET | `/sgod-auth/v1/enterprises/profile` | ✓ | company_admin | ✗ | — | — |
+| `list_enterprise_users` | auth | GET | `/sgod-auth/v1/enterprise-users` | ✓ | company_admin | ✗ | — | — |
 
 ## Loại trừ (spec §4)
 
