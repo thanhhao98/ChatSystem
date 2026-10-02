@@ -1,1 +1,7 @@
 arm,model,lora_rank,lr,completion_only,mask_fn_names,epochs,max_rows,seed,steps,wall_clock_min,gpu,tool_name_acc,param_acc,json_valid_rate,ci_lo,ci_hi,results_file,who,date
+public_anchor,Qwen/Qwen2.5-0.5B-Instruct,16,0.0001,1,0.0,1,1000,42,63,0.9,NVIDIA RTX PRO 6000,96.5,98.9,98.0,92.5,98.0,results/public/anchor_results.json,pthao,2026-10-02
+public_r8,Qwen/Qwen2.5-0.5B-Instruct,8,0.0001,1,0.0,1,1000,42,63,0.8,NVIDIA RTX PRO 6000,96.5,98.9,98.0,92.5,98.0,results/public/r8_results.json,pthao,2026-10-02
+public_lr2e4,Qwen/Qwen2.5-0.5B-Instruct,16,0.0002,1,0.0,1,1000,42,63,0.8,NVIDIA RTX PRO 6000,95.5,98.9,98.0,91.5,97.5,results/public/lr2e4_results.json,pthao,2026-10-02
+public_full_loss,Qwen/Qwen2.5-0.5B-Instruct,16,0.0001,0,0.0,1,1000,42,63,1.0,NVIDIA RTX PRO 6000,95.0,98.9,98.0,90.5,97.0,results/public/full_loss_results.json,pthao,2026-10-02
+public_1p5b,Qwen/Qwen2.5-1.5B-Instruct,16,0.0001,1,0.0,1,1000,42,63,1.8,NVIDIA RTX PRO 6000,95.5,99.5,98.0,92.0,98.0,results/public/1p5b_results.json,pthao,2026-10-02
+public_free_arm,Qwen/Qwen2.5-0.5B-Instruct,32,0.0001,1,0.0,1,1000,42,63,0.8,NVIDIA RTX PRO 6000,96.0,98.4,98.5,91.5,97.5,results/public/free_arm_results.json,pthao,2026-10-02
