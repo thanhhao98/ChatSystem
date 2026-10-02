@@ -1,0 +1,30 @@
+# Recipe "public_full_loss" — arm thay đổi trục completion_only so với anchor.
+# Trục thay đổi DUY NHẤT: completion_only 1 → 0 (loss trên cả prompt + completion).
+# Mọi trục khác giữ nguyên anchor (0.5B, r16/α32, lr 1e-4, 1 epoch, 1000 rows, seed 42).
+#
+# CẢNH BÁO: completion_only=0 KHÔNG BAO GIỜ là SGOD default (theo task spec F-V1).
+# Arm này chỉ để quan sát tác động; kết quả có thể thấp hơn anchor (prompt noise).
+#
+# Chạy:  python training/finetune_qlora.py --recipe training/recipes/public_full_loss.yaml \
+#            --data data/public/xlam_2k.train.jsonl --val data/public/xlam_2k.val.jsonl \
+#            --output-dir runs/public_full_loss_s42
+arm: public_full_loss
+notes: "0.5B, r16/alpha32, lr 1e-4, FULL loss (completion_only=0), 1 epoch, 1000 rows, seed 42 — chỉ quan sát, KHÔNG chọn làm default"
+
+model: Qwen/Qwen2.5-0.5B-Instruct
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lr: 1.0e-4
+completion_only: 0      # ← trục thay đổi duy nhất (anchor = 1); KHÔNG default
+mask_fn_names: 0.0
+epochs: 1
+max_rows: 1000
+seed: 42
+
+# Cấu hình T4 cố định (không đổi giữa các arm)
+batch_size: 4
+grad_accum: 4
+max_len: 2560
+save_steps: 50
+logging_steps: 10

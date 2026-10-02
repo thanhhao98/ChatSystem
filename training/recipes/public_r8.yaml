@@ -1,0 +1,27 @@
+# Recipe "public_r8" — arm thay đổi trục LoRA rank so với anchor.
+# Trục thay đổi DUY NHẤT: lora_rank 16→8, lora_alpha 32→16 (= 2*rank).
+# Mọi trục khác giữ nguyên anchor (0.5B, lr 1e-4, completion-only, 1 epoch, 1000 rows, seed 42).
+#
+# Chạy:  python training/finetune_qlora.py --recipe training/recipes/public_r8.yaml \
+#            --data data/public/xlam_2k.train.jsonl --val data/public/xlam_2k.val.jsonl \
+#            --output-dir runs/public_r8_s42
+arm: public_r8
+notes: "0.5B, r8/alpha16, lr 1e-4, completion-only, 1 epoch, first 1000 rows, seed 42, max_len 2560 (T4 config)"
+
+model: Qwen/Qwen2.5-0.5B-Instruct
+lora_rank: 8
+lora_alpha: 16          # = 2 * lora_rank
+lora_dropout: 0.05
+lr: 1.0e-4
+completion_only: 1
+mask_fn_names: 0.0
+epochs: 1
+max_rows: 1000
+seed: 42
+
+# Cấu hình T4 cố định (không đổi giữa các arm)
+batch_size: 4
+grad_accum: 4
+max_len: 2560
+save_steps: 50
+logging_steps: 10

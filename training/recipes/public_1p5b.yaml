@@ -1,0 +1,31 @@
+# Recipe "public_1p5b" — arm thay đổi trục model (kích thước) so với anchor.
+# Trục thay đổi DUY NHẤT: model Qwen2.5-0.5B-Instruct → Qwen2.5-1.5B-Instruct.
+# Mọi trục khác giữ nguyên anchor (r16/α32, lr 1e-4, completion-only, 1 epoch, 1000 rows, seed 42).
+#
+# Lưu ý: 1.5B tốn thêm VRAM; T4 15 GB vẫn đủ với batch_size=4, grad_accum=4, max_len=2560.
+# Kiểm tra: python training/finetune_qlora.py --recipe training/recipes/public_1p5b.yaml \
+#            --data data/public/xlam_2k.train.jsonl --dry-run
+#
+# Chạy:  python training/finetune_qlora.py --recipe training/recipes/public_1p5b.yaml \
+#            --data data/public/xlam_2k.train.jsonl --val data/public/xlam_2k.val.jsonl \
+#            --output-dir runs/public_1p5b_s42
+arm: public_1p5b
+notes: "1.5B, r16/alpha32, lr 1e-4, completion-only, 1 epoch, first 1000 rows, seed 42, max_len 2560 (T4 config)"
+
+model: Qwen/Qwen2.5-1.5B-Instruct   # ← trục thay đổi duy nhất (anchor = 0.5B)
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lr: 1.0e-4
+completion_only: 1
+mask_fn_names: 0.0
+epochs: 1
+max_rows: 1000
+seed: 42
+
+# Cấu hình T4 cố định (không đổi giữa các arm)
+batch_size: 4
+grad_accum: 4
+max_len: 2560
+save_steps: 50
+logging_steps: 10

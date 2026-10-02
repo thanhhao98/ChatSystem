@@ -1,0 +1,33 @@
+# Recipe "public_mask_fn" — arm tự chọn (free arm), thay đổi trục mask_fn_names.
+# Trục thay đổi DUY NHẤT: mask_fn_names 0.0 → 0.5 (mask 50% tên hàm trong completion khi train).
+# Mọi trục khác giữ nguyên anchor (0.5B, r16/α32, lr 1e-4, completion-only, 1 epoch, 1000 rows, seed 42).
+#
+# LÝ DO CHỌN free arm này:
+#   Mask ngẫu nhiên 50% tên tool trong ground-truth completion buộc model học ngữ nghĩa tham số
+#   thay vì "học vẹt" tên tool → giả thuyết tăng param_acc và giảm hallucination tool name.
+#   mask_fn_names=0.5 là giá trị trung bình; 0.0 = không mask (anchor), 1.0 = mask toàn bộ.
+#   Nếu CI của Δ param_acc > 0 và CI của Δ strict_acc bao gồm 0: cân nhắc bật mask_fn mặc định.
+#
+# Chạy:  python training/finetune_qlora.py --recipe training/recipes/public_mask_fn.yaml \
+#            --data data/public/xlam_2k.train.jsonl --val data/public/xlam_2k.val.jsonl \
+#            --output-dir runs/public_mask_fn_s42
+arm: public_mask_fn
+notes: "0.5B, r16/alpha32, lr 1e-4, completion-only, mask_fn_names=0.5, 1 epoch, 1000 rows, seed 42 — free arm: giả thuyết tăng param_acc"
+
+model: Qwen/Qwen2.5-0.5B-Instruct
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lr: 1.0e-4
+completion_only: 1
+mask_fn_names: 0.5      # ← trục thay đổi duy nhất (anchor = 0.0)
+epochs: 1
+max_rows: 1000
+seed: 42
+
+# Cấu hình T4 cố định (không đổi giữa các arm)
+batch_size: 4
+grad_accum: 4
+max_len: 2560
+save_steps: 50
+logging_steps: 10
