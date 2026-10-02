@@ -1,0 +1,21 @@
+# Recipe "public_free_arm" — Thử nghiệm tự chọn: tăng LoRA rank lên 32
+arm: public_free_arm
+notes: "0.5B, r32/alpha64 (larger rank), lr 1e-4, completion-only, 1 epoch, first 1000 rows, seed 42, max_len 2560 (T4 config)"
+
+model: Qwen/Qwen2.5-0.5B-Instruct
+lora_rank: 32           # rank = 32
+lora_alpha: 64          # alpha = 64
+lora_dropout: 0.05
+lr: 1.0e-4              # learning rate = 1e-4
+completion_only: 1      # chỉ tính loss phần completion
+mask_fn_names: 0.0
+epochs: 1
+max_rows: 1000
+seed: 42
+
+# Cấu hình T4 cố định
+batch_size: 4
+grad_accum: 4
+max_len: 2560
+save_steps: 50
+logging_steps: 10
