@@ -1,5 +1,5 @@
 # CHANGELOG
-- 2026-10-02 — [F-V1] tạo 5 recipe YAML arms (public_r8, public_lr2e4, public_full_loss, public_1p5b, public_mask_fn) cho lưới ≤6 arms trên xLAM slice 1k, seed 42.
+- 2026-10-02 — [F-V1] tạo 5 recipe YAML arms (public_r8, public_lr2e4, public_full_loss, public_1p5b, public_mask_fn) cho lưới ≤6 arms trên xLAM slice 1k, seed 42 và tạo notebook 04_recipe_grid.ipynb.
 - 2026-09-19 — [D-T1] hoàn thành khảo sát bộ dữ liệu công khai xLAM 2k raw và báo cáo nghiệm thu tuần 1 (nhóm D).
 - 2026-09-18 — repo chuyển sang public + bảo vệ nhánh main (PR, 1 approve, CI `checks`); thay địa chỉ gateway nội bộ trong spec bằng placeholder `<SGOD_GATEWAY>`; secret grep CI thêm mẫu IP nội bộ.
 
