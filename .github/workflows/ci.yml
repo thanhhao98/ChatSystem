@@ -114,7 +114,7 @@ jobs:
           # The pattern is written so that no literal secret appears in this file.
           # data/public/ is skipped on purpose: licensed third-party text (xLAM) that legitimately
           # contains sample e-mail addresses and must stay byte-identical.
-          if git grep -nIE "Sgod(2025|123)|sk-[A-Za-z0-9]{20}|SmartGeneration(of)Digital" -- . ':!data/public'; then
+          if git grep -nIE "Sgod(2025|123)|sk-[A-Za-z0-9]{20}|SmartGeneration(of)Digital|10\.10\.0\.[0-9]+" -- . ':!data/public'; then
             echo "::error::Phát hiện chuỗi giống bí mật trong repo — xoá và xoay khóa trước khi merge"
             exit 1
           fi

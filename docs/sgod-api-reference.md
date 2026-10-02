@@ -1,6 +1,6 @@
 # SGOD Platform — API Reference & AI-Agent Integration Guide
 
-> Living reference for building an AI-chat assistant over SGOD (so a user can ask *“which assets do I own?”* in natural language instead of clicking a browser). **Scoped to the three services the assistant needs:** `auth` (login/session), `asset` (the data), and `chat` (optional). All endpoints, keys and samples below were **verified live** against `http://10.10.0.2:5007` on 2026-09-13.
+> Living reference for building an AI-chat assistant over SGOD (so a user can ask *“which assets do I own?”* in natural language instead of clicking a browser). **Scoped to the three services the assistant needs:** `auth` (login/session), `asset` (the data), and `chat` (optional). All endpoints, keys and samples below were **verified live** against `http://<SGOD_GATEWAY>` on 2026-09-13.
 
 ---
 
@@ -10,12 +10,12 @@
 
 | Host | Role |
 |---|---|
-| `http://10.10.0.2:5007` | **API gateway** — routes *all* services + serves Swagger. Use this. |
-| `http://10.10.0.2:5008` | Standalone `auth-service` deployment (auth only). |
-| `http://10.10.0.2:8000` | Temporal Web UI (unrelated — not SGOD). |
+| `http://<SGOD_GATEWAY>` | **API gateway** — routes *all* services + serves Swagger. Use this. |
+| `http://<SGOD_AUTH_HOST>` | Standalone `auth-service` deployment (auth only). |
+| `http://<TEMPORAL_UI>` | Temporal Web UI (unrelated — not SGOD). |
 
 
-Swagger UI per service: `http://10.10.0.2:5007/swagger/v1/<service>` (e.g. `.../asset-service`). There is **no `swagger.json`** — the OpenAPI spec is inlined in each page's `swagger-ui-init.js`.
+Swagger UI per service: `http://<SGOD_GATEWAY>/swagger/v1/<service>` (e.g. `.../asset-service`). There is **no `swagger.json`** — the OpenAPI spec is inlined in each page's `swagger-ui-init.js`.
 
 ### The services & their API keys
 
@@ -34,7 +34,7 @@ Every request needs **two credentials**: the service's static `x-api-key` **and*
 **1) Log in** (endpoint depends on the account tier):
 
 ```bash
-curl -s -X POST "http://10.10.0.2:5007/sgod-auth/v1/enterprises/sessions" \
+curl -s -X POST "http://<SGOD_GATEWAY>/sgod-auth/v1/enterprises/sessions" \
   -H "Content-Type: application/json" \
   -H "x-api-key: <SGOD_AUTH_API_KEY>" \
   -d '{"credential":"<SGOD_TEST_ACCOUNT_EMAIL>","password":"<SGOD_TEST_PASSWORD>"}'
@@ -52,7 +52,7 @@ curl -s -X POST "http://10.10.0.2:5007/sgod-auth/v1/enterprises/sessions" \
 
 ```bash
 TOKEN=<accessToken>
-curl -s "http://10.10.0.2:5007/sgod-asset/v1/assets" \
+curl -s "http://<SGOD_GATEWAY>/sgod-asset/v1/assets" \
   -H "x-api-key: <SGOD_ASSET_API_KEY>" \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -328,7 +328,7 @@ User (in AI chat):  "which assets am I owning?"
 Real call & response:
 
 ```bash
-curl -s "http://10.10.0.2:5007/sgod-asset/v1/assets?limit=5" \
+curl -s "http://<SGOD_GATEWAY>/sgod-asset/v1/assets?limit=5" \
   -H "x-api-key: <SGOD_ASSET_API_KEY>" -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -962,4 +962,4 @@ Total: **341** operations across 3 services (auth, asset, chat).
 
 
 ---
-*Generated from live Swagger specs + live API responses. SGOD @ 10.10.0.2:5007.*
+*Generated from live Swagger specs + live API responses. SGOD @ <SGOD_GATEWAY>.*
