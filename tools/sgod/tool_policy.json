@@ -1,5 +1,137 @@
 {
-  "list_my_assets": {"writes": false, "roles": ["employee", "company_admin"]},
-  "get_asset": {"writes": false, "roles": ["employee", "company_admin"]},
-  "list_maintenance_schedules": {"writes": false, "roles": ["employee", "company_admin"]}
+  "list_my_assets": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "get_asset": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "list_maintenance_schedules": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "list_asset_transfers": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "get_asset_statistics": {
+    "writes": false,
+    "roles": [
+      "company_admin"
+    ]
+  },
+  "get_my_profile": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "get_my_permissions": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "list_my_conversations": {
+    "writes": false,
+    "roles": [
+      "company_admin"
+    ]
+  },
+  "get_unread_counts": {
+    "writes": false,
+    "roles": [
+      "company_admin"
+    ]
+  },
+  "get_location": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "get_asset_histories": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "get_maintenance_schedule": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "list_maintenance_records": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "get_asset_transfer": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "get_transfer_summary": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "list_staff_requests": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "list_categories": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "list_locations": {
+    "writes": false,
+    "roles": [
+      "employee",
+      "company_admin"
+    ]
+  },
+  "get_enterprise_profile": {
+    "writes": false,
+    "roles": [
+      "company_admin"
+    ]
+  },
+  "list_enterprise_users": {
+    "writes": false,
+    "roles": [
+      "company_admin"
+    ]
+  }
 }
