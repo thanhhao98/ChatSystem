@@ -5,9 +5,9 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
-## 2026-09-29 — [D-V1] SGOD tool catalogue v1 (~20 read-only tools, tool_policy, mapping)
+## 2026-09-29 — [D-V1] SGOD tool catalogue v1 (Hy, My, Dinh — 21 tools chỉ đọc, tool_policy, mapping)
 
-- `tools/sgod/sgod_tools.json`: Mở rộng từ 3 tool mẫu lên 21 tools chỉ đọc (`writes: false`) theo spec §1, §3 và `docs/sgod/candidate_tools.md`; tên snake_case; mô tả tiếng Việt; không chứa tham số cấm; hỗ trợ `x_sgod.resolve` cho các thao tác tra cứu chi tiết; chặn 5 GET hỏng và giới hạn `/sgod-chat/v1` cho `company_admin`.
+- `tools/sgod/sgod_tools.json`: Xây dựng phiên bản v1 chuẩn từ đóng góp chung của nhóm D (Hy, My, Dinh), mở rộng từ 3 tool mẫu lên 21 tools chỉ đọc (`writes: false`) theo spec §1, §3 và `docs/sgod/candidate_tools.md`; tên snake_case; mô tả tiếng Việt; không chứa tham số cấm (`company_id`, `tenant_id`); hỗ trợ `x_sgod.resolve` cho các thao tác tra cứu chi tiết; chặn 5 GET hỏng và giới hạn `/sgod-chat/v1` cho `company_admin`. Phần công cụ riêng của My (`list_maintenance_tasks`) và Dinh (`list_enterprise_users`) sẽ được bổ sung trong phiên bản v1.1.
 - `tools/sgod/tool_policy.json`: Đồng bộ 1:1 chính xác với 21 tools của `sgod_tools.json` (`writes` và `roles`).
 - `tools/sgod/tool_api_mapping.md`: Sinh tự động hoàn toàn bằng `tools/sgod/gen_tool_api_mapping.py` (21 tools, 48 dòng).
 
