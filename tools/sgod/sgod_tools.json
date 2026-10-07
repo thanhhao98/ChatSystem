@@ -117,5 +117,529 @@
         "Tên tham số status/limit/cursor là giả định — chờ docs/sgod/query_params.md (S Việc 1)."
       ]
     }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_my_profile",
+      "description": "Lấy thông tin hồ sơ của người dùng hiện tại (họ tên, email, chức vụ, phòng ban). Dùng khi người dùng hỏi 'tôi là ai', 'thông tin tài khoản của tôi', 'hồ sơ cá nhân'.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "auth",
+      "method": "GET",
+      "path": "/sgod-auth/v1/users/myself",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Spec §3 intent table: 'Who am I / my profile'.",
+        "Identity lấy tự động từ JWT — không cần tham số."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_my_permissions",
+      "description": "Lấy thông tin ngữ cảnh phiên làm việc và danh sách quyền hạn của tài khoản đang đăng nhập. Dùng khi người dùng hỏi 'tôi có những quyền gì', 'vai trò của tôi là gì'.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "auth",
+      "method": "GET",
+      "path": "/sgod-auth/v1/session/context",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Spec §3 intent table: 'My roles / permissions'.",
+        "Chỉ dùng để hiển thị thông tin, không dùng để suy đoán vai trò hệ thống."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_enterprise_profile",
+      "description": "Lấy thông tin chi tiết về doanh nghiệp (tên công ty, mã số thuế, địa chỉ, người đại diện). Dành cho quản trị viên doanh nghiệp (company_admin).",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "auth",
+      "method": "GET",
+      "path": "/sgod-auth/v1/enterprises/profile",
+      "jwt_scoped": true,
+      "allowed_roles": ["company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Candidate tools §1e: tool chỉ mở cho company_admin.",
+        "Dùng để tạo trường hợp test từ chối (denied) khi employee gọi."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_my_conversations",
+      "description": "Liệt kê danh sách các cuộc hội thoại chat của tôi. Dành riêng cho chủ doanh nghiệp (company_admin). Phân trang bằng limit và cursor.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Số cuộc trò chuyện tối đa trả về trong một trang"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Con trỏ phân trang từ kết quả trang trước; bỏ trống khi lấy trang đầu"
+          }
+        },
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "chat",
+      "method": "GET",
+      "path": "/sgod-chat/v1/conversations",
+      "jwt_scoped": true,
+      "allowed_roles": ["company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Spec §3 intent table: 'My conversations'.",
+        "Spec §4: chat trả về 500 cho non-owner; chỉ mở cho company_admin."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_unread_counts",
+      "description": "Lấy số lượng tin nhắn chưa đọc trong các cuộc trò chuyện của tôi. Dành riêng cho chủ doanh nghiệp (company_admin).",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "chat",
+      "method": "GET",
+      "path": "/sgod-chat/v1/conversations/unread-counts",
+      "jwt_scoped": true,
+      "allowed_roles": ["company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Spec §3 intent table: 'My unread messages'.",
+        "Spec §4: chỉ mở cho company_admin."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_asset_statistics",
+      "description": "Lấy số liệu thống kê tổng quan tài sản theo trạng thái (hoạt động, bảo trì, thanh lý...) trong toàn doanh nghiệp. Dành cho cấp quản lý (company_admin).",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/dashboard/statistics-asset",
+      "jwt_scoped": true,
+      "allowed_roles": ["company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Spec §3 intent table: 'How many assets by status'.",
+        "Thống kê toàn doanh nghiệp — chỉ mở cho company_admin."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_assets",
+      "description": "Tìm kiếm tài sản theo từ khóa tên hoặc mã tài sản (sử dụng gợi ý tìm kiếm search-as-you-type). Dùng khi người dùng tìm kiếm danh sách gợi ý tài sản tên tương tự.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string",
+            "description": "Từ khóa tìm kiếm tên hoặc mã tài sản"
+          }
+        },
+        "required": ["q"]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/assets/suggest",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Spec §3 intent table: suggest asset endpoint."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_asset_histories",
+      "description": "Xem lịch sử thay đổi thông tin của một tài sản cụ thể theo tên, mã hoặc id tài sản. Dùng khi người dùng hỏi 'lịch sử thay đổi của tài sản X', 'tài sản này đã sửa đổi gì'.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "asset_ref": {
+            "type": "string",
+            "description": "Tên tài sản, mã tài sản (assetCode) hoặc id của tài sản cần xem lịch sử"
+          }
+        },
+        "required": ["asset_ref"]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/assets/{id}/histories",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": ["asset_ref"],
+      "resolve": "GET /sgod-asset/v1/assets/suggest?q={asset_ref}",
+      "notes": [
+        "Tra tên tài sản thành id qua resolve trước khi gọi lấy lịch sử."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_maintenance_schedule",
+      "description": "Lấy thông tin chi tiết một lịch bảo trì tài sản theo mã định danh (id) của lịch bảo trì.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "schedule_id": {
+            "type": "string",
+            "description": "Mã ID của lịch bảo trì cần xem chi tiết"
+          }
+        },
+        "required": ["schedule_id"]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/maintenance/schedules/{id}",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": ["schedule_id"],
+      "notes": [
+        "Candidate tools §1b: Chi tiết lịch bảo trì."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_maintenance_records",
+      "description": "Liệt kê danh sách các bản ghi bảo trì tài sản (các lần bảo trì đã thực hiện, chi phí, biên bản). Phân trang bằng limit và cursor.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Số lượng bản ghi tối đa trả về trong một trang"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Con trỏ phân trang từ kết quả trước"
+          }
+        },
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/maintenance/records",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Candidate tools §1b: Lịch sử bảo trì tài sản."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_asset_transfers",
+      "description": "Liệt kê các phiếu chuyển giao tài sản của tôi hoặc của doanh nghiệp tôi (chuyển giao giữa các nhân viên, phòng ban). Phân trang bằng limit và cursor.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Số phiếu chuyển giao tối đa trả về trong một trang"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Con trỏ phân trang từ kết quả trước"
+          }
+        },
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/asset-transfers",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Spec §3 intent table: 'My asset transfers'."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_asset_transfer",
+      "description": "Lấy thông tin chi tiết một phiếu chuyển giao tài sản theo mã ID của phiếu.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "transfer_id": {
+            "type": "string",
+            "description": "Mã ID của phiếu chuyển giao tài sản"
+          }
+        },
+        "required": ["transfer_id"]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/asset-transfers/{id}",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": ["transfer_id"],
+      "notes": [
+        "Candidate tools §1c: Chi tiết phiếu chuyển giao."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_transfer_summary",
+      "description": "Lấy số lượng tổng hợp các phiếu chuyển giao tài sản theo từng tab (phiếu đã gửi, phiếu chờ nhận, phiếu chờ xác thực).",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/asset-transfers/summary",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Candidate tools §1c: Đếm phiếu chuyển giao theo tab."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_staff_requests",
+      "description": "Liệt kê danh sách các yêu cầu của nhân viên (yêu cầu đổi trạng thái tài sản, yêu cầu đổi vị trí tài sản...). Phân trang bằng limit và cursor.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Số lượng yêu cầu tối đa trả về trong một trang"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Con trỏ phân trang từ kết quả trước"
+          }
+        },
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/request-staff",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Candidate tools §1c: Danh sách yêu cầu nhân viên."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_staff_request_summary",
+      "description": "Lấy số lượng tổng hợp các yêu cầu nhân viên (yêu cầu gửi đi, yêu cầu chờ duyệt tiếp nhận).",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/request-staff/summary",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Candidate tools §1c: Đếm yêu cầu nhân viên theo tab."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_categories",
+      "description": "Liệt kê danh sách các danh mục phân loại tài sản của doanh nghiệp (ví dụ: Thiết bị văn phòng, Máy móc, Phương tiện...).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Số lượng danh mục tối đa trong một trang"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Con trỏ phân trang từ kết quả trước"
+          }
+        },
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/categories",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Candidate tools §1d: Danh mục tài sản."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_locations",
+      "description": "Liệt kê danh sách các vị trí, địa điểm, phòng ban hoặc kho lưu trữ tài sản trong doanh nghiệp.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Số lượng vị trí tối đa trong một trang"
+          },
+          "cursor": {
+            "type": "string",
+            "description": "Con trỏ phân trang từ kết quả trước"
+          }
+        },
+        "required": []
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/locations",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": [],
+      "notes": [
+        "Candidate tools §1d: Vị trí lưu trữ tài sản."
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_location",
+      "description": "Lấy thông tin chi tiết một vị trí, địa điểm lưu trữ tài sản theo mã ID của vị trí. Dùng khi tra cứu nơi đặt của tài sản.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location_id": {
+            "type": "string",
+            "description": "Mã ID của vị trí cần xem thông tin"
+          }
+        },
+        "required": ["location_id"]
+      }
+    },
+    "x_sgod": {
+      "service": "asset",
+      "method": "GET",
+      "path": "/sgod-asset/v1/locations/{id}",
+      "jwt_scoped": true,
+      "allowed_roles": ["employee", "company_admin"],
+      "writes": false,
+      "id_params": ["location_id"],
+      "notes": [
+        "Spec §3 intent table: 'Where is asset X / its location' step 2."
+      ]
+    }
   }
 ]

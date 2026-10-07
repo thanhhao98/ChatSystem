@@ -5,6 +5,12 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
+## 2026-09-29 — [D-V1] SGOD tool catalogue v1 (Hy, My, Dinh — 21 tools chỉ đọc, tool_policy, mapping)
+
+- `tools/sgod/sgod_tools.json`: Xây dựng phiên bản v1 chuẩn từ đóng góp chung của nhóm D (Hy, My, Dinh), mở rộng từ 3 tool mẫu lên 21 tools chỉ đọc (`writes: false`) theo spec §1, §3 và `docs/sgod/candidate_tools.md`; tên snake_case; mô tả tiếng Việt; không chứa tham số cấm (`company_id`, `tenant_id`); hỗ trợ `x_sgod.resolve` cho các thao tác tra cứu chi tiết; chặn 5 GET hỏng và giới hạn `/sgod-chat/v1` cho `company_admin`. Phần công cụ riêng của My (`list_maintenance_tasks`) và Dinh (`list_enterprise_users`) sẽ được bổ sung trong phiên bản v1.1.
+- `tools/sgod/tool_policy.json`: Đồng bộ 1:1 chính xác với 21 tools của `sgod_tools.json` (`writes` và `roles`).
+- `tools/sgod/tool_api_mapping.md`: Sinh tự động hoàn toàn bằng `tools/sgod/gen_tool_api_mapping.py` (21 tools, 48 dòng).
+
 ## 2026-09-23 — [F-T1] điều chỉnh dtypes tham số LoRA sang fp32 và khôi phục fp16=True trong SFTConfig theo feedback review
 
 - `training/finetune_qlora.py`: Ép các tham số LoRA trainable về `float32` (kế thừa cơ chế chuẩn của `prepare_model_for_kbit_training`), sử dụng `dtype=HALF` trong `from_pretrained`, và giữ fp16 AMP (GradScaler) bật mặc định trong `SFTConfig` để có loss scaling chống underflow/NaN; thêm cờ `--no-amp` làm lối thoát nếu runtime T4 vẫn lỗi ở `grad_scaler.unscale_` (PR #1).
