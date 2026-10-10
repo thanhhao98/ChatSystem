@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6aa2c410da46d70ee2f49205",
+        "asset_id": "6aa2c177da46d70ee2f491c1",
+        "status": "active",
+        "location_id": "6aa2c150da46d70ee2f491c0",
+        "note": "Bàn giao sử dụng phòng QA",
+        "created_at": 1789051255761
+      }
+    ],
+    "meta": {
+      "next_cursor": "",
+      "has_next_page": false,
+      "limit": 20
+    }
+  },
+  "message": "Lấy lịch sử trạng thái thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6aa2c210da46d70ee2f491d2",
+        "enterprise_id": "6a85bad6a8d2133e058c93a9",
+        "title": "Bảo dưỡng định kỳ quý 4 laptop QA",
+        "status": "active",
+        "frequency": "QUARTERLY",
+        "start_date": "2026-10-01",
+        "end_date": "2026-10-15",
+        "assigned_to": "6a85be56a8d2133e058c93b9",
+        "total_tasks": 2,
+        "completed_tasks": 1
+      }
+    ],
+    "meta": {
+      "next_cursor": "",
+      "has_next_page": false,
+      "limit": 20
+    }
+  },
+  "message": "Lấy danh sách lịch bảo trì thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

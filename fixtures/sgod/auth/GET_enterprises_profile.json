@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": {
+    "user": {
+      "id": "6a85bad6a8d2133e058c93a9",
+      "email": "admin@example.com",
+      "user_name": "sgod_admin",
+      "full_name": {
+        "first_name": "Quản Trị Viên",
+        "last_name": "Doanh Nghiệp"
+      },
+      "user_type": "ENTERPRISE",
+      "roles": [
+        "ENTERPRISE_ADMIN"
+      ],
+      "enterprise_name": "Tổng công ty Công nghệ SGOD",
+      "descriptions": "Tài khoản quản trị cấp doanh nghiệp",
+      "sgod_user_id": "6a85bad6a8d2133e058c93a9",
+      "status": "ACTIVE"
+    }
+  },
+  "message": "Lấy thông tin doanh nghiệp thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

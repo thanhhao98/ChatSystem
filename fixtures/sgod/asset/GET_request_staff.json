@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6aa2c290da46d70ee2f491e5",
+        "enterprise_id": "6a85bad6a8d2133e058c93a9",
+        "asset_id": "6aa2c177da46d70ee2f491c1",
+        "requester_id": "6a85be56a8d2133e058c93b9",
+        "approver_id": "6a85bad6a8d2133e058c93a9",
+        "type_request": "REPAIR",
+        "status_request": "APPROVED",
+        "quantity": 1,
+        "description": "Đề xuất thay bàn phím laptop",
+        "created_at": 1789051255761
+      }
+    ],
+    "meta": {
+      "next_cursor": "",
+      "has_next_page": false,
+      "limit": 20
+    }
+  },
+  "message": "Lấy danh sách yêu cầu nhân sự thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

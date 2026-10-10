@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": {
+    "user": {
+      "id": "6a85be56a8d2133e058c93b9",
+      "email": "user.test@example.com",
+      "user_name": "employee_test",
+      "full_name": {
+        "first_name": "Văn Test",
+        "last_name": "Nguyễn"
+      },
+      "user_type": "ENTERPRISE_USER",
+      "roles": [
+        "STAFF_ROLE"
+      ],
+      "enterprise_name": "Công ty Công nghệ SGOD Demo",
+      "descriptions": "Chuyên viên quản lý thiết bị",
+      "sgod_user_id": "6a85be56a8d2133e058c93b9",
+      "status": "ACTIVE"
+    }
+  },
+  "message": "Lấy thông tin người dùng thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

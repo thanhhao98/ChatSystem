@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6aa2c150da46d70ee2f491c0",
+        "enterprise_id": "6a85bad6a8d2133e058c93a9",
+        "name": "Kho Thiết Bị Trung Tâm",
+        "alias_names": [
+          "Kho Tầng 3",
+          "Central Storage"
+        ],
+        "detail": "Phòng 302, Tòa nhà Công nghệ SGOD",
+        "map": {
+          "latitude": 10.762622,
+          "longitude": 106.660172
+        },
+        "total_asset": 15,
+        "subs": []
+      }
+    ],
+    "meta": {
+      "next_cursor": "",
+      "has_next_page": false,
+      "limit": 20
+    }
+  },
+  "message": "Lấy danh sách địa điểm thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

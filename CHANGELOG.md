@@ -1,4 +1,5 @@
 # CHANGELOG
+- 2026-10-10 — [S-V2] thu thập 26 response fixtures cho SGOD (14 asset, 5 auth, 3 chat, 4 negative) và bảng enum fixtures/sgod/README.md.
 - 2026-09-19 — [D-T1] hoàn thành khảo sát bộ dữ liệu công khai xLAM 2k raw và báo cáo nghiệm thu tuần 1 (nhóm D).
 - 2026-09-18 — repo chuyển sang public + bảo vệ nhánh main (PR, 1 approve, CI `checks`); thay địa chỉ gateway nội bộ trong spec bằng placeholder `<SGOD_GATEWAY>`; secret grep CI thêm mẫu IP nội bộ.
 

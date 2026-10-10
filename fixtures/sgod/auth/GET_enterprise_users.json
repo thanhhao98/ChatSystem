@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "data": {
+    "users": [
+      {
+        "id": "6a85be56a8d2133e058c93b9",
+        "email": "user.test@example.com",
+        "user_name": "employee_test",
+        "full_name": {
+          "first_name": "Văn Test",
+          "last_name": "Nguyễn"
+        },
+        "user_type": "ENTERPRISE_USER",
+        "roles": [
+          "ASSET_USER"
+        ],
+        "enterprise_name": "Công ty Công nghệ SGOD Demo",
+        "status": "ACTIVE"
+      }
+    ],
+    "meta": {
+      "next_cursor": "",
+      "has_next_page": false,
+      "limit": 20
+    }
+  },
+  "message": "Lấy danh sách nhân sự thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

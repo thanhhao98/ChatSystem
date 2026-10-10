@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "stage": "RETRY_AFTER_REFRESH",
+  "session_refreshed": true,
+  "data": {
+    "retry_attempt": 1,
+    "resolved_at": "2026-10-10T14:40:00.000Z",
+    "user_id": "6a85be56a8d2133e058c93b9",
+    "refreshed_scope": "ENTERPRISE_USER",
+    "recovered_result": {
+      "status": "SESSION_RESTORED_OK"
+    }
+  },
+  "message": "Token refreshed via /sessions/refresh and operation re-executed successfully",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

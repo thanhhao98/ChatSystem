@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6aa2c177da46d70ee2f491c1",
+        "name": "Máy tính xách tay Dell Latitude 5420",
+        "asset_code": "TS-2026-0001",
+        "category_name": "Thiết bị văn phòng",
+        "status": "active"
+      }
+    ]
+  },
+  "message": "Gợi ý tài sản thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}
