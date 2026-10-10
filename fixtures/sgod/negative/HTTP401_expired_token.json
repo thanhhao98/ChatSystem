@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "statusCode": 401,
+  "error": "UNAUTHORIZED",
+  "message": "Mã truy cập JWT đã hết hạn hoặc không hợp lệ. Vui lòng làm mới phiên làm việc.",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

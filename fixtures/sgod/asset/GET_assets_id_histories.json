@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6aa2c401da46d70ee2f49201",
+        "asset_id": "6aa2c177da46d70ee2f491c1",
+        "action": "CREATE",
+        "performed_by": "6a85bad6a8d2133e058c93a9",
+        "details": "Khởi tạo tài sản mới trong hệ thống",
+        "created_at": 1789051255761
+      }
+    ],
+    "meta": {
+      "next_cursor": "",
+      "has_next_page": false,
+      "limit": 20
+    }
+  },
+  "message": "Lấy lịch sử tài sản thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

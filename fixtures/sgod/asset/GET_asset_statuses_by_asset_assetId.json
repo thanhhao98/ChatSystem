@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6aa2c410da46d70ee2f49205",
+        "asset_id": "6aa2c177da46d70ee2f491c1",
+        "status": "active",
+        "location_id": "6aa2c150da46d70ee2f491c0",
+        "quantity": 1
+      }
+    ]
+  },
+  "message": "Lấy trạng thái theo tài sản thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

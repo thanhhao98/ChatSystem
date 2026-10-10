@@ -1,0 +1,71 @@
+{
+  "success": true,
+  "data": {
+    "conversations": [
+      {
+        "id": "6aa2c5e2e8667af3ad1333ff",
+        "type": "group",
+        "title": "QA Project Team",
+        "logoId": "",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "lastMessageId": "6aa2c601e8667af3ad133405",
+        "sortConversation": "2026-10-10T14:40:00.000Z",
+        "messagesPinned": [],
+        "isE2EEEnabled": false,
+        "currentKeyVersion": 0,
+        "groupKeys": [],
+        "searchText": "qa project team",
+        "participantCount": 3,
+        "createdAt": "2026-09-01T08:00:00.000Z",
+        "updatedAt": "2026-10-10T14:40:00.000Z",
+        "description": "Nhóm trao đổi công việc QA & Test",
+        "creatorId": "6a85bad6a8d2133e058c93a9",
+        "lastMessageAt": "2026-10-10T14:40:00.000Z",
+        "lastMessageSnippet": "Báo cáo kiểm thử thiết bị đã được cập nhật.",
+        "messageCount": 42,
+        "isActive": true,
+        "settings": {
+          "allowInvites": true,
+          "requireApproval": false,
+          "allowFileSharing": true,
+          "maxParticipants": 100,
+          "allowMemberMessagePinning": false,
+          "allowReactions": true,
+          "allowPolling": true,
+          "allowMembersToSendMessages": true,
+          "onlyAdminsCanCreatePolls": false
+        },
+        "unreadCount": 2,
+        "isMuted": false,
+        "isPinned": true,
+        "disappearingSeconds": 0,
+        "lastNameUserSent": "Nguyễn Văn Test",
+        "lastUserSentId": "6a85be56a8d2133e058c93b9",
+        "e2eeFirstEnabledAt": "",
+        "members": [
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "Enterprise",
+            "userId": "6a85bad6a8d2133e058c93a9"
+          },
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "EnterpriseUser",
+            "userId": "6a85be56a8d2133e058c93b9"
+          }
+        ],
+        "isArchived": false,
+        "archivedAt": "",
+        "autoUnarchiveOnNewMessage": true
+      }
+    ],
+    "pagination": {
+      "limit": 20,
+      "total": 1,
+      "hasMore": false,
+      "nextCursor": ""
+    }
+  },
+  "message": "Get conversations successfully",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

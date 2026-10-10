@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "data": {
+    "messages": [
+      {
+        "id": "6aa2c601e8667af3ad133405",
+        "conversationId": "6aa2c5e2e8667af3ad1333ff",
+        "userId": "6a85be56a8d2133e058c93b9",
+        "content": "{\"text\":\"Báo cáo kiểm thử thiết bị đã được cập nhật.\",\"version\":\"1.0\"}",
+        "parentMessageId": null,
+        "messageType": "text",
+        "status": "read",
+        "createdAt": "2026-10-10T14:40:00.000Z",
+        "updatedAt": "2026-10-10T14:40:00.000Z",
+        "mentions": [],
+        "forwardedFromMessageId": null,
+        "forwardedFromUserId": null,
+        "expireAt": null,
+        "voiceAttachments": [],
+        "isEdited": false,
+        "editInfo": null,
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "isStarredForMe": false,
+        "deliveredAtForMe": "2026-10-10T14:40:00.000Z",
+        "readAtForMe": "2026-10-10T14:40:00.000Z",
+        "senderBelongTo": "EnterpriseUser",
+        "attachments": []
+      }
+    ],
+    "messageText": "Get messages successfully",
+    "pagination": {
+      "limit": 20,
+      "total": 1,
+      "hasMore": false,
+      "nextCursor": ""
+    }
+  },
+  "message": "Get messages successfully",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

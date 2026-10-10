@@ -1,0 +1,37 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6aa2c177da46d70ee2f491c1",
+        "enterprise_id": "6a85bad6a8d2133e058c93a9",
+        "name": "Máy tính xách tay Dell Latitude 5420",
+        "alias_names": [
+          "Laptop QA 01",
+          "Dell 5420 QA"
+        ],
+        "asset_code": "TS-2026-0001",
+        "category_id": "6aa2c134da46d70ee2f491bf",
+        "location_id": "6aa2c150da46d70ee2f491c0",
+        "status": "active",
+        "description": "Máy tính cấp phát cho nhân viên QA kiểm thử",
+        "total_quantity": 1,
+        "initial_quantity": 1,
+        "unit": "chiếc",
+        "asset_type": "normal",
+        "is_important": false,
+        "on_blockchain": false,
+        "created_by": "6a85bad6a8d2133e058c93a9",
+        "created_at": 1789051255761,
+        "updated_at": 1789051255761
+      }
+    ],
+    "meta": {
+      "next_cursor": "",
+      "has_next_page": false,
+      "limit": 20
+    }
+  },
+  "message": "Lấy danh sách tài sản thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

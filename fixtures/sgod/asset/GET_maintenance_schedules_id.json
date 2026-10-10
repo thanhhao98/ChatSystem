@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "data": {
+    "schedule": {
+      "id": "6aa2c210da46d70ee2f491d2",
+      "enterprise_id": "6a85bad6a8d2133e058c93a9",
+      "title": "Bảo dưỡng định kỳ quý 4 laptop QA",
+      "status": "active",
+      "frequency": "QUARTERLY",
+      "start_date": "2026-10-01",
+      "end_date": "2026-10-15",
+      "assigned_to": "6a85be56a8d2133e058c93b9",
+      "notes": "Vệ sinh tản nhiệt và kiểm tra pin"
+    }
+  },
+  "message": "Lấy chi tiết lịch bảo trì thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

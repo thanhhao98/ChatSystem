@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "data": {
+    "totalUnread": 2,
+    "conversationUnread": [
+      {
+        "conversationId": "6aa2c5e2e8667af3ad1333ff",
+        "count": 2
+      }
+    ]
+  },
+  "message": "Get unread counts successfully",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

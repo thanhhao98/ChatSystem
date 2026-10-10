@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "statusCode": 403,
+  "error": "FORBIDDEN",
+  "message": "Tài khoản nhân viên (Employee) không có quyền truy cập cấu hình hệ thống cấp doanh nghiệp.",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "data": {
+    "departments": [
+      {
+        "id": "6aa2c310da46d70ee2f491f0",
+        "name": "Khối Công nghệ & Sản phẩm",
+        "code": "TECH_PROD",
+        "level": 1,
+        "children": [
+          {
+            "id": "6aa2c315da46d70ee2f491f1",
+            "name": "Phòng Đảm bảo chất lượng (QA)",
+            "code": "QA_DEPT",
+            "level": 2,
+            "parent_id": "6aa2c310da46d70ee2f491f0",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "message": "Lấy cơ cấu phòng ban thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

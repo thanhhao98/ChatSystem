@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "data": {
+    "roles": [
+      {
+        "id": "6aa2c330da46d70ee2f491f5",
+        "name": "Quản trị viên thiết bị",
+        "code": "ASSET_ADMIN",
+        "description": "Toàn quyền quản trị tài sản và điều phối bảo trì",
+        "is_system": true
+      },
+      {
+        "id": "6aa2c335da46d70ee2f491f6",
+        "name": "Nhân viên sử dụng tài sản",
+        "code": "ASSET_USER",
+        "description": "Xem tài sản được giao và gửi yêu cầu bàn giao/bảo trì",
+        "is_system": true
+      }
+    ]
+  },
+  "message": "Lấy danh sách vai trò thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

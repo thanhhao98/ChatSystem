@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6aa2c230da46d70ee2f491d5",
+        "schedule_id": "6aa2c210da46d70ee2f491d2",
+        "asset_id": "6aa2c177da46d70ee2f491c1",
+        "title": "Vệ sinh và tra keo tản nhiệt",
+        "status": "completed",
+        "assigned_to": "6a85be56a8d2133e058c93b9"
+      }
+    ],
+    "meta": {
+      "next_cursor": "",
+      "has_next_page": false,
+      "limit": 20
+    }
+  },
+  "message": "Lấy danh sách công việc bảo trì thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}

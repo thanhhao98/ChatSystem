@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "data": {
+    "transfer": {
+      "id": "6aa2c280da46d70ee2f491e0",
+      "enterprise_id": "6a85bad6a8d2133e058c93a9",
+      "asset_id": "6aa2c177da46d70ee2f491c1",
+      "transfer_code": "BG-2026-0005",
+      "from_location_id": "6aa2c150da46d70ee2f491c0",
+      "to_location_id": "6aa2c155da46d70ee2f491c5",
+      "sender_id": "6a85bad6a8d2133e058c93a9",
+      "receiver_id": "6a85be56a8d2133e058c93b9",
+      "status": "completed",
+      "description": "Bàn giao tài sản sang phòng QA cơ sở 2"
+    }
+  },
+  "message": "Lấy chi tiết phiếu chuyển giao thành công",
+  "timestamp": "2026-10-10T14:40:00.000Z"
+}
