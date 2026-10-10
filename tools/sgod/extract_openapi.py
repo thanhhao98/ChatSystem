@@ -3,7 +3,7 @@
 tools/sgod/extract_openapi.py
 
 Script tự động trích xuất, khử bí mật (sanitization) và lập bảng query parameters
-từ Swagger UI Gateway nội bộ của SGOD.
+từ Swagger UI Gateway nội bộ của SGOD (auth, asset, chat).
 
 Cách cấu hình địa chỉ Gateway (chọn 1 trong 2 cách):
   1. Biến môi trường:
@@ -33,8 +33,9 @@ SERVICE_PATHS = {
     "chat": "/swagger/v1/chat-service/swagger-ui-init.js",
 }
 
-# Danh sách các read-only endpoints (GET) trọng tâm cần xây dựng bảng tham số
+# Danh sách các read-only endpoints (GET) trọng tâm của cả 3 services (asset, auth, chat)
 TARGET_ENDPOINTS = [
+    # 1. Asset Service
     ("asset", "/sgod-asset/v1/assets"),
     ("asset", "/sgod-asset/v1/assets/{id}"),
     ("asset", "/sgod-asset/v1/assets/suggest"),
@@ -49,11 +50,16 @@ TARGET_ENDPOINTS = [
     ("asset", "/sgod-asset/v1/asset-transfers/{id}"),
     ("asset", "/sgod-asset/v1/request-staff"),
     ("asset", "/sgod-asset/v1/locations"),
+    # 2. Auth Service
     ("auth", "/sgod-auth/v1/users/myself"),
     ("auth", "/sgod-auth/v1/departments/tree"),
     ("auth", "/sgod-auth/v1/enterprises/profile"),
     ("auth", "/sgod-auth/v1/roles"),
     ("auth", "/sgod-auth/v1/enterprise-users"),
+    # 3. Chat Service (Mọi role đều được sử dụng)
+    ("chat", "/sgod-chat/v1/conversations"),
+    ("chat", "/sgod-chat/v1/conversations/unread-counts"),
+    ("chat", "/sgod-chat/v1/messages"),
 ]
 
 
@@ -108,7 +114,7 @@ def generate_query_params_table(specs: dict, out_file: str):
     lines = [
         "# Bảng tham số truy vấn SGOD (Query Parameters Table)",
         "",
-        "> Sinh tự động từ `openapi-auth.json`, `openapi-asset.json`, `openapi-chat.json` phục vụ nhóm Data (D Việc 1) xây dựng Entity Pools và Param Sampler.",
+        "> Sinh tự động từ `openapi-auth.json`, `openapi-asset.json`, `openapi-chat.json` phục vụ nhóm Data (D Việc 1) xây dựng Entity Pools và Param Sampler cho cả 3 services: Asset, Auth, Chat.",
         "",
         "| # | Dịch vụ | Phương thức | Đường dẫn API (Path) | Tham số truy vấn (Query / Path / Header) | Kiểu dữ liệu | Giá trị Enum / Ràng buộc | Mục đích & Ý nghĩa |",
         "|---|---|---|---|---|---|---|---|",
@@ -161,7 +167,6 @@ def generate_query_params_table(specs: dict, out_file: str):
         "|---|---|---|---|---|",
         "| `asset` | `GET` | `/sgod-asset/v1/maintenance/schedules/count-by-tab` | HTTP 500 | Lỗi server nội bộ, không gọi được |",
         "| `asset` | `GET` | `/sgod-asset/v1/inventory/overview` | HTTP 500 / Timeout | Endpoint chưa hoàn thiện |",
-        "| `chat` | `GET` | `/sgod-chat/v1/conversations` (non-owner) | HTTP 500 | Token non-owner bị lỗi 500, chỉ admin mới dùng được |",
     ])
 
     with open(out_file, "w", encoding="utf-8") as f:
@@ -178,32 +183,42 @@ def main():
     parser.add_argument("--out-dir", default="docs/sgod", help="Thư mục xuất kết quả")
     args = parser.parse_args()
 
-    gateway = args.gateway.rstrip("/")
-    if not gateway:
-        print("[!] Lỗi: Chưa cung cấp địa chỉ Gateway.")
-        print("    Vui lòng dùng: export SGOD_GATEWAY=\"http://<IP_GATEWAY>:5000\" hoặc thêm cờ --gateway")
-        sys.exit(1)
-
-    os.makedirs(args.out_dir, exist_ok=True)
+    # Nếu không truyền qua CLI hay env, kiểm tra xem có specs sẵn trong out-dir để tái lập bảng không
     specs = {}
+    out_dir = args.out_dir
+    os.makedirs(out_dir, exist_ok=True)
 
-    for svc, rel_path in SERVICE_PATHS.items():
-        url = gateway + rel_path
-        print(f"[*] Đang tải {svc} từ endpoint...")
-        try:
-            doc = fetch_spec(url, gateway_host=gateway)
-            specs[svc] = doc
-            out_json = os.path.join(args.out_dir, f"openapi-{svc}.json")
-            with open(out_json, "w", encoding="utf-8") as f:
-                json.dump(doc, f, indent=2, ensure_ascii=False)
-            print(f"  -> Đã lưu {out_json} ({len(doc.get('paths', {}))} paths)")
-        except Exception as e:
-            print(f"  -> Lỗi khi tải {svc}: {e}")
+    gateway = args.gateway.rstrip("/")
+    if gateway:
+        for svc, rel_path in SERVICE_PATHS.items():
+            url = gateway + rel_path
+            print(f"[*] Đang tải {svc} từ endpoint...")
+            try:
+                doc = fetch_spec(url, gateway_host=gateway)
+                specs[svc] = doc
+                out_json = os.path.join(out_dir, f"openapi-{svc}.json")
+                with open(out_json, "w", encoding="utf-8") as f:
+                    json.dump(doc, f, indent=2, ensure_ascii=False)
+                print(f"  -> Đã lưu {out_json} ({len(doc.get('paths', {}))} paths)")
+            except Exception as e:
+                print(f"  -> Lỗi khi tải {svc}: {e}")
+    else:
+        # Tải từ files spec có sẵn trong docs/sgod
+        print("[*] Không có tham số --gateway, đang đọc specs từ tệp cục bộ...")
+        for svc in SERVICE_PATHS.keys():
+            spec_file = os.path.join(out_dir, f"openapi-{svc}.json")
+            if os.path.exists(spec_file):
+                with open(spec_file, "r", encoding="utf-8") as fp:
+                    specs[svc] = json.load(fp)
+                print(f"  -> Đã nạp {spec_file} ({len(specs[svc].get('paths', {}))} paths)")
+            else:
+                print(f"[!] Không tìm thấy {spec_file}. Vui lòng cung cấp --gateway.")
+                sys.exit(1)
 
-    out_table = os.path.join(args.out_dir, "query_params.md")
+    out_table = os.path.join(out_dir, "query_params.md")
     print(f"[*] Đang tạo bảng tham số: {out_table}...")
     generate_query_params_table(specs, out_table)
-    print("  -> Hoàn tất tạo query_params.md")
+    print("  -> Hoàn tất tạo query_params.md với đầy đủ 3 services (asset, auth, chat)")
 
 
 if __name__ == "__main__":
