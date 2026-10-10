@@ -1,0 +1,2713 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "check",
+        "parameters": [
+          {
+            "name": "service",
+            "required": false,
+            "in": "query",
+            "description": "Specific service to check (auth, chat, upload, notification, mailer, payment, proposal)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeDetails",
+            "required": false,
+            "in": "query",
+            "description": "Include detailed information",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Service is healthy"
+          },
+          "503": {
+            "description": "Service is unhealthy"
+          }
+        },
+        "summary": "Health check endpoint - Supports auth, chat, upload, notification, mailer, payment, proposal",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/health/grpc": {
+      "get": {
+        "operationId": "checkGrpc",
+        "parameters": [
+          {
+            "name": "service",
+            "required": false,
+            "in": "query",
+            "description": "Specific gRPC service to check (auth, chat, upload, notification, mailer, payment)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeDetails",
+            "required": false,
+            "in": "query",
+            "description": "Include detailed information",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "gRPC service is healthy"
+          },
+          "503": {
+            "description": "gRPC service is unhealthy"
+          }
+        },
+        "summary": "Check gRPC connection health - Supports auth, chat, upload, notification, mailer, payment",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/health/mailer": {
+      "get": {
+        "operationId": "checkMailer",
+        "parameters": [
+          {
+            "name": "includeDetails",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mailer is healthy"
+          },
+          "503": {
+            "description": "Mailer is unhealthy"
+          }
+        },
+        "summary": "Check notification-service mailer health",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/private": {
+      "post": {
+        "description": "Dùng khi FE mở DM 1-1. Body chỉ gửi target member; creator, tenantId và belongTo lấy từ JWT. Nếu DM giữa 2 user đã tồn tại, chat-service trả conversation cũ để FE không tạo trùng inbox.",
+        "operationId": "createPrivateConversation",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePrivateConversationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Get or create a private conversation",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/group": {
+      "post": {
+        "description": "Tạo group mới. FE gửi title, members và optional logoId/description/settings. Creator lấy từ JWT và trở thành owner. Members cần userId và belongTo để backend kiểm tra quyền thêm người khác phạm vi.",
+        "operationId": "createGroupConversation",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGroupConversationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Create a new group conversation",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations": {
+      "get": {
+        "description": "Lấy danh sách conversation của current user. Dùng cursor/limit để phân trang, type để lọc group, dm (hoặc private) hoặc all (lấy tất cả), inboxFolder để lọc thư mục (active: hộp thư chính, archived: kho lưu trữ, all: tất cả), searchText để tìm kiếm.",
+        "operationId": "getConversations",
+        "parameters": [
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor phân trang trả về từ response trước đó.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo loại conversation: group, private (hỗ trợ alias dm), all (hoặc để trống để lấy tất cả).",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "group",
+                "private",
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "description": "Từ khóa tìm theo title/group hoặc thông tin đối phương trong DM.",
+            "schema": {
+              "maxLength": 255,
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số conversation mỗi trang, từ 1 đến 100. Default 20.",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "inboxFolder",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo thư mục kho: active (mặc định - hộp thư chính), archived (kho lưu trữ), all (tất cả).",
+            "schema": {
+              "default": "active",
+              "type": "string",
+              "enum": [
+                "active",
+                "archived",
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Thứ tự sắp xếp theo thời gian cập nhật, thường dùng desc để mới nhất trước.",
+            "schema": {
+              "default": "desc",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get conversations with pagination",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/unread-counts": {
+      "get": {
+        "description": "Lấy unread theo các conversationIds tùy chọn. Không truyền conversationIds thì lấy các conversation active gần nhất của user.",
+        "operationId": "getUnreadCounts",
+        "parameters": [
+          {
+            "name": "conversationIds",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxItems": 100,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get unread counts",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{id}": {
+      "get": {
+        "description": "Lấy metadata chi tiết của một conversation gồm members, settings và pinned messages. Chỉ participant có quyền xem.",
+        "operationId": "getConversationById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get conversation by ID",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      },
+      "patch": {
+        "description": "Cập nhật thông tin hiển thị của group như title, description hoặc logoId. Chat-service yêu cầu owner/admin hoặc creator tùy policy.",
+        "operationId": "updateConversation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateConversationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update conversation",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{id}/settings": {
+      "patch": {
+        "description": "Cập nhật quyền của group như gửi file, reaction, poll, pin message hoặc member gửi tin. Chỉ owner được update settings; private conversation không cho update group settings.",
+        "operationId": "updateConversationSettings",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateConversationSettingsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update conversation settings",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{id}/transfer-ownership": {
+      "post": {
+        "description": "Chuyển owner group sang participant active khác. Chỉ owner hiện tại được gọi. Sau khi thành công FE nên refresh participant roles.",
+        "operationId": "transferOwnership",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransferOwnershipDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Transfer conversation ownership",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{id}/disband": {
+      "delete": {
+        "description": "Giải tán hoặc xóa group ở cấp conversation. Chỉ group owner được gọi. FE nên confirm trước khi gọi.",
+        "operationId": "disbandConversation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Disband a conversation",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{id}/disappearing": {
+      "patch": {
+        "description": "Cấu hình message tự biến mất theo số giây. Giá trị 0 tắt disappearing messages. Private cho member set; group yêu cầu owner/admin.",
+        "operationId": "setDisappearing",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetConversationDisappearingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Set disappearing messages",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{id}/pinned-messages": {
+      "post": {
+        "description": "Pin message vào metadata conversation. Owner/admin luôn có quyền; member chỉ được pin nếu setting allowMemberMessagePinning bật.",
+        "operationId": "pinMessage",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversationMessagePinDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Pin message in conversation",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{id}/pinned-messages/{messageId}": {
+      "delete": {
+        "description": "Gỡ message khỏi pinned messages. Owner/admin hoặc creator có thể gỡ; member thường chỉ gỡ pin do chính mình tạo nếu setting cho phép.",
+        "operationId": "unpinMessage",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Unpin message in conversation",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{id}/enable-e2ee": {
+      "post": {
+        "description": "Bật/tắt E2EE. Khi bật, FE cần xử lý public key và group key trước khi gửi encrypted message.",
+        "operationId": "enableE2EE",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnableE2EEDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Enable/Disable E2EE for conversation",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{id}/group-key": {
+      "post": {
+        "description": "Lưu encrypted group key cho conversation đã bật E2EE. FE tạo key, mã hóa theo participant public keys rồi gửi string key cho backend.",
+        "operationId": "addGroupKey",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddGroupKeyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Add group key for E2EE",
+        "tags": [
+          "Chat - Conversations"
+        ]
+      }
+    },
+    "/sgod-chat/v1/messages": {
+      "get": {
+        "description": "Tải lịch sử message của một conversation. FE gửi conversationId, cursor, limit và sort. Dùng desc cho trang đầu mới nhất; scroll lên dùng cursor để lấy cũ hơn.",
+        "operationId": "getMessages",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "query",
+            "description": "Conversation cần tải lịch sử message. User phải là participant.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor phân trang trả về từ response trước đó.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số message mỗi trang. Default 20.",
+            "schema": {
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "asc để cũ trước, desc để mới trước. UI chat thường dùng desc khi load trang đầu.",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Từ khóa lọc nhẹ nếu backend hỗ trợ. Search full-text nên dùng endpoint /messages/search.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "senderId",
+            "required": false,
+            "in": "query",
+            "description": "Lọc message theo sender nếu backend hỗ trợ.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get messages by conversation",
+        "tags": [
+          "Chat - Messages"
+        ]
+      }
+    },
+    "/sgod-chat/v1/messages/search": {
+      "get": {
+        "description": "Search full-text trong conversation. FE gửi keyword đã trim, conversationId, limit và cursor. Chỉ trả message current user có quyền xem.",
+        "operationId": "searchMessages",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "query",
+            "description": "Conversation cần search message.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "required": true,
+            "in": "query",
+            "description": "Từ khóa search full-text. FE nên trim trước khi gọi.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số kết quả mỗi trang. Default 20.",
+            "schema": {
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor phân trang trả về từ response trước đó.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Search messages",
+        "tags": [
+          "Chat - Messages"
+        ]
+      }
+    },
+    "/sgod-chat/v1/messages/count-unread-message": {
+      "get": {
+        "operationId": "countUnreadMessages",
+        "parameters": [
+          {
+            "name": "conversationIds",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxItems": 100,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Count unread messages",
+        "tags": [
+          "Chat - Messages"
+        ]
+      }
+    },
+    "/sgod-chat/v1/messages/{id}": {
+      "get": {
+        "description": "Lấy chi tiết một message theo id. Dùng khi mở deep link, jump tới search result hoặc refresh một message sau realtime event.",
+        "operationId": "getMessageById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get message by ID",
+        "tags": [
+          "Chat - Messages"
+        ]
+      }
+    },
+    "/sgod-chat/v1/settings/current": {
+      "get": {
+        "description": "Lấy setting chat của current user (tự động khởi tạo mặc định nếu chưa tồn tại).",
+        "operationId": "getCurrentSetting",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get Current User Setting",
+        "tags": [
+          "Chat - Settings"
+        ]
+      },
+      "patch": {
+        "description": "Cập nhật một phần setting chat của current user.",
+        "operationId": "updateCurrentSetting",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSettingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update Current User Setting",
+        "tags": [
+          "Chat - Settings"
+        ]
+      },
+      "delete": {
+        "description": "Xóa setting chat của current user.",
+        "operationId": "deleteCurrentSetting",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Delete Current User Setting",
+        "tags": [
+          "Chat - Settings"
+        ]
+      }
+    },
+    "/sgod-chat/v1/poolings": {
+      "get": {
+        "description": "Lấy danh sách poll trong conversation. FE gửi conversationId, cursor, limit và sort. User phải là participant và tenantId lấy từ JWT.",
+        "operationId": "getPoolings",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": false,
+            "in": "query",
+            "description": "Lọc poll theo conversation. Endpoint list cần field này.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor phân trang trả về từ response trước đó.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số poll mỗi trang. Default 10.",
+            "schema": {
+              "default": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Thứ tự sắp xếp, thường dùng DESC để poll mới nhất trước.",
+            "schema": {
+              "default": "desc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get Poolings",
+        "tags": [
+          "Chat - Poolings"
+        ]
+      }
+    },
+    "/sgod-chat/v1/poolings/{id}/results": {
+      "get": {
+        "description": "Lấy kết quả vote của poll. Nếu poll anonymous, FE không nên hiển thị danh tính voter.",
+        "operationId": "getPoolingResults",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get Pooling Results",
+        "tags": [
+          "Chat - Poolings"
+        ]
+      }
+    },
+    "/sgod-chat/v1/poolings/{id}": {
+      "get": {
+        "description": "Lấy chi tiết một poll gồm options, trạng thái đóng/mở và vote context nếu backend trả.",
+        "operationId": "getPoolingById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get Pooling by ID",
+        "tags": [
+          "Chat - Poolings"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants": {
+      "get": {
+        "description": "Lấy danh sách member để render member list, role badge, nickname và trạng thái participant. Current user phải xem được conversation.",
+        "operationId": "getParticipants",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "List all participants in conversation",
+        "tags": [
+          "Chat - Participants"
+        ]
+      },
+      "post": {
+        "description": "Thêm user vào group. FE gửi members[] gồm userId, belongTo và optional tenantId. Owner/admin được thêm trực tiếp; member phụ thuộc allowInvites và requireApproval.",
+        "operationId": "addMembers",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMembersDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Add members to conversation",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/members": {
+      "get": {
+        "description": "Lấy danh sách member để render member list và hỗ trợ FE gõ autocomplete @mention. Current user phải xem được conversation.",
+        "operationId": "getMembers",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "List all members in conversation (alias for participants, for @mention autocomplete)",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/me": {
+      "get": {
+        "description": "Lấy participant record của current user trong conversation, gồm role, nickname, trạng thái mute/pin/archive và unreadCount.",
+        "operationId": "getMyParticipant",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get my participant in conversation",
+        "tags": [
+          "Chat - Participants"
+        ]
+      },
+      "delete": {
+        "description": "Current user tự rời group. FE nên confirm vì sau khi leave user mất quyền nhận message mới.",
+        "operationId": "leaveParticipant",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Leave conversation (Self actions)",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/me/join": {
+      "post": {
+        "description": "Current user tự join hoặc rejoin conversation nếu backend cho phép. User bị banned không được rejoin.",
+        "operationId": "joinParticipant",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Join conversation (Self actions)",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/{targetUserId}": {
+      "delete": {
+        "description": "Kick một member khỏi group. Chỉ owner/admin được remove người khác; không dùng endpoint này cho tự leave.",
+        "operationId": "deleteParticipant",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "targetUserId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Remove a specific member (Admin actions)",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/{targetUserId}/role": {
+      "patch": {
+        "description": "Promote member thành admin hoặc demote admin về member. Chỉ owner được đổi role; chuyển owner dùng endpoint transfer ownership.",
+        "operationId": "updateParticipantRole",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "targetUserId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateParticipantRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update participant role",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/me/archive": {
+      "patch": {
+        "description": "Archive/unarchive conversation cho current user, không ảnh hưởng participant khác. Auto-unarchive có thể đưa lại inbox khi có message mới.",
+        "operationId": "updateArchiveStatus",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isArchived": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "isArchived"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update Archive status",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/me/auto-unarchive": {
+      "patch": {
+        "description": "Bật/tắt việc tự đưa conversation ra khỏi archive khi có message mới. Đây là preference riêng của current user.",
+        "operationId": "updateAutoUnarchive",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAutoUnarchiveDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update Auto-Unarchive status",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/me/mute": {
+      "patch": {
+        "description": "Mute/unmute notification của conversation cho current user. Khi `isMuted` = true phải gửi `duration` là một preset keyword; nếu không gửi `duration` backend sẽ xử lý là indefinite (vĩnh viễn). Accepted preset keywords: `ONE_HOUR`, `EIGHT_HOURS`, `ONE_DAY`, `ONE_WEEK`, `FOREVER`.",
+        "operationId": "updateMuteStatus",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateParticipantMuteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update Mute status",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/me/pin": {
+      "patch": {
+        "description": "Pin/unpin conversation lên đầu danh sách của current user. Đây là preference riêng, không ảnh hưởng participant khác.",
+        "operationId": "updatePinStatus",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isPinned": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update Pin status",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/me/public-key": {
+      "post": {
+        "description": "Đăng ký public key E2EE của current user cho conversation. FE gọi trước khi bật/gửi message encrypted hoặc khi rotate key.",
+        "operationId": "addPublicKey",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Add my public key for E2EE in this conversation",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/participants/me/nickname": {
+      "patch": {
+        "description": "Cập nhật nickname hiển thị của participant trong conversation. Body userId là người được đặt nickname, updatedBy lấy từ JWT.",
+        "operationId": "updateNickname",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNicknameDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update my nickname or someone else nickname in this conversation",
+        "tags": [
+          "Chat - Participants"
+        ]
+      }
+    },
+    "/sgod-chat/v1/reactions": {
+      "get": {
+        "description": "Lấy danh sách reaction của một message có phân trang. Dùng cho popover người đã react hoặc tổng hợp reaction trên message.",
+        "operationId": "getReactions",
+        "parameters": [
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "query",
+            "description": "Message cần lấy danh sách reactions.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor phân trang trả về từ response trước đó.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số reaction item mỗi trang. Default 20.",
+            "schema": {
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "Thứ tự sắp xếp reaction, thường dùng desc để mới nhất trước.",
+            "schema": {
+              "default": "desc",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get Reactions",
+        "tags": [
+          "Chat - Reactions"
+        ]
+      }
+    },
+    "/sgod-chat/v1/reactions/{messageId}": {
+      "get": {
+        "description": "Kiểm tra current user đã react message này chưa để FE render selected state hoặc nút bỏ reaction.",
+        "operationId": "getReactionsByMessageId",
+        "parameters": [
+          {
+            "name": "messageId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get My Reaction",
+        "tags": [
+          "Chat - Reactions"
+        ]
+      }
+    },
+    "/sgod-chat/v1/sync/snapshot": {
+      "get": {
+        "description": "Lấy snapshot ban đầu khi app khởi động hoặc sau khi mất local cache. FE dùng để dựng inbox/message cache trước realtime.",
+        "operationId": "getSnapshot",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số conversation/message bundle ban đầu cần lấy khi app khởi động. Default 20.",
+            "schema": {
+              "minimum": 1,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get initial chat snapshot",
+        "tags": [
+          "Chat - Sync"
+        ]
+      }
+    },
+    "/sgod-chat/v1/sync/delta": {
+      "get": {
+        "description": "Lấy thay đổi tăng dần từ mốc since cho một device session. Dùng sau reconnect, resume tab hoặc cần bù event realtime bị miss.",
+        "operationId": "getDelta",
+        "parameters": [
+          {
+            "name": "since",
+            "required": true,
+            "in": "query",
+            "description": "Mốc thời gian sync cuối cùng của client, dạng timestamp/ISO string theo response trước.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "deviceSessionId",
+            "required": false,
+            "in": "query",
+            "description": "ID phiên thiết bị/tab. FE nên gửi ổn định để backend trả delta đúng checkpoint.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get chat delta updates",
+        "tags": [
+          "Chat - Sync"
+        ]
+      }
+    },
+    "/sgod-chat/v1/sync/messages": {
+      "get": {
+        "description": "Đồng bộ message cho một conversation theo checkpoint thiết bị. FE gửi lastSyncedMessageId hoặc lastSyncedAt, backend trả batch mới và cập nhật sync state.",
+        "operationId": "syncMessages",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "query",
+            "description": "Conversation cần đồng bộ message.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "deviceSessionId",
+            "required": false,
+            "in": "query",
+            "description": "ID phiên thiết bị/tab. Nếu không gửi, gateway lấy header x-device-session-id/x-device-id hoặc web-default.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastSyncedMessageId",
+            "required": false,
+            "in": "query",
+            "description": "Message cuối cùng client đã đồng bộ. Dùng để lấy các message mới hơn checkpoint.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastSyncedAt",
+            "required": false,
+            "in": "query",
+            "description": "Thời điểm client sync gần nhất, dạng ISO/timestamp theo response trước.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số message tối đa trả về, từ 1 đến 200. Default 50.",
+            "schema": {
+              "minimum": 1,
+              "maximum": 200,
+              "default": 50,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Sync messages for one conversation",
+        "tags": [
+          "Chat - Sync"
+        ]
+      }
+    },
+    "/sgod-chat/v1/sync/state": {
+      "get": {
+        "description": "Lấy checkpoint sync hiện tại của conversation trên deviceSessionId. Dùng để debug hoặc quyết định có cần gọi sync messages không.",
+        "operationId": "getMessageSyncState",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "query",
+            "description": "Conversation cần xem checkpoint sync.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "deviceSessionId",
+            "required": true,
+            "in": "query",
+            "description": "ID phiên thiết bị/tab cần lấy state.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get message sync state for one conversation/device session",
+        "tags": [
+          "Chat - Sync"
+        ]
+      }
+    },
+    "/sgod-chat/v1/recipients/update": {
+      "post": {
+        "description": "Cập nhật trạng thái star/bookmark riêng cho current user. Delete-for-me dùng WS message:delete với scope me.",
+        "operationId": "updateRecipient",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRecipientDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Update user message state",
+        "tags": [
+          "Chat - Recipients"
+        ]
+      }
+    },
+    "/sgod-chat/v1/recipients": {
+      "get": {
+        "description": "Lấy state riêng của current user cho nhiều message trong conversation. FE truyền messageIds dạng chuỗi phân tách bằng dấu phẩy.",
+        "operationId": "getRecipients",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "messageIds",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get user message states",
+        "tags": [
+          "Chat - Recipients"
+        ]
+      }
+    },
+    "/sgod-chat/v1/recipients/starred": {
+      "get": {
+        "description": "Lấy danh sách message đã star/bookmark của current user với cursor pagination.",
+        "operationId": "getStarredMessages",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số starred message mỗi trang. Default 20.",
+            "schema": {
+              "minimum": 1,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor phân trang trả về từ response trước đó.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get starred messages",
+        "tags": [
+          "Chat - Recipients"
+        ]
+      }
+    },
+    "/sgod-chat/v1/user-blocks/block": {
+      "post": {
+        "description": "Current user chặn target user. Sau khi block, FE nên chặn gửi message/hiển thị action tương tác với target tùy rule sản phẩm.",
+        "operationId": "blockUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlockUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Block a user",
+        "tags": [
+          "Chat - User Blocks"
+        ]
+      }
+    },
+    "/sgod-chat/v1/user-blocks/unblock": {
+      "post": {
+        "description": "Bỏ chặn target user khỏi block list của current user. Sau khi thành công FE refresh block status và block list.",
+        "operationId": "unblockUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnblockUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Unblock a user",
+        "tags": [
+          "Chat - User Blocks"
+        ]
+      }
+    },
+    "/sgod-chat/v1/user-blocks": {
+      "get": {
+        "description": "Lấy danh sách user mà current user đã block với cursor pagination.",
+        "operationId": "listBlocked",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số user bị chặn mỗi trang. Default 20.",
+            "schema": {
+              "minimum": 1,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor phân trang trả về từ response trước đó.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "List blocked users",
+        "tags": [
+          "Chat - User Blocks"
+        ]
+      }
+    },
+    "/sgod-chat/v1/user-blocks/status": {
+      "get": {
+        "description": "Kiểm tra quan hệ block giữa current user và target user. Dùng trước khi render composer/action.",
+        "operationId": "checkBlockStatus",
+        "parameters": [
+          {
+            "name": "targetId",
+            "required": true,
+            "in": "query",
+            "description": "User ID cần kiểm tra quan hệ block với current user.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "targetBelongTo",
+            "required": true,
+            "in": "query",
+            "description": "belongTo của người cần kiểm tra.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Check block status",
+        "tags": [
+          "Chat - User Blocks"
+        ]
+      }
+    },
+    "/sgod-chat/v1/conversations/{conversationId}/drafts": {
+      "get": {
+        "description": "Lấy draft riêng của current user trong conversation. Draft không gửi cho participant khác.",
+        "operationId": "getDraft",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get message draft for a conversation",
+        "tags": [
+          "Chat - Drafts"
+        ]
+      },
+      "put": {
+        "description": "Lưu hoặc ghi đè draft text của current user. FE nên debounce khi user gõ để tránh gọi quá nhiều.",
+        "operationId": "setDraft",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetDraftDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Save message draft for a conversation",
+        "tags": [
+          "Chat - Drafts"
+        ]
+      },
+      "delete": {
+        "description": "Xóa draft của current user, thường gọi sau khi gửi message thành công hoặc user bấm discard.",
+        "operationId": "clearDraft",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Clear message draft for a conversation",
+        "tags": [
+          "Chat - Drafts"
+        ]
+      }
+    },
+    "/sgod-chat/v1/reports": {
+      "post": {
+        "description": "Gửi report lạm dụng cho MESSAGE, USER hoặc CONVERSATION. Danh tính người báo cáo được trích xuất an toàn từ JWT; client không truyền reporterId.",
+        "operationId": "createReport",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReportDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Submit an abuse report",
+        "tags": [
+          "Chat - Reports"
+        ]
+      },
+      "get": {
+        "description": "Lấy danh sách report trong tenant cho moderation, lọc theo status, targetType, targetId, reporterId và cursor/limit.",
+        "operationId": "listReports",
+        "parameters": [
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo trạng thái report: OPEN, REVIEWED hoặc DISMISSED.",
+            "schema": {
+              "enum": [
+                "OPEN",
+                "REVIEWED",
+                "DISMISSED"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "targetType",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo loại đối tượng bị report.",
+            "schema": {
+              "enum": [
+                "MESSAGE",
+                "USER",
+                "CONVERSATION"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "reporterId",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo user đã gửi report.",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "targetId",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo ID đối tượng bị report (messageId, userId, conversationId).",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số report mỗi trang, từ 1 đến 100.",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "type": "number"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor phân trang trả về từ response trước đó.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "List reports for moderation (tenant-scoped)",
+        "tags": [
+          "Chat - Reports"
+        ]
+      }
+    },
+    "/sgod-chat/v1/reports/me": {
+      "get": {
+        "description": "Lấy các report do chính user hiện tại đã gửi với cursor pagination.",
+        "operationId": "listMyReports",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Số report của tôi mỗi trang, từ 1 đến 100.",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor phân trang trả về từ response trước đó.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "List reports submitted by the current user",
+        "tags": [
+          "Chat - Reports"
+        ]
+      }
+    },
+    "/sgod-chat/v1/reports/{reportId}": {
+      "get": {
+        "description": "Lấy chi tiết một report trong tenant. Quyền truy cập được chat-service kiểm tra (người báo cáo hoặc kiểm duyệt viên).",
+        "operationId": "getReport",
+        "parameters": [
+          {
+            "name": "reportId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get a report by ID (tenant-scoped)",
+        "tags": [
+          "Chat - Reports"
+        ]
+      }
+    },
+    "/sgod-chat/v1/reports/{reportId}/status": {
+      "patch": {
+        "description": "Moderation cập nhật status report sang REVIEWED hoặc DISMISSED kèm resolutionNote tùy chọn. Không set ngược về OPEN.",
+        "operationId": "updateReportStatus",
+        "parameters": [
+          {
+            "name": "reportId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReportStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Update report status (moderation)",
+        "tags": [
+          "Chat - Reports"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Chat Service API",
+    "description": "Chat and messaging endpoints - Conversations, messages, reactions, votes WebSocket clustering is Redis-backed, but gateway startup does not wait for Redis; the adapter reconnects automatically and falls back to in-memory mode while Redis is unavailable.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "components": {
+    "schemas": {
+      "CreatePrivateConversationDto": {
+        "type": "object",
+        "properties": {
+          "member": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "string",
+                "minLength": 1,
+                "description": "ID user được thêm vào conversation. Phải là Mongo ObjectId 24 ký tự."
+              },
+              "belongTo": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Đơn vị/phạm vi mà user thuộc về, dùng để chat-service kiểm tra quyền cross-belongTo."
+              },
+              "tenantId": {
+                "description": "Tenant của member nếu khác tenant hiện tại. Thường FE không cần gửi nếu cùng tenant từ JWT.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "userId",
+              "belongTo"
+            ],
+            "description": "Người còn lại trong DM. Creator lấy từ JWT nên FE chỉ gửi target member."
+          }
+        },
+        "required": [
+          "member"
+        ]
+      },
+      "CreateGroupConversationDto": {
+        "type": "object",
+        "properties": {
+          "members": {
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "ID user được thêm vào conversation. Phải là Mongo ObjectId 24 ký tự."
+                },
+                "belongTo": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Đơn vị/phạm vi mà user thuộc về, dùng để chat-service kiểm tra quyền cross-belongTo."
+                },
+                "tenantId": {
+                  "description": "Tenant của member nếu khác tenant hiện tại. Thường FE không cần gửi nếu cùng tenant từ JWT.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "userId",
+                "belongTo"
+              ]
+            },
+            "description": "Danh sách member ban đầu ngoài creator. Group cần ít nhất 2 member trong body."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Tên group hiển thị trên UI, tối đa 100 ký tự."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Mô tả group, tối đa 500 ký tự. Gửi null để bỏ mô tả.",
+            "nullable": true
+          },
+          "logoId": {
+            "description": "Asset/file id của avatar group. Gửi null để xóa logo.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "allowInvites": {
+                "description": "Cho phép member thường mời thêm người vào group. Owner/admin luôn có quyền mời.",
+                "type": "boolean"
+              },
+              "requireApproval": {
+                "description": "Nếu bật, lời mời của member thường cần quy trình duyệt; owner/admin không bị chặn bởi flag này.",
+                "type": "boolean"
+              },
+              "allowFileSharing": {
+                "description": "Cho phép gửi file/attachment trong conversation. Khi false FE nên ẩn hoặc disable nút đính kèm.",
+                "type": "boolean"
+              },
+              "maxParticipants": {
+                "description": "Số participant tối đa của group, từ 2 đến 1000. Private conversation luôn giới hạn 2 người.",
+                "type": "integer",
+                "minimum": 2,
+                "maximum": 1000
+              },
+              "allowMemberMessagePinning": {
+                "description": "Cho phép member thường pin message. Owner/admin vẫn có quyền pin/unpin.",
+                "type": "boolean"
+              },
+              "allowReactions": {
+                "description": "Cho phép reaction trên message. Khi false FE nên ẩn reaction picker.",
+                "type": "boolean"
+              },
+              "allowPolling": {
+                "description": "Cho phép tạo poll trong conversation. Private conversation mặc định không bật poll.",
+                "type": "boolean"
+              },
+              "allowMembersToSendMessages": {
+                "description": "Cho phép member thường gửi message trong group. Owner/admin vẫn được gửi.",
+                "type": "boolean"
+              },
+              "onlyAdminsCanCreatePolls": {
+                "description": "Nếu true, chỉ owner/admin được tạo poll; nếu false, mọi participant active đều có thể tạo poll.",
+                "type": "boolean"
+              }
+            },
+            "description": "Cấu hình quyền của group. Nếu không gửi, chat-service dùng default group settings.",
+            "nullable": true
+          }
+        },
+        "required": [
+          "members",
+          "title"
+        ]
+      },
+      "UpdateConversationDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Tên group mới, tối đa 100 ký tự. Gửi null nếu muốn bỏ title tùy backend cho phép.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Mô tả mới của group, tối đa 500 ký tự. Gửi null để xóa mô tả.",
+            "nullable": true
+          },
+          "logoId": {
+            "description": "Asset/file id avatar mới của group. Gửi null để xóa logo.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tenantId": {
+            "description": "Tenant override nội bộ; FE thường không cần gửi vì lấy từ JWT.",
+            "type": "string"
+          },
+          "belongTo": {
+            "description": "Belong override nội bộ; FE thường không cần gửi vì lấy từ JWT.",
+            "type": "string"
+          }
+        }
+      },
+      "UpdateConversationSettingsDto": {
+        "type": "object",
+        "properties": {
+          "settings": {
+            "type": "object",
+            "properties": {
+              "allowInvites": {
+                "description": "Cho phép member thường mời thêm người vào group. Owner/admin luôn có quyền mời.",
+                "type": "boolean"
+              },
+              "requireApproval": {
+                "description": "Nếu bật, lời mời của member thường cần quy trình duyệt; owner/admin không bị chặn bởi flag này.",
+                "type": "boolean"
+              },
+              "allowFileSharing": {
+                "description": "Cho phép gửi file/attachment trong conversation. Khi false FE nên ẩn hoặc disable nút đính kèm.",
+                "type": "boolean"
+              },
+              "maxParticipants": {
+                "description": "Số participant tối đa của group, từ 2 đến 1000. Private conversation luôn giới hạn 2 người.",
+                "type": "integer",
+                "minimum": 2,
+                "maximum": 1000
+              },
+              "allowMemberMessagePinning": {
+                "description": "Cho phép member thường pin message. Owner/admin vẫn có quyền pin/unpin.",
+                "type": "boolean"
+              },
+              "allowReactions": {
+                "description": "Cho phép reaction trên message. Khi false FE nên ẩn reaction picker.",
+                "type": "boolean"
+              },
+              "allowPolling": {
+                "description": "Cho phép tạo poll trong conversation. Private conversation mặc định không bật poll.",
+                "type": "boolean"
+              },
+              "allowMembersToSendMessages": {
+                "description": "Cho phép member thường gửi message trong group. Owner/admin vẫn được gửi.",
+                "type": "boolean"
+              },
+              "onlyAdminsCanCreatePolls": {
+                "description": "Nếu true, chỉ owner/admin được tạo poll; nếu false, mọi participant active đều có thể tạo poll.",
+                "type": "boolean"
+              }
+            },
+            "description": "Các setting muốn cập nhật cho group. Chat-service chỉ cho owner cập nhật settings."
+          }
+        },
+        "required": [
+          "settings"
+        ]
+      },
+      "TransferOwnershipDto": {
+        "type": "object",
+        "properties": {
+          "newOwnerId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "User ID của participant active sẽ trở thành owner mới. Chỉ owner hiện tại được transfer."
+          }
+        },
+        "required": [
+          "newOwnerId"
+        ]
+      },
+      "SetConversationDisappearingDto": {
+        "type": "object",
+        "properties": {
+          "disappearingSeconds": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "description": "Thời gian message tự biến mất, tính bằng giây. 0 nghĩa là tắt disappearing messages."
+          }
+        },
+        "required": [
+          "disappearingSeconds"
+        ]
+      },
+      "ConversationMessagePinDto": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Message ID cần pin vào metadata của conversation."
+          }
+        },
+        "required": [
+          "messageId"
+        ]
+      },
+      "EnableE2EEDto": {
+        "type": "object",
+        "properties": {
+          "enable": {
+            "type": "boolean",
+            "description": "true để bật end-to-end encryption, false để tắt. Sau khi bật FE cần xử lý public key/group key."
+          }
+        },
+        "required": [
+          "enable"
+        ]
+      },
+      "AddGroupKeyDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "description": "Encrypted group key do FE tạo và mã hóa, tối đa 1024 ký tự."
+          }
+        },
+        "required": [
+          "key"
+        ]
+      },
+      "UpdateSettingDto": {
+        "type": "object",
+        "properties": {
+          "bio": {
+            "description": "Bio hiển thị trong chat, tối đa 500 ký tự.",
+            "type": "string",
+            "maxLength": 500
+          },
+          "isMute": {
+            "description": "true để mute notification chat cấp user; false để bật lại.",
+            "type": "boolean"
+          },
+          "allowSeen": {
+            "description": "true để cho phép seen/read receipt; false để tắt hiển thị seen.",
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdateMembersDto": {
+        "type": "object",
+        "properties": {
+          "members": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "ID user được thêm vào conversation. Phải là Mongo ObjectId 24 ký tự."
+                },
+                "belongTo": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Đơn vị/phạm vi mà user thuộc về, dùng để chat-service kiểm tra quyền cross-belongTo."
+                },
+                "tenantId": {
+                  "description": "Tenant của member nếu khác tenant hiện tại. Thường FE không cần gửi nếu cùng tenant từ JWT.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "userId",
+                "belongTo"
+              ]
+            },
+            "description": "Danh sách member cần thêm vào group. Mỗi member gồm userId, belongTo và optional tenantId."
+          }
+        },
+        "required": [
+          "members"
+        ]
+      },
+      "UpdateParticipantRoleDto": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "member"
+            ],
+            "description": "Role mới của participant. Chỉ owner được promote/demote admin/member; transfer owner dùng endpoint riêng."
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "SetAutoUnarchiveDto": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "true để auto-unarchive conversation khi có message mới; false để giữ conversation trong archive."
+          }
+        },
+        "required": [
+          "enabled"
+        ]
+      },
+      "UpdateParticipantMuteDto": {
+        "type": "object",
+        "properties": {
+          "isMuted": {
+            "type": "boolean",
+            "description": "true để mute notification, false để unmute notification cho current user."
+          },
+          "duration": {
+            "description": "Preset keyword để mute trong khoảng thời gian định sẵn; nếu không truyền sẽ mặc định FOREVER.",
+            "type": "string",
+            "enum": [
+              "ONE_HOUR",
+              "EIGHT_HOURS",
+              "ONE_DAY",
+              "ONE_WEEK",
+              "FOREVER"
+            ]
+          }
+        },
+        "required": [
+          "isMuted"
+        ]
+      },
+      "UpdateNicknameDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "User trong conversation cần đổi nickname. Có thể là chính mình hoặc user khác nếu backend cho phép."
+          },
+          "nickname": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Nickname hiển thị riêng trong conversation."
+          }
+        },
+        "required": [
+          "userId",
+          "nickname"
+        ]
+      },
+      "UpdateRecipientDto": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Message cần cập nhật trạng thái riêng cho current user."
+          },
+          "conversationId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Conversation chứa message."
+          },
+          "isStarred": {
+            "description": "true để đánh dấu sao/bookmark message cho current user; false để bỏ sao.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "messageId",
+          "conversationId"
+        ]
+      },
+      "BlockUserDto": {
+        "type": "object",
+        "properties": {
+          "blockedId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "User ID bị current user chặn."
+          },
+          "belongTo": {
+            "description": "belongTo của người bị chặn (nếu FE truyền; nếu không truyền sẽ dùng context).",
+            "type": "string"
+          }
+        },
+        "required": [
+          "blockedId"
+        ]
+      },
+      "UnblockUserDto": {
+        "type": "object",
+        "properties": {
+          "blockedId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "User ID cần bỏ chặn."
+          },
+          "belongTo": {
+            "description": "belongTo của người cần bỏ chặn.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "blockedId"
+        ]
+      },
+      "SetDraftDto": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 10000,
+            "description": "Nội dung draft của current user trong conversation, tối đa 10000 ký tự. Draft không gửi cho participant khác."
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "CreateReportDto": {
+        "type": "object",
+        "properties": {
+          "targetType": {
+            "type": "string",
+            "enum": [
+              "MESSAGE",
+              "USER",
+              "CONVERSATION"
+            ],
+            "description": "Loại đối tượng bị report: MESSAGE, USER hoặc CONVERSATION."
+          },
+          "targetId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "ID đối tượng bị report."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "description": "Lý do report do user nhập, từ 1 đến 4000 ký tự."
+          }
+        },
+        "required": [
+          "targetType",
+          "targetId",
+          "reason"
+        ]
+      },
+      "UpdateReportStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "REVIEWED",
+              "DISMISSED"
+            ],
+            "description": "Trạng thái moderation mới. Chỉ cho phép REVIEWED hoặc DISMISSED, không set ngược về OPEN."
+          },
+          "resolutionNote": {
+            "description": "Ghi chú xử lý kiểm duyệt (tối đa 1000 ký tự).",
+            "type": "string",
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+    },
+    "responses": {},
+    "parameters": {},
+    "requestBodies": {},
+    "headers": {},
+    "securitySchemes": {
+      "JWT-auth": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "JWT",
+        "description": "Enter JWT token",
+        "in": "header"
+      },
+      "API-Key-Chat": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "Chat Service API Key (CHAT_API_KEY) - Required for all /sgod-chat/v1, /health endpoints"
+      }
+    }
+  }
+}
