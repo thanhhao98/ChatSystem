@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # PR runs: HEAD is the merge commit, HEAD^1 the base (append-only gate)
 
       - uses: actions/setup-python@v5
         with:
@@ -108,6 +110,42 @@ jobs:
           fi
           # the real INDEX must parse; RUNLOG carries no numbers so this must exit 0
           python scripts/check_provenance.py results/RUNLOG.md
+
+      - name: Contract 4 gate — validate_tools.py; tool_api_mapping.md is generated, never hand-edited
+        run: |
+          python tools/sgod/validate_tools.py
+          python tools/sgod/gen_tool_api_mapping.py --check
+
+      - name: Provenance gate — every committed report (findings/, docs/reports/, results/) is indexed and has 'Ghi chú trục đo'
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            out=$(python scripts/check_provenance.py "$f") || fail=1
+            printf '%s\n' "$out"
+            if echo "$out" | grep -q "axis_note=no"; then
+              echo "::error file=$f::thiếu dòng 'Ghi chú trục đo' ngay dưới tiêu đề (docs/contracts/eval_metric.md §6)"
+              fail=1
+            fi
+          done < <(git -c core.quotePath=false ls-files 'findings/*.md' 'docs/reports/*.md' 'results/*.md' | grep -v -x -e 'results/INDEX.md' -e 'results/RUNLOG.md')
+          exit $fail
+
+      - name: training/recipes/results.csv keeps exactly the contract header
+        run: |
+          expected='arm,model,lora_rank,lr,completion_only,mask_fn_names,epochs,max_rows,seed,steps,wall_clock_min,gpu,tool_name_acc,param_acc,json_valid_rate,ci_lo,ci_hi,results_file,who,date'
+          actual=$(head -1 training/recipes/results.csv | tr -d '\r')
+          if [ "$actual" != "$expected" ]; then
+            echo "::error file=training/recipes/results.csv::header khác hợp đồng (training/recipes/README.md §3) — không thêm/bớt cột"
+            exit 1
+          fi
+
+      - name: results/INDEX.md + RUNLOG.md append-only; INDEX ids strictly increasing
+        if: github.event_name == 'pull_request'
+        run: |
+          if git diff --unified=0 HEAD^1 HEAD -- results/INDEX.md results/RUNLOG.md | grep -E '^-\|'; then
+            echo "::error::results/INDEX.md / RUNLOG.md chỉ được thêm dòng (append-only) — không sửa/xoá dòng cũ"
+            exit 1
+          fi
+          python scripts/check_index_ids.py results/INDEX.md
 
       - name: Secret grep (SGOD credentials via repo secret, OpenAI-style keys)
         env:

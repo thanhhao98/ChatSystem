@@ -79,6 +79,12 @@ python scripts/check_provenance.py <report.md> [--index results/INDEX.md]
 ```
 Mã thoát 1 nếu có phần trăm hoặc `p = …` trong báo cáo không có dòng tương ứng trong INDEX (bỏ qua dòng có `<!-- no-prov -->`).
 
+## scripts/check_index_ids.py  (CPU)
+```
+python scripts/check_index_ids.py [results/INDEX.md]
+```
+Mã thoát 1 nếu id `R###` trong bảng INDEX không duy nhất hoặc không tăng dần theo thứ tự dòng.
+
 ## Định dạng chung
 - Kết quả chấm điểm `results.json`: `{"model", "eval_set", "eval_sha256", "n", "passed", "by_reason", "results": [{"id", "pass", "reason", "expected_tool", "actual_tool", "source", "user_role"}]}`.
 - Mọi tệp dự đoán/kết quả nộp lên repo nằm dưới `results/` và có dòng trong `results/RUNLOG.md`.

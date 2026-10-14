@@ -105,9 +105,12 @@ revert/force-push; bình luận vào issue và chờ quyết định trong issue
 
 **CI (`ci.yml`)** chạy ở mọi PR: `py_compile`; `prompts/*.txt` không chứa `<!--`; `validate_dataset.py` trên bộ công khai;
 `finetune_qlora.py --dry-run --max-len 2560` trên `xlam_2k.train.jsonl` (CPU, chỉ tokenizer) phải `over_limit=0`;
-`eval_toolcall.py` + `bootstrap_ci.py` smoke kèm `--md`; `check_provenance.py` trên fixtures **và** trên hai báo cáo vừa sinh;
-và **grep bí mật** (thông tin thử nghiệm của SGOD, chuỗi giống khóa API kiểu OpenAI; bỏ qua `data/public/` vì văn bản bên
-thứ ba có email mẫu). CI đỏ = chưa được review.
+`eval_toolcall.py` + `bootstrap_ci.py` smoke kèm `--md`; `check_provenance.py` trên fixtures, trên hai báo cáo vừa sinh
+**và trên mọi báo cáo đã commit** (`findings/`, `docs/reports/`, `results/`; thiếu `Ghi chú trục đo` = lỗi);
+`tools/sgod/validate_tools.py` + `gen_tool_api_mapping.py --check`; header `training/recipes/results.csv` đúng hợp đồng;
+`results/INDEX.md` / `RUNLOG.md` chỉ thêm dòng và id `R###` tăng dần (`scripts/check_index_ids.py`);
+và **grep bí mật** (mẫu thông tin thử nghiệm SGOD nằm trong secret `SECRET_GREP_RE` của repo, chuỗi giống khóa API kiểu
+OpenAI; bỏ qua `data/public/` vì văn bản bên thứ ba có email mẫu). CI đỏ = chưa được review.
 
 ## 3. Bí mật
 
