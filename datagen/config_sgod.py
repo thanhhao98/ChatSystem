@@ -203,8 +203,8 @@ ENTITY_POOLS = {
     "location": ["kho tầng 1", "văn phòng tầng 3", "chi nhánh Đà Nẵng", "kho miền Nam"],
     "asset_status": ["active", "inactive"],                             # TODO(D-Việc-3): real enum
     "asset_status_vi": {"active": "đang hoạt động", "inactive": "ngừng sử dụng"},
-    "schedule_status": ["active", "complete"],                          # TODO(D-Việc-3): real enum
-    "schedule_status_vi": {"active": "đang hoạt động", "complete": "đã hoàn tất"},
+    "schedule_status": ["active", "completed"],                         # Swagger + gọi thật 2026-10-14 (draft | active | completed)
+    "schedule_status_vi": {"active": "đang hoạt động", "completed": "đã hoàn tất"},
     "date_phrase": ["hôm nay", "tuần này", "tháng này", "quý này", "30 ngày qua", "tuần trước"],
     "quantity": ["3", "5", "10", "tất cả", "20"],
     "register": ["trang trọng", "thân mật", "viết tắt", "có lỗi chính tả nhẹ",

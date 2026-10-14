@@ -1,0 +1,26 @@
+# Recipe "recipe_arm_1p5b" — arm 1.5B (bắt buộc) của lưới recipe F Việc 1 trên lát xLAM công khai.
+# Đúng MỘT trục so với public_anchor.yaml: `model` = Qwen/Qwen2.5-1.5B-Instruct; mọi khóa khác giữ nguyên anchor.
+# Kết quả đã nộp (RTX PRO 6000, bf16): results/public/recipe_grid_bf16/recipe_arm_1p5b_*.
+#
+# Chạy:  python training/finetune_qlora.py --recipe training/recipes/recipe_arm_1p5b.yaml \
+#            --data data/public/xlam_2k.train.jsonl --val data/public/xlam_2k.val.jsonl \
+#            --output-dir runs/recipe_arm_1p5b_s42
+arm: arm_1p5b
+notes: "1.5B, r16/alpha32, lr 1e-4, completion-only, 1 epoch, first 1000 rows, seed 42, max_len 2560 (T4 config)"
+
+model: Qwen/Qwen2.5-1.5B-Instruct
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lr: 1.0e-4
+completion_only: 1
+mask_fn_names: 0.0
+epochs: 1
+max_rows: 1000
+seed: 42
+
+batch_size: 4
+grad_accum: 4
+max_len: 2560
+save_steps: 50
+logging_steps: 10

@@ -1,0 +1,6435 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/sgod-asset/v1/assets": {
+      "post": {
+        "description": "Tạo asset kèm (tuỳ chọn) các phiên ban đầu qua `locations[].items[]`. `assetCode` và `qrCode` do server sinh — **không gửi**.\n\n**Quy tắc**: mỗi item mở một phiên, người giữ là người tạo; `totalQuantity = initialQuantity` = tổng `quantity`. Item cùng `status` + `startDateOfUse` + `barcode` trong một location được gộp thành một phiên. `locations` rỗng → `totalQuantity = 0`, thêm số lượng sau bằng `add-location`.\n\n**Lỗi** (kiểm tra theo thứ tự): `USED_UP_REQUIRES_EXPENDABLE`, `FEATURE_NOT_ENTITLED`, `ASSET_NAME_CONFLICT` (trùng tên/alias, kể cả asset đã xoá mềm), `ASSET_LIMIT_EXCEEDED`, `CATEGORY_NOT_FOUND`.\n\nLỗi có dạng `[MÃ_LỖI] mô tả` trong field `error`. Chi tiết: docs/fe/asset_business_rules.md §3.2.1, §4.1",
+        "operationId": "createAsset",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Standard gateway envelope with created asset payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Tạo tài sản (CreateAsset)",
+        "tags": [
+          "sgod-assets"
+        ]
+      },
+      "get": {
+        "description": "Danh sách phân trang cursor, cũng dùng cho autocomplete (`?search=ghế&limit=10`).\n\nQuery: `cursor`, `limit` (mặc định 10, tối đa 100), `sortBy`, `sortOrder` (chỉ có hiệu lực ở trang đầu), `categoryId`, `search` (≤200, chỉ khớp `name`/`assetCode`), `importanceLevel`. Response `{ items, meta }`.\n\nChi tiết: docs/fe/asset_business_rules.md §4.5",
+        "operationId": "listAssets",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Page size (max 100 — asset-service limit)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "categoryId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by category id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Free-text search",
+            "schema": {
+              "maxLength": 200,
+              "type": "string"
+            }
+          },
+          {
+            "name": "importanceLevel",
+            "required": false,
+            "in": "query",
+            "description": "Filter by importance level",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "important",
+                "confidential"
+              ]
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field name to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope with paginated asset list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Danh sách tài sản (FindAllAssets)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/assets/{id}/histories": {
+      "get": {
+        "description": "Audit trail thay đổi field của asset, phân trang cursor. Query: `cursor`, `limit` (≤100), `sortBy`, `sortOrder`, `search`.\n\nMỗi bản ghi có người thao tác, `description` (`register_asset`, danh sách field đã đổi, `create_asset_status`, `used_up`) và `dataChange[]` (`fieldName`, `before`, `after`). PATCH không đổi gì thì không sinh bản ghi.\n\nChi tiết: docs/fe/asset_business_rules.md §4.5",
+        "operationId": "listAssetHistories",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search query for history changes",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Lịch sử thay đổi của tài sản (ListAssetHistories)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/assets/histories/{historyId}": {
+      "get": {
+        "description": "Trả về một bản ghi lịch sử theo `historyId` (người thao tác, mô tả, `dataChange[]`).\n\nChi tiết: docs/fe/asset_business_rules.md §4.5",
+        "operationId": "getAssetHistoryById",
+        "parameters": [
+          {
+            "name": "historyId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Chi tiết một bản ghi lịch sử (GetAssetHistoryById)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/assets/check-exists": {
+      "get": {
+        "description": "Query bắt buộc `assetCode`. Trả `{ exists, assetId? }` trong phạm vi enterprise của người gọi.\n\nChi tiết: docs/fe/asset_business_rules.md §4.5",
+        "operationId": "checkAssetExists",
+        "parameters": [
+          {
+            "name": "assetCode",
+            "required": true,
+            "in": "query",
+            "description": "Asset code to check",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Kiểm tra mã tài sản đã tồn tại (CheckAssetExists)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/assets/summary": {
+      "get": {
+        "description": "Số liệu cho card dashboard: `totalAssets`, `importantAssets`, `withQrCode`, `openStatusSessions`.\n\nQuery (đều optional): `categoryId`, `search` (chỉ khớp `name`/`assetCode`), `assetType`, `unit`, `importanceLevel`, `isImportant`, `includeDeleted`.\n\nChi tiết: docs/fe/asset_business_rules.md §4.5",
+        "operationId": "getAssetSummary",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by category id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Free-text search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assetType",
+            "required": false,
+            "in": "query",
+            "description": "Filter by asset type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "expendable"
+              ]
+            }
+          },
+          {
+            "name": "unit",
+            "required": false,
+            "in": "query",
+            "description": "Filter by unit of measure",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "can",
+                "piece",
+                "box",
+                "bottle",
+                "pack",
+                "tree",
+                "pot",
+                "set",
+                "jar",
+                "kg",
+                "gram",
+                "m",
+                "m2",
+                "ml",
+                "liter",
+                "blister",
+                "pill",
+                "tube",
+                "bunch",
+                "pcs",
+                "pair",
+                "block",
+                "leaf",
+                "shelf",
+                "frame",
+                "system"
+              ]
+            }
+          },
+          {
+            "name": "isImportant",
+            "required": false,
+            "in": "query",
+            "description": "Filter by important flag",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "importanceLevel",
+            "required": false,
+            "in": "query",
+            "description": "Filter by importance level (takes precedence over isImportant)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "important",
+                "confidential"
+              ]
+            }
+          },
+          {
+            "name": "includeDeleted",
+            "required": false,
+            "in": "query",
+            "description": "Include soft-deleted assets",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Thống kê tổng quan tài sản (GetAssetSummary)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/assets/lookup/{qrOrId}": {
+      "get": {
+        "description": "Dùng cho luồng quét QR. Chỉ khớp `qrCode` **hoặc id** — **không** khớp `assetCode` (truyền `assetCode` → `ASSET_NOT_FOUND`). Muốn tìm theo mã: `GET /assets?search=<assetCode>`.\n\n**Lỗi**: `ASSET_NOT_FOUND`. Chi tiết: docs/fe/asset_business_rules.md §3.2.5",
+        "operationId": "findAssetByQrOrCode",
+        "parameters": [
+          {
+            "name": "qrOrId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Tìm tài sản theo QR hoặc id (FindAssetByQrOrCode)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/assets/{id}": {
+      "get": {
+        "description": "Trả `{ asset }`. `locations[]` trên asset chỉ là danh sách location tổng hợp từ các phiên đang mở — vị trí/số lượng thực tế nằm ở phiên (asset-statuses).\n\n**Lỗi**: `ASSET_NOT_FOUND`, `ASSET_ACCESS_DENIED` (asset thuộc enterprise khác). Chi tiết: docs/fe/asset_business_rules.md §4.5",
+        "operationId": "getAsset",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope with asset detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Chi tiết tài sản (FindAssetById)",
+        "tags": [
+          "sgod-assets"
+        ]
+      },
+      "patch": {
+        "description": "**Partial patch**: chỉ field gửi lên mới đổi. Không sửa được số lượng / vị trí / tình trạng — những thứ này thuộc phiên.\n\n- `aliasNames` / `images` / `files`: gửi → **thay toàn bộ**. Gửi `[]` **không xoá được**; dùng `clearAliasNames` / `clearImages` / `clearFiles = true` (có chữ **s**; sai tên bị bỏ qua im lặng, gửi kèm list không rỗng → `INVALID_ARGUMENT`).\n- `name` rỗng bị bỏ qua; < 2 ký tự → `INVALID_ASSET_STATE`; phải duy nhất → `ASSET_NAME_CONFLICT`.\n- `importanceLevel` thắng `isImportant` nếu gửi cả hai.\n- Đổi `categoryId`: category phải tồn tại (`CATEGORY_NOT_FOUND`); `totalAsset` category cũ −1, mới +1.\n- Không đổi gì thì không ghi DB, không sinh lịch sử.\n\nĐang test với asset thường (`importanceLevel = normal`); không dùng `clearDocEncryption`. Chi tiết: docs/fe/asset_business_rules.md §3.2.2, §4.2",
+        "operationId": "updateAsset",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAssetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope with updated asset",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Cập nhật thông tin tài sản (UpdateAsset)",
+        "tags": [
+          "sgod-assets"
+        ]
+      },
+      "delete": {
+        "description": "Xoá vĩnh viễn, **không khôi phục được**; tên asset được giải phóng. Chỉ chạy với asset **đã xoá mềm** trước đó, nếu chưa → `INVALID_ASSET_STATE`. Không có body.\n\nChi tiết: docs/fe/asset_business_rules.md §3.2.4, §4.4",
+        "operationId": "hardDeleteAsset",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope (delete result)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Xoá cứng tài sản (HardDeleteAsset)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/assets/{id}/soft-delete": {
+      "patch": {
+        "description": "Không có body. Asset chuyển `status = deleted`, `totalAsset` của category / location giảm. Tên asset vẫn được giữ chỗ cho tới khi xoá cứng.\n\n**Điều kiện**: mọi phiên **đang mở** phải là `sold`/`used_up` hoặc **không có người giữ**; phiên đã đóng không chặn. Không thoả → `INVALID_ASSET_STATE`.\n\nChi tiết: docs/fe/asset_business_rules.md §3.2.4, §4.4",
+        "operationId": "deleteAsset",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope (delete result)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Xoá mềm tài sản (DeleteAsset)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/assets/{id}/restore": {
+      "patch": {
+        "description": "Không có body. Khôi phục asset đã xoá mềm (`status = active`) và cộng lại `totalAsset` của category / location. Trả `{ asset }`.\n\n**Lỗi**: `INVALID_ASSET_STATE` nếu asset không ở trạng thái xoá mềm. Chi tiết: docs/fe/asset_business_rules.md §3.2.4, §4.4",
+        "operationId": "restoreAsset",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope (restore result)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Khôi phục tài sản đã xoá mềm (RestoreAsset)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/assets/{id}/add-location": {
+      "patch": {
+        "description": "**Cộng thêm** `quantity` (không phải tổng mới, không phải di chuyển số lượng đã có): tạo **một phiên mới** tại `locationId`, cộng vào `totalQuantity`, và thêm location vào `locations[]` nếu chưa có.\n\nBody: `locationId` ✔, `quantity` ≥ 1 ✔, `barcode` ✔, `status` (mặc định `not_use`), `inputPrice`, `startDateOfUse` (epoch ms), `description` (≤2000). Phiên mới **không có người giữ** (muốn gán người giữ → `POST /asset-statuses` với `staffId`).\n\n**Lỗi**: `ASSET_NOT_FOUND`, `LOCATION_NOT_FOUND`, `INVALID_ASSET_STATE` (asset đã xoá mềm), `USED_UP_REQUIRES_EXPENDABLE`. Chi tiết: docs/fe/asset_business_rules.md §3.3.5, §4.3",
+        "operationId": "addLocation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAssetLocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Nhập thêm số lượng tại một location (add-location)",
+        "tags": [
+          "sgod-assets"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses": {
+      "post": {
+        "description": "Thêm một phiên mới cho asset và **cộng `quantity` vào `totalQuantity`**; có thể gán người giữ qua `staffId` (không gửi → phiên không có người giữ).\n\nBody: `assetId` ✔, `quantity` ≥ 1 ✔, `barcode` ✔, `status` ✔ (bắt buộc, khác `add-location`), `staffId`, `locationId`, `startDateOfUse` (epoch ms, mặc định lúc tạo), `expireDateOfUse`, `inputPrice`, `depreciationPrice`, `description`.\n\n**Lỗi**: `ASSET_NOT_FOUND`, `INVALID_ASSET_STATE` (asset đã xoá mềm), `LOCATION_NOT_FOUND`, `USED_UP_REQUIRES_EXPENDABLE`. Chi tiết: docs/fe/asset_business_rules.md §5.1",
+        "operationId": "create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssetStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Thêm phiên trạng thái (CreateAssetStatus)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses/summary": {
+      "get": {
+        "description": "Tổng hợp các phiên của **một** asset (`assetId` bắt buộc); `locationId`, `staffId` là bộ lọc tuỳ chọn áp dụng cho mọi số liệu.\n\n**Lưu ý đơn vị**: `sessions` = số **phiên** (bản ghi); `quantity` = tổng **số lượng tài sản** (số cái) của các phiên đó. Ví dụ 2 phiên 10 cái và 5 cái → `sessions = 2`, `quantity = 15`.\n\n- `openSessions` / `openQuantity`: số phiên và tổng số lượng (số cái) **đang mở**.\n- `byStatus[]`: `{ status, sessions, quantity }` cho **đủ 6 tình trạng** (kể cả 0), chỉ tính phiên mở.\n- `unassignedSessions`: phiên mở **không có người giữ**.\n- `expiringSoonSessions`: phiên mở hết hạn trong `expiringSoonDays` (hiện 7) ngày tới; phiên đã quá hạn không tính.\n- `closedSessions`: số phiên **đã đóng** (chỉ để quan sát khi dev, có thể bị ẩn sau này; không có quantity vì tách/gộp làm đếm đôi).\n\nAsset không tồn tại hoặc không có phiên → toàn số 0 (không báo `ASSET_NOT_FOUND`). Chi tiết: docs/fe/asset_business_rules.md §5.10",
+        "operationId": "summary",
+        "parameters": [
+          {
+            "name": "assetId",
+            "required": true,
+            "in": "query",
+            "description": "Asset id (bắt buộc)",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": false,
+            "in": "query",
+            "description": "Chỉ tính phiên tại location này",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "staffId",
+            "required": false,
+            "in": "query",
+            "description": "Chỉ tính phiên do nhân viên này giữ",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Thống kê phiên của một tài sản (GetAssetStatusSummary)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses/by-asset/{assetId}": {
+      "get": {
+        "description": "Trả về **cả phiên đang mở và đã đóng** của asset. Phiên mở có `timeEndManage = \"0\"` — màn \"đang giữ\" / \"chọn phiên\" cần lọc `Number(timeEndManage) === 0`.\n\nQuery: `cursor`, `limit`. `sortBy` / `sortOrder` được nhận nhưng **không có tác dụng**. Response `{ items, meta }`; các giá trị thời gian là chuỗi số epoch ms.\n\nChi tiết: docs/fe/asset_business_rules.md §5.3",
+        "operationId": "listByAsset",
+        "parameters": [
+          {
+            "name": "assetId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Danh sách phiên của một tài sản (ListAssetStatusesByAssetId)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses/{id}": {
+      "get": {
+        "description": "Trả `{ assetStatus }`. Id phiên **đổi sau mỗi thao tác** (trừ sửa giá); dùng id cũ → `ASSET_STATUS_NOT_FOUND`, hãy tải lại danh sách phiên.\n\nChi tiết: docs/fe/asset_business_rules.md §0.2, §5.2",
+        "operationId": "getById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Chi tiết một phiên (FindAssetStatusById)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses/{id}/financials": {
+      "patch": {
+        "description": "Body: `inputPrice`, `depreciationPrice` (string, optional). Chỉ field gửi lên mới đổi; `\"\"` = xoá giá trị.\n\nChỉ với phiên **đang mở**. **Không** bị khoá bởi yêu cầu đang chờ. **Giữ nguyên id phiên.**\n\nChi tiết: docs/fe/asset_business_rules.md §5.4",
+        "operationId": "updateFinancials",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAssetStatusFinancialsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Sửa giá của phiên (UpdateAssetStatusFinancials)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses/{id}/transition": {
+      "post": {
+        "description": "Body: `newStatus` ✔, `reason` (≤2000, ghi vào `description` của phiên mới). Áp dụng cho **toàn bộ** số lượng — muốn đổi một phần thì gọi `separate`. Phiên cũ đóng, trả **phiên mới (id mới)**.\n\n**State machine**: `active` → repair/not_use/broken/sold/used_up; `repair` → active/broken/not_use; `not_use` → active/broken/sold/used_up; `broken` → repair/not_use/used_up (không về thẳng `active`); `sold`/`used_up` là trạng thái cuối. Vào `used_up` thì `totalQuantity` giảm.\n\n**Lỗi**: `INVALID_ASSET_STATE` (chuyển sai / phiên đã đóng), `USED_UP_REQUIRES_EXPENDABLE`, `ASSET_STATUS_LOCKED_BY_PENDING`, `ASSET_STATUS_NOT_FOUND`. Chi tiết: docs/fe/asset_business_rules.md §3.3.2, §5.5",
+        "operationId": "transition",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransitionAssetStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Đổi tình trạng toàn bộ phiên (TransitionAssetStatus)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses/{id}/revoke": {
+      "post": {
+        "description": "Thu hồi từ **người đang giữ** về **người gọi**. Body: `quantity` (mặc định toàn bộ phiên), `reason`, `approverId`.\n\n- **Cần duyệt** (asset `verifyTransfer = true` và người gọi không phải Enterprise/SubEnterprise): bắt buộc `approverId` (cấp trên của người đang giữ); tạo phiếu chuyển giao `revoke-asset` chờ duyệt. Response là phiên **chưa đổi** và phiên **bị khoá** tới khi phiếu được xử lý.\n- **Không cần duyệt**: thực hiện ngay, trả phiên mới của người gọi (`not_use` → `active`).\n\n**Điều kiện**: phiên mở, không bị khoá, có người giữ, người giữ ≠ người gọi, không phải `sold`. **Lỗi**: `INVALID_ASSET_STATE` (kể cả `quantity` không hợp lệ), `ASSET_STATUS_LOCKED_BY_PENDING`. Chi tiết: docs/fe/asset_business_rules.md §5.9",
+        "operationId": "revoke",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevokeAssetStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Thu hồi phiên về người gọi (RevokeAssetStatus)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses/{id}/separate": {
+      "post": {
+        "description": "Body: `items[]` ✔ — mỗi phần `{ status ✔, quantity ≥ 1 ✔, locationId? }` — và `description`.\n\n**Tổng `quantity` các phần phải đúng bằng `quantity` của phiên** (phần giữ nguyên cũng phải khai báo, ví dụ 10 cái → 7 `active` + 3 `broken`). Phiên gốc đóng (`parent`), mỗi phần là phiên mới (`children`). Dùng `separate` trước khi tạo yêu cầu / phiếu chuyển giao nếu chỉ muốn khoá một phần.\n\n**Lỗi**: tổng `quantity` ≠ số lượng phiên (lỗi `Total quantity in separation request … does not match original quantity`, **không có `[MÃ_LỖI]`**), `INVALID_ASSET_STATE` (phiên đã đóng), `USED_UP_REQUIRES_EXPENDABLE`, `LOCATION_NOT_FOUND`, `ASSET_STATUS_LOCKED_BY_PENDING`. Chi tiết: docs/fe/asset_business_rules.md §5.7",
+        "operationId": "separate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeparateAssetStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Tách phiên thành nhiều phần (SeparateAssetStatus)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses/{id}/change-location": {
+      "post": {
+        "description": "Body: `newLocationId` ✔ (phải tồn tại). Áp dụng cho **toàn bộ** phiên; phiên cũ đóng, trả phiên mới (`type = change-location`).\n\n**Lỗi**: `LOCATION_NOT_FOUND`, `INVALID_ASSET_STATE` (phiên đã đóng), `ASSET_STATUS_LOCKED_BY_PENDING`. Chi tiết: docs/fe/asset_business_rules.md §5.6",
+        "operationId": "changeLocation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeAssetStatusLocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Đổi vị trí toàn bộ phiên (ChangeAssetStatusLocation)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-statuses/{id}/merge": {
+      "post": {
+        "description": "`:id` trong path là phiên **nguồn**; body `targetAssetStatusId` ✔ là phiên đích. Cả hai phiên đóng, trả `source` (đã đóng) và `target` là **phiên gộp mới (id mới)**.\n\n**Điều kiện**: hai phiên đang mở, **cùng asset, vị trí, người giữ, tình trạng, barcode**, không bị khoá. Phiên có ngày bắt đầu sử dụng **sớm hơn** quyết định giá / ngày bắt đầu / mô tả; `expireDateOfUse` lấy ngày sớm nhất.\n\n**Lỗi**: `INVALID_ASSET_STATE` (không tương thích), `ASSET_STATUS_LOCKED_BY_PENDING`, `ASSET_STATUS_NOT_FOUND`. Chi tiết: docs/fe/asset_business_rules.md §5.8",
+        "operationId": "merge",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MergeAssetStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Gộp hai phiên (MergeAssetStatus)",
+        "tags": [
+          "sgod-asset-status"
+        ]
+      }
+    },
+    "/sgod-asset/v1/locations": {
+      "post": {
+        "operationId": "create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Create location (CreateLocation)",
+        "tags": [
+          "sgod-asset-locations"
+        ]
+      },
+      "get": {
+        "operationId": "list",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search substring",
+            "schema": {
+              "maxLength": 500,
+              "type": "string"
+            }
+          },
+          {
+            "name": "exceptIds",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated ids to exclude (v1 parity)",
+            "schema": {
+              "maxLength": 4000,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "List locations flat (ListLocations)",
+        "tags": [
+          "sgod-asset-locations"
+        ]
+      }
+    },
+    "/sgod-asset/v1/locations/tree": {
+      "get": {
+        "operationId": "listTree",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search substring",
+            "schema": {
+              "maxLength": 500,
+              "type": "string"
+            }
+          },
+          {
+            "name": "exceptIds",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated ids to exclude",
+            "schema": {
+              "maxLength": 4000,
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "description": "Slice start (alternative to page)",
+            "schema": {
+              "minimum": 0,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "List locations as tree (ListLocationsRecursive)",
+        "tags": [
+          "sgod-asset-locations"
+        ]
+      }
+    },
+    "/sgod-asset/v1/locations/{id}": {
+      "get": {
+        "operationId": "get",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeNested",
+            "required": false,
+            "in": "query",
+            "description": "Populate nested subtree + ancestor chain (v1-style)",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get location by id (FindLocationById)",
+        "tags": [
+          "sgod-asset-locations"
+        ]
+      },
+      "patch": {
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update location (UpdateLocation)",
+        "tags": [
+          "sgod-asset-locations"
+        ]
+      },
+      "delete": {
+        "operationId": "remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Delete location (DeleteLocation)",
+        "tags": [
+          "sgod-asset-locations"
+        ]
+      }
+    },
+    "/sgod-asset/v1/categories": {
+      "post": {
+        "operationId": "create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Create category (CreateCategory)",
+        "tags": [
+          "sgod-asset-categories"
+        ]
+      },
+      "get": {
+        "operationId": "list",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search substring",
+            "schema": {
+              "maxLength": 500,
+              "type": "string"
+            }
+          },
+          {
+            "name": "exceptIds",
+            "required": false,
+            "in": "query",
+            "description": "Comma-separated category ids to exclude",
+            "schema": {
+              "maxLength": 4000,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "List categories flat (ListCategories)",
+        "tags": [
+          "sgod-asset-categories"
+        ]
+      }
+    },
+    "/sgod-asset/v1/categories/tree": {
+      "get": {
+        "operationId": "listTree",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxLength": 500,
+              "type": "string"
+            }
+          },
+          {
+            "name": "exceptIds",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxLength": 4000,
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 0,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "List categories as tree (ListCategoriesRecursive)",
+        "tags": [
+          "sgod-asset-categories"
+        ]
+      }
+    },
+    "/sgod-asset/v1/categories/{id}": {
+      "get": {
+        "operationId": "get",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeNested",
+            "required": false,
+            "in": "query",
+            "description": "Nested subtree + ancestors",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get category by id (FindCategoryById)",
+        "tags": [
+          "sgod-asset-categories"
+        ]
+      },
+      "patch": {
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCategoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update category (UpdateCategory)",
+        "tags": [
+          "sgod-asset-categories"
+        ]
+      },
+      "delete": {
+        "operationId": "remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Delete category (DeleteCategory)",
+        "tags": [
+          "sgod-asset-categories"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-transfers": {
+      "post": {
+        "operationId": "create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssetTransferDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Tạo phiếu chuyển giao tài sản — CreateAssetTransfer (yêu cầu bàn giao quantity từ phiên asset_status)",
+        "tags": [
+          "sgod-asset-transfers"
+        ]
+      },
+      "get": {
+        "operationId": "list",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by transfer status string",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "accept",
+                "deny",
+                "revoke",
+                "cancel"
+              ]
+            }
+          },
+          {
+            "name": "onlyMine",
+            "required": false,
+            "in": "query",
+            "description": "If true, restrict to current user’s transfers (query string boolean)",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "assetId",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo tài sản — parity v1 list/history",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Tìm trong mô tả phiếu chuyển giao",
+            "schema": {
+              "maxLength": 500,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Danh sách phiếu chuyển giao tài sản — ListAssetTransfers",
+        "tags": [
+          "sgod-asset-transfers"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-transfers/summary": {
+      "get": {
+        "operationId": "countItemsOfTab",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Đếm phiếu theo tab gửi / nhận / xác thực — CountAssetTransferTabs (đối chiếu v1 `count-items-of-tab`)",
+        "tags": [
+          "sgod-asset-transfers"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-transfers/history": {
+      "get": {
+        "operationId": "listHistory",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "assetId",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo tài sản",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "required": false,
+            "in": "query",
+            "description": "Tìm kiếm tự do",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "statusTransfer",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo trạng thái",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "accept",
+                "deny",
+                "revoke",
+                "cancel"
+              ]
+            }
+          },
+          {
+            "name": "typeTransfer",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo loại chuyển giao",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fromUserId",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo người gửi",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "toUserId",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo người nhận",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Lịch sử phiếu chuyển giao tài sản — ListAssetTransferHistory (v1 GET /transactions parity)",
+        "tags": [
+          "sgod-asset-transfers"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-transfers/{id}": {
+      "get": {
+        "operationId": "get",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Chi tiết phiếu chuyển giao tài sản — FindAssetTransferById",
+        "tags": [
+          "sgod-asset-transfers"
+        ]
+      },
+      "patch": {
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAssetTransferDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Cập nhật phiếu chuyển giao tài sản — UpdateAssetTransfer",
+        "tags": [
+          "sgod-asset-transfers"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-transfers/{id}/respond": {
+      "patch": {
+        "operationId": "respond",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RespondToAssetTransferDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Phản hồi phiếu chuyển giao (chấp nhận / từ chối) — RespondToAssetTransfer",
+        "tags": [
+          "sgod-asset-transfers"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-transfers/{id}/cancel": {
+      "patch": {
+        "operationId": "cancel",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Hủy phiếu chuyển giao tài sản — CancelAssetTransfer",
+        "tags": [
+          "sgod-asset-transfers"
+        ]
+      }
+    },
+    "/sgod-asset/v1/asset-transfers/{id}/delegated-staff": {
+      "patch": {
+        "operationId": "setRecipientOwnerMode",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipientOwnerModeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Người nhận quyết định vai trò owner/manager — SetRecipientOwnerMode (đối chiếu v1 recipient-owner-mode)",
+        "tags": [
+          "sgod-asset-transfers"
+        ]
+      }
+    },
+    "/sgod-asset/v1/request-staff/summary": {
+      "get": {
+        "operationId": "summary",
+        "parameters": [
+          {
+            "name": "statusRequest",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "typeRequest",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxLength": 500,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Đếm tab gửi/nhận — CountRequestStaffTabs (parity v1)",
+        "tags": [
+          "sgod-asset-request-staff"
+        ]
+      }
+    },
+    "/sgod-asset/v1/request-staff": {
+      "get": {
+        "operationId": "list",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "statusRequest",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "typeRequest",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "send",
+                "receive"
+              ]
+            }
+          },
+          {
+            "name": "tab",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "send",
+                "receive"
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "maxLength": 500,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Danh sách request staff — ListRequestStaff",
+        "tags": [
+          "sgod-asset-request-staff"
+        ]
+      },
+      "post": {
+        "operationId": "create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRequestStaffChangeStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Tạo yêu cầu đổi trạng thái / bảo trì — CreateRequestStaffChangeStatus",
+        "tags": [
+          "sgod-asset-request-staff"
+        ]
+      }
+    },
+    "/sgod-asset/v1/request-staff/{id}": {
+      "get": {
+        "operationId": "getById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Chi tiết request staff — FindRequestStaffById",
+        "tags": [
+          "sgod-asset-request-staff"
+        ]
+      },
+      "patch": {
+        "operationId": "approve",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveRequestStaffDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Phê duyệt / từ chối — ApproveRequestStaff (parity v1 PATCH)",
+        "tags": [
+          "sgod-asset-request-staff"
+        ]
+      }
+    },
+    "/sgod-asset/v1/request-staff/change-location": {
+      "post": {
+        "operationId": "changeLocation",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRequestStaffChangeLocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Yêu cầu đổi vị trí — CreateRequestStaffChangeLocation",
+        "tags": [
+          "sgod-asset-request-staff"
+        ]
+      }
+    },
+    "/sgod-asset/v1/request-staff/{id}/cancel": {
+      "patch": {
+        "operationId": "cancel",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Hủy yêu cầu — CancelRequestStaff",
+        "tags": [
+          "sgod-asset-request-staff"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/schedules": {
+      "post": {
+        "operationId": "createSchedule",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMaintenanceScheduleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Create maintenance schedule (CreateMaintenanceSchedule)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      },
+      "get": {
+        "operationId": "listSchedules",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "assetId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by asset id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Filter by schedule status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "active",
+                "completed"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "List maintenance schedules (ListMaintenanceSchedules)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/schedules/count-by-tab": {
+      "get": {
+        "operationId": "countScheduleTabs",
+        "parameters": [
+          {
+            "name": "assetId",
+            "required": false,
+            "in": "query",
+            "description": "Lọc theo tài sản (optional)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Đếm lịch draft / active / completed của user (người tạo hoặc staff/follower) — GetMaintenanceScheduleSummary (đối chiếu v1 count-by-tab)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/schedules/{id}/get-by-id": {
+      "get": {
+        "operationId": "getScheduleByIdLegacy",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Chi tiết lịch — FindMaintenanceScheduleById (alias v1 get-by-id)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/schedules/{id}": {
+      "get": {
+        "operationId": "getSchedule",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get schedule by id (FindMaintenanceScheduleById)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      },
+      "patch": {
+        "operationId": "updateSchedule",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMaintenanceScheduleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update schedule (UpdateMaintenanceSchedule)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteSchedule",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Xóa lịch và task/record liên quan — DeleteMaintenanceSchedule (đối chiếu v1 DELETE)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/schedules/{id}/complete": {
+      "post": {
+        "operationId": "completeSchedule",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Complete schedule (CompleteMaintenanceSchedule)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/tasks": {
+      "post": {
+        "operationId": "createTask",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMaintenanceTaskDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Create task (CreateMaintenanceTask)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      },
+      "get": {
+        "operationId": "listTasks",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "maintenanceScheduleId",
+            "required": true,
+            "in": "query",
+            "description": "Required — list tasks belonging to this schedule",
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "List tasks (ListMaintenanceTasks)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/tasks/{id}/get-by-id": {
+      "get": {
+        "operationId": "getTaskByIdLegacy",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Chi tiết task — FindMaintenanceTaskById (alias v1 get-by-id)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/tasks/{id}": {
+      "get": {
+        "operationId": "getTask",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get task by id (FindMaintenanceTaskById)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      },
+      "patch": {
+        "operationId": "updateTask",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMaintenanceTaskDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Cập nhật task (partial patch: ngày, số lượng, mô tả, staff/follower) — UpdateMaintenanceTask",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/tasks/{id}/update-user": {
+      "patch": {
+        "operationId": "updateTaskUsersLegacy",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMaintenanceTaskUsersDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Cập nhật staff/follower task — UpdateMaintenanceTask (alias v1 update-user)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/tasks/{id}/users": {
+      "patch": {
+        "operationId": "updateTaskUsers",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMaintenanceTaskUsersDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update task users (UpdateMaintenanceTask: staffs/followers)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/tasks/{id}/status": {
+      "patch": {
+        "operationId": "changeTaskStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeMaintenanceTaskStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Change task status (ChangeMaintenanceTaskStatus)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/records": {
+      "post": {
+        "operationId": "createRecord",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMaintenanceRecordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Create record (CreateMaintenanceRecord)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      },
+      "get": {
+        "operationId": "listRecords",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "maintenanceTaskId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by task",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "createdBy",
+            "required": false,
+            "in": "query",
+            "description": "Filter by creator user id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "List records (ListMaintenanceRecords)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/records/{id}": {
+      "get": {
+        "operationId": "getRecord",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get record by id (FindMaintenanceRecordById)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      },
+      "patch": {
+        "operationId": "updateRecord",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMaintenanceRecordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Update record (UpdateMaintenanceRecord)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteRecord",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Xóa bản ghi bảo trì — DeleteMaintenanceRecord (đối chiếu v1 DELETE)",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/tasks/{taskId}/discusses": {
+      "post": {
+        "operationId": "createDiscuss",
+        "parameters": [
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMaintenanceDiscussDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Tạo bình luận trên maintenance task — CreateMaintenanceDiscuss",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      },
+      "get": {
+        "operationId": "listDiscusses",
+        "parameters": [
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Danh sách bình luận của task — ListMaintenanceDiscusses",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/maintenance/tasks/{taskId}/discusses/{discussId}": {
+      "delete": {
+        "operationId": "deleteDiscuss",
+        "parameters": [
+          {
+            "name": "discussId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Xóa bình luận (chỉ tác giả) — DeleteMaintenanceDiscuss",
+        "tags": [
+          "sgod-asset-maintenance"
+        ]
+      }
+    },
+    "/sgod-asset/v1/import-export/import/csv": {
+      "post": {
+        "operationId": "importCsv",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "file"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "skipHeaderRow": {
+                    "type": "boolean",
+                    "default": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope with import batch info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Import assets from CSV (ImportAssetsCsv)",
+        "tags": [
+          "sgod-asset-import-export"
+        ]
+      }
+    },
+    "/sgod-asset/v1/import-export/import/excel": {
+      "post": {
+        "operationId": "importExcel",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportAssetFileFormDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope with import batch info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Import assets from Excel (ImportAssetsExcel)",
+        "tags": [
+          "sgod-asset-import-export"
+        ]
+      }
+    },
+    "/sgod-asset/v1/import-export/import/batches/{importId}": {
+      "get": {
+        "operationId": "getImportBatch",
+        "parameters": [
+          {
+            "name": "importId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get import batch detail (GetImportBatch)",
+        "tags": [
+          "sgod-asset-import-export"
+        ]
+      }
+    },
+    "/sgod-asset/v1/import-export/exports": {
+      "post": {
+        "operationId": "createExport",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssetExportDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Create asset export job (CreateAssetExport)",
+        "tags": [
+          "sgod-asset-import-export"
+        ]
+      },
+      "get": {
+        "operationId": "listExports",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page index (fallback)",
+            "schema": {
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor for pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "minimum": 1,
+              "maximum": 500,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "List asset exports (ListAssetExports)",
+        "tags": [
+          "sgod-asset-import-export"
+        ]
+      }
+    },
+    "/sgod-asset/v1/import-export/exports/{exportId}": {
+      "get": {
+        "operationId": "getExport",
+        "parameters": [
+          {
+            "name": "exportId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard gateway envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Get asset export detail (GetAssetExport)",
+        "tags": [
+          "sgod-asset-import-export"
+        ]
+      }
+    },
+    "/sgod-asset/v1/import-export/exports/csv-download": {
+      "post": {
+        "description": "Returns raw CSV bytes (attachment).",
+        "operationId": "exportCsvDownload",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportAssetsCsvDownloadDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Raw CSV file (not the JSON gateway envelope)",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Export selected assets as CSV file (ExportAssetsCsv)",
+        "tags": [
+          "sgod-asset-import-export"
+        ]
+      }
+    },
+    "/sgod-asset/v1/import-export/import-templates": {
+      "get": {
+        "operationId": "getImportTemplates",
+        "parameters": [
+          {
+            "name": "subject",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayApiResponseDto_Output"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API-Key-Asset": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
+        "summary": "Trả về danh sách trường CSV/Excel theo loại import — v1 GET /imports?subject=<type>",
+        "tags": [
+          "sgod-asset-import-export"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Asset Service API",
+    "description": "Asset management endpoints - Create, update, and manage assets WebSocket clustering is Redis-backed, but gateway startup does not wait for Redis; the adapter reconnects automatically and falls back to in-memory mode while Redis is unavailable.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "components": {
+    "schemas": {
+      "GatewayApiResponseDto_Output": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "true = business success; false = handled error in body"
+          },
+          "data": {
+            "description": "Payload from handler / gRPC (e.g. asset.v1 messages) when success is true"
+          },
+          "error": {
+            "description": "Error message when success is false (gateway error helper)",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human-readable message (mainly when success is true)",
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "ISO-8601 timestamp of the response"
+          },
+          "requestId": {
+            "description": "Echo of x-correlation-id / tracing id when provided",
+            "type": "string"
+          },
+          "statusCode": {
+            "description": "Optional hint code when returning error object without throwing",
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991,
+                "description": "Current page (1-based)"
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991,
+                "description": "Page size"
+              },
+              "total": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991,
+                "description": "Total items across all pages"
+              },
+              "totalPages": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991,
+                "description": "Total number of pages"
+              }
+            },
+            "required": [
+              "page",
+              "limit",
+              "total",
+              "totalPages"
+            ],
+            "additionalProperties": false,
+            "description": "Pagination block (when applicable)"
+          }
+        },
+        "required": [
+          "success",
+          "timestamp"
+        ],
+        "description": "SGOD gateway standard API envelope",
+        "additionalProperties": false
+      },
+      "CreateAssetDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Display name of the asset"
+          },
+          "categoryId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Mongo id of the category (required)"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "can",
+              "piece",
+              "box",
+              "bottle",
+              "pack",
+              "tree",
+              "pot",
+              "set",
+              "jar",
+              "kg",
+              "gram",
+              "m",
+              "m2",
+              "ml",
+              "liter",
+              "blister",
+              "pill",
+              "tube",
+              "bunch",
+              "pcs",
+              "pair",
+              "block",
+              "leaf",
+              "shelf",
+              "frame",
+              "system"
+            ],
+            "description": "Unit of measure (e.g. piece, kg)"
+          },
+          "assetType": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "expendable"
+            ],
+            "description": "Business type label / enum string"
+          },
+          "description": {
+            "default": "",
+            "description": "Long description",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "isImportant": {
+            "default": false,
+            "description": "Shortcut: true → importanceLevel \"important\" (ignored when importanceLevel is sent)",
+            "type": "boolean"
+          },
+          "importanceLevel": {
+            "description": "normal | important | confidential — takes precedence over isImportant",
+            "type": "string",
+            "enum": [
+              "normal",
+              "important",
+              "confidential"
+            ]
+          },
+          "manufacturer": {
+            "default": "",
+            "description": "Manufacturer name",
+            "type": "string",
+            "maxLength": 200
+          },
+          "origin": {
+            "default": "",
+            "description": "Country or origin label",
+            "type": "string",
+            "maxLength": 200
+          },
+          "aliasNames": {
+            "default": [],
+            "description": "Alternate search names",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "images": {
+            "default": [],
+            "description": "Image URLs or paths",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "default": [],
+            "description": "Attached file paths (returned by upload-service)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "verifyTransfer": {
+            "description": "Whether transfer must be verified",
+            "type": "boolean"
+          },
+          "typeEncrypt": {
+            "description": "Encryption type",
+            "type": "string"
+          },
+          "locations": {
+            "default": [],
+            "description": "Initial location assignments",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "locationId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Location id"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "repair",
+                          "not_use",
+                          "broken",
+                          "sold",
+                          "active",
+                          "used_up"
+                        ],
+                        "description": "Asset status string (e.g. active, broken)"
+                      },
+                      "quantity": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991,
+                        "description": "Quantity at this status"
+                      },
+                      "startDateOfUse": {
+                        "description": "Date string when usage started",
+                        "type": "string"
+                      },
+                      "expireDateOfUse": {
+                        "description": "Date string when usage expires",
+                        "type": "string"
+                      },
+                      "inputPrice": {
+                        "description": "Input price",
+                        "type": "string"
+                      },
+                      "depreciationPrice": {
+                        "description": "Depreciation price",
+                        "type": "string"
+                      },
+                      "barcode": {
+                        "type": "string",
+                        "description": "Unique barcode string"
+                      }
+                    },
+                    "required": [
+                      "status",
+                      "quantity",
+                      "barcode"
+                    ]
+                  },
+                  "description": "List of items at this location"
+                }
+              },
+              "required": [
+                "locationId",
+                "items"
+              ]
+            }
+          },
+          "mfg": {
+            "description": "MFG date / metadata",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "categoryId",
+          "unit",
+          "assetType"
+        ],
+        "description": "Create asset body — maps to asset.v1 CreateAssetRequest"
+      },
+      "UpdateAssetDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "New display name",
+            "type": "string"
+          },
+          "description": {
+            "description": "New description",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "isImportant": {
+            "description": "Shortcut: true → \"important\", false → \"normal\" (ignored when importanceLevel is sent)",
+            "type": "boolean"
+          },
+          "importanceLevel": {
+            "description": "normal | important | confidential — takes precedence over isImportant",
+            "type": "string",
+            "enum": [
+              "normal",
+              "important",
+              "confidential"
+            ]
+          },
+          "manufacturer": {
+            "description": "Manufacturer",
+            "type": "string",
+            "maxLength": 200
+          },
+          "origin": {
+            "description": "Origin",
+            "type": "string",
+            "maxLength": 200
+          },
+          "unit": {
+            "description": "Unit of measure",
+            "type": "string",
+            "enum": [
+              "can",
+              "piece",
+              "box",
+              "bottle",
+              "pack",
+              "tree",
+              "pot",
+              "set",
+              "jar",
+              "kg",
+              "gram",
+              "m",
+              "m2",
+              "ml",
+              "liter",
+              "blister",
+              "pill",
+              "tube",
+              "bunch",
+              "pcs",
+              "pair",
+              "block",
+              "leaf",
+              "shelf",
+              "frame",
+              "system"
+            ]
+          },
+          "assetType": {
+            "description": "Asset type label",
+            "type": "string",
+            "enum": [
+              "normal",
+              "expendable"
+            ]
+          },
+          "aliasNames": {
+            "description": "Full replacement list of alternate names (not a delta). `[]` does NOT clear — use clearAliasNames",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "images": {
+            "description": "Full replacement list of image URLs/paths (not a delta). `[]` does NOT clear — use clearImages",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "description": "Full replacement list of attached file paths (not a delta). `[]` does NOT clear — use clearFiles",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "clearAliasNames": {
+            "description": "true → remove all alias names",
+            "type": "boolean"
+          },
+          "clearImages": {
+            "description": "true → remove all images",
+            "type": "boolean"
+          },
+          "clearFiles": {
+            "description": "true → remove all files",
+            "type": "boolean"
+          },
+          "verifyTransfer": {
+            "description": "Transfer verification flag",
+            "type": "boolean"
+          },
+          "clearDocEncryption": {
+            "description": "true → drop SENSITIVE encryption (rejected for on-chain assets)",
+            "type": "boolean"
+          },
+          "categoryId": {
+            "type": "string"
+          },
+          "mfg": {
+            "description": "Manufacturing date (ISO date or epoch ms string)",
+            "type": "string"
+          }
+        },
+        "description": "Update asset body — maps to asset.v1 UpdateAssetRequest (id from path)"
+      },
+      "AddAssetLocationDto": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Location để gán phiên mới cho tài sản"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991,
+            "description": "Số lượng trong phiên mới"
+          },
+          "barcode": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Barcode nhận dạng phiên"
+          },
+          "inputPrice": {
+            "description": "Giá nhập (decimal string)",
+            "type": "string"
+          },
+          "status": {
+            "description": "Trạng thái khởi tạo (mặc định: not_use)",
+            "type": "string",
+            "enum": [
+              "repair",
+              "not_use",
+              "broken",
+              "sold",
+              "active",
+              "used_up"
+            ]
+          },
+          "startDateOfUse": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "startDateOfUse (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "description": {
+            "description": "Ghi chú",
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "required": [
+          "locationId",
+          "quantity",
+          "barcode"
+        ],
+        "description": "Thêm tài sản vào location mới kèm giá — v1 add-location"
+      },
+      "CreateAssetStatusDto": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Parent asset id"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991,
+            "description": "Quantity for this status session"
+          },
+          "barcode": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Barcode identifier"
+          },
+          "staffId": {
+            "description": "Assigned staff user id",
+            "type": "string"
+          },
+          "locationId": {
+            "description": "Location id for this session",
+            "type": "string"
+          },
+          "startDateOfUse": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "startDateOfUse (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "inputPrice": {
+            "description": "Purchase / input price (decimal string)",
+            "type": "string"
+          },
+          "description": {
+            "description": "Notes",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "repair",
+              "not_use",
+              "broken",
+              "sold",
+              "active",
+              "used_up"
+            ],
+            "description": "Item status e.g. not_use, broken, sold"
+          },
+          "expireDateOfUse": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "expireDateOfUse (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "depreciationPrice": {
+            "description": "Depreciation price (decimal string)",
+            "type": "string"
+          },
+          "initialStatus": {
+            "description": "Is this the initial status",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "assetId",
+          "quantity",
+          "barcode",
+          "status"
+        ],
+        "description": "CreateAssetStatusRequest"
+      },
+      "UpdateAssetStatusFinancialsDto": {
+        "type": "object",
+        "properties": {
+          "inputPrice": {
+            "description": "Updated input price",
+            "type": "string"
+          },
+          "depreciationPrice": {
+            "description": "Depreciation value string",
+            "type": "string"
+          }
+        },
+        "description": "UpdateAssetStatusFinancialsRequest (id in path)"
+      },
+      "TransitionAssetStatusDto": {
+        "type": "object",
+        "properties": {
+          "newStatus": {
+            "type": "string",
+            "enum": [
+              "repair",
+              "not_use",
+              "broken",
+              "sold",
+              "active",
+              "used_up"
+            ],
+            "description": "Target status name"
+          },
+          "reason": {
+            "description": "Transition reason",
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "required": [
+          "newStatus"
+        ],
+        "description": "TransitionAssetStatusRequest (id in path)"
+      },
+      "RevokeAssetStatusDto": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "description": "Revocation reason",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "quantity": {
+            "description": "Quantity to revoke (default: whole session)",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "approverId": {
+            "description": "Approver ID",
+            "type": "string"
+          }
+        },
+        "description": "RevokeAssetStatusRequest (id in path)"
+      },
+      "SeparateAssetStatusDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "repair",
+                    "not_use",
+                    "broken",
+                    "sold",
+                    "active",
+                    "used_up"
+                  ],
+                  "description": "Status for separated item"
+                },
+                "locationId": {
+                  "description": "Location for separated item",
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991,
+                  "description": "Quantity to separate"
+                }
+              },
+              "required": [
+                "status",
+                "quantity"
+              ]
+            },
+            "description": "List of items to separate"
+          },
+          "description": {
+            "description": "Notes",
+            "type": "string"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "description": "SeparateAssetStatusRequest (id in path)"
+      },
+      "ChangeAssetStatusLocationDto": {
+        "type": "object",
+        "properties": {
+          "newLocationId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Destination location id"
+          }
+        },
+        "required": [
+          "newLocationId"
+        ],
+        "description": "ChangeAssetStatusLocationRequest (id in path)"
+      },
+      "MergeAssetStatusDto": {
+        "type": "object",
+        "properties": {
+          "targetAssetStatusId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Asset status session to merge into (id in path is the source)"
+          }
+        },
+        "required": [
+          "targetAssetStatusId"
+        ],
+        "description": "MergeAssetStatusRequest (source id in path)"
+      },
+      "CreateLocationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "description": "Location display name"
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "Address or detail text"
+          },
+          "parentId": {
+            "description": "Parent location id for tree",
+            "type": "string"
+          },
+          "map": {
+            "description": "Optional map pin",
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "description": "WGS84 latitude"
+              },
+              "longitude": {
+                "type": "number",
+                "description": "WGS84 longitude"
+              }
+            },
+            "required": [
+              "latitude",
+              "longitude"
+            ]
+          },
+          "iconWeb": {
+            "description": "Icon URL for web",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "colorIcon": {
+            "description": "Hex or theme color key",
+            "type": "string",
+            "maxLength": 64
+          },
+          "aliasNames": {
+            "default": [],
+            "description": "Alias names",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "detail"
+        ],
+        "description": "CreateLocationRequest"
+      },
+      "UpdateLocationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "New name",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "detail": {
+            "description": "New detail",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "parentId": {
+            "description": "Move under parent",
+            "type": "string"
+          },
+          "map": {
+            "description": "Replace map coordinates",
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "description": "WGS84 latitude"
+              },
+              "longitude": {
+                "type": "number",
+                "description": "WGS84 longitude"
+              }
+            },
+            "required": [
+              "latitude",
+              "longitude"
+            ]
+          },
+          "iconWeb": {
+            "description": "Icon URL",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "colorIcon": {
+            "description": "Color key",
+            "type": "string",
+            "maxLength": 64
+          },
+          "aliasNames": {
+            "description": "Replace alias list (full list). `[]` does NOT clear — use clearAliasNames",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "clearAliasNames": {
+            "description": "true → reset aliases to the default [normalized name]",
+            "type": "boolean"
+          }
+        },
+        "description": "UpdateLocationRequest (id in path)"
+      },
+      "CreateCategoryDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "description": "Category name"
+          },
+          "parentId": {
+            "description": "Parent category id",
+            "type": "string"
+          },
+          "icon": {
+            "description": "Legacy icon field",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "iconWeb": {
+            "description": "Web icon URL",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "colorIcon": {
+            "description": "Color token",
+            "type": "string",
+            "maxLength": 64
+          },
+          "aliasNames": {
+            "default": [],
+            "description": "Alias names",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "description": "CreateCategoryRequest"
+      },
+      "UpdateCategoryDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "New name",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "parentId": {
+            "description": "Move under parent",
+            "type": "string"
+          },
+          "icon": {
+            "description": "Icon",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "iconWeb": {
+            "description": "Web icon URL",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "colorIcon": {
+            "description": "Color token",
+            "type": "string",
+            "maxLength": 64
+          },
+          "aliasNames": {
+            "description": "Replace alias list (full list). `[]` does NOT clear — use clearAliasNames",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "clearAliasNames": {
+            "description": "true → reset aliases to the default [normalized name]",
+            "type": "boolean"
+          }
+        },
+        "description": "UpdateCategoryRequest (id in path)"
+      },
+      "CreateAssetTransferDto": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Asset id"
+          },
+          "assetStatusId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Asset status session id to transfer"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991,
+            "description": "Units to transfer"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "Transfer description / note (required)"
+          },
+          "toUserId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Recipient user id (destination)"
+          },
+          "deliveryStaffId": {
+            "description": "Courier / staff performing delivery",
+            "type": "string"
+          },
+          "toManagerToApprove": {
+            "description": "Approver user id",
+            "type": "string"
+          },
+          "tempRecipientUserId": {
+            "description": "Delegated recipient — the asset finally goes to this person on behalf of toUserId",
+            "type": "string"
+          }
+        },
+        "required": [
+          "assetId",
+          "assetStatusId",
+          "quantity",
+          "description",
+          "toUserId"
+        ],
+        "description": "Tạo phiếu chuyển giao tài sản — CreateAssetTransferRequest"
+      },
+      "UpdateAssetTransferDto": {
+        "type": "object",
+        "properties": {
+          "deliveryId": {
+            "description": "Delivery ID",
+            "type": "string"
+          },
+          "delegatedId": {
+            "description": "Delegated staff ID",
+            "type": "string"
+          },
+          "locationId": {
+            "description": "Location ID",
+            "type": "string"
+          }
+        },
+        "description": "Cập nhật phiếu chuyển giao tài sản — UpdateAssetTransferRequest (id in path)"
+      },
+      "RespondToAssetTransferDto": {
+        "type": "object",
+        "properties": {
+          "accept": {
+            "type": "boolean",
+            "description": "true = accept, false = reject"
+          },
+          "reason": {
+            "description": "Reason when rejecting",
+            "type": "string",
+            "maxLength": 2000
+          }
+        },
+        "required": [
+          "accept"
+        ],
+        "description": "Phản hồi phiếu chuyển giao tài sản — RespondToAssetTransferRequest (id in path)"
+      },
+      "RecipientOwnerModeDto": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "manager"
+            ],
+            "description": "Vai trò người nhận sau khi đồng bộ phiên"
+          },
+          "staffId": {
+            "type": "string",
+            "description": "Staff/user ID"
+          },
+          "locationId": {
+            "description": "Location ID",
+            "type": "string"
+          }
+        },
+        "required": [
+          "mode",
+          "staffId"
+        ],
+        "description": "SetRecipientOwnerMode — đối chiếu v1 recipient-owner-mode"
+      },
+      "CreateRequestStaffChangeStatusDto": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "subjectId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "approverId": {
+            "type": "string"
+          },
+          "images": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "typeRequest": {
+            "type": "string",
+            "enum": [
+              "change-status",
+              "change-status-maintenance"
+            ]
+          },
+          "statusChange": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "timeEnd": {
+            "type": "string"
+          },
+          "locationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "description",
+          "subjectId",
+          "quantity",
+          "typeRequest",
+          "statusChange"
+        ],
+        "description": "CreateRequestStaffChangeStatus"
+      },
+      "ApproveRequestStaffDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "default": "",
+            "type": "string",
+            "maxLength": 4000
+          },
+          "statusRequest": {
+            "type": "string",
+            "enum": [
+              "confirm",
+              "deny"
+            ]
+          },
+          "timeEnd": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "statusRequest"
+        ],
+        "description": "ApproveRequestStaff"
+      },
+      "CreateRequestStaffChangeLocationDto": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "subjectId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "approverId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "images": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "timeEnd": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "description",
+          "subjectId",
+          "quantity",
+          "approverId",
+          "locationId"
+        ],
+        "description": "CreateRequestStaffChangeLocation"
+      },
+      "CreateMaintenanceScheduleDto": {
+        "type": "object",
+        "properties": {
+          "assetStatusId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Asset status session id"
+          },
+          "maintenanceType": {
+            "type": "string",
+            "enum": [
+              "schedule",
+              "preventive",
+              "emergency",
+              "corrective",
+              "condition-based"
+            ],
+            "description": "Maintenance category"
+          },
+          "locationAsset": {
+            "type": "string",
+            "enum": [
+              "internal",
+              "external"
+            ],
+            "description": "Location label for work"
+          },
+          "startMaintenanceDate": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "startMaintenanceDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "endMaintenanceDate": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "endMaintenanceDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "startMaintenanceDateMs": {
+            "description": "Removed — use startMaintenanceDate",
+            "not": {}
+          },
+          "endMaintenanceDateMs": {
+            "description": "Removed — use endMaintenanceDate",
+            "not": {}
+          },
+          "initialTasks": {
+            "default": [],
+            "description": "Seed tasks when creating schedule",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "taskTitle": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000,
+                  "description": "Task title / label"
+                },
+                "startDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+                  "description": "startDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+                },
+                "endDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+                  "description": "endDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+                },
+                "startDateMs": {
+                  "description": "Removed — use startDate",
+                  "not": {}
+                },
+                "endDateMs": {
+                  "description": "Removed — use endDate",
+                  "not": {}
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991,
+                  "description": "Quantity covered"
+                },
+                "description": {
+                  "default": "",
+                  "description": "Task notes",
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "staffs": {
+                  "default": [],
+                  "description": "Assigned user ids",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "followers": {
+                  "default": [],
+                  "description": "Follower user ids",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "taskTitle",
+                "startDate",
+                "endDate",
+                "quantity"
+              ]
+            }
+          }
+        },
+        "required": [
+          "assetStatusId",
+          "maintenanceType",
+          "locationAsset",
+          "startMaintenanceDate"
+        ],
+        "description": "CreateMaintenanceScheduleRequest"
+      },
+      "UpdateMaintenanceScheduleDto": {
+        "type": "object",
+        "properties": {
+          "assetStatusId": {
+            "description": "Move schedule to another (open) asset status session",
+            "type": "string",
+            "minLength": 1
+          },
+          "locationAsset": {
+            "description": "Location label for work",
+            "type": "string",
+            "enum": [
+              "internal",
+              "external"
+            ]
+          },
+          "startMaintenanceDate": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "startMaintenanceDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "endMaintenanceDate": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "endMaintenanceDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "startMaintenanceDateMs": {
+            "description": "Removed — use startMaintenanceDate",
+            "not": {}
+          },
+          "endMaintenanceDateMs": {
+            "description": "Removed — use endMaintenanceDate",
+            "not": {}
+          }
+        },
+        "description": "UpdateMaintenanceScheduleRequest (id in path) — partial patch, DRAFT schedules only"
+      },
+      "CreateMaintenanceTaskDto": {
+        "type": "object",
+        "properties": {
+          "maintenanceScheduleId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Parent schedule id"
+          },
+          "taskTitle": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "Task label"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "startDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "endDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "startDateMs": {
+            "description": "Removed — use startDate",
+            "not": {}
+          },
+          "endDateMs": {
+            "description": "Removed — use endDate",
+            "not": {}
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991,
+            "description": "Quantity"
+          },
+          "description": {
+            "default": "",
+            "description": "Notes",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "staffs": {
+            "default": [],
+            "description": "Assigned users",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followers": {
+            "default": [],
+            "description": "Followers",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "maintenanceScheduleId",
+          "taskTitle",
+          "startDate",
+          "endDate",
+          "quantity"
+        ],
+        "description": "CreateMaintenanceTaskRequest"
+      },
+      "UpdateMaintenanceTaskDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "startDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+            "description": "endDate (ISO 8601 date-time, e.g. 2026-10-15T08:00:00.000Z)"
+          },
+          "startDateMs": {
+            "description": "Removed — use startDate",
+            "not": {}
+          },
+          "endDateMs": {
+            "description": "Removed — use endDate",
+            "not": {}
+          },
+          "quantity": {
+            "description": "New quantity",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "description": {
+            "description": "New notes",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "staffs": {
+            "description": "Replace staff assignees (full list). `[]` does NOT clear — use clearStaffs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followers": {
+            "description": "Replace followers (full list). `[]` does NOT clear — use clearFollowers",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "clearStaffs": {
+            "description": "true → remove all staff assignees",
+            "type": "boolean"
+          },
+          "clearFollowers": {
+            "description": "true → remove all followers",
+            "type": "boolean"
+          }
+        },
+        "description": "UpdateMaintenanceTaskRequest (id in path) — partial patch, SCHEDULED tasks only"
+      },
+      "UpdateMaintenanceTaskUsersDto": {
+        "type": "object",
+        "properties": {
+          "staffs": {
+            "description": "Replace staff assignees (full list). `[]` does NOT clear — use clearStaffs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "followers": {
+            "description": "Replace followers (full list). `[]` does NOT clear — use clearFollowers",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "clearStaffs": {
+            "description": "true → remove all staff assignees",
+            "type": "boolean"
+          },
+          "clearFollowers": {
+            "description": "true → remove all followers",
+            "type": "boolean"
+          }
+        },
+        "description": "UpdateMaintenanceTaskUsersRequest (id in path)"
+      },
+      "ChangeMaintenanceTaskStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "scheduled",
+              "completed",
+              "processing",
+              "overdue",
+              "on-hold"
+            ],
+            "description": "New task status value"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "description": "ChangeMaintenanceTaskStatusRequest (id in path)"
+      },
+      "CreateMaintenanceRecordDto": {
+        "type": "object",
+        "properties": {
+          "maintenanceTaskId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Task id"
+          },
+          "description": {
+            "default": "",
+            "description": "What was done",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "performedBy": {
+            "default": "",
+            "description": "Performer name or id",
+            "type": "string",
+            "maxLength": 200
+          },
+          "notes": {
+            "default": "",
+            "description": "Extra notes",
+            "type": "string",
+            "maxLength": 4000
+          },
+          "cost": {
+            "description": "Cost number",
+            "type": "number",
+            "minimum": 0
+          },
+          "images": {
+            "default": [],
+            "description": "Image URLs",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "default": [],
+            "description": "File paths / ids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "maintenanceTaskId"
+        ],
+        "description": "CreateMaintenanceRecordRequest"
+      },
+      "UpdateMaintenanceRecordDto": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "description": "Updated description",
+            "type": "string",
+            "maxLength": 2000
+          },
+          "notes": {
+            "description": "Updated notes",
+            "type": "string",
+            "maxLength": 4000
+          },
+          "cost": {
+            "description": "Updated cost",
+            "type": "number",
+            "minimum": 0
+          },
+          "images": {
+            "description": "Replace image list (full list). `[]` does NOT clear — use clearImages",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "description": "Replace file list (full list). `[]` does NOT clear — use clearFiles",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "performedBy": {
+            "description": "Performer",
+            "type": "string",
+            "maxLength": 200
+          },
+          "clearImages": {
+            "description": "true → remove all images",
+            "type": "boolean"
+          },
+          "clearFiles": {
+            "description": "true → remove all files",
+            "type": "boolean"
+          }
+        },
+        "description": "UpdateMaintenanceRecordRequest (id in path)"
+      },
+      "CreateMaintenanceDiscussDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "description": "Nội dung thảo luận"
+          }
+        },
+        "required": [
+          "content"
+        ],
+        "description": "Tạo bình luận/thảo luận trên maintenance task — CreateMaintenanceDiscussRequest"
+      },
+      "ImportAssetFileFormDto": {
+        "type": "object",
+        "properties": {
+          "skipHeaderRow": {
+            "type": "boolean",
+            "description": "If true, first row is treated as header and skipped"
+          },
+          "sheetIndex": {
+            "default": 0,
+            "description": "Excel: 0-based worksheet index",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "skipHeaderRow"
+        ],
+        "description": "Import form fields (with multipart file)"
+      },
+      "CreateAssetExportDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "default": "",
+            "description": "Export job title",
+            "type": "string",
+            "maxLength": 500
+          },
+          "fileName": {
+            "default": "",
+            "description": "Suggested download file name",
+            "type": "string",
+            "maxLength": 512
+          },
+          "nameOrganization": {
+            "default": "",
+            "description": "Organization name on cover",
+            "type": "string",
+            "maxLength": 500
+          },
+          "department": {
+            "default": "",
+            "description": "Department label",
+            "type": "string",
+            "maxLength": 500
+          },
+          "exportHorizontal": {
+            "default": false,
+            "description": "Layout: horizontal vs vertical",
+            "type": "boolean"
+          },
+          "startDateMs": {
+            "default": 0,
+            "description": "Filter start (epoch ms)",
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "endDateMs": {
+            "default": 0,
+            "description": "Filter end (epoch ms)",
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "exportCode": {
+            "default": "",
+            "description": "Business export code",
+            "type": "string",
+            "maxLength": 200
+          },
+          "items": {
+            "default": [],
+            "description": "Assets to include in this export",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "assetId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "Asset id to include in export bundle"
+                }
+              },
+              "required": [
+                "assetId"
+              ]
+            }
+          }
+        },
+        "description": "Create asset export job — CreateExportRequest"
+      },
+      "ExportAssetsCsvDownloadDto": {
+        "type": "object",
+        "properties": {
+          "assetIds": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Asset ids to serialize as CSV rows"
+          },
+          "maxRows": {
+            "default": 10000,
+            "description": "Safety cap on exported rows",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "assetIds"
+        ],
+        "description": "ExportAssetsCsv request body"
+      }
+    },
+    "responses": {},
+    "parameters": {},
+    "requestBodies": {},
+    "headers": {},
+    "securitySchemes": {
+      "JWT-auth": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "name": "JWT",
+        "description": "Enter JWT token",
+        "in": "header"
+      },
+      "API-Key-Asset": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "Asset Service API Key (ASSET_API_KEY) - Required for all /sgod-asset/v1 endpoints"
+      }
+    }
+  },
+  "x-tagGroups": [
+    {
+      "name": "Core & dashboard",
+      "tags": [
+        "Asset · Core",
+        "Asset · Dashboard"
+      ]
+    },
+    {
+      "name": "Lifecycle & master data",
+      "tags": [
+        "Asset · Status",
+        "Asset · Locations",
+        "Asset · Categories",
+        "Asset · Chuyển giao tài sản"
+      ]
+    },
+    {
+      "name": "Maintenance & data exchange",
+      "tags": [
+        "Asset · Maintenance",
+        "Asset · Import / Export",
+        "Asset · Upload (proxy)"
+      ]
+    }
+  ],
+  "x-sgod-capture": {
+    "date": "2026-10-14",
+    "source": "<SGOD_GATEWAY>/swagger/v1/asset-service/swagger-ui-init.js",
+    "tool": "tools/sgod/extract_openapi.py"
+  }
+}

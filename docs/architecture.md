@@ -56,7 +56,7 @@ tools/sgod/sgod_tools.json  = [ {"type":"function",
                                  "function": {"name", "description" (VN), "parameters" (JSON Schema)},
                                  "x_sgod": {"service": "asset", "method": "GET", "path": "/assets/{id}",
                                             "jwt_scoped": true, "allowed_roles": [...], "writes": false,
-                                            "id_params": ["id"], "resolve": "assets/suggest?q="}} , ... ]
+                                            "id_params": ["id"], "resolve": "assets?search="}} , ... ]
 tools/sgod/tool_policy.json = { "<tool>": {"writes": false, "roles": ["employee", "company_admin"]} }
 tools/sgod/roles.json       = ánh xạ tier SGOD → vai trò chat (máy đọc của docs/contracts/roles.md)
 ```

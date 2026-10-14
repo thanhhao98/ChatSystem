@@ -139,7 +139,7 @@ Queries are **automatically scoped by the JWT** — e.g. `GET /sgod-asset/v1/ass
 
 ### asset-service  
 
-`/sgod-asset/v1` · key `<SGOD_ASSET_API_KEY>` · 100 operations
+`/sgod-asset/v1` · key `<SGOD_ASSET_API_KEY>` · 100 operations (Swagger 2026-10-14: 83 — `docs/sgod/openapi-asset.json`; đã bỏ `/assets/suggest`, `/dashboard/*`, xem §4)
 
 **What it is.** The core business domain. Assets belong to a tenant, sit in a category and a location, carry an auto QR code and sequential asset code, and move through status/transfer/maintenance workflows. Search is Elasticsearch-backed.
 
@@ -159,7 +159,8 @@ Queries are **automatically scoped by the JWT** — e.g. `GET /sgod-asset/v1/ass
 | `GET` | `/sgod-asset/v1/locations` | List locations flat (ListLocations) |
 | `GET` | `/sgod-asset/v1/asset-transfers` | Danh sách phiếu chuyển giao tài sản — ListAssetTransfers |
 | `GET` | `/sgod-asset/v1/maintenance/schedules` | List maintenance schedules (ListMaintenanceSchedules) |
-| `GET` | `/sgod-asset/v1/dashboard/statistics-asset` | Asset status time series (v1 parity) |
+| `GET` | `/sgod-asset/v1/dashboard/statistics-asset` | Asset status time series (v1 parity) — **2026-10-14: không còn** (gọi thật → 404; xem §4) |
+| `GET` | `/sgod-asset/v1/assets/summary` | Tổng quan tài sản: `totalAssets`, `importantAssets`, `withQrCode`, `openStatusSessions` (GetAssetSummary; Swagger + gọi thật 2026-10-14) |
 | `GET` | `/sgod-asset/v1/request-staff` | Danh sách request staff — ListRequestStaff |
 
 **Sample I/O (live):**
@@ -306,11 +307,11 @@ The assistant is responsible for authentication so the user never touches a brow
 | “My roles / permissions” | `GET /sgod-auth/v1/session/context` | roles + permissions for the session |
 | (session expiring) | `POST /sgod-auth/v1/sessions/refresh` | agent refreshes silently |
 | **“Which assets do I own?”** | `GET /sgod-asset/v1/assets` | JWT-scoped to tenant; paginate with `?limit&cursor` |
-| “Show asset &lt;name&gt;” | `GET /sgod-asset/v1/assets/suggest?q=<name>` → `GET /assets/{id}` | resolve name→id, then fetch |
+| “Show asset &lt;name&gt;” | `GET /sgod-asset/v1/assets?search=<name>` → `GET /assets/{id}` | resolve name→id, then fetch (2026-10-14: `/assets/suggest` đã bỏ, xem §4; `search` khớp tên hoặc mã tài sản) |
 | “Assets needing maintenance” | `GET /sgod-asset/v1/maintenance/schedules` | filter by status |
 | “Where is asset X / its location” | `GET /sgod-asset/v1/assets/{id}` + `GET /locations/{id}` | |
 | “My asset transfers” | `GET /sgod-asset/v1/asset-transfers` | |
-| “How many assets by status” | `GET /sgod-asset/v1/dashboard/statistics-asset` | |
+| “How many assets (overview)” | `GET /sgod-asset/v1/assets/summary` | 2026-10-14: `/dashboard/statistics-asset` (theo trạng thái) đã bỏ, xem §4; không còn endpoint toàn doanh nghiệp theo trạng thái |
 | “My conversations” | `GET /sgod-chat/v1/conversations` | Enterprise-owner only today (see issues) |
 | “My unread messages” | `GET /sgod-chat/v1/conversations/unread-counts` | Enterprise-owner only today (see issues) |
 
@@ -383,6 +384,8 @@ curl -s "http://<SGOD_GATEWAY>/sgod-asset/v1/assets?limit=5" \
 | Med | asset | `GET /maintenance/schedules/count-by-tab` | gRPC `CountMaintenanceScheduleTabs not found`. |
 | Med | asset | `GET /import-export/exports` | gRPC `ListAssetExports not found`. |
 | Med | asset | `GET /asset-offers`, `GET /categories-offer` | `No handler found` (CQRS query unregistered). |
+| Med | asset | `GET /assets/suggest` | 2026-10-14: không còn trong Swagger; gọi thật → `success:false`, `statusCode` 404 (`Asset suggest not found` — đường dẫn rơi vào `/assets/{id}`). Tìm theo tên/mã: `GET /assets?search=`. |
+| Med | asset | `GET /dashboard/statistics-asset` | 2026-10-14: không còn trong Swagger (cả nhóm `/dashboard/*`); gọi thật → HTTP 404 `Cannot GET`. Tổng quan: `GET /assets/summary`. |
 | Low | auth | account `<sub-enterprise-test-account>` | exists as SUBENTERPRISE but rejects the shared password (`Invalid credentials`). |
 | Info | all | error masking | Errors return **HTTP 200** with `body.statusCode` = real code. Branch on `success`. |
 | Info | asset/others | some create bodies | Swagger shows opaque `{"root":null}`; required fields must be learned from validation errors. |
@@ -392,7 +395,7 @@ curl -s "http://<SGOD_GATEWAY>/sgod-asset/v1/assets?limit=5" \
 
 ## 5. Appendix — full endpoint inventory
 
-Total: **341** operations across 3 services (auth, asset, chat).
+Total: **341** operations across 3 services (auth, asset, chat). Bảng dưới là ảnh chụp 2026-09-13; Swagger 2026-10-14: auth 179 · asset 83 · chat 62 — bản đầy đủ, có tham số: `docs/sgod/openapi-{auth,asset,chat}.json`, `docs/sgod/query_params.md`.
 
 <details><summary><b>auth-service</b> — 179 ops</summary>
 
