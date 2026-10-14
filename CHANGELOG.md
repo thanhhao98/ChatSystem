@@ -10,11 +10,14 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
-## 2026-09-29 — [D-V1] SGOD tool catalogue v1 (Hy, My, Dinh — 21 tools chỉ đọc, tool_policy, mapping)
+## 2026-10-14 — [D-V1] danh mục tool SGOD v1: 22 tool chỉ đọc, tool_policy, mapping — nhóm D: Hy, My, Dinh (PR #5)
 
-- `tools/sgod/sgod_tools.json`: Xây dựng phiên bản v1 chuẩn từ đóng góp chung của nhóm D (Hy, My, Dinh), mở rộng từ 3 tool mẫu lên 21 tools chỉ đọc (`writes: false`) theo spec §1, §3 và `docs/sgod/candidate_tools.md`; tên snake_case; mô tả tiếng Việt; không chứa tham số cấm (`company_id`, `tenant_id`); hỗ trợ `x_sgod.resolve` cho các thao tác tra cứu chi tiết; chặn 5 GET hỏng và giới hạn `/sgod-chat/v1` cho `company_admin`. Phần công cụ riêng của My (`list_maintenance_tasks`) và Dinh (`list_enterprise_users`) sẽ được bổ sung trong phiên bản v1.1.
-- `tools/sgod/tool_policy.json`: Đồng bộ 1:1 chính xác với 21 tools của `sgod_tools.json` (`writes` và `roles`).
-- `tools/sgod/tool_api_mapping.md`: Sinh tự động hoàn toàn bằng `tools/sgod/gen_tool_api_mapping.py` (21 tools, 48 dòng).
+- `tools/sgod/sgod_tools.json`: từ 3 tool mẫu lên 22 tool chỉ đọc (`writes: false`). Nền là PR #5 (Hy, 21 tool); gộp `list_maintenance_tasks` từ PR #6 (My) với query bắt buộc `maintenanceScheduleId`, và `list_enterprise_users` (chỉ `company_admin`) từ PR #7 (Dinh) với `search`/`status`/`limit`/`cursor` theo `docs/sgod/openapi-*.json` (PR #9). Giữ từ PR #5: chặn 5 GET hỏng của spec §4; `/sgod-chat/v1` chỉ cho `company_admin`.
+- Đối chiếu bằng gọi thật trên hạ tầng tham chiếu (2026-10-14, tài khoản thử enterprise): bỏ `search_assets` (`/assets/suggest` → 404, trùng `list_my_assets`); `get_asset_statistics` trỏ `GET /sgod-asset/v1/assets/summary` (`/dashboard/statistics-asset` → 404); 3 tool mẫu: `list_my_assets` dùng `search` (API bỏ qua `q`, `status`), `list_maintenance_schedules` enum `completed` (`complete` → 400), `get_asset` / `get_asset_histories` resolve bằng `GET /assets?search=`; `list_asset_transfers` thêm `onlyMine`; mô tả `get_enterprise_profile` theo trường thật. Kết quả từng lần gọi ghi trong `x_sgod.notes`.
+- Rút gọn mô tả (bỏ nhãn "(company_admin)" thừa và câu phân trang lặp lại; bỏ "phòng ban" khỏi `list_locations`; lấy mô tả chính xác hơn từ PR #6/#7) để vừa ngân sách: lượt system company_admin 3332/3400 token, employee 2818.
+- `prompts/system_preamble_v1.txt`: hai dòng *Quy tắc chọn tool* đổi theo (`search`, `completed`); sha256 nội dung sau `.strip()` `6352dac1…` → `f5da2272…` (`prompts/README.md`). Chưa có hàng SGOD hay dự đoán nào dùng preamble v1.
+- `docs/sgod-api-reference.md` (§2, §3, §4), `docs/sgod/candidate_tools.md`, `docs/architecture.md`, `datagen/config_sgod.py` (`schedule_status`): đồng bộ theo gọi thật.
+- `tools/sgod/tool_policy.json`: 1:1 với 22 tool. `tools/sgod/tool_api_mapping.md`: sinh lại bằng `gen_tool_api_mapping.py` (`--check` OK).
 
 ## 2026-09-23 — [F-T1] điều chỉnh dtypes tham số LoRA sang fp32 và khôi phục fp16=True trong SFTConfig theo feedback review
 
