@@ -20,7 +20,8 @@
 | arm_comp0 | `training/recipes/recipe_arm_comp0.yaml` | `completion_only` 1 → 0 (full loss — chỉ quan sát) | `recipe_arm_comp0_s42` |
 | arm_free | `training/recipes/recipe_arm_free.yaml` | `lora_dropout` 0.05 → 0.1 (arm tự chọn) | `recipe_arm_free_s42` |
 
-Arm 1.5B (`Qwen/Qwen2.5-1.5B-Instruct`) không chạy trong lượt này (yaml đã bỏ).
+Arm 1.5B (`Qwen/Qwen2.5-1.5B-Instruct`) không chạy trong lượt T4 này (yaml đã bỏ); arm 1.5B có ở lưới lặp lại trên
+RTX PRO 6000 (bf16), xem mục *Bổ sung* cuối báo cáo.
 
 ## Từng run
 
@@ -59,3 +60,45 @@ _Lệnh_: `python training/bootstrap_ci.py --run anchor=results/public/anchor_re
    63 bước, lr 1.0e-4, đổi 0.05 → 0.1 gần như không làm đầu ra khác đi — trong khi cùng 63 bước, `arm_r8` đổi raw output
    ở 23/200 id. Giữ arm này trong bảng như một quan sát,
    không dùng để kết luận.
+
+## Bổ sung (2026-10-14) — lưới lặp lại trên RTX PRO 6000 (bf16), có arm 1.5B và arm tự chọn r32
+
+> **Ghi chú trục đo (phần bổ sung)** — eval: `data/public/xlam_2k.eval.json` @ `6d8c803e` · tools: theo từng bản ghi · preamble: `prompts/system_preamble_v0.txt` @ `ebcae911` · scorer: `training/eval_toolcall.py` (`eval_toolcall/1.2`, strict first-call) @ git `befa395` · sampling: temperature 0 (greedy), `max_new_tokens` 256, dtype bfloat16 · bootstrap percentile 2000 lần, seed 20260625. Cùng trục eval với bảng T4 ở trên; phần cứng và dtype khác, nên mỗi arm dưới đây chỉ so với **anchor của cùng lần chạy**.
+
+**Nguồn và cách kiểm.** Sáu run của @pthao3113 (nhánh `ft/task1-pthao`) theo recipe cố định `max_rows: 1000`, `epochs: 1`, `seed: 42`, trên NVIDIA RTX PRO 6000 (header dự đoán ghi `dtype: bfloat16`). Recipe `public_anchor.yaml`, `recipe_arm_r8.yaml`, `recipe_arm_lr2e4.yaml`, `recipe_arm_comp0.yaml` trùng từng khóa với recipe người chạy đã dùng (trừ `arm`, `notes`); hai recipe mới `recipe_arm_1p5b.yaml` và `recipe_arm_r32.yaml` giữ nguyên giá trị của người chạy (tệp gốc `public_1p5b.yaml`, `public_free_arm.yaml`; chỉ đổi tên tệp và khoá `arm` cho khớp các arm T4). Tên adapter trong header (`public_*_s42`) là tên recipe gốc. Header ghi `git_sha` `befa395`: `training/finetune_qlora.py` ở commit này là bản trước PR #1 (chưa có bước ép tham số LoRA về fp32 và cờ `--no-amp`, hai sửa đổi nhắm vào đường fp16 trên T4). Dự đoán và kết quả nằm ở `results/public/recipe_grid_bf16/`. Chấm lại bằng `training/eval_toolcall.py --preamble prompts/system_preamble_v0.txt`: header khớp và cả sáu tệp kết quả trùng từng byte với tệp đã nộp. Bảng dưới chép từ `results/public/recipe_grid_bf16/bootstrap.md`.
+
+Δ = acc(anchor) − acc(arm) (dương = anchor tốt hơn); McNemar b = anchor đúng & arm sai, c = ngược lại.
+
+| arm | recipe | accuracy (%) | 95% CI | Δ vs anchor (pp) | 95% CI Δ (pp) | McNemar b | c | p |
+|---|---|---|---|---|---|---|---|---|
+| anchor | `public_anchor.yaml` | 95.5 | [92.5, 98.0] | — | — | — | — | — |
+| r8 | `recipe_arm_r8.yaml` | 95.5 | [92.5, 98.0] | +0.0 | [+0.0, +0.0] | 0 | 0 | 1.0000 |
+| lr2e4 | `recipe_arm_lr2e4.yaml` | 94.5 | [91.5, 97.5] | +1.0 | [-1.0, +3.0] | 3 | 1 | 0.6250 |
+| comp0 (full loss, chỉ quan sát) | `recipe_arm_comp0.yaml` | 94.0 | [90.5, 97.0] | +1.5 | [-1.5, +4.5] | 6 | 3 | 0.5078 |
+| **1p5b** (Qwen2.5-1.5B-Instruct) | `recipe_arm_1p5b.yaml` | 95.0 | [92.0, 98.0] | +0.5 | [-2.5, +3.5] | 5 | 4 | 1.0000 |
+| r32 (tự chọn, r32/α64) | `recipe_arm_r32.yaml` | 94.5 | [91.5, 97.5] | +1.0 | [-1.0, +3.0] | 3 | 1 | 0.6250 |
+
+**Kết luận phần bổ sung.**
+
+1. CI của Δ chứa 0 ở cả năm arm và không cặp nào có McNemar có ý nghĩa → **giữ `public_anchor.yaml` làm recipe mặc định**, cùng kết luận với bảng T4 ở trên; không chọn arm theo điểm ước lượng.
+2. **Arm 1.5B** (bắt buộc trong lưới, bảng T4 chưa có): trên lát 1.000 hàng, 1.5B không hơn anchor 0.5B (Δ +0.5 pp, CI [-2.5, +3.5]), nên chưa có lý do đổi kích cỡ ở bước này; so sánh kích cỡ trên bộ SGOD thuộc F Việc 4.
+3. **Arm tự chọn r32/α64** (giữ α = 2r): tăng hạng LoRA không cải thiện (Δ +1.0 pp, CI [-1.0, +3.0]); cùng với r8 bằng anchor, hạng LoRA không phải trục quyết định ở quy mô này. Arm tự chọn của hai lần chạy khác trục (T4: `recipe_arm_free.yaml`, `lora_dropout` 0.1; bf16: `recipe_arm_r32.yaml`), nên không đối chiếu chéo.
+4. Điểm kiểm tra của task: anchor bf16 95.5% [92.5, 98.0] nằm trong CI của run tuần 2 (R002: 96.0% [93.0, 98.5]).
+5. Lần chạy bf16 không nộp log huấn luyện hay `training_config.json`, nên peak VRAM, thời gian chạy và tệp train thực dùng không kiểm được và không báo cáo ở đây; cột `wall_clock_min` và `gpu` của `training/recipes/results.csv` chép từ bảng của người chạy.
+
+### Đối chiếu chéo cùng recipe: T4 fp16 (bảng trên) ↔ RTX PRO 6000 bf16
+
+Δ = acc(T4) − acc(bf16); McNemar b = T4 đúng & bf16 sai, c = ngược lại. Nguồn: `results/public/recipe_grid_bf16/cross_t4_bf16.md`.
+
+| recipe | T4 accuracy (%) | bf16 accuracy (%) | Δ T4 − bf16 (pp) | 95% CI Δ (pp) | McNemar b | c | p |
+|---|---|---|---|---|---|---|---|
+| `public_anchor.yaml` | 95.5 | 95.5 | +0.0 | [+0.0, +0.0] | 0 | 0 | 1.0000 |
+| `recipe_arm_r8.yaml` | 95.5 | 95.5 | +0.0 | [+0.0, +0.0] | 0 | 0 | 1.0000 |
+| `recipe_arm_lr2e4.yaml` | 95.0 | 94.5 | +0.5 | [-1.0, +2.5] | 2 | 1 | 1.0000 |
+| `recipe_arm_comp0.yaml` | 93.5 | 94.0 | -0.5 | [-1.5, +0.0] | 0 | 1 | 1.0000 |
+
+Anchor và r8 cho cùng pass/fail trên toàn bộ 200 bản ghi ở hai phần cứng; lr2e4 lệch 3 bản ghi, comp0 lệch 1 bản ghi. Đổi phần cứng và dtype (T4 fp16 → bf16) không làm đổi kết luận nào ở trên.
+
+<!-- no-prov-start -->
+**Lần lặp thứ ba (không tính số).** @wynn187z cũng chạy lưới này trên Colab T4 (fp16, `--no-amp`; nhánh `ft/v1-recipe-grid-vanquyen` @ `b8d4640`, notebook `notebooks/finetune/04_recipe_grid.ipynb`, arm tự chọn `mask_fn_names: 0.5`) và báo cáo trên ClickUp với cùng kết luận giữ anchor. Tệp dự đoán và kết quả (`results/public/ft_public_*_s42.*`) không được commit và notebook đã xoá output, nên không có số nào của lần chạy này trong báo cáo này hay trong `results/INDEX.md`.
+<!-- no-prov-end -->
