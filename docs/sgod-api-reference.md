@@ -139,7 +139,7 @@ Queries are **automatically scoped by the JWT** — e.g. `GET /sgod-asset/v1/ass
 
 ### asset-service  
 
-`/sgod-asset/v1` · key `<SGOD_ASSET_API_KEY>` · 100 operations
+`/sgod-asset/v1` · key `<SGOD_ASSET_API_KEY>` · 100 operations (Swagger 2026-10-14: 83 — `docs/sgod/openapi-asset.json`; đã bỏ `/assets/suggest`, `/dashboard/*`, xem §4)
 
 **What it is.** The core business domain. Assets belong to a tenant, sit in a category and a location, carry an auto QR code and sequential asset code, and move through status/transfer/maintenance workflows. Search is Elasticsearch-backed.
 
@@ -395,7 +395,7 @@ curl -s "http://<SGOD_GATEWAY>/sgod-asset/v1/assets?limit=5" \
 
 ## 5. Appendix — full endpoint inventory
 
-Total: **341** operations across 3 services (auth, asset, chat).
+Total: **341** operations across 3 services (auth, asset, chat). Bảng dưới là ảnh chụp 2026-09-13; Swagger 2026-10-14: auth 179 · asset 83 · chat 62 — bản đầy đủ, có tham số: `docs/sgod/openapi-{auth,asset,chat}.json`, `docs/sgod/query_params.md`.
 
 <details><summary><b>auth-service</b> — 179 ops</summary>
 
