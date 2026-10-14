@@ -4,44 +4,71 @@
     "conversations": [
       {
         "id": "6aa2c5e2e8667af3ad1333ff",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
         "type": "group",
         "title": "QA Project Team",
         "logoId": "",
-        "tenantId": "6a85bad6a8d2133e058c93a9",
-        "lastMessageId": "6aa2c601e8667af3ad133405",
-        "sortConversation": "2026-10-10T14:40:00.000Z",
+        "members": [
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "Enterprise",
+            "userId": "6a85bad6a8d2133e058c93a9"
+          },
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "EnterpriseUser",
+            "userId": "6a85be56a8d2133e058c93b9"
+          },
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "EnterpriseUser",
+            "userId": "6a85bfcba8d2133e058c93be"
+          }
+        ],
+        "lastMessageId": "",
+        "sortConversation": "2026-09-10T14:59:46.784Z",
         "messagesPinned": [],
-        "isE2EEEnabled": false,
-        "currentKeyVersion": 0,
+        "enableE2EE": false,
+        "firstEnableE2EE": false,
         "groupKeys": [],
-        "searchText": "qa project team",
-        "participantCount": 3,
-        "createdAt": "2026-09-01T08:00:00.000Z",
-        "updatedAt": "2026-10-10T14:40:00.000Z",
-        "description": "Nhóm trao đổi công việc QA & Test",
+        "searchText": "",
+        "memberCount": 3,
+        "createdAt": "2026-09-10T14:59:46.784Z",
+        "updatedAt": "2026-09-10T14:59:46.784Z",
+        "description": "E2E demo group",
+        "createdBy": "6a85bad6a8d2133e058c93a9",
         "creatorId": "6a85bad6a8d2133e058c93a9",
-        "lastMessageAt": "2026-10-10T14:40:00.000Z",
-        "lastMessageSnippet": "Báo cáo kiểm thử thiết bị đã được cập nhật.",
-        "messageCount": 42,
+        "lastMessageAt": "2026-09-10T14:59:46.784Z",
+        "lastMessagePreview": "",
+        "messageCount": 0,
         "isActive": true,
+        "unreadCount": 0,
+        "isMuted": false,
+        "isPinned": false,
+        "isArchived": false,
+        "archivedAt": null,
+        "autoUnarchiveOnNewMessage": true,
+        "disappearingSeconds": 0,
+        "lastNameUserSent": "",
+        "lastUserSentId": "",
         "settings": {
           "allowInvites": true,
           "requireApproval": false,
           "allowFileSharing": true,
-          "maxParticipants": 100,
-          "allowMemberMessagePinning": false,
+          "maxParticipants": 1000,
+          "allowMemberMessagePinning": true,
           "allowReactions": true,
           "allowPolling": true,
           "allowMembersToSendMessages": true,
           "onlyAdminsCanCreatePolls": false
-        },
-        "unreadCount": 2,
-        "isMuted": false,
-        "isPinned": true,
-        "disappearingSeconds": 0,
-        "lastNameUserSent": "Nguyễn Văn Test",
-        "lastUserSentId": "6a85be56a8d2133e058c93b9",
-        "e2eeFirstEnabledAt": "",
+        }
+      },
+      {
+        "id": "6aa2c17845beb2ba3f23c797",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "type": "private",
+        "title": "Nguyễn Test02",
+        "logoId": "",
         "members": [
           {
             "tenantId": "6a85bad6a8d2133e058c93a9",
@@ -54,18 +81,47 @@
             "userId": "6a85be56a8d2133e058c93b9"
           }
         ],
+        "lastMessageId": "",
+        "sortConversation": "2026-09-10T14:40:56.306Z",
+        "messagesPinned": [],
+        "enableE2EE": false,
+        "firstEnableE2EE": false,
+        "groupKeys": [],
+        "searchText": "",
+        "memberCount": 2,
+        "createdAt": "2026-09-10T14:40:56.306Z",
+        "updatedAt": "2026-09-10T14:40:56.306Z",
+        "description": "",
+        "createdBy": "6a85bad6a8d2133e058c93a9",
+        "creatorId": "6a85bad6a8d2133e058c93a9",
+        "lastMessageAt": "2026-09-10T14:40:56.306Z",
+        "lastMessagePreview": "",
+        "messageCount": 0,
+        "isActive": true,
+        "unreadCount": 0,
+        "isMuted": false,
+        "isPinned": false,
         "isArchived": false,
-        "archivedAt": "",
-        "autoUnarchiveOnNewMessage": true
+        "archivedAt": null,
+        "autoUnarchiveOnNewMessage": true,
+        "disappearingSeconds": 0,
+        "lastNameUserSent": "",
+        "lastUserSentId": "",
+        "settings": {
+          "allowInvites": false,
+          "requireApproval": false,
+          "allowFileSharing": true,
+          "maxParticipants": 2,
+          "allowMemberMessagePinning": false,
+          "allowReactions": true,
+          "allowPolling": false,
+          "allowMembersToSendMessages": true,
+          "onlyAdminsCanCreatePolls": true
+        }
       }
     ],
-    "pagination": {
-      "limit": 20,
-      "total": 1,
-      "hasMore": false,
-      "nextCursor": ""
-    }
+    "nextCursor": ""
   },
-  "message": "Get conversations successfully",
-  "timestamp": "2026-10-10T14:40:00.000Z"
+  "message": "Conversations retrieved successfully",
+  "timestamp": "2026-10-14T01:57:53.532Z"
 }

@@ -1,14 +1,9 @@
 {
   "success": true,
   "data": {
-    "totalUnread": 2,
-    "conversationUnread": [
-      {
-        "conversationId": "6aa2c5e2e8667af3ad1333ff",
-        "count": 2
-      }
-    ]
+    "conversationUnread": [],
+    "totalUnread": 0
   },
-  "message": "Get unread counts successfully",
-  "timestamp": "2026-10-10T14:40:00.000Z"
+  "message": "Unread counts retrieved successfully",
+  "timestamp": "2026-10-14T01:57:53.696Z"
 }

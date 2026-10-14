@@ -4,26 +4,169 @@
     "users": [
       {
         "id": "6a85be56a8d2133e058c93b9",
-        "email": "user.test@example.com",
-        "user_name": "employee_test",
-        "full_name": {
-          "first_name": "Văn Test",
-          "last_name": "Nguyễn"
+        "email": "user02@example.com",
+        "userName": "user02",
+        "fullName": {
+          "firstName": "Test02",
+          "lastName": "Nguyễn"
         },
-        "user_type": "ENTERPRISE_USER",
+        "phone": "+84000000002",
+        "phoneNumber": "+84000000002",
+        "avatarUrl": "",
+        "logoUrl": "",
+        "status": "Active",
         "roles": [
-          "ASSET_USER"
+          "6a85bad6a8d2133e058c93ac",
+          "6a85bf1ca8d2133e058c93bd"
         ],
-        "enterprise_name": "Công ty Công nghệ SGOD Demo",
-        "status": "ACTIVE"
+        "departmentId": "",
+        "positionId": "",
+        "bossId": "",
+        "belong": "EnterpriseUser",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "gender": "Male",
+        "isRemoved": false,
+        "isBlocked": false,
+        "isRevokedWallet": false
+      },
+      {
+        "id": "6a85bfcba8d2133e058c93be",
+        "email": "user03@example.com",
+        "userName": "user03",
+        "fullName": {
+          "firstName": "Test03",
+          "lastName": "Nguyễn"
+        },
+        "phone": "+84000000003",
+        "phoneNumber": "+84000000003",
+        "avatarUrl": "",
+        "logoUrl": "",
+        "status": "Active",
+        "roles": [
+          "6a85bad6a8d2133e058c93ac",
+          "6a85bf1ca8d2133e058c93bd"
+        ],
+        "departmentId": "",
+        "positionId": "",
+        "bossId": "",
+        "belong": "EnterpriseUser",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "gender": "Female",
+        "isRemoved": false,
+        "isBlocked": false,
+        "isRevokedWallet": false
+      },
+      {
+        "id": "6a85c01ba8d2133e058c93c1",
+        "email": "user04@example.com",
+        "userName": "user04",
+        "fullName": {
+          "firstName": "Test04",
+          "lastName": "Nguyễn"
+        },
+        "phone": "+84000000004",
+        "phoneNumber": "+84000000004",
+        "avatarUrl": "",
+        "logoUrl": "",
+        "status": "Active",
+        "roles": [
+          "6a85bad6a8d2133e058c93ac",
+          "6a85bf1ca8d2133e058c93bd"
+        ],
+        "departmentId": "",
+        "positionId": "",
+        "bossId": "",
+        "belong": "EnterpriseUser",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "gender": "Male",
+        "isRemoved": false,
+        "isBlocked": false,
+        "isRevokedWallet": false
+      },
+      {
+        "id": "6a85d263934a8bdc16de4544",
+        "email": "user05@example.com",
+        "userName": "user05",
+        "fullName": {
+          "firstName": "Test05",
+          "lastName": "Nguyễn"
+        },
+        "phone": "+84000000005",
+        "phoneNumber": "+84000000005",
+        "avatarUrl": "",
+        "logoUrl": "",
+        "status": "Active",
+        "roles": [
+          "6a85bad6a8d2133e058c93ab",
+          "6a85bf1ca8d2133e058c93bd"
+        ],
+        "departmentId": "",
+        "positionId": "",
+        "bossId": "",
+        "belong": "Subenterprise",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "gender": "Other",
+        "isRemoved": false,
+        "isBlocked": false,
+        "isRevokedWallet": false
+      },
+      {
+        "id": "6a85d275934a8bdc16de4546",
+        "email": "user06@example.com",
+        "userName": "user06",
+        "fullName": {
+          "firstName": "Test06",
+          "lastName": "Nguyễn"
+        },
+        "phone": "+84000000006",
+        "phoneNumber": "+84000000006",
+        "avatarUrl": "",
+        "logoUrl": "",
+        "status": "Active",
+        "roles": [
+          "6a85bad6a8d2133e058c93ab",
+          "6a85bf1ca8d2133e058c93bd"
+        ],
+        "departmentId": "",
+        "positionId": "",
+        "bossId": "",
+        "belong": "Subenterprise",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "gender": "Other",
+        "isRemoved": false,
+        "isBlocked": false,
+        "isRevokedWallet": false
+      },
+      {
+        "id": "6a85d302934a8bdc16de454a",
+        "email": "user07@example.com",
+        "userName": "user07",
+        "fullName": {
+          "firstName": "Test06",
+          "lastName": "Nguyễn"
+        },
+        "phone": "+84000000006",
+        "phoneNumber": "+84000000006",
+        "avatarUrl": "",
+        "logoUrl": "",
+        "status": "Active",
+        "roles": [
+          "6a85bad6a8d2133e058c93ab",
+          "6a85bf1ca8d2133e058c93bd"
+        ],
+        "departmentId": "",
+        "positionId": "",
+        "bossId": "",
+        "belong": "Subenterprise",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "gender": "Other",
+        "isRemoved": false,
+        "isBlocked": false,
+        "isRevokedWallet": false
       }
     ],
-    "meta": {
-      "next_cursor": "",
-      "has_next_page": false,
-      "limit": 20
-    }
+    "total": "6"
   },
-  "message": "Lấy danh sách nhân sự thành công",
-  "timestamp": "2026-10-10T14:40:00.000Z"
+  "message": "Enterprise users retrieved successfully",
+  "timestamp": "2026-10-14T01:57:49.267Z"
 }

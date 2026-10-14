@@ -2,29 +2,37 @@
   "success": true,
   "data": {
     "asset": {
-      "id": "6aa2c177da46d70ee2f491c1",
-      "enterprise_id": "6a85bad6a8d2133e058c93a9",
-      "name": "Máy tính xách tay Dell Latitude 5420",
-      "alias_names": [
-        "Laptop QA 01",
-        "Dell 5420 QA"
+      "aliasNames": [],
+      "images": [],
+      "files": [],
+      "locations": [
+        "0000000000000000000000ff"
       ],
-      "asset_code": "TS-2026-0001",
-      "category_id": "6aa2c134da46d70ee2f491bf",
-      "location_id": "6aa2c150da46d70ee2f491c0",
+      "id": "6ac9be9827541dacd0a77e9f",
+      "name": "ZZTEST-2610100426 x4",
+      "assetCode": "000000003",
+      "description": "smoke",
+      "enterpriseId": "6a85bad6a8d2133e058c93a9",
+      "categoryId": "6ac9be9727541dacd0a77e91",
       "status": "active",
-      "description": "Máy tính cấp phát cho nhân viên QA kiểm thử",
-      "total_quantity": 1,
-      "initial_quantity": 1,
-      "unit": "chiếc",
-      "asset_type": "normal",
-      "is_important": false,
-      "on_blockchain": false,
-      "created_by": "6a85bad6a8d2133e058c93a9",
-      "created_at": 1789051255761,
-      "updated_at": 1789051255761
+      "totalQuantity": 1,
+      "initialQuantity": 1,
+      "unit": "piece",
+      "assetType": "normal",
+      "isImportant": false,
+      "onBlockchain": false,
+      "createdBy": "6a85bad6a8d2133e058c93a9",
+      "createdAt": "1791606424399",
+      "updatedAt": "1791606424399",
+      "manufacturer": "Hoa Phat",
+      "origin": "VN",
+      "qrCode": "aeb6e3e4d780ddecad62e995eae6bc8df0bc6ea65ea77e1121f65315f98386e0",
+      "verifyTransfer": false,
+      "typeEncrypt": "standard",
+      "importanceLevel": "normal",
+      "_importanceLevel": "importanceLevel"
     }
   },
-  "message": "Lấy chi tiết tài sản thành công",
-  "timestamp": "2026-10-10T14:40:00.000Z"
+  "message": "Asset retrieved successfully",
+  "timestamp": "2026-10-14T01:57:50.436Z"
 }

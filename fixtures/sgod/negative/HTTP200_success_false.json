@@ -1,7 +1,6 @@
 {
   "success": false,
-  "statusCode": 400,
-  "error": "BAD_REQUEST",
-  "message": "Tham số truy vấn không hợp lệ: 'limit' phải nằm trong khoảng từ 1 đến 100",
-  "timestamp": "2026-10-10T14:40:00.000Z"
+  "error": "Method ListAssetExports not found on ImportExportService",
+  "timestamp": "2026-10-14T01:57:55.805Z",
+  "statusCode": 500
 }

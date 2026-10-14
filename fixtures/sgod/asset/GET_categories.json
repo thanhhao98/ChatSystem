@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "aliasNames": [
+          "zztest-2610100426 ghe (sua)"
+        ],
+        "subs": [],
+        "id": "6ac9be9727541dacd0a77e91",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100426 Ghe (sua)",
+        "totalAsset": 1,
+        "search": "zztest-2610100426 ghe (sua)",
+        "createdAt": "1791606423628",
+        "updatedAt": "1791606438321"
+      },
+      {
+        "aliasNames": [
+          "qa test category"
+        ],
+        "subs": [],
+        "id": "6aa2c134da46d70ee2f491bf",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "QA Test Category",
+        "totalAsset": 1,
+        "search": "qa test category",
+        "createdAt": "1789051188542",
+        "updatedAt": "1789051255752"
+      }
+    ],
+    "meta": {
+      "nextCursor": "",
+      "hasNextPage": false,
+      "limit": 20
+    }
+  },
+  "message": "OK",
+  "timestamp": "2026-10-14T01:57:51.136Z"
+}

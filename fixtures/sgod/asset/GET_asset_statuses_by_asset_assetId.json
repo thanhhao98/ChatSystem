@@ -3,14 +3,37 @@
   "data": {
     "items": [
       {
-        "id": "6aa2c410da46d70ee2f49205",
-        "asset_id": "6aa2c177da46d70ee2f491c1",
+        "id": "6ac9be9827541dacd0a77ea1",
+        "assetId": "6ac9be9827541dacd0a77e9f",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
         "status": "active",
-        "location_id": "6aa2c150da46d70ee2f491c0",
-        "quantity": 1
+        "previousStatus": "",
+        "type": "change-status",
+        "quantity": 1,
+        "quantityChange": 0,
+        "description": "",
+        "initialStatus": false,
+        "favorite": false,
+        "barcode": "x",
+        "staffId": "6a85bad6a8d2133e058c93a9",
+        "locationId": "0000000000000000000000ff",
+        "timeBeginManage": "2026-10-10T04:27:04.404Z",
+        "timeEndManage": null,
+        "startDateOfUse": "2026-10-10T04:27:04.404Z",
+        "expireDateOfUse": null,
+        "inputPrice": "",
+        "depreciationPrice": "",
+        "createdAt": "2026-10-10T04:27:04.404Z",
+        "updatedAt": "2026-10-10T04:27:04.404Z"
       }
-    ]
+    ],
+    "meta": {
+      "nextCursor": "",
+      "hasNextPage": false,
+      "limit": 10
+    },
+    "fromElasticsearch": false
   },
-  "message": "Lấy trạng thái theo tài sản thành công",
-  "timestamp": "2026-10-10T14:40:00.000Z"
+  "message": "OK",
+  "timestamp": "2026-10-14T01:57:50.881Z"
 }

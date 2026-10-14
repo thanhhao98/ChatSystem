@@ -1,0 +1,6 @@
+{
+  "success": false,
+  "error": "5 NOT_FOUND: [ASSET_NOT_FOUND] Asset suggest not found",
+  "timestamp": "2026-10-14T01:57:50.579Z",
+  "statusCode": 404
+}
