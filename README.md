@@ -149,8 +149,9 @@ python training/finetune_qlora.py --dry-run --data data/public/xlam_2k.train.jso
 # prompt là văn bản thuần cho model: không chú thích HTML
 grep -n '<!--' prompts/*.txt        # phải rỗng
 
-# bí mật: phải rỗng (mẫu viết sao cho không chứa chuỗi bí mật nào; bỏ qua data/public/ — văn bản bên thứ ba có email mẫu)
-git grep -nIE "Sgod(2025|123)|sk-[A-Za-z0-9]{20}|SmartGeneration(of)Digital" -- . ':!data/public'
+# bí mật: CI quét bằng mẫu nằm trong secret `SECRET_GREP_RE` của repo (không nằm trong repo) + mẫu khóa kiểu OpenAI;
+# tự kiểm trước khi push (HUONG_DAN_LAM_VIEC.md §3) — phải không có giá trị thật:
+git diff --cached | grep -nE "api[_-]?key|token|password|Bearer "
 ```
 
 Khi đổi tool: `python tools/sgod/validate_tools.py` (tải tokenizer Qwen để đếm token). Khi đổi dữ liệu:

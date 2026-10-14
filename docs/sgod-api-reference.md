@@ -321,7 +321,7 @@ The assistant is responsible for authentication so the user never touches a brow
 User (in AI chat):  "which assets am I owning?"
   │
   1. Agent already holds the user's JWT (from login at chat start).
-  2. Agent -> GET /sgod-asset/v1/assets   [x-api-key: ...asset] [Bearer <user JWT>]
+  2. Agent -> GET /sgod-asset/v1/assets   [x-api-key: <SGOD_ASSET_API_KEY>] [Bearer <user JWT>]
   3. Service auto-scopes to the user's tenant and returns the list.
   4. Agent formats a natural-language answer.
 ```
