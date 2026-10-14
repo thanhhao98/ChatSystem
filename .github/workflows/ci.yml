@@ -93,6 +93,11 @@ jobs:
             echo "::error::report_bad.md phải thoát mã 1"
             exit 1
           fi
+          # a number glued to "pp" (+0.5pp) must be read as 0.5, not 0 (0 is indexed in this fixture) -> 1
+          if python scripts/check_provenance.py tests/fixtures/report_pp_unindexed.md --index tests/fixtures/index_pp_fixture.md; then
+            echo "::error::report_pp_unindexed.md phải thoát mã 1 (+0.5pp không được đọc thành 0)"
+            exit 1
+          fi
           # real eval_toolcall --md output: labels ('≥50% khoá') and the scorer string must NOT be flagged,
           # every accuracy in its tables IS checked and is indexed in the fixture INDEX -> 0
           python scripts/check_provenance.py tests/fixtures/eval_report_ok.md --index $IDX

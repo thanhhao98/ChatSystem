@@ -42,7 +42,7 @@ PCT_RE = re.compile(r"(?<![\w.,])[+\-−]?(\d{1,3}(?:[.,]\d+)?)\s?(?:%|％)")
 PVAL_RE = re.compile(
     r"\bp\s*(=|<=|>=|<|>|≤|≥|＝)\s*([01]?[.,]\d+|[01](?:[.,]0+)?)\b", re.IGNORECASE
 )
-NUM_RE = re.compile(r"(?<![\w.,])(\d+(?:[.,]\d+)?)(?![\w])")
+NUM_RE = re.compile(r"(?<![\w.,])(\d+(?:[.,]\d+)?)(?=pp\b|[^\w.,]|[.,](?!\d)|$)")
 CODE_SPAN_RE = re.compile(r"`[^`\n]*`")
 THRESHOLD_TAIL_RE = re.compile(r"(?:≥|≤|>=|<=|≧|≦)\s*$")
 PP_HEADER_RE = re.compile(r"\bpp\b|điểm phần trăm", re.IGNORECASE)
