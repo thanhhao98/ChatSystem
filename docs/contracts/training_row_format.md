@@ -1,5 +1,13 @@
 # Hợp đồng 1 — Định dạng hàng huấn luyện (training row format)
 
+> **Đóng băng 2026-09-27 (Điểm đồng bộ 1)** — hợp đồng 1 v1. Nội dung không đổi kể từ Drop 0 (`0e9317e`); dòng đóng băng
+> ghi ngày 2026-10-14 trong PR `[CHUNG]` Điểm đồng bộ 1 (xem `CHANGELOG.md`). Preamble đi kèm, sha256 **nội dung sau
+> `.strip()`** (quy ước `prompts/README.md`): `system_preamble_v0.txt` `ebcae91113cd2d4cec962f9405bb1f8ed4e261c25d71d8bc58f155e9484ad147`
+> (đóng băng từ Drop 0) · `system_preamble_v1.txt` `f5da2272cb7fac03fcc8e24f3a0d855b67095e1dc01e7b3541f564b90411903b`
+> (văn bản nền, gồm hai dòng *Quy tắc chọn tool* đã sửa theo tham số API thật trong PR #5; mục này: xem §6). `prompts/fixed_replies.json` không đổi (sha256 tệp
+> `9516049fd505622b3206a880737c18b04c414e72fca5eb1fd5c9caff3b78077a`). Thay đổi sau mốc này = **v1.1**: PR riêng +
+> `CHANGELOG.md` + chạy lại `training/validate_dataset.py` trên toàn bộ dữ liệu.
+
 | | |
 |---|---|
 | Phiên bản | v1 (Drop 0, 2026-09-13) |
@@ -134,10 +142,10 @@ khi tool cần thiết **không** nằm trong tập tool của vai trò đó (la
 |---|---|---|---|
 | Tài liệu này (hợp đồng 1) | Drop 0 → Điểm đồng bộ 1 | Điểm đồng bộ 1 — 2026-09-27 | đổi = phiên bản mới + PR + CHANGELOG; `validate_dataset.py` cập nhật cùng PR |
 | `prompts/system_preamble_v0.txt` | Drop 0 | đã đóng băng (Drop 0) | không đổi trong pha 2 |
-| `prompts/system_preamble_v1.txt` | S Việc 3 | văn bản nền chốt 09-27; **quy tắc chọn tool có thể bổ sung đến 2026-10-11**; sau đó đóng băng | đổi = trục đo mới (xem hợp đồng 2). Tệp prompt là **văn bản thuần cho model**: không chú thích HTML (`<!-- -->`), không ghi chú trạng thái/TODO — chúng sẽ lọt vào `messages[0]` của mọi hàng SGOD và vào ngân sách token. Ghi chú trạng thái nằm ở `prompts/README.md`; CI thất bại nếu `prompts/*.txt` chứa `<!--`. |
+| `prompts/system_preamble_v1.txt` | S Việc 3 | văn bản nền **đóng băng** 09-27 (sha256 sau `.strip()` `f5da2272…`); hạn bổ sung quy tắc chọn tool 2026-10-11 **đã qua, chưa bổ sung**; tag `tools-v1` dời sang 2026-11-04 nên chỉ được **thêm** dòng *Quy tắc chọn tool* cho tool của `tools-v1` (PR `[S-V3]` riêng) **trước tag `tools-v1`**; sau đó đóng băng hẳn | đổi = trục đo mới (xem hợp đồng 2). Tệp prompt là **văn bản thuần cho model**: không chú thích HTML (`<!-- -->`), không ghi chú trạng thái/TODO — chúng sẽ lọt vào `messages[0]` của mọi hàng SGOD và vào ngân sách token. Ghi chú trạng thái nằm ở `prompts/README.md`; CI thất bại nếu `prompts/*.txt` chứa `<!--`. |
 | `prompts/fixed_replies.json` | Drop 0 | đã đóng băng (Drop 0) | không đổi |
-| `docs/contracts/roles.md` + `tools/sgod/roles.json` | S Việc 3 | 2026-09-27 | đổi → phải gán nhãn lại toàn bộ dữ liệu |
-| `tools/sgod/sgod_tools.json` + `tool_policy.json` | D Việc 1, xác minh S Việc 4 | tag `tools-v1`, 2026-10-08 | đổi = tag mới + trục đo mới |
+| `docs/contracts/roles.md` + `tools/sgod/roles.json` | S Việc 3 | **đã đóng băng** 2026-09-27 (sha256 `roles.json` `c76ca24b…`) | đổi → phải gán nhãn lại toàn bộ dữ liệu |
+| `tools/sgod/sgod_tools.json` + `tool_policy.json` | D Việc 1, xác minh S Việc 4 | tag `tools-v1`, 2026-11-04 (dời từ 2026-10-08) | đổi = tag mới + trục đo mới |
 
 ## 7. Danh sách kiểm tra của `training/validate_dataset.py`
 

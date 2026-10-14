@@ -38,7 +38,7 @@ on hold · in review · complete · cancelled.
 | Việc 1 — Trích OpenAPI từ `swagger-ui-init.js` và lập bảng tham số truy vấn | 09-27 | `docs/sgod/openapi-{auth,asset,chat}.json` (đã ẩn bí mật), `docs/sgod/query_params.md` (method · path · query params · enum) cho ~17 GET ở spec §2/§3. GET không cần xác thực; làm trong Drop 1 nếu kịp. | — |
 | Việc 2 — Bộ mẫu phản hồi thật (fixtures cho nhóm Dữ liệu) | 09-27 | `fixtures/sgod/<service>/<METHOD>_<slug>.json` cho ~17 GET + 4 ca âm (HTTP-200 `success:false`, 401, 401→refresh→retry, chat với token enterprise-user); PII che; `fixtures/sgod/README.md` liệt kê enum. | — |
 | Việc 3 — Thiết kế đăng nhập SGOD, ánh xạ vai trò và preamble v1-SGOD | 09-27 | `docs/contracts/roles.md`, `tools/sgod/roles.json`, `prompts/system_preamble_v1.txt`, `docs/personas_sgod.md` → đầu vào Điểm đồng bộ 1. | — |
-| Việc 4 — Xác minh `sgod_tools` v1 trên API thật và chốt (git tag `tools-v1`) | 10-08 | Mỗi route gọi một lần theo từng vai trò với JWT thật; sửa enum/tên tham số; `validate_tools.py` xanh; đẩy tag. | D Việc 1 |
+| Việc 4 — Xác minh `sgod_tools` v1 trên API thật và chốt (git tag `tools-v1`) | 11-04 (dời từ 10-08) | Mỗi route gọi một lần theo từng vai trò với JWT thật; sửa enum/tên tham số; `validate_tools.py` xanh; đẩy tag. | D Việc 1 |
 | Việc 5 — Chạy các bước LLM của pipeline dữ liệu từ PR của nhóm D (`datagen/run_pipeline.sh`) | cuốn chiếu 10-11 → 11-08 | Đầu ra từng stage commit ≤ 2 ngày làm việc sau mỗi PR; bộ đếm call/chi phí trong bình luận. | D Việc 3 |
 | Việc 6 — Bộ chuyển đổi SGOD trong `tool_executor` | 10-18 | `x-api-key` theo service, unwrap phong bì, rẽ nhánh `body.success`, refresh khi 401, `SGOD_BASE_URL`, route từ `sgod_tools.json`. | S Việc 4 |
 | Việc 7 — Cài đặt đăng nhập SGOD (backend + `LoginPage`/`AuthContext`/`client.ts`) | 10-25 | đăng nhập sessions, refresh, một `user_context` builder từ `roles.json`. | S Việc 3 |
@@ -56,7 +56,7 @@ on hold · in review · complete · cancelled.
 | Nguồn sự thật & bí mật | thường trực | `docs/sgod-api-reference.md` là tài liệu API duy nhất (khóa + mật khẩu thử thay bằng placeholder; giá trị thật chỉ trong `.env` trên hạ tầng tham chiếu); không bao giờ commit khóa/token/mật khẩu; `HF_TOKEN` cá nhân chỉ trong Colab/Kaggle Secrets. |
 | Cách làm việc với Colab/Kaggle và Google Drive | thường trực | cache model trên đĩa VM, đầu ra run lên Drive; `save_strategy=steps`; phiên kết thúc bất ngờ (~90 phút idle, quota ngày); Kaggle (30 GPU-h/tuần, T4×2) khi hết quota Colab; không unsloth trên Colab. |
 | **Điểm đồng bộ 1 — Chốt định dạng hàng huấn luyện, vai trò và preamble v1** | **09-27** | hợp đồng 1 + 3 đóng băng; `validate_dataset.py` xanh trên đầu ra D Tuần 2. |
-| **Điểm đồng bộ 2 — Chốt eval_v1, metric, schema dự đoán/kết quả và giả thuyết H1** | **10-25** | sha256 của `eval_v1.json` trong bình luận; sau đó eval_v1 bất biến (sửa → `eval_v1.1` + errata + sha mới). |
+| **Điểm đồng bộ 2 — Chốt eval_v1, metric, schema dự đoán/kết quả và giả thuyết H1** | **11-19** (dời từ 10-25) | sha256 của `eval_v1.json` trong bình luận; sau đó eval_v1 bất biến (sửa → `eval_v1.1` + errata + sha mới). |
 | **Điểm đồng bộ 3 — Demo end-to-end** | **11-22** | phụ thuộc S Việc 10, S Việc 11. |
 
 ## Lịch drop — hệ thống & hạ tầng tham chiếu
