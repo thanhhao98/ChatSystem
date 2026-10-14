@@ -32,6 +32,29 @@
             "description": "Service is unhealthy"
           }
         },
+        "security": [
+          {
+            "API-Key-Security": []
+          },
+          {
+            "API-Key-Proposal": []
+          },
+          {
+            "API-Key-Payment": []
+          },
+          {
+            "API-Key-Notification": []
+          },
+          {
+            "API-Key-Upload": []
+          },
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Health check endpoint - Supports auth, chat, upload, notification, mailer, payment, proposal",
         "tags": [
           "health"
@@ -69,6 +92,29 @@
             "description": "gRPC service is unhealthy"
           }
         },
+        "security": [
+          {
+            "API-Key-Security": []
+          },
+          {
+            "API-Key-Proposal": []
+          },
+          {
+            "API-Key-Payment": []
+          },
+          {
+            "API-Key-Notification": []
+          },
+          {
+            "API-Key-Upload": []
+          },
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Check gRPC connection health - Supports auth, chat, upload, notification, mailer, payment",
         "tags": [
           "health"
@@ -96,6 +142,29 @@
             "description": "Mailer is unhealthy"
           }
         },
+        "security": [
+          {
+            "API-Key-Security": []
+          },
+          {
+            "API-Key-Proposal": []
+          },
+          {
+            "API-Key-Payment": []
+          },
+          {
+            "API-Key-Notification": []
+          },
+          {
+            "API-Key-Upload": []
+          },
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Check notification-service mailer health",
         "tags": [
           "health"
@@ -214,6 +283,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get current user profile with avatar/logo URLs from upload",
         "tags": [
           "sgod-auth"
@@ -357,6 +440,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Update profile and/or upload avatar & logo (BFF)",
         "tags": [
           "sgod-auth"
@@ -498,6 +595,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Enterprise login",
         "tags": [
           "sgod-auth"
@@ -629,6 +734,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Enterprise user login",
         "tags": [
           "sgod-auth"
@@ -728,6 +841,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "SGOD user login",
         "tags": [
           "sgod-auth"
@@ -839,6 +960,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "SGOD admin login",
         "tags": [
           "sgod-auth"
@@ -938,6 +1067,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Sub-enterprise login",
         "tags": [
           "sgod-auth"
@@ -973,6 +1110,14 @@
             "description": "Enterprise registered successfully"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Register enterprise",
         "tags": [
           "sgod-auth-enterprise"
@@ -1072,6 +1217,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Refresh access token",
         "tags": [
           "sgod-auth"
@@ -1217,6 +1370,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Logout from current session",
         "tags": [
           "sgod-auth"
@@ -1382,6 +1549,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Logout from one device",
         "tags": [
           "sgod-auth"
@@ -1527,6 +1708,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Logout from all devices",
         "tags": [
           "sgod-auth"
@@ -1644,6 +1839,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Session context for SPA (SEC-PAM-01)",
         "tags": [
           "sgod-auth"
@@ -1761,6 +1970,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get current user profile",
         "tags": [
           "sgod-auth"
@@ -1786,6 +2009,17 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get enterprise profile",
         "tags": [
           "sgod-auth-enterprise"
@@ -1878,6 +2112,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "List all devices",
         "tags": [
           "sgod-auth"
@@ -2063,6 +2311,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Trust a device",
         "tags": [
           "sgod-auth"
@@ -2216,6 +2478,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Untrust a device",
         "tags": [
           "sgod-auth"
@@ -2361,6 +2637,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Enable 2FA",
         "tags": [
           "sgod-auth"
@@ -2516,6 +2806,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Disable 2FA",
         "tags": [
           "sgod-auth"
@@ -2671,6 +2975,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Remove 2FA enrollment",
         "tags": [
           "sgod-auth"
@@ -2826,6 +3144,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Verify 2FA setup",
         "tags": [
           "sgod-auth"
@@ -2981,6 +3313,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Verify 2FA during login",
         "tags": [
           "sgod-auth"
@@ -3136,6 +3482,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Change password",
         "tags": [
           "sgod-auth"
@@ -3235,6 +3595,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Forgot password",
         "tags": [
           "sgod-auth"
@@ -3334,6 +3702,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Reset password",
         "tags": [
           "sgod-auth"
@@ -3497,6 +3873,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Initiate password reset for user",
         "tags": [
           "sgod-auth"
@@ -3660,6 +4050,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Resend SGOD account activation email",
         "tags": [
           "sgod-auth"
@@ -3759,6 +4163,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Activate account for emplyee account (when they first time login)",
         "tags": [
           "sgod-auth"
@@ -3794,6 +4206,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Resend verification OTP - it will return OTP code directly in dev mode",
         "tags": [
           "sgod-auth-enterprise"
@@ -3826,6 +4246,14 @@
             "description": "Permissions retrieved successfully"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get all permissions",
         "tags": [
           "sgod-auth-permissions"
@@ -3845,7 +4273,7 @@
             "schema": {
               "format": "email",
               "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-              "example": "<redacted-email>",
+              "example": "user@example.com",
               "type": "string"
             }
           },
@@ -3868,6 +4296,11 @@
             "description": "Bad Request - Format email không hợp lệ"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Check email existence",
         "tags": [
           "sgod-auth-email-verification"
@@ -3897,6 +4330,11 @@
             "description": "Bad Request - Format email không hợp lệ"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Check if email exists (POST method)",
         "tags": [
           "sgod-auth-email-verification"
@@ -3929,6 +4367,11 @@
             "description": "Too Many Requests - Gửi quá nhiều yêu cầu trong thời gian ngắn"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Send OTP verification email",
         "tags": [
           "sgod-auth-email-verification"
@@ -3955,6 +4398,11 @@
             "description": "Email verified successfully"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Verify email OTP",
         "tags": [
           "sgod-auth-email-verification"
@@ -3981,6 +4429,11 @@
             "description": "Email verified successfully"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Verify email OTP",
         "tags": [
           "sgod-auth-email-verification"
@@ -4010,6 +4463,14 @@
             "description": "Forbidden - Không có quyền tạo mã cho email khác"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Create payment verification code",
         "tags": [
           "sgod-auth-email-verification"
@@ -4039,6 +4500,14 @@
             "description": "Forbidden - Không có quyền xác thực cho email khác"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Verify payment code",
         "tags": [
           "sgod-auth-email-verification"
@@ -4058,7 +4527,7 @@
             "schema": {
               "format": "email",
               "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-              "example": "<redacted-email>",
+              "example": "user@example.com",
               "type": "string"
             }
           },
@@ -4078,6 +4547,17 @@
             "description": "Token retrieved successfully"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get latest token (Dev mode only)",
         "tags": [
           "sgod-auth-email-verification"
@@ -4226,6 +4706,23 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Create Role",
         "tags": [
           "sgod-auth-roles"
@@ -4306,6 +4803,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get All Roles",
         "tags": [
           "sgod-auth-roles"
@@ -4413,6 +4921,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get Role Tree",
         "tags": [
           "sgod-auth-roles"
@@ -4529,6 +5048,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get Role Tree from Root",
         "tags": [
           "sgod-auth-roles"
@@ -4620,6 +5150,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get Roles by Tenant",
         "tags": [
           "sgod-auth-roles"
@@ -4692,6 +5233,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get creatable role layers",
         "tags": [
           "sgod-auth-roles"
@@ -4799,6 +5351,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get roles statistics",
         "tags": [
           "sgod-auth-roles"
@@ -4974,6 +5537,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get deleted roles",
         "tags": [
           "sgod-auth-roles"
@@ -5090,6 +5664,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get Role by ID",
         "tags": [
           "sgod-auth-roles"
@@ -5294,6 +5879,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Update Role",
         "tags": [
           "sgod-auth-roles"
@@ -5478,6 +6074,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Delete Role",
         "tags": [
           "sgod-auth-roles"
@@ -5622,6 +6229,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Restore Role",
         "tags": [
           "sgod-auth-roles"
@@ -5818,6 +6436,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Move Role Hierarchy",
         "tags": [
           "sgod-auth-roles"
@@ -5909,6 +6538,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get Users by Role",
         "tags": [
           "sgod-auth-roles"
@@ -6000,6 +6640,17 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get Available Parent Roles",
         "tags": [
           "sgod-auth-roles"
@@ -6167,6 +6818,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Create department",
         "tags": [
           "sgod-auth-departments"
@@ -6247,6 +6912,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get all departments",
         "tags": [
           "sgod-auth-departments"
@@ -6329,6 +7008,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get department tree",
         "tags": [
           "sgod-auth-departments"
@@ -6436,6 +7129,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get departments statistics",
         "tags": [
           "sgod-auth-departments"
@@ -6611,6 +7318,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get deleted departments",
         "tags": [
           "sgod-auth-departments"
@@ -6727,6 +7448,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get department by ID",
         "tags": [
           "sgod-auth-departments"
@@ -6891,6 +7626,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Update department",
         "tags": [
           "sgod-auth-departments"
@@ -7075,6 +7824,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Delete department",
         "tags": [
           "sgod-auth-departments"
@@ -7219,6 +7982,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Restore department",
         "tags": [
           "sgod-auth-departments"
@@ -7310,6 +8087,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get users by department",
         "tags": [
           "sgod-auth-departments"
@@ -7398,6 +8189,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get department statistics",
         "tags": [
           "sgod-auth-departments"
@@ -7574,6 +8379,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Move department",
         "tags": [
           "sgod-auth-departments"
@@ -7751,6 +8570,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Create position",
         "tags": [
           "sgod-auth-positions"
@@ -7882,6 +8715,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get all positions",
         "tags": [
           "sgod-auth-positions"
@@ -7964,6 +8811,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get position tree",
         "tags": [
           "sgod-auth-positions"
@@ -8071,6 +8932,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get positions statistics",
         "tags": [
           "sgod-auth-positions"
@@ -8174,6 +9049,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get available positions",
         "tags": [
           "sgod-auth-positions"
@@ -8349,6 +9238,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get deleted positions",
         "tags": [
           "sgod-auth-positions"
@@ -8466,6 +9369,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get position by ID",
         "tags": [
           "sgod-auth-positions"
@@ -8641,6 +9558,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Update position",
         "tags": [
           "sgod-auth-positions"
@@ -8816,6 +9747,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Delete position",
         "tags": [
           "sgod-auth-positions"
@@ -8960,6 +9905,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Restore position",
         "tags": [
           "sgod-auth-positions"
@@ -9052,6 +10011,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get users by position",
         "tags": [
           "sgod-auth-positions"
@@ -9209,6 +10182,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Preview position hierarchy change (dry-run)",
         "tags": [
           "sgod-auth-positions"
@@ -9336,6 +10323,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Create enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -9515,6 +10516,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get enterprise users",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -9632,6 +10647,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get enterprise users statistics",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -9813,6 +10842,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get deleted enterprise users",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -9968,6 +11011,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Update my profile",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -10123,6 +11180,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Update my profile (me alias)",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -10278,6 +11349,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Update my profile (alias)",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -10403,6 +11488,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get enterprise user profile",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -10564,6 +11663,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Update enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -10715,6 +11828,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Delete enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -10868,6 +11995,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Restore enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -11021,6 +12162,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Block enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -11174,6 +12329,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Unblock enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -11337,6 +12506,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Assign roles to enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -11500,6 +12683,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Assign department/position to enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -11600,6 +12797,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get available bosses for enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -11763,6 +12974,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Set boss for enterprise user",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -11924,6 +13149,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Remove enterprise user from position",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -12087,6 +13326,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Revoke user wallet key",
         "tags": [
           "sgod-auth-enterprise-users"
@@ -12122,6 +13375,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Create SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12152,6 +13419,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get SGOD users",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12276,6 +13557,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get deleted SGOD users",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12312,6 +13607,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my profile",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12348,6 +13657,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my profile (alias)",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12383,6 +13706,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my profile (me alias)",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12416,6 +13753,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Thống kê tổng quan SGOD User",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12456,6 +13807,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get SGOD user profile",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12497,6 +13862,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12528,6 +13907,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Delete SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12561,6 +13954,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Restore SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12594,6 +14001,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Hard delete SGOD user (Root Admin only)",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12627,6 +14048,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Block SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12660,6 +14095,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Unblock SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12703,6 +14152,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Assign roles to SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12746,6 +14209,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Assign department/position to SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12779,6 +14256,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get available bosses for SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12822,6 +14313,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Set boss for SGOD user",
         "tags": [
           "sgod-auth-sgod-users"
@@ -12847,6 +14352,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Verify IAM step-up MFA (Redis session grant)",
         "tags": [
           "sgod-auth-iam-step-up"
@@ -12883,6 +14396,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Create SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -12913,6 +14440,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get all SGOD admins",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -12946,6 +14487,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Thống kê tổng quan SGOD Admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13074,6 +14629,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get deleted SGOD admins",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13114,6 +14683,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get SGOD admin profile",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13155,6 +14738,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13186,6 +14783,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Delete SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13222,6 +14833,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my profile",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13258,6 +14883,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my profile (alias)",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13294,6 +14933,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my profile (me alias)",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13334,6 +14987,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Restore SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13367,6 +15034,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Hard delete SGOD admin (Root Admin only)",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13400,6 +15081,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Block SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13433,6 +15128,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Unblock SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13476,6 +15185,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Assign roles to SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13519,6 +15242,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Assign department/position to SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13552,6 +15289,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get available bosses for SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13595,6 +15346,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Set boss for SGOD admin",
         "tags": [
           "sgod-auth-sgod-admins"
@@ -13630,6 +15395,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Create sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -13809,6 +15588,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Get sub-enterprises",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -13842,6 +15635,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Thống kê tổng quan Sub-Enterprise",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -13959,6 +15766,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get deleted sub-enterprise users",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -13992,6 +15813,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get sub-enterprise user profile",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14033,6 +15868,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14064,6 +15913,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Delete sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14100,6 +15963,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my profile",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14136,6 +16013,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my profile (alias)",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14172,6 +16063,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my profile (me alias)",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14205,6 +16110,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Restore sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14358,6 +16277,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Block sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14511,6 +16444,20 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Unblock sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14554,6 +16501,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Assign roles to sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14597,6 +16558,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Assign department/position to sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14630,6 +16605,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get available bosses for sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14673,6 +16662,20 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Set boss for sub-enterprise user",
         "tags": [
           "sgod-auth-sub-enterprises"
@@ -14791,6 +16794,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "List SGOD enterprises",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -14824,6 +16835,14 @@
             }
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Thống kê tổng quan doanh nghiệp toàn sàn",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -14859,6 +16878,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Assign enterprises to user",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -14894,6 +16921,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Unassign enterprise from user",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -14929,6 +16964,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Set assigned enterprises for user",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -15047,6 +17090,14 @@
             "description": "Danh sách Enterprise đã xóa được lấy thành công"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get deleted enterprises",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -15080,6 +17131,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get enterprise details",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -15123,6 +17182,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Block enterprise",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -15166,6 +17233,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Unblock enterprise",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -15199,6 +17274,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Restore enterprise",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -15242,6 +17325,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update enterprise subscription",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -15285,6 +17376,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update enterprise features",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -15318,6 +17417,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get enterprise statistics",
         "tags": [
           "sgod-auth-sgod-enterprises"
@@ -15352,6 +17459,17 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Assign department/position to user",
         "tags": [
           "sgod-auth-users-organizational"
@@ -15385,6 +17503,17 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Remove user from position",
         "tags": [
           "sgod-auth-users-organizational"
@@ -15409,6 +17538,17 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get available bosses for user",
         "tags": [
           "sgod-auth-users-organizational"
@@ -15443,6 +17583,17 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Set boss for user",
         "tags": [
           "sgod-auth-users-organizational"
@@ -15478,6 +17629,17 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Check if a subordinate is managed by a manager",
         "tags": [
           "sgod-auth-users-organizational"
@@ -15596,6 +17758,20 @@
             }
           }
         },
+        "security": [
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Audit organizational structure reporting lines",
         "tags": [
           "sgod-auth-organizations"
@@ -15614,6 +17790,14 @@
             "description": "Forbidden - Only SGOD users can access"
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get audit logs",
         "tags": [
           "sgod-auth-audit-logs"
@@ -15639,6 +17823,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Test helper EncryptString dùng chung",
         "tags": [
           "Test Crypto (PoC)"
@@ -15665,6 +17857,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Test helper DecryptString dùng chung với phân quyền",
         "tags": [
           "Test Crypto (PoC)"
@@ -15691,6 +17891,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Test helper EncryptFileStream using binary streams",
         "tags": [
           "Test Crypto (PoC)"
@@ -15726,6 +17934,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Auth": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Test helper DecryptFileStream using binary uploads",
         "tags": [
           "Test Crypto (PoC)"
@@ -15780,7 +17996,7 @@
           "email": {
             "type": "string",
             "description": "User email",
-            "example": "<redacted-email>"
+            "example": "user@example.com"
           },
           "userName": {
             "type": "string",
@@ -16216,7 +18432,7 @@
           "otpAuthUrl": {
             "type": "string",
             "description": "OTP Auth URL (for QR codes)",
-            "example": "otpauth://totp/SGOD:<redacted-email>?secret=KVKFKRJTMRUXSMRY&issuer=SGOD"
+            "example": "otpauth://totp/SGOD:user@example.com?secret=KVKFKRJTMRUXSMRY&issuer=SGOD"
           },
           "recoveryCodes": {
             "description": "Backup/Recovery codes",
@@ -16366,7 +18582,7 @@
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
             "description": "Email address to send password reset link",
-            "example": "<redacted-email>"
+            "example": "user@example.com"
           }
         },
         "required": [
@@ -16456,7 +18672,7 @@
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
             "description": "Email to resend verification code to",
-            "example": "<redacted-email>"
+            "example": "user@example.com"
           }
         },
         "required": [
@@ -16471,7 +18687,7 @@
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
             "description": "Email nhận OTP (mọi loại tài khoản)",
-            "example": "<redacted-email>"
+            "example": "user@example.com"
           },
           "verificationCode": {
             "type": "string",
@@ -17283,7 +19499,7 @@
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
             "description": "User email address",
-            "example": "<redacted-email>"
+            "example": "user@example.com"
           },
           "userName": {
             "type": "string",
@@ -17416,7 +19632,7 @@
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
             "description": "Email address",
-            "example": "<redacted-email>"
+            "example": "user@example.com"
           },
           "phone": {
             "type": "string",
@@ -17913,5 +20129,10 @@
         "description": "Auth Service API Key (AUTH_API_KEY) - Required for all /sgod-auth/v1, /health endpoints"
       }
     }
+  },
+  "x-sgod-capture": {
+    "date": "2026-10-14",
+    "source": "<SGOD_GATEWAY>/swagger/v1/auth-service/swagger-ui-init.js",
+    "tool": "tools/sgod/extract_openapi.py"
   }
 }

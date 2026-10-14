@@ -32,6 +32,29 @@
             "description": "Service is unhealthy"
           }
         },
+        "security": [
+          {
+            "API-Key-Security": []
+          },
+          {
+            "API-Key-Proposal": []
+          },
+          {
+            "API-Key-Payment": []
+          },
+          {
+            "API-Key-Notification": []
+          },
+          {
+            "API-Key-Upload": []
+          },
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Health check endpoint - Supports auth, chat, upload, notification, mailer, payment, proposal",
         "tags": [
           "health"
@@ -69,6 +92,29 @@
             "description": "gRPC service is unhealthy"
           }
         },
+        "security": [
+          {
+            "API-Key-Security": []
+          },
+          {
+            "API-Key-Proposal": []
+          },
+          {
+            "API-Key-Payment": []
+          },
+          {
+            "API-Key-Notification": []
+          },
+          {
+            "API-Key-Upload": []
+          },
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Check gRPC connection health - Supports auth, chat, upload, notification, mailer, payment",
         "tags": [
           "health"
@@ -96,6 +142,29 @@
             "description": "Mailer is unhealthy"
           }
         },
+        "security": [
+          {
+            "API-Key-Security": []
+          },
+          {
+            "API-Key-Proposal": []
+          },
+          {
+            "API-Key-Payment": []
+          },
+          {
+            "API-Key-Notification": []
+          },
+          {
+            "API-Key-Upload": []
+          },
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "API-Key-Auth": []
+          }
+        ],
         "summary": "Check notification-service mailer health",
         "tags": [
           "health"
@@ -122,6 +191,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get or create a private conversation",
         "tags": [
           "Chat - Conversations"
@@ -148,6 +225,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Create a new group conversation",
         "tags": [
           "Chat - Conversations"
@@ -235,6 +320,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get conversations with pagination",
         "tags": [
           "Chat - Conversations"
@@ -265,6 +358,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get unread counts",
         "tags": [
           "Chat - Conversations"
@@ -290,6 +391,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get conversation by ID",
         "tags": [
           "Chat - Conversations"
@@ -323,6 +432,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update conversation",
         "tags": [
           "Chat - Conversations"
@@ -358,6 +475,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update conversation settings",
         "tags": [
           "Chat - Conversations"
@@ -393,6 +518,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Transfer conversation ownership",
         "tags": [
           "Chat - Conversations"
@@ -418,6 +551,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Disband a conversation",
         "tags": [
           "Chat - Conversations"
@@ -453,6 +594,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Set disappearing messages",
         "tags": [
           "Chat - Conversations"
@@ -488,6 +637,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Pin message in conversation",
         "tags": [
           "Chat - Conversations"
@@ -521,6 +678,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Unpin message in conversation",
         "tags": [
           "Chat - Conversations"
@@ -556,6 +721,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Enable/Disable E2EE for conversation",
         "tags": [
           "Chat - Conversations"
@@ -591,6 +764,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Add group key for E2EE",
         "tags": [
           "Chat - Conversations"
@@ -669,6 +850,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get messages by conversation",
         "tags": [
           "Chat - Messages"
@@ -725,6 +914,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Search messages",
         "tags": [
           "Chat - Messages"
@@ -754,6 +951,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Count unread messages",
         "tags": [
           "Chat - Messages"
@@ -779,6 +984,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get message by ID",
         "tags": [
           "Chat - Messages"
@@ -795,6 +1008,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get Current User Setting",
         "tags": [
           "Chat - Settings"
@@ -819,6 +1040,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update Current User Setting",
         "tags": [
           "Chat - Settings"
@@ -833,6 +1062,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Delete Current User Setting",
         "tags": [
           "Chat - Settings"
@@ -892,6 +1129,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get Poolings",
         "tags": [
           "Chat - Poolings"
@@ -917,6 +1162,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get Pooling Results",
         "tags": [
           "Chat - Poolings"
@@ -942,6 +1195,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get Pooling by ID",
         "tags": [
           "Chat - Poolings"
@@ -967,6 +1228,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "List all participants in conversation",
         "tags": [
           "Chat - Participants"
@@ -1000,6 +1269,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Add members to conversation",
         "tags": [
           "Chat - Participants"
@@ -1025,6 +1302,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "List all members in conversation (alias for participants, for @mention autocomplete)",
         "tags": [
           "Chat - Participants"
@@ -1050,6 +1335,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get my participant in conversation",
         "tags": [
           "Chat - Participants"
@@ -1073,6 +1366,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Leave conversation (Self actions)",
         "tags": [
           "Chat - Participants"
@@ -1098,6 +1399,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Join conversation (Self actions)",
         "tags": [
           "Chat - Participants"
@@ -1131,6 +1440,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Remove a specific member (Admin actions)",
         "tags": [
           "Chat - Participants"
@@ -1174,6 +1491,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update participant role",
         "tags": [
           "Chat - Participants"
@@ -1217,6 +1542,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update Archive status",
         "tags": [
           "Chat - Participants"
@@ -1252,6 +1585,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update Auto-Unarchive status",
         "tags": [
           "Chat - Participants"
@@ -1287,6 +1628,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update Mute status",
         "tags": [
           "Chat - Participants"
@@ -1327,6 +1676,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update Pin status",
         "tags": [
           "Chat - Participants"
@@ -1352,6 +1709,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Add my public key for E2EE in this conversation",
         "tags": [
           "Chat - Participants"
@@ -1387,6 +1752,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update my nickname or someone else nickname in this conversation",
         "tags": [
           "Chat - Participants"
@@ -1443,6 +1816,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get Reactions",
         "tags": [
           "Chat - Reactions"
@@ -1468,6 +1849,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get My Reaction",
         "tags": [
           "Chat - Reactions"
@@ -1496,6 +1885,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get initial chat snapshot",
         "tags": [
           "Chat - Sync"
@@ -1532,6 +1929,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get chat delta updates",
         "tags": [
           "Chat - Sync"
@@ -1598,6 +2003,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Sync messages for one conversation",
         "tags": [
           "Chat - Sync"
@@ -1635,6 +2048,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get message sync state for one conversation/device session",
         "tags": [
           "Chat - Sync"
@@ -1661,6 +2082,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update user message state",
         "tags": [
           "Chat - Recipients"
@@ -1694,6 +2123,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get user message states",
         "tags": [
           "Chat - Recipients"
@@ -1731,6 +2168,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get starred messages",
         "tags": [
           "Chat - Recipients"
@@ -1757,6 +2202,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Block a user",
         "tags": [
           "Chat - User Blocks"
@@ -1783,6 +2236,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Unblock a user",
         "tags": [
           "Chat - User Blocks"
@@ -1820,6 +2281,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "List blocked users",
         "tags": [
           "Chat - User Blocks"
@@ -1857,6 +2326,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Check block status",
         "tags": [
           "Chat - User Blocks"
@@ -1882,6 +2359,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get message draft for a conversation",
         "tags": [
           "Chat - Drafts"
@@ -1915,6 +2400,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Save message draft for a conversation",
         "tags": [
           "Chat - Drafts"
@@ -1938,6 +2431,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Clear message draft for a conversation",
         "tags": [
           "Chat - Drafts"
@@ -1946,7 +2447,7 @@
     },
     "/sgod-chat/v1/reports": {
       "post": {
-        "description": "Gửi report lạm dụng cho MESSAGE, USER hoặc CONVERSATION. Danh tính người báo cáo được trích xuất an toàn từ JWT; client không truyền reporterId.",
+        "description": "Gửi report lạm dụng cho MESSAGE, USER hoặc CONVERSATION. reporterId và tenantId lấy từ JWT; reason do user nhập.",
         "operationId": "createReport",
         "parameters": [],
         "requestBody": {
@@ -1964,13 +2465,21 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Submit an abuse report",
         "tags": [
           "Chat - Reports"
         ]
       },
       "get": {
-        "description": "Lấy danh sách report trong tenant cho moderation, lọc theo status, targetType, targetId, reporterId và cursor/limit.",
+        "description": "Lấy danh sách report trong tenant cho moderation, lọc theo status, targetType, reporterId và cursor/limit.",
         "operationId": "listReports",
         "parameters": [
           {
@@ -2012,16 +2521,6 @@
             }
           },
           {
-            "name": "targetId",
-            "required": false,
-            "in": "query",
-            "description": "Lọc theo ID đối tượng bị report (messageId, userId, conversationId).",
-            "schema": {
-              "minLength": 1,
-              "type": "string"
-            }
-          },
-          {
             "name": "limit",
             "required": false,
             "in": "query",
@@ -2047,6 +2546,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "List reports for moderation (tenant-scoped)",
         "tags": [
           "Chat - Reports"
@@ -2055,7 +2562,7 @@
     },
     "/sgod-chat/v1/reports/me": {
       "get": {
-        "description": "Lấy các report do chính user hiện tại đã gửi với cursor pagination.",
+        "description": "Lấy các report do current user đã gửi với cursor pagination.",
         "operationId": "listMyReports",
         "parameters": [
           {
@@ -2084,6 +2591,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "List reports submitted by the current user",
         "tags": [
           "Chat - Reports"
@@ -2092,7 +2607,7 @@
     },
     "/sgod-chat/v1/reports/{reportId}": {
       "get": {
-        "description": "Lấy chi tiết một report trong tenant. Quyền truy cập được chat-service kiểm tra (người báo cáo hoặc kiểm duyệt viên).",
+        "description": "Lấy chi tiết một report trong tenant. Current user và tenantId lấy từ JWT; chat-service quyết định quyền xem.",
         "operationId": "getReport",
         "parameters": [
           {
@@ -2109,6 +2624,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Get a report by ID (tenant-scoped)",
         "tags": [
           "Chat - Reports"
@@ -2117,7 +2640,7 @@
     },
     "/sgod-chat/v1/reports/{reportId}/status": {
       "patch": {
-        "description": "Moderation cập nhật status report sang REVIEWED hoặc DISMISSED kèm resolutionNote tùy chọn. Không set ngược về OPEN.",
+        "description": "Moderation cập nhật status report sang REVIEWED hoặc DISMISSED. Không set ngược về OPEN.",
         "operationId": "updateReportStatus",
         "parameters": [
           {
@@ -2144,6 +2667,14 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "API-Key-Chat": []
+          },
+          {
+            "JWT-auth": []
+          }
+        ],
         "summary": "Update report status (moderation)",
         "tags": [
           "Chat - Reports"
@@ -2677,11 +3208,6 @@
               "DISMISSED"
             ],
             "description": "Trạng thái moderation mới. Chỉ cho phép REVIEWED hoặc DISMISSED, không set ngược về OPEN."
-          },
-          "resolutionNote": {
-            "description": "Ghi chú xử lý kiểm duyệt (tối đa 1000 ký tự).",
-            "type": "string",
-            "maxLength": 1000
           }
         },
         "required": [
@@ -2709,5 +3235,10 @@
         "description": "Chat Service API Key (CHAT_API_KEY) - Required for all /sgod-chat/v1, /health endpoints"
       }
     }
+  },
+  "x-sgod-capture": {
+    "date": "2026-10-14",
+    "source": "<SGOD_GATEWAY>/swagger/v1/chat-service/swagger-ui-init.js",
+    "tool": "tools/sgod/extract_openapi.py"
   }
 }
