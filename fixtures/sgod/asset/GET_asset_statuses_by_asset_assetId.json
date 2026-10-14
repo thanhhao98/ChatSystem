@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "6ac9be9827541dacd0a77ea1",
+        "assetId": "6ac9be9827541dacd0a77e9f",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "status": "active",
+        "previousStatus": "",
+        "type": "change-status",
+        "quantity": 1,
+        "quantityChange": 0,
+        "description": "",
+        "initialStatus": false,
+        "favorite": false,
+        "barcode": "x",
+        "staffId": "6a85bad6a8d2133e058c93a9",
+        "locationId": "0000000000000000000000ff",
+        "timeBeginManage": "2026-10-10T04:27:04.404Z",
+        "timeEndManage": null,
+        "startDateOfUse": "2026-10-10T04:27:04.404Z",
+        "expireDateOfUse": null,
+        "inputPrice": "",
+        "depreciationPrice": "",
+        "createdAt": "2026-10-10T04:27:04.404Z",
+        "updatedAt": "2026-10-10T04:27:04.404Z"
+      }
+    ],
+    "meta": {
+      "nextCursor": "",
+      "hasNextPage": false,
+      "limit": 10
+    },
+    "fromElasticsearch": false
+  },
+  "message": "OK",
+  "timestamp": "2026-10-14T01:57:50.881Z"
+}

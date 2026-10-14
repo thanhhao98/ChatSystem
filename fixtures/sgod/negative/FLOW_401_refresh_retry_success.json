@@ -1,0 +1,61 @@
+{
+  "success": true,
+  "flow": "401 -> POST /sgod-auth/v1/sessions/refresh -> retry (each step is a real response; tokens masked)",
+  "steps": [
+    {
+      "request": "GET /sgod-auth/v1/users/myself (stale token)",
+      "http_status": 401,
+      "body": {
+        "success": false,
+        "statusCode": 401,
+        "timestamp": "2026-10-14T02:12:52.610Z",
+        "path": "/sgod-auth/v1/users/myself",
+        "message": "Invalid or expired token"
+      }
+    },
+    {
+      "request": "POST /sgod-auth/v1/sessions/refresh",
+      "http_status": 200,
+      "body": {
+        "success": true,
+        "data": {
+          "accessToken": "<redacted-token>",
+          "refreshToken": "<redacted-token>",
+          "expiresIn": "900"
+        },
+        "message": "Token refreshed successfully",
+        "timestamp": "2026-10-14T02:12:53.104Z"
+      }
+    },
+    {
+      "request": "GET /sgod-auth/v1/users/myself (refreshed token)",
+      "http_status": 200,
+      "body": {
+        "success": true,
+        "data": {
+          "id": "6a85bad6a8d2133e058c93a9",
+          "email": "user01@example.com",
+          "userName": "user01",
+          "fullName": {
+            "firstName": "Test01",
+            "lastName": "Nguyễn"
+          },
+          "userType": "enterprise",
+          "roles": [
+            "6a85bad6a8d2133e058c93aa"
+          ],
+          "phone": "+84000000001",
+          "status": "Active",
+          "gender": "Other",
+          "fallBackColor": "#34107a",
+          "is2FAEnrolled": false,
+          "enterpriseName": "Doanh nghiệp Demo 01",
+          "primaryRoleId": "6a85bad6a8d2133e058c93aa",
+          "createdAt": "2026-08-19T14:16:54.595Z"
+        },
+        "message": "Profile retrieved successfully",
+        "timestamp": "2026-10-14T02:12:53.516Z"
+      }
+    }
+  ]
+}

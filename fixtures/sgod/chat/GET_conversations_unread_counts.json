@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "data": {
+    "conversationUnread": [],
+    "totalUnread": 0
+  },
+  "message": "Unread counts retrieved successfully",
+  "timestamp": "2026-10-14T01:57:53.696Z"
+}

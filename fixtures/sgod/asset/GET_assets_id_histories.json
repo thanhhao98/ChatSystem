@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "dataChange": [],
+        "id": "6ac9be9827541dacd0a77ea3",
+        "assetId": "6ac9be9827541dacd0a77e9f",
+        "agentId": "6a85bad6a8d2133e058c93a9",
+        "description": "register_asset",
+        "createdAtMs": "1791606424420"
+      }
+    ],
+    "meta": {
+      "nextCursor": "",
+      "hasNextPage": false,
+      "limit": 10
+    },
+    "fromElasticsearch": false,
+    "_fromElasticsearch": "fromElasticsearch"
+  },
+  "message": "OK",
+  "timestamp": "2026-10-14T01:57:50.744Z"
+}

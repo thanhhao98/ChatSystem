@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "data": {
+    "assetTransfer": {
+      "causeRefusal": [],
+      "id": "6ac9c52451e750872e755fad",
+      "enterpriseId": "6a85bad6a8d2133e058c93a9",
+      "assetId": "6ac9c51d51e750872e755f32",
+      "assetStatusId": "6ac9c52451e750872e755fa8",
+      "quantity": 1,
+      "statusAsset": "active",
+      "description": "smoke",
+      "statusTransfer": "accept",
+      "typeTransfer": "revoke-asset",
+      "fromUserId": "6a85be56a8d2133e058c93b9",
+      "toUserId": "6a85bad6a8d2133e058c93a9",
+      "deliveryStaffId": "",
+      "toManagerToApprove": "",
+      "acceptFromManager": true,
+      "beExecuted": false,
+      "locationId": "6ac9c51a51e750872e755f28",
+      "createdAt": "1791608100775",
+      "updatedAt": "1791608100779",
+      "workflowPhase": "completed",
+      "tempRecipientUserId": "",
+      "recipientOwnerMode": "",
+      "holderUserId": ""
+    }
+  },
+  "message": "OK",
+  "timestamp": "2026-10-14T01:57:52.327Z"
+}

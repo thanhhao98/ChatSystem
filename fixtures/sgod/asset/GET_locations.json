@@ -1,0 +1,308 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "aliasNames": [
+          "zztest-2610100427 kho b"
+        ],
+        "subs": [],
+        "id": "6ac9bec727541dacd0a77f80",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100427 Kho B",
+        "detail": "Địa chỉ mẫu 01",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100427 kho b",
+        "createdAt": "1791606471005",
+        "updatedAt": "1791860400165"
+      },
+      {
+        "aliasNames": [
+          "tang mot"
+        ],
+        "subs": [],
+        "id": "6ac9bec627541dacd0a77f7f",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100427 Kho A - Tang 1 (sua)",
+        "detail": "Địa chỉ mẫu 02",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100427 kho a - tang 1 (sua)",
+        "createdAt": "1791606470956",
+        "updatedAt": "1791860400165",
+        "parentId": "6ac9bec627541dacd0a77f7e",
+        "_parentId": "parentId"
+      },
+      {
+        "aliasNames": [
+          "zztest-2610100427 kho a"
+        ],
+        "subs": [
+          "6ac9bec627541dacd0a77f7f"
+        ],
+        "id": "6ac9bec627541dacd0a77f7e",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100427 Kho A",
+        "detail": "Địa chỉ mẫu 03",
+        "map": {
+          "latitude": 10.76,
+          "longitude": 106.66
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100427 kho a",
+        "createdAt": "1791606470912",
+        "updatedAt": "1791860400165",
+        "colorIcon": "#FF5733",
+        "_colorIcon": "colorIcon"
+      },
+      {
+        "aliasNames": [
+          "zztest-2610100426 kho b"
+        ],
+        "subs": [],
+        "id": "6ac9be9627541dacd0a77e8b",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100426 Kho B",
+        "detail": "Địa chỉ mẫu 01",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100426 kho b",
+        "createdAt": "1791606422625",
+        "updatedAt": "1791860400165"
+      },
+      {
+        "aliasNames": [
+          "tang mot"
+        ],
+        "subs": [],
+        "id": "6ac9be9627541dacd0a77e8a",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100426 Kho A - Tang 1 (sua)",
+        "detail": "Địa chỉ mẫu 02",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100426 kho a - tang 1 (sua)",
+        "createdAt": "1791606422573",
+        "updatedAt": "1791860400165",
+        "parentId": "6ac9be9627541dacd0a77e89",
+        "_parentId": "parentId"
+      },
+      {
+        "aliasNames": [
+          "zztest-2610100426 kho a"
+        ],
+        "subs": [
+          "6ac9be9627541dacd0a77e8a"
+        ],
+        "id": "6ac9be9627541dacd0a77e89",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100426 Kho A",
+        "detail": "Địa chỉ mẫu 03",
+        "map": {
+          "latitude": 10.76,
+          "longitude": 106.66
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100426 kho a",
+        "createdAt": "1791606422525",
+        "updatedAt": "1791860400165",
+        "colorIcon": "#FF5733",
+        "_colorIcon": "colorIcon"
+      },
+      {
+        "aliasNames": [
+          "zztest-2610100424 kho b"
+        ],
+        "subs": [],
+        "id": "6ac9be0d27541dacd0a77d6b",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100424 Kho B",
+        "detail": "Địa chỉ mẫu 01",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100424 kho b",
+        "createdAt": "1791606285996",
+        "updatedAt": "1791860400165"
+      },
+      {
+        "aliasNames": [
+          "tang mot"
+        ],
+        "subs": [],
+        "id": "6ac9be0d27541dacd0a77d6a",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100424 Kho A - Tang 1 (sua)",
+        "detail": "Địa chỉ mẫu 02",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100424 kho a - tang 1 (sua)",
+        "createdAt": "1791606285939",
+        "updatedAt": "1791860400165",
+        "parentId": "6ac9be0d27541dacd0a77d69",
+        "_parentId": "parentId"
+      },
+      {
+        "aliasNames": [
+          "zztest-2610100424 kho a"
+        ],
+        "subs": [
+          "6ac9be0d27541dacd0a77d6a"
+        ],
+        "id": "6ac9be0d27541dacd0a77d69",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100424 Kho A",
+        "detail": "Địa chỉ mẫu 03",
+        "map": {
+          "latitude": 10.76,
+          "longitude": 106.66
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100424 kho a",
+        "createdAt": "1791606285890",
+        "updatedAt": "1791860400165",
+        "colorIcon": "#FF5733",
+        "_colorIcon": "colorIcon"
+      },
+      {
+        "aliasNames": [
+          "zztest-2610100423 kho b"
+        ],
+        "subs": [],
+        "id": "6ac9bde027541dacd0a77ca0",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100423 Kho B",
+        "detail": "Địa chỉ mẫu 01",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100423 kho b",
+        "createdAt": "1791606240938",
+        "updatedAt": "1791860400165"
+      },
+      {
+        "aliasNames": [
+          "tang mot"
+        ],
+        "subs": [],
+        "id": "6ac9bde027541dacd0a77c9f",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100423 Kho A - Tang 1 (sua)",
+        "detail": "Địa chỉ mẫu 02",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100423 kho a - tang 1 (sua)",
+        "createdAt": "1791606240888",
+        "updatedAt": "1791860400165"
+      },
+      {
+        "aliasNames": [
+          "zztest-2610100421 kho b"
+        ],
+        "subs": [],
+        "id": "6ac9bd3527541dacd0a77baf",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100421 Kho B",
+        "detail": "Địa chỉ mẫu 01",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100421 kho b",
+        "createdAt": "1791606069804",
+        "updatedAt": "1791860400165"
+      },
+      {
+        "aliasNames": [
+          "tang mot"
+        ],
+        "subs": [],
+        "id": "6ac9bd3527541dacd0a77bae",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100421 Kho A - Tang 1 (sua)",
+        "detail": "Địa chỉ mẫu 02",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100421 kho a - tang 1 (sua)",
+        "createdAt": "1791606069742",
+        "updatedAt": "1791860400165",
+        "parentId": "6ac9bd3527541dacd0a77bad",
+        "_parentId": "parentId"
+      },
+      {
+        "aliasNames": [
+          "zztest-2610100421 kho a"
+        ],
+        "subs": [
+          "6ac9bd3527541dacd0a77bae"
+        ],
+        "id": "6ac9bd3527541dacd0a77bad",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "ZZTEST-2610100421 Kho A",
+        "detail": "Địa chỉ mẫu 03",
+        "map": {
+          "latitude": 10.76,
+          "longitude": 106.66
+        },
+        "totalAsset": 0,
+        "search": "zztest-2610100421 kho a",
+        "createdAt": "1791606069651",
+        "updatedAt": "1791860400165",
+        "colorIcon": "#FF5733",
+        "_colorIcon": "colorIcon"
+      },
+      {
+        "aliasNames": [
+          "qa test location"
+        ],
+        "subs": [],
+        "id": "6aa2c144da46d70ee2f491c0",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "QA Test Location",
+        "detail": "Địa chỉ mẫu 04",
+        "map": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "totalAsset": 0,
+        "search": "qa test location",
+        "createdAt": "1789051204399",
+        "updatedAt": "1791860400165"
+      }
+    ],
+    "meta": {
+      "nextCursor": "",
+      "hasNextPage": false,
+      "limit": 20
+    }
+  },
+  "message": "OK",
+  "timestamp": "2026-10-14T01:57:51.276Z"
+}

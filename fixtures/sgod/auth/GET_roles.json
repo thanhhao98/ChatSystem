@@ -1,0 +1,65 @@
+{
+  "success": true,
+  "data": {
+    "roles": [
+      {
+        "id": "6a85bad6a8d2133e058c93ac",
+        "name": "Enterprise Nguyễn - 6a85bad6a8d2133e058c93a9",
+        "description": "Default/package role for Enterprise Nguyễn",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "parentRoleId": "6a85bad6a8d2133e058c93ab",
+        "permissionIds": [],
+        "isSystemRole": true,
+        "roleType": "ENTERPRISE",
+        "level": 0,
+        "sourceType": "SYSTEM",
+        "layer": "EnterpriseUser",
+        "isActive": true
+      },
+      {
+        "id": "6a85bad6a8d2133e058c93aa",
+        "name": "Enterprise Admin - 6a85bad6a8d2133e058c93a9",
+        "description": "Default/package role for Enterprise Admin",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "parentRoleId": "",
+        "permissionIds": [],
+        "isSystemRole": true,
+        "roleType": "ENTERPRISE",
+        "level": 0,
+        "sourceType": "SYSTEM",
+        "layer": "Enterprise",
+        "isActive": true
+      },
+      {
+        "id": "6a85bad6a8d2133e058c93ab",
+        "name": "Subenterprise Nguyễn - 6a85bad6a8d2133e058c93a9",
+        "description": "Default/package role for Subenterprise Nguyễn",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "parentRoleId": "6a85bad6a8d2133e058c93aa",
+        "permissionIds": [],
+        "isSystemRole": true,
+        "roleType": "ENTERPRISE",
+        "level": 0,
+        "sourceType": "SYSTEM",
+        "layer": "Subenterprise",
+        "isActive": true
+      },
+      {
+        "id": "6a85bf1ca8d2133e058c93bd",
+        "name": "basic_6a85bad6a8d2133e058c93a9",
+        "description": "Default fallback role for enterprise users without any role assigned",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "parentRoleId": "",
+        "permissionIds": [],
+        "isSystemRole": true,
+        "roleType": "ENTERPRISE",
+        "level": 0,
+        "sourceType": "SYSTEM",
+        "layer": "EnterpriseUser",
+        "isActive": true
+      }
+    ]
+  },
+  "message": "Roles retrieved successfully",
+  "timestamp": "2026-10-14T01:57:49.707Z"
+}

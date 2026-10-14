@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "items": [],
+    "meta": {
+      "nextCursor": "",
+      "hasNextPage": false,
+      "limit": 10
+    }
+  },
+  "message": "OK",
+  "timestamp": "2026-10-14T01:57:51.565Z"
+}

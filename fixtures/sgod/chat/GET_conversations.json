@@ -1,0 +1,127 @@
+{
+  "success": true,
+  "data": {
+    "conversations": [
+      {
+        "id": "6aa2c5e2e8667af3ad1333ff",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "type": "group",
+        "title": "QA Project Team",
+        "logoId": "",
+        "members": [
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "Enterprise",
+            "userId": "6a85bad6a8d2133e058c93a9"
+          },
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "EnterpriseUser",
+            "userId": "6a85be56a8d2133e058c93b9"
+          },
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "EnterpriseUser",
+            "userId": "6a85bfcba8d2133e058c93be"
+          }
+        ],
+        "lastMessageId": "",
+        "sortConversation": "2026-09-10T14:59:46.784Z",
+        "messagesPinned": [],
+        "enableE2EE": false,
+        "firstEnableE2EE": false,
+        "groupKeys": [],
+        "searchText": "",
+        "memberCount": 3,
+        "createdAt": "2026-09-10T14:59:46.784Z",
+        "updatedAt": "2026-09-10T14:59:46.784Z",
+        "description": "E2E demo group",
+        "createdBy": "6a85bad6a8d2133e058c93a9",
+        "creatorId": "6a85bad6a8d2133e058c93a9",
+        "lastMessageAt": "2026-09-10T14:59:46.784Z",
+        "lastMessagePreview": "",
+        "messageCount": 0,
+        "isActive": true,
+        "unreadCount": 0,
+        "isMuted": false,
+        "isPinned": false,
+        "isArchived": false,
+        "archivedAt": null,
+        "autoUnarchiveOnNewMessage": true,
+        "disappearingSeconds": 0,
+        "lastNameUserSent": "",
+        "lastUserSentId": "",
+        "settings": {
+          "allowInvites": true,
+          "requireApproval": false,
+          "allowFileSharing": true,
+          "maxParticipants": 1000,
+          "allowMemberMessagePinning": true,
+          "allowReactions": true,
+          "allowPolling": true,
+          "allowMembersToSendMessages": true,
+          "onlyAdminsCanCreatePolls": false
+        }
+      },
+      {
+        "id": "6aa2c17845beb2ba3f23c797",
+        "tenantId": "6a85bad6a8d2133e058c93a9",
+        "type": "private",
+        "title": "Nguyễn Test02",
+        "logoId": "",
+        "members": [
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "Enterprise",
+            "userId": "6a85bad6a8d2133e058c93a9"
+          },
+          {
+            "tenantId": "6a85bad6a8d2133e058c93a9",
+            "belongTo": "EnterpriseUser",
+            "userId": "6a85be56a8d2133e058c93b9"
+          }
+        ],
+        "lastMessageId": "",
+        "sortConversation": "2026-09-10T14:40:56.306Z",
+        "messagesPinned": [],
+        "enableE2EE": false,
+        "firstEnableE2EE": false,
+        "groupKeys": [],
+        "searchText": "",
+        "memberCount": 2,
+        "createdAt": "2026-09-10T14:40:56.306Z",
+        "updatedAt": "2026-09-10T14:40:56.306Z",
+        "description": "",
+        "createdBy": "6a85bad6a8d2133e058c93a9",
+        "creatorId": "6a85bad6a8d2133e058c93a9",
+        "lastMessageAt": "2026-09-10T14:40:56.306Z",
+        "lastMessagePreview": "",
+        "messageCount": 0,
+        "isActive": true,
+        "unreadCount": 0,
+        "isMuted": false,
+        "isPinned": false,
+        "isArchived": false,
+        "archivedAt": null,
+        "autoUnarchiveOnNewMessage": true,
+        "disappearingSeconds": 0,
+        "lastNameUserSent": "",
+        "lastUserSentId": "",
+        "settings": {
+          "allowInvites": false,
+          "requireApproval": false,
+          "allowFileSharing": true,
+          "maxParticipants": 2,
+          "allowMemberMessagePinning": false,
+          "allowReactions": true,
+          "allowPolling": false,
+          "allowMembersToSendMessages": true,
+          "onlyAdminsCanCreatePolls": true
+        }
+      }
+    ],
+    "nextCursor": ""
+  },
+  "message": "Conversations retrieved successfully",
+  "timestamp": "2026-10-14T01:57:53.532Z"
+}

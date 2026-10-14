@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "statusCode": 404,
+  "timestamp": "2026-10-14T01:57:50.995Z",
+  "path": "/sgod-asset/v1/asset-statuses/history/6ac9be9827541dacd0a77e9f?limit=10",
+  "message": "Cannot GET /sgod-asset/v1/asset-statuses/history/6ac9be9827541dacd0a77e9f?limit=10"
+}

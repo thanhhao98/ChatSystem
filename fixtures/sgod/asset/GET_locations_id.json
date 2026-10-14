@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "data": {
+    "ancestors": [],
+    "location": {
+      "aliasNames": [
+        "zztest-2610100427 kho b"
+      ],
+      "subs": [],
+      "id": "6ac9bec727541dacd0a77f80",
+      "enterpriseId": "6a85bad6a8d2133e058c93a9",
+      "name": "ZZTEST-2610100427 Kho B",
+      "detail": "Địa chỉ mẫu 01",
+      "map": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "totalAsset": 0,
+      "search": "zztest-2610100427 kho b",
+      "createdAt": "1791606471005",
+      "updatedAt": "1791860400165"
+    },
+    "nestedSubtree": null
+  },
+  "message": "OK",
+  "timestamp": "2026-10-14T01:57:51.430Z"
+}

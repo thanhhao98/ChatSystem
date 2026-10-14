@@ -1,0 +1,314 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9c52951e750872e755fdf",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9c51d51e750872e755f32",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9c52651e750872e755fb8",
+        "subjectId": "6ac9c52751e750872e755fc9",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "cancel",
+        "statusChange": "on-hold",
+        "statusOrigin": "processing",
+        "quantity": 6,
+        "description": "smoke → on-hold",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791608105",
+        "timeEnd": "0",
+        "approvalContent": "Cancelled by requester",
+        "qrCode": "",
+        "createdAt": "1791608105",
+        "updatedAt": "1791608105"
+      },
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9c52951e750872e755fdc",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9c51d51e750872e755f32",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9c52651e750872e755fb8",
+        "subjectId": "6ac9c52751e750872e755fc9",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "deny",
+        "statusChange": "completed",
+        "statusOrigin": "processing",
+        "quantity": 6,
+        "description": "smoke → completed",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791608105",
+        "timeEnd": "0",
+        "approvalContent": "not yet",
+        "qrCode": "",
+        "createdAt": "1791608105",
+        "updatedAt": "1791608105"
+      },
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9c52851e750872e755fd4",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9c51d51e750872e755f32",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9c52651e750872e755fb8",
+        "subjectId": "6ac9c52751e750872e755fc9",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "confirm",
+        "statusChange": "processing",
+        "statusOrigin": "scheduled",
+        "quantity": 6,
+        "description": "smoke → processing",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791608104",
+        "timeEnd": "0",
+        "approvalContent": "ok",
+        "qrCode": "45f3cc0e-463d-4e51-bab9-6e009f125410",
+        "createdAt": "1791608104",
+        "updatedAt": "1791608104"
+      },
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9bf5027541dacd0a78038",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9bec827541dacd0a77f88",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9bf2f27541dacd0a78011",
+        "subjectId": "6ac9bf2f27541dacd0a78022",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "cancel",
+        "statusChange": "on-hold",
+        "statusOrigin": "processing",
+        "quantity": 6,
+        "description": "smoke → on-hold",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791606608",
+        "timeEnd": "0",
+        "approvalContent": "Cancelled by requester",
+        "qrCode": "",
+        "createdAt": "1791606608",
+        "updatedAt": "1791606608"
+      },
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9bf5027541dacd0a78035",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9bec827541dacd0a77f88",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9bf2f27541dacd0a78011",
+        "subjectId": "6ac9bf2f27541dacd0a78022",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "deny",
+        "statusChange": "completed",
+        "statusOrigin": "processing",
+        "quantity": 6,
+        "description": "smoke → completed",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791606608",
+        "timeEnd": "0",
+        "approvalContent": "not yet",
+        "qrCode": "",
+        "createdAt": "1791606608",
+        "updatedAt": "1791606608"
+      },
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9bf4f27541dacd0a7802d",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9bec827541dacd0a77f88",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9bf2f27541dacd0a78011",
+        "subjectId": "6ac9bf2f27541dacd0a78022",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "confirm",
+        "statusChange": "processing",
+        "statusOrigin": "scheduled",
+        "quantity": 6,
+        "description": "smoke → processing",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791606607",
+        "timeEnd": "0",
+        "approvalContent": "ok",
+        "qrCode": "86b351ea-fee9-4fa8-bffa-40e60d47f772",
+        "createdAt": "1791606607",
+        "updatedAt": "1791606607"
+      },
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9be1c27541dacd0a77e21",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9be0f27541dacd0a77d73",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9be1927541dacd0a77dfb",
+        "subjectId": "6ac9be1a27541dacd0a77e0b",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "cancel",
+        "statusChange": "on-hold",
+        "statusOrigin": "processing",
+        "quantity": 6,
+        "description": "smoke → on-hold",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791606300",
+        "timeEnd": "0",
+        "approvalContent": "Cancelled by requester",
+        "qrCode": "",
+        "createdAt": "1791606300",
+        "updatedAt": "1791606300"
+      },
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9be1c27541dacd0a77e1e",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9be0f27541dacd0a77d73",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9be1927541dacd0a77dfb",
+        "subjectId": "6ac9be1a27541dacd0a77e0b",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "deny",
+        "statusChange": "completed",
+        "statusOrigin": "processing",
+        "quantity": 6,
+        "description": "smoke → completed",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791606300",
+        "timeEnd": "0",
+        "approvalContent": "not yet",
+        "qrCode": "",
+        "createdAt": "1791606300",
+        "updatedAt": "1791606300"
+      },
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9be1b27541dacd0a77e16",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9be0f27541dacd0a77d73",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9be1927541dacd0a77dfb",
+        "subjectId": "6ac9be1a27541dacd0a77e0b",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "confirm",
+        "statusChange": "processing",
+        "statusOrigin": "scheduled",
+        "quantity": 6,
+        "description": "smoke → processing",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791606299",
+        "timeEnd": "0",
+        "approvalContent": "ok",
+        "qrCode": "ab77801d-88d4-4762-91f7-2049786564f1",
+        "createdAt": "1791606299",
+        "updatedAt": "1791606299"
+      },
+      {
+        "images": [
+          "smoke/test.png"
+        ],
+        "files": [
+          "smoke/test.pdf"
+        ],
+        "id": "6ac9bdea27541dacd0a77d17",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ac9bde227541dacd0a77ca6",
+        "requesterId": "6a85be56a8d2133e058c93b9",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ac9bde827541dacd0a77cee",
+        "subjectId": "6ac9bde827541dacd0a77d01",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "cancel",
+        "statusChange": "on-hold",
+        "statusOrigin": "processing",
+        "quantity": 6,
+        "description": "smoke → on-hold",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1791606250",
+        "timeEnd": "0",
+        "approvalContent": "Cancelled by requester",
+        "qrCode": "",
+        "createdAt": "1791606250",
+        "updatedAt": "1791606250"
+      }
+    ],
+    "meta": {
+      "nextCursor": "eyJ0cyI6MTc5MTYwNjI1MDY0MCwib2lkIjoiNmFjOWJkZWEyNzU0MWRhY2QwYTc3ZDE3In0",
+      "hasNextPage": true,
+      "limit": 10
+    }
+  },
+  "message": "OK",
+  "timestamp": "2026-10-14T01:57:52.642Z"
+}

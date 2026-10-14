@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "messages": [],
+  "pagination": {
+    "limit": 10,
+    "total": 0,
+    "hasMore": false,
+    "nextCursor": ""
+  },
+  "messageText": "Successfully fetched messages"
+}
