@@ -209,5 +209,5 @@ Tên tệp nộp: `results/sgod_eval_v1/<model>_<YYYY-MM-DD>.predictions.jsonl` 
 | `data/sgod/pilot_eval.json` + `pilot_train.jsonl` | nhóm D → nhóm F | 2026-10-20 | đầu vào F Việc 3; không dùng cho số báo cáo |
 | `data/sgod/eval_v1.json` + `eval_v1.sha256` + `docs/eval_v1_card.md` | nhóm D (Việc 4), ký sau review | **Điểm đồng bộ 2 — 2026-10-25** | bất biến; sửa → `eval_v1.1` + errata + sha mới |
 | Tài liệu này (schema + thang chấm + H1) | Drop 0 → Điểm đồng bộ 2 | Điểm đồng bộ 2 | `eval_toolcall.py` / `bootstrap_ci.py` phải khớp ở cùng commit |
-| Baseline GPT trên eval_v1 | S Việc 8 (chạy trên hạ tầng tham chiếu) | 2026-10-29 (Thu) | dự đoán commit vào `results/sgod_eval_v1/`; nhóm F chấm → INDEX R001 |
+| Baseline GPT trên eval_v1 | S Việc 8 (chạy trên hạ tầng tham chiếu) | 2026-10-29 (Thu) | dự đoán commit vào `results/sgod_eval_v1/`; nhóm F chấm → dòng INDEX kế tiếp còn trống |
 | `tools-v1` (tag) | D Việc 1 + S Việc 4 | 2026-10-08 | đổi tool = trục đo mới |
