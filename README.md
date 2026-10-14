@@ -1,6 +1,6 @@
 # ChatSystem — trợ lý chat tiếng Việt cho quản lý tài sản trên nền tảng SGOD
 
-Repo làm việc của chương trình thực tập **Chat System pha 2** (6 thực tập sinh, 2 nhóm) — `https://github.com/thanhhao98/ChatSystem` (private).
+Repo làm việc của chương trình thực tập **Chat System pha 2** (6 thực tập sinh, 2 nhóm) — `https://github.com/thanhhao98/ChatSystem` (public).
 Quản lý công việc trên ClickUp: `https://app.clickup.com/` (Space: **Chat System**).
 
 **Mục lục**
@@ -181,8 +181,8 @@ của bạn khác: `notebooks/finetune/README.md` § *Lưu ý về cấu hình T
   tầng tham chiếu và artefact được commit vào repo (`fixtures/sgod/`, `docs/sgod/`). Mọi bước cần LLM trong pipeline dữ
   liệu (sinh / gán nhãn / kiểm định) cũng chạy trên hạ tầng tham chiếu từ PR của nhóm D (`datagen/run_pipeline.sh`);
   đầu ra được commit vào `data/sgod/` trong ≤ 2 ngày làm việc.
-- **Không có branch protection** (repo private trên tài khoản cá nhân, gói Free). Quy ước chỉ-PR + `main-guard.yml` thay
-  thế — về mặt kỹ thuật không có gì ngăn push thẳng; xem `HUONG_DAN_LAM_VIEC.md` §2.
+- **`main` có branch protection** (repo public từ 2026-09-18): PR + 1 approve + CI `checks` xanh, nhánh cập nhật theo
+  `main`. Quy tắc không áp cho admin (chủ sở hữu repo); `main-guard.yml` bỏ qua tài khoản này; xem `HUONG_DAN_LAM_VIEC.md` §2.
 - **Chỉ một lượt (single-turn)** ở dữ liệu và eval pha 2; đa lượt ngoài phạm vi.
 - **Compute của thực tập sinh là Colab/Kaggle T4 miễn phí**: fp16 (không bf16), 0.5B/1.5B, phiên kết thúc bất ngờ →
   bắt buộc `--save-steps` + `--resume-from-checkpoint`, đầu ra lên Drive. Arm 3B chạy trên máy GPU của hạ tầng tham

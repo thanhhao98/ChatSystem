@@ -7,8 +7,8 @@ vì file pins nằm trong repo.
 Ô làm gì:
 
 - **Colab / Kaggle:** đọc `GITHUB_TOKEN` từ *Secrets* (Colab: biểu tượng chìa khoá, bật *Notebook access*; Kaggle:
-  *Add-ons → Secrets*), `git clone` repo private `thanhhao98/ChatSystem` (bỏ qua nếu đã có), rồi `chdir` vào `ChatSystem`.
-  `GITHUB_TOKEN` là *Personal access token (classic)* với scope `repo` — repo private thuộc tài khoản cá nhân, bạn là collaborator,
+  *Add-ons → Secrets*), `git clone` repo `thanhhao98/ChatSystem` (bỏ qua nếu đã có), rồi `chdir` vào `ChatSystem`.
+  `GITHUB_TOKEN` là *Personal access token (classic)* với scope `repo` — repo thuộc tài khoản cá nhân, bạn là collaborator,
   nên token chi tiết theo repo không dùng được (cách tạo: `notebooks/README.md`). Token chỉ nằm trong `.git/config` của VM tạm thời — **không bao giờ** `print` hay `!cat .git/config` vào output notebook.
 - **Local:** đi lên từ thư mục hiện tại đến khi gặp `docs/contracts/cli.md` rồi `chdir` vào đó (vì vậy mở notebook
   từ bất kỳ thư mục con nào của repo đều được).

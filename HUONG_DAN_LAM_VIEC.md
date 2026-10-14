@@ -14,18 +14,18 @@
 
 ### 1.1 Colab (mặc định cho cả hai nhóm)
 
-Repo là **private**, nên `git clone` cần token. Token nằm trong **Colab Secrets** (biểu tượng chìa khoá ở thanh trái),
+Repo là **public** (từ 2026-09-18): `git clone` không cần token, nhưng `git push` cần token. Token nằm trong **Colab Secrets** (biểu tượng chìa khoá ở thanh trái),
 không bao giờ nằm trong cell.
 
 1. Tạo **Personal access token (classic)** trên GitHub: *Settings → Developer settings → Personal access tokens →
-   Tokens (classic) → Generate new token (classic)*; tick scope **`repo`** (đủ để clone, pull và push nhánh trên repo
-   private); hạn ≤ 90 ngày. `thanhhao98/ChatSystem` là repo private thuộc **tài khoản cá nhân** và bạn là collaborator,
+   Tokens (classic) → Generate new token (classic)*; tick scope **`repo`** (đủ để clone, pull và push nhánh);
+   hạn ≤ 90 ngày. `thanhhao98/ChatSystem` thuộc **tài khoản cá nhân** và bạn là collaborator,
    nên token *fine-grained* **không dùng được** ở đây — chỉ token classic mới hoạt động.
 2. Colab → Secrets → thêm `GITHUB_TOKEN` (bật "Notebook access"). Thêm `HF_TOKEN` chỉ khi cần dataset/model gated.
 3. **Cell 1 — Thiết lập** của mọi notebook là **ô chuẩn trong [`notebooks/_setup_snippet.md`](notebooks/_setup_snippet.md)**
    (đã có sẵn trong từng notebook, copy nguyên văn; không sửa, không viết ô clone riêng). Ô này:
    - **Colab / Kaggle**: đọc `GITHUB_TOKEN` từ Secrets (Colab `google.colab.userdata`; Kaggle `kaggle_secrets`), `git clone`
-     repo private (bỏ qua nếu đã có) rồi `chdir` vào `ChatSystem`. Token nằm trong URL remote trong `.git/config` của **VM
+     repo (bỏ qua nếu đã có) rồi `chdir` vào `ChatSystem`. Token nằm trong URL remote trong `.git/config` của **VM
      tạm** — nhờ vậy `git pull` / `git push origin` chạy được — và **không bao giờ** được in: không `print`, không
      `!cat .git/config`, không `!git remote -v` vào output notebook. Nếu clone lỗi, thông báo đã được thay token bằng `<token>`.
    - **Local**: đi lên từ thư mục hiện tại đến khi gặp `docs/contracts/cli.md` rồi `chdir` vào gốc repo.
@@ -82,12 +82,14 @@ sửa pin trong PR công việc.
 
 ## 2. Mô hình truy cập GitHub: nhánh, PR, commit, changelog
 
-Repo private trên tài khoản cá nhân (gói Free) **không có branch protection** — GitHub không chặn push thẳng lên `main` về
-mặt kỹ thuật. Vì vậy kỷ luật nằm ở quy ước chỉ-PR + một workflow gác:
+Repo **public** trên tài khoản cá nhân; từ 2026-09-18 `main` có **branch protection**: chỉ vào qua PR, cần **1 approve**
+(approve cũ bị huỷ khi có commit mới), job CI `checks` xanh trên nhánh đã cập nhật theo `main`, mọi thảo luận review đã
+resolve; cấm force-push và xoá `main`. Quy tắc không áp cho admin (chủ sở hữu repo). Thêm vào đó là quy ước chỉ-PR + một
+workflow gác:
 
 | Quy tắc | Cụ thể |
 |---|---|
-| Quyền | mọi thực tập sinh là **write collaborator** trên repo private của tài khoản cá nhân (được thêm ở kickoff) |
+| Quyền | mọi thực tập sinh là **write collaborator** trên repo của tài khoản cá nhân (được thêm ở kickoff) |
 | Nhánh | tạo từ `main`, tiền tố theo nhóm: `data/<việc>-<tên>`, `ft/<việc>-<tên>`, `sys/<việc>` (epic S). Ví dụ `data/t2-preprocess-anh`. Không commit thẳng lên `main`. |
 | Vào `main` | **chỉ qua pull request**; PR được review và merge sau khi CI xanh (người phụ trách merge) — áp dụng cho cả PR của epic S. Squash hay merge commit do người phụ trách merge chọn. |
 | Tiêu đề PR | bắt đầu bằng mã việc: `[D-T1]`, `[D-V3]`, `[F-T2]`, `[F-V4]`, `[S-V6]` (D/F/S = nhóm; T = Tuần, V = Việc). Ví dụ `[F-T2] eval base vs ft trên xlam_2k.eval, CI + McNemar`. |
@@ -100,8 +102,9 @@ mặt kỹ thuật. Vì vậy kỷ luật nằm ở quy ước chỉ-PR + một 
 
 **`main-guard.yml`**: chạy ở mỗi push vào `main`. Nếu `github.actor` không phải tài khoản phụ trách merge (chủ sở hữu
 repo), workflow **mở một issue** ghi ai push, commit nào, có force-push hay không, và việc cần làm. Đây không phải trừng
-phạt — là dấu vết để quyết định giữ hay revert (bằng PR) khi review. Nếu bạn vô tình push lên `main`: **không** tự
-revert/force-push; bình luận vào issue và chờ quyết định trong issue đó.
+phạt — là dấu vết để quyết định giữ hay revert (bằng PR) khi review. Từ 2026-09-18 GitHub từ chối push thẳng của
+collaborator, nên issue chỉ còn xuất hiện khi PR được merge bởi tài khoản khác chủ sở hữu. Nếu thấy issue như vậy:
+**không** tự revert/force-push; bình luận vào issue và chờ quyết định trong issue đó.
 
 **CI (`ci.yml`)** chạy ở mọi PR: `py_compile`; `prompts/*.txt` không chứa `<!--`; `validate_dataset.py` trên bộ công khai;
 `finetune_qlora.py --dry-run --max-len 2560` trên `xlam_2k.train.jsonl` (CPU, chỉ tokenizer) phải `over_limit=0`;

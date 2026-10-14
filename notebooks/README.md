@@ -17,11 +17,11 @@ không cài đặt lại logic chấm điểm hay định dạng dữ liệu.
 
 1. Tạo **Personal access token (classic)** trên GitHub (*Settings → Developer settings → Personal access tokens →
    Tokens (classic) → Generate new token (classic)*), tick scope **`repo`**, hạn ≤ 90 ngày. `thanhhao98/ChatSystem` là repo
-   **private thuộc tài khoản cá nhân** và bạn là *collaborator*, nên chỉ token classic mới clone/push được (token chi tiết
+   **public thuộc tài khoản cá nhân** và bạn là *collaborator*, nên chỉ token classic mới push được (token chi tiết
    theo repo không hoạt động với collaborator). Không in token ra output, không dán vào cell, không commit.
 2. Colab → biểu tượng chìa khoá (**Secrets**) → *Add new secret*: Name `GITHUB_TOKEN`, Value = token; bật **Notebook access**.
    (Token Hugging Face, nếu cần cho bước nâng cao, cũng để ở đây với tên `HF_TOKEN`.)
-3. Mở notebook: *File → Open notebook → GitHub*, tick **Include private repos**, chọn `thanhhao98/ChatSystem` và file;
+3. Mở notebook: *File → Open notebook → GitHub*, chọn `thanhhao98/ChatSystem` và file;
    hoặc *Upload* file `.ipynb` từ bản clone trên máy.
 4. `Runtime → Run all`. Ô thiết lập tự clone repo vào `/content/ChatSystem`. Ô cuối in khối báo cáo → dán vào ClickUp.
 

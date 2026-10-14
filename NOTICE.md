@@ -6,9 +6,9 @@ chưa có đồng ý của chủ sở hữu repo và của chủ sở hữu các
 
 ## Mã nguồn của nhóm
 
-Bản quyền thuộc các tác giả trong lịch sử git của repo. Giấy phép phân phối lại mã nguồn **chưa được chọn** (repo private);
-giấy phép sẽ được chọn và ghi vào tệp này trước khi công khai bất kỳ phần nào. Cho tới lúc đó: chỉ thành viên được cấp quyền
-mới truy cập.
+Bản quyền thuộc các tác giả trong lịch sử git của repo. Giấy phép phân phối lại mã nguồn **chưa được chọn**. Repo public từ 2026-09-18
+nhưng chưa có tệp LICENSE: mọi quyền vẫn thuộc các tác giả; người ngoài chỉ được xem và fork trên GitHub theo Điều khoản
+của GitHub. Giấy phép sẽ được chọn và ghi vào tệp này.
 
 ## Dữ liệu
 
