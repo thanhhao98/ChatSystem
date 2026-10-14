@@ -1,10 +1,24 @@
 # CHANGELOG
 - 2026-10-10 — [S-V1] trích xuất OpenAPI JSON, script tự động hoá extract_openapi.py và bảng query_params.md cho 22 GET endpoints SGOD (asset, auth, chat).
+- 2026-10-14 — [F-V1] bổ sung lưới recipe chạy lại trên RTX PRO 6000 (bf16) của pthao3113: dự đoán + kết quả 6 run trong `results/public/recipe_grid_bf16/` (gồm arm 1.5B `recipe_arm_1p5b.yaml`, bắt buộc, và arm tự chọn `recipe_arm_r32.yaml`), bootstrap anchor-vs-arm và đối chiếu chéo T4↔bf16 (`bootstrap_ci.py --md`), INDEX R031–R054, 8 dòng RUNLOG, 6 dòng `results.csv`, mục *Bổ sung* trong `findings/2026-10-02_recipe_grid_xlam.md`; lần chạy T4 của wynn187z chỉ ghi chú, không có số (không commit tệp kết quả) (PR #11).
+- 2026-10-14 — [F-V2] baseline GPT trên eval_v1 nhận dòng INDEX kế tiếp còn trống thay cho R001 (R001–R030 đã dùng cho F Tuần 2 + F Việc 1): `docs/roadmap.md`, `docs/contracts/eval_metric.md` (PR #4).
+- 2026-10-14 — [F-T2][F-V1] sửa sau review: `training/recipes/results.csv` chép đúng `results.json` (param_acc, json_valid_rate, tool_name_acc của comp0); cột `arm` = khoá `arm` trong yaml (`arm_*`); RUNLOG `data@sha8` = `933c4ecd` (`xlam_2k.train.jsonl`) cho 5 run của lưới (huấn luyện 2026-10-02); INDEX: git sha/ngày khớp header dự đoán, lệnh đầy đủ, thêm R029–R030 (json_valid_rate base/ft); findings ghi đủ trục đo, cấu hình `--no-amp`, arm free không cho thông tin; notebook 04 dùng ô thiết lập + ô probe chuẩn, `--model-path`, bỏ arm 1.5B; `notebooks/finetune/README.md` liệt kê notebook 04; khôi phục mục [F-T2] bị mất ở merge `e2ef147` (PR #4).
+- 2026-10-07 — [F-V1] lưới recipe trên lát xLAM: anchor + 4 arm (`training/recipes/recipe_arm_{r8,lr2e4,comp0,free}.yaml`), dự đoán + `results.json` trong `results/public/`, `findings/2026-10-02_recipe_grid_xlam.md`, INDEX R012–R028, 5 dòng RUNLOG, 5 dòng `results.csv`, notebook `notebooks/finetune/04_recipe_grid_colab.ipynb` (PR #4).
+- 2026-09-25 — [F-T2] base vs ft trên `data/public/xlam_2k.eval.json`: dự đoán, `results/public/{base,ft}.{json,md}`, bootstrap CI + McNemar (`results/public/bootstrap.md`), INDEX R001–R011, 2 dòng RUNLOG; notebook 02 gỡ `torchao` ở Cell 2 (PR #4).
 - 2026-09-19 — [D-T1] hoàn thành khảo sát bộ dữ liệu công khai xLAM 2k raw và báo cáo nghiệm thu tuần 1 (nhóm D).
 - 2026-09-18 — repo chuyển sang public + bảo vệ nhánh main (PR, 1 approve, CI `checks`); thay địa chỉ gateway nội bộ trong spec bằng placeholder `<SGOD_GATEWAY>`; secret grep CI thêm mẫu IP nội bộ.
 
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
+
+## 2026-10-14 — [D-V1] danh mục tool SGOD v1: 22 tool chỉ đọc, tool_policy, mapping — nhóm D: Hy, My, Dinh (PR #5)
+
+- `tools/sgod/sgod_tools.json`: từ 3 tool mẫu lên 22 tool chỉ đọc (`writes: false`). Nền là PR #5 (Hy, 21 tool); gộp `list_maintenance_tasks` từ PR #6 (My) với query bắt buộc `maintenanceScheduleId`, và `list_enterprise_users` (chỉ `company_admin`) từ PR #7 (Dinh) với `search`/`status`/`limit`/`cursor` theo `docs/sgod/openapi-*.json` (PR #9). Giữ từ PR #5: chặn 5 GET hỏng của spec §4; `/sgod-chat/v1` chỉ cho `company_admin`.
+- Đối chiếu bằng gọi thật trên hạ tầng tham chiếu (2026-10-14, tài khoản thử enterprise): bỏ `search_assets` (`/assets/suggest` → 404, trùng `list_my_assets`); `get_asset_statistics` trỏ `GET /sgod-asset/v1/assets/summary` (`/dashboard/statistics-asset` → 404); 3 tool mẫu: `list_my_assets` dùng `search` (API bỏ qua `q`, `status`), `list_maintenance_schedules` enum `completed` (`complete` → 400), `get_asset` / `get_asset_histories` resolve bằng `GET /assets?search=`; `list_asset_transfers` thêm `onlyMine`; mô tả `get_enterprise_profile` theo trường thật. Kết quả từng lần gọi ghi trong `x_sgod.notes`.
+- Rút gọn mô tả (bỏ nhãn "(company_admin)" thừa và câu phân trang lặp lại; bỏ "phòng ban" khỏi `list_locations`; lấy mô tả chính xác hơn từ PR #6/#7) để vừa ngân sách: lượt system company_admin 3332/3400 token, employee 2818.
+- `prompts/system_preamble_v1.txt`: hai dòng *Quy tắc chọn tool* đổi theo (`search`, `completed`); sha256 nội dung sau `.strip()` `6352dac1…` → `f5da2272…` (`prompts/README.md`). Chưa có hàng SGOD hay dự đoán nào dùng preamble v1.
+- `docs/sgod-api-reference.md` (§2, §3, §4), `docs/sgod/candidate_tools.md`, `docs/architecture.md`, `datagen/config_sgod.py` (`schedule_status`): đồng bộ theo gọi thật.
+- `tools/sgod/tool_policy.json`: 1:1 với 22 tool. `tools/sgod/tool_api_mapping.md`: sinh lại bằng `gen_tool_api_mapping.py` (`--check` OK).
 
 ## 2026-09-23 — [F-T1] điều chỉnh dtypes tham số LoRA sang fp32 và khôi phục fp16=True trong SFTConfig theo feedback review
 

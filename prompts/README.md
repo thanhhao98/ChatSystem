@@ -16,7 +16,7 @@ không dành cho model trong tệp prompt — mọi ghi chú nằm ở tệp REA
 | Tệp | Dùng cho | Trạng thái | Việc / khi |
 |---|---|---|---|
 | `system_preamble_v0.txt` | hàng công khai xLAM (`data/public/*.jsonl`) và bộ eval công khai | **đóng băng** (Drop 0). sha256 nội dung sau `.strip()`: `ebcae911…` | Drop 0; không đổi trong pha 2 |
-| `system_preamble_v1.txt` | hàng SGOD (`data/sgod/*.jsonl`), `eval_v1`, phục vụ | **BẢN NHÁP** — văn bản nền chốt tại **Điểm đồng bộ 1 (2026-09-27)**; mục *Quy tắc chọn tool* còn được bổ sung theo `tools/sgod/sgod_tools.json` v1 đến **2026-10-11**, sau đó **đóng băng** (đổi = trục đo mới, hợp đồng 2 §6). sha256 nội dung sau `.strip()` hiện tại: `6352dac1…` (đổi mỗi khi văn bản đổi) | S Việc 3 |
+| `system_preamble_v1.txt` | hàng SGOD (`data/sgod/*.jsonl`), `eval_v1`, phục vụ | **BẢN NHÁP** — văn bản nền chốt tại **Điểm đồng bộ 1 (2026-09-27)**; mục *Quy tắc chọn tool* còn được bổ sung theo `tools/sgod/sgod_tools.json` v1 đến **2026-10-11**, sau đó **đóng băng** (đổi = trục đo mới, hợp đồng 2 §6). sha256 nội dung sau `.strip()` hiện tại: `f5da2272…` (đổi mỗi khi văn bản đổi) | S Việc 3 |
 | `fixed_replies.json` | hai chuỗi cố định `REFUSAL_VI` / `DEFLECT_VI` (hợp đồng 1 §2) | **đóng băng** (Drop 0) | Drop 0; không đổi |
 
 Việc còn mở cho v1 (đến 2026-10-11): thêm quy tắc chọn tool cho từng tool của `sgod_tools` v1 sau khi có tag `tools-v1`

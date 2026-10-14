@@ -5,6 +5,11 @@
 > §3 bảng "Natural-language intent → API call", §4 "Known issues", §5 phụ lục). Ba tool đầu đã được viết mẫu đầy đủ trong
 > `sgod_tools.json`; các tool còn lại là gợi ý — tên cuối cùng, tham số và enum do nhóm quyết định và `validate_tools.py`
 > kiểm tra.
+>
+> **2026-10-14 — danh mục v1 đã chốt nội dung (PR #5):** 22 tool, xem `tools/sgod/tool_api_mapping.md`. Gọi thật trên hạ tầng
+> tham chiếu: `GET /assets/suggest` và `GET /dashboard/statistics-asset` đã bỏ (spec §4) → không có `search_assets`;
+> `get_asset` / `get_asset_histories` resolve bằng `GET /assets?search=`; `get_asset_statistics` trỏ `GET /assets/summary`.
+> Tham số truy vấn thật: `docs/sgod/query_params.md` (S Việc 1). Bảng dưới giữ nguyên làm lịch sử định hướng.
 
 ## 0. Điều quan trọng nhất: phụ lục spec **không có** tham số truy vấn
 
