@@ -15,7 +15,7 @@ Thứ tự: 01 → 02 → (03). Notebook 02/03 cần adapter `$OUT/full` của 0
 
 ## Chuẩn bị một lần
 
-1. **GITHUB_TOKEN** — Personal access token (**classic**, scope `repo`; `thanhhao98/ChatSystem` là repo private thuộc tài khoản
+1. **GITHUB_TOKEN** — Personal access token (**classic**, scope `repo`; `thanhhao98/ChatSystem` là repo thuộc tài khoản
    cá nhân nên token chi tiết theo repo không dùng được cho collaborator — cách tạo trong `notebooks/README.md`). Colab: biểu tượng
    chìa khóa ở thanh bên trái → *Add new secret* → Name `GITHUB_TOKEN` → bật *Notebook access*. Không dán token vào cell.
 2. **Google Drive** — Cell 3 gọi `drive.mount`; chấp nhận quyền khi được hỏi. Thư mục kết quả sẽ là

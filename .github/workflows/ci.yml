@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # PR runs: HEAD is the merge commit, HEAD^1 the base (append-only gate)
 
       - uses: actions/setup-python@v5
         with:
@@ -91,6 +93,11 @@ jobs:
             echo "::error::report_bad.md phải thoát mã 1"
             exit 1
           fi
+          # a number glued to "pp" (+0.5pp) must be read as 0.5, not 0 (0 is indexed in this fixture) -> 1
+          if python scripts/check_provenance.py tests/fixtures/report_pp_unindexed.md --index tests/fixtures/index_pp_fixture.md; then
+            echo "::error::report_pp_unindexed.md phải thoát mã 1 (+0.5pp không được đọc thành 0)"
+            exit 1
+          fi
           # real eval_toolcall --md output: labels ('≥50% khoá') and the scorer string must NOT be flagged,
           # every accuracy in its tables IS checked and is indexed in the fixture INDEX -> 0
           python scripts/check_provenance.py tests/fixtures/eval_report_ok.md --index $IDX
@@ -109,12 +116,57 @@ jobs:
           # the real INDEX must parse; RUNLOG carries no numbers so this must exit 0
           python scripts/check_provenance.py results/RUNLOG.md
 
-      - name: Secret grep (SGOD test credentials, OpenAI-style keys)
+      - name: Contract 4 gate — validate_tools.py; tool_api_mapping.md is generated, never hand-edited
         run: |
-          # The pattern is written so that no literal secret appears in this file.
+          python tools/sgod/validate_tools.py
+          python tools/sgod/gen_tool_api_mapping.py --check
+
+      - name: Provenance gate — every committed report (findings/, docs/reports/, results/) is indexed and has 'Ghi chú trục đo'
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            out=$(python scripts/check_provenance.py "$f") || fail=1
+            printf '%s\n' "$out"
+            if echo "$out" | grep -q "axis_note=no"; then
+              echo "::error file=$f::thiếu dòng 'Ghi chú trục đo' ngay dưới tiêu đề (docs/contracts/eval_metric.md §6)"
+              fail=1
+            fi
+          done < <(git -c core.quotePath=false ls-files 'findings/*.md' 'docs/reports/*.md' 'results/*.md' | grep -v -x -e 'results/INDEX.md' -e 'results/RUNLOG.md')
+          exit $fail
+
+      - name: training/recipes/results.csv keeps exactly the contract header
+        run: |
+          expected='arm,model,lora_rank,lr,completion_only,mask_fn_names,epochs,max_rows,seed,steps,wall_clock_min,gpu,tool_name_acc,param_acc,json_valid_rate,ci_lo,ci_hi,results_file,who,date'
+          actual=$(head -1 training/recipes/results.csv | tr -d '\r')
+          if [ "$actual" != "$expected" ]; then
+            echo "::error file=training/recipes/results.csv::header khác hợp đồng (training/recipes/README.md §3) — không thêm/bớt cột"
+            exit 1
+          fi
+
+      - name: results/INDEX.md + RUNLOG.md append-only; INDEX ids strictly increasing
+        if: github.event_name == 'pull_request'
+        run: |
+          if git diff --unified=0 HEAD^1 HEAD -- results/INDEX.md results/RUNLOG.md | grep -E '^-\|'; then
+            echo "::error::results/INDEX.md / RUNLOG.md chỉ được thêm dòng (append-only) — không sửa/xoá dòng cũ"
+            exit 1
+          fi
+          python scripts/check_index_ids.py results/INDEX.md
+
+      - name: Secret grep (SGOD credentials via repo secret, OpenAI-style keys)
+        env:
+          # Credential / internal-address patterns live ONLY in the repository secret SECRET_GREP_RE,
+          # never in the repo: a public file must not spell out any part of a credential.
+          SECRET_GREP_RE: ${{ secrets.SECRET_GREP_RE }}
+        run: |
+          SECRET_GREP_RE="$(printf '%s' "${SECRET_GREP_RE:-}" | tr -d '\r\n')"   # a stray newline would match every file
           # data/public/ is skipped on purpose: licensed third-party text (xLAM) that legitimately
           # contains sample e-mail addresses and must stay byte-identical.
-          if git grep -nIE "Sgod(2025|123)|sk-[A-Za-z0-9]{20}|SmartGeneration(of)Digital|10\.10\.0\.[0-9]+" -- . ':!data/public'; then
+          # -l prints file names only, so a hit never echoes a credential into the public CI log.
+          if [ -z "${SECRET_GREP_RE:-}" ]; then
+            echo "::error::Thiếu secret SECRET_GREP_RE của repo (PR từ fork không đọc được secret) — cần kiểm tay trước khi merge"
+            exit 1
+          fi
+          if git grep -lIE "sk-[A-Za-z0-9]{20}|${SECRET_GREP_RE}" -- . ':!data/public'; then
             echo "::error::Phát hiện chuỗi giống bí mật trong repo — xoá và xoay khóa trước khi merge"
             exit 1
           fi

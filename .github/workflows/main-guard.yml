@@ -1,9 +1,10 @@
 name: main-guard
 
-# Branch protection is not available on a private repo owned by a Free-plan personal account, so this
-# workflow is the guard: any push to main that was NOT made by the repository owner account (the account
-# that merges reviewed PRs) opens an issue for follow-up. PR merges performed by that account have
-# github.actor == the owner and are ignored.
+# Since 2026-09-18 main is branch-protected (PR + 1 approval + the `checks` job; admins not enforced), so
+# collaborators can no longer push to main directly. This workflow stays as a trace: any push to main that
+# was NOT made by the repository owner account (the account that merges reviewed PRs), i.e. a PR merged by
+# someone else, opens an issue for follow-up. Pushes and merges by the owner have github.actor == the owner
+# and are ignored.
 
 on:
   push:
