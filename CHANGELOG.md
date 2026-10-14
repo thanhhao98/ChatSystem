@@ -1,5 +1,7 @@
 # CHANGELOG
-- 2026-10-02 — [F-V1] khởi tạo 5 recipe YAML và notebook 04_recipe_grid_colab.ipynb cho Task 1 recipe grid search.
+- 2026-10-14 — [F-T2][F-V1] sửa sau review: `training/recipes/results.csv` chép đúng `results.json` (param_acc, json_valid_rate, tool_name_acc của comp0); cột `arm` = khoá `arm` trong yaml (`arm_*`); RUNLOG `data@sha8` = `933c4ecd` (`xlam_2k.train.jsonl`) cho 5 run của lưới (huấn luyện 2026-10-02); INDEX: git sha/ngày khớp header dự đoán, lệnh đầy đủ, thêm R029–R030 (json_valid_rate base/ft); findings ghi đủ trục đo, cấu hình `--no-amp`, arm free không cho thông tin; notebook 04 dùng ô thiết lập + ô probe chuẩn, `--model-path`, bỏ arm 1.5B; `notebooks/finetune/README.md` liệt kê notebook 04; khôi phục mục [F-T2] bị mất ở merge `e2ef147` (PR #4).
+- 2026-10-07 — [F-V1] lưới recipe trên lát xLAM: anchor + 4 arm (`training/recipes/recipe_arm_{r8,lr2e4,comp0,free}.yaml`), dự đoán + `results.json` trong `results/public/`, `findings/2026-10-02_recipe_grid_xlam.md`, INDEX R012–R028, 5 dòng RUNLOG, 5 dòng `results.csv`, notebook `notebooks/finetune/04_recipe_grid_colab.ipynb` (PR #4).
+- 2026-09-25 — [F-T2] base vs ft trên `data/public/xlam_2k.eval.json`: dự đoán, `results/public/{base,ft}.{json,md}`, bootstrap CI + McNemar (`results/public/bootstrap.md`), INDEX R001–R011, 2 dòng RUNLOG; notebook 02 gỡ `torchao` ở Cell 2 (PR #4).
 - 2026-09-19 — [D-T1] hoàn thành khảo sát bộ dữ liệu công khai xLAM 2k raw và báo cáo nghiệm thu tuần 1 (nhóm D).
 - 2026-09-18 — repo chuyển sang public + bảo vệ nhánh main (PR, 1 approve, CI `checks`); thay địa chỉ gateway nội bộ trong spec bằng placeholder `<SGOD_GATEWAY>`; secret grep CI thêm mẫu IP nội bộ.
 

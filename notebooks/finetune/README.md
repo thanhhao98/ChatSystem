@@ -1,6 +1,6 @@
 # Notebook nhóm Fine-tune (F) — Colab / Kaggle T4
 
-Ba notebook trong thư mục này là **giao diện chạy** cho các script chung trong `training/` (hợp đồng cờ:
+Các notebook trong thư mục này là **giao diện chạy** cho các script chung trong `training/` (hợp đồng cờ:
 `docs/contracts/cli.md`). Notebook chỉ *gọi* script; không cài đặt lại logic huấn luyện hay chấm điểm trong cell.
 Nếu bạn thấy mình phải sửa code trong cell để có kết quả → dừng lại, đó là việc của một PR vào `training/`.
 
@@ -9,6 +9,7 @@ Nếu bạn thấy mình phải sửa code trong cell để có kết quả → 
 | `01_qlora_sft_colab.ipynb` | F Tuần 1 | Có (T4, 15 GB) | *điền sau lần chạy kiểm chứng trên Colab T4* — ước lượng: smoke ≈ 3 phút, full 300 bước ≈ 45–90 phút | `$OUT/smoke/`, `$OUT/full/` (adapter, `checkpoint-*/`, `log_history.json`, `training_config.json`, `loss_curve.png`), `dry_run.log`, `train_*.log`, `resume.log` |
 | `02_eval_toolcalling.ipynb` | F Tuần 2 | Có (T4) cho 2 bước dự đoán; chấm điểm và CI chạy CPU | *điền sau lần chạy kiểm chứng trên Colab T4* — ước lượng: 2 × 200 bản ghi ≈ 5–10 phút | `$OUT/results/public/{base,ft}_pred.jsonl`, `{base,ft}.json`, `{base,ft}.md`, `bootstrap.md`, `bootstrap.log` |
 | `03_serve_vllm_colab.ipynb` | Bước nâng cao (không bắt buộc) | Có (T4) + `pip install vllm` | *điền sau lần chạy kiểm chứng trên Colab T4* — cài vLLM 3–10 phút, server 1–5 phút, 50 bản ghi < 2 phút | `$OUT/vllm_pred.jsonl`, `vllm_results.{json,md}`, `vllm_server.log` |
+| `04_recipe_grid_colab.ipynb` | F Việc 1 | Có (T4) cho 5 lượt huấn luyện + dự đoán; bootstrap chạy CPU | xem cột `wall_clock_min` trong `training/recipes/results.csv` | `$OUT_BASE/<arm>_s42/` (adapter), `results/public/{anchor,recipe_arm_*}_pred.jsonl` + `_results.json`, `recipe_grid_bootstrap.md` |
 
 Thứ tự: 01 → 02 → (03). Notebook 02/03 cần adapter `$OUT/full` của 01, vì vậy **`RUN_NAME` phải giống nhau** ở cả ba.
 
