@@ -10,6 +10,15 @@
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
 
+## 2026-10-14 — [D-V1] danh mục tool SGOD v1: 22 tool chỉ đọc, tool_policy, mapping — nhóm D: Hy, My, Dinh (PR #5)
+
+- `tools/sgod/sgod_tools.json`: từ 3 tool mẫu lên 22 tool chỉ đọc (`writes: false`). Nền là PR #5 (Hy, 21 tool); gộp `list_maintenance_tasks` từ PR #6 (My) với query bắt buộc `maintenanceScheduleId`, và `list_enterprise_users` (chỉ `company_admin`) từ PR #7 (Dinh) với `search`/`status`/`limit`/`cursor` theo `docs/sgod/openapi-*.json` (PR #9). Giữ từ PR #5: chặn 5 GET hỏng của spec §4; `/sgod-chat/v1` chỉ cho `company_admin`.
+- Đối chiếu bằng gọi thật trên hạ tầng tham chiếu (2026-10-14, tài khoản thử enterprise): bỏ `search_assets` (`/assets/suggest` → 404, trùng `list_my_assets`); `get_asset_statistics` trỏ `GET /sgod-asset/v1/assets/summary` (`/dashboard/statistics-asset` → 404); 3 tool mẫu: `list_my_assets` dùng `search` (API bỏ qua `q`, `status`), `list_maintenance_schedules` enum `completed` (`complete` → 400), `get_asset` / `get_asset_histories` resolve bằng `GET /assets?search=`; `list_asset_transfers` thêm `onlyMine`; mô tả `get_enterprise_profile` theo trường thật. Kết quả từng lần gọi ghi trong `x_sgod.notes`.
+- Rút gọn mô tả (bỏ nhãn "(company_admin)" thừa và câu phân trang lặp lại; bỏ "phòng ban" khỏi `list_locations`; lấy mô tả chính xác hơn từ PR #6/#7) để vừa ngân sách: lượt system company_admin 3332/3400 token, employee 2818.
+- `prompts/system_preamble_v1.txt`: hai dòng *Quy tắc chọn tool* đổi theo (`search`, `completed`); sha256 nội dung sau `.strip()` `6352dac1…` → `f5da2272…` (`prompts/README.md`). Chưa có hàng SGOD hay dự đoán nào dùng preamble v1.
+- `docs/sgod-api-reference.md` (§2, §3, §4), `docs/sgod/candidate_tools.md`, `docs/architecture.md`, `datagen/config_sgod.py` (`schedule_status`): đồng bộ theo gọi thật.
+- `tools/sgod/tool_policy.json`: 1:1 với 22 tool. `tools/sgod/tool_api_mapping.md`: sinh lại bằng `gen_tool_api_mapping.py` (`--check` OK).
+
 ## 2026-09-23 — [F-T1] điều chỉnh dtypes tham số LoRA sang fp32 và khôi phục fp16=True trong SFTConfig theo feedback review
 
 - `training/finetune_qlora.py`: Ép các tham số LoRA trainable về `float32` (kế thừa cơ chế chuẩn của `prepare_model_for_kbit_training`), sử dụng `dtype=HALF` trong `from_pretrained`, và giữ fp16 AMP (GradScaler) bật mặc định trong `SFTConfig` để có loss scaling chống underflow/NaN; thêm cờ `--no-amp` làm lối thoát nếu runtime T4 vẫn lỗi ở `grad_scaler.unscale_` (PR #1).
