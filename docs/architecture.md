@@ -84,7 +84,7 @@ docs/sgod-api-reference.md ─► D Việc 1: sgod_tools.json (+ fixtures S Vi�
                                             results/INDEX.md + RUNLOG.md ◄─ scripts/check_provenance.py
 ```
 
-Thứ tự bắt buộc: **eval trước dữ liệu huấn luyện** (eval_v1 đóng băng 10-25 trước khi sinh hàng SGOD nào), và mọi hàng
+Thứ tự bắt buộc: **eval trước dữ liệu huấn luyện** (eval_v1 đóng băng tại Điểm đồng bộ 2 — 11-19 — trước khi sinh hàng SGOD nào), và mọi hàng
 huấn luyện được sàng rò rỉ với eval_v1.
 
 ## 5. Mô hình phục vụ

@@ -1,9 +1,13 @@
 # Hợp đồng 3 — Ánh xạ vai trò SGOD → vai trò chat (`roles.md`)
 
-> **Trạng thái: BẢN NHÁP** — chốt tại **Điểm đồng bộ 1 (2026-09-27)** (S Việc 3). Sau mốc này, mọi thay đổi ở
-> `tools/sgod/roles.json` buộc phải **gán nhãn lại / sinh lại toàn bộ** dữ liệu SGOD (eval_v1 và tập huấn luyện),
-> vì `role` nằm trong từng hàng huấn luyện và `user_role` nằm trong từng bản ghi eval.
-> Bản máy đọc: `tools/sgod/roles.json` (khoá `_note` ghi "bản nháp — chốt 2026-09-27 (Điểm đồng bộ 1)").
+> **Đóng băng 2026-09-27 (Điểm đồng bộ 1)** — hợp đồng 3 v1. Nội dung không đổi kể từ Drop 0 (`0e9317e`); dòng đóng băng
+> ghi ngày 2026-10-14 trong PR `[CHUNG]` Điểm đồng bộ 1 (xem `CHANGELOG.md`). Bản máy đọc `tools/sgod/roles.json` đóng băng
+> **nguyên byte**, sha256 tệp `c76ca24bfd5049e5e959f8db165954eb1b6ff09cb548107d882caaa524d80bbc` — khoá `_note` trong tệp vẫn
+> ghi "bản nháp" và được **giữ nguyên** để sha không đổi; trạng thái hiệu lực là dòng này. Sau mốc này, mọi thay đổi ở
+> `roles.json` = **v1.1** + PR riêng + `CHANGELOG.md`, và buộc **gán nhãn lại / sinh lại toàn bộ** dữ liệu SGOD (eval_v1 và
+> tập huấn luyện) rồi chạy lại `training/validate_dataset.py`, vì `role` nằm trong từng hàng huấn luyện và `user_role` nằm
+> trong từng bản ghi eval. Hai ô `userType` "chưa bắt được" ở §1 là ghi chú quan sát (không máy đọc; vai trò suy theo
+> tier, §4) — điền khi có bản bắt thật từ hạ tầng tham chiếu, không đổi phiên bản.
 
 ## 1. Bảng ánh xạ
 
@@ -39,10 +43,10 @@ từ vựng của hệ thống tham chiếu (POC v1, `chat_policy.py`) để tá
 
 | Mốc | Ngày | Đóng băng |
 |---|---|---|
-| Điểm đồng bộ 1 | 2026-09-27 | `tools/sgod/roles.json` (roles, tiers, login_endpoints, role_names_vi) và tài liệu này |
-| Tag `tools-v1` (S Việc 4) | 2026-10-08 | `allowed_roles` / `tool_policy.json` của từng tool |
-| Preamble v1 | 2026-10-11 | Văn bản `prompts/system_preamble_v1.txt` (kể cả tên vai trò tiếng Việt được chèn vào `{role_vi}`) |
-| Điểm đồng bộ 2 | 2026-10-25 | `eval_v1.json` — từ đây `user_role` và `expected_permission` bất biến |
+| Điểm đồng bộ 1 | 2026-09-27 — **đã đóng băng** | `tools/sgod/roles.json` (roles, tiers, login_endpoints, role_names_vi; sha256 `c76ca24b…`) và tài liệu này |
+| Tag `tools-v1` (S Việc 4) | 2026-11-04 (dời từ 2026-10-08) | `allowed_roles` / `tool_policy.json` của từng tool |
+| Preamble v1 | văn bản nền 2026-09-27 (sha256 sau `.strip()` `f5da2272…`); *Quy tắc chọn tool* chỉ được thêm đến tag `tools-v1` | Văn bản `prompts/system_preamble_v1.txt` (kể cả tên vai trò tiếng Việt được chèn vào `{role_vi}`) |
+| Điểm đồng bộ 2 | 2026-11-19 (dời từ 2026-10-25) | `eval_v1.json` — từ đây `user_role` và `expected_permission` bất biến |
 
 Sau Điểm đồng bộ 1, sửa `roles.json` = mở một *trục đo mới* (xem quy tắc phiên bản trong `eval_metric.md`).
 
