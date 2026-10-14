@@ -80,6 +80,7 @@ khoá JSON (`tool_name_acc`, `param_acc`, `json_valid_rate`). Ô không có giá
 | file | vai trò |
 |---|---|
 | `public_anchor.yaml` | arm neo: 0.5B, r16/α32, lr 1e-4, completion-only, 1 epoch, 1000 hàng đầu, seed 42, max_len 2560 |
+| `recipe_arm_<trục>.yaml` | các arm của lưới F Việc 1 (khoá `arm` = `arm_<trục>`), mỗi tệp đổi đúng một trục so với anchor: `r8` (r8/α16) · `lr2e4` · `comp0` (`completion_only: 0`, chỉ quan sát) · `1p5b` (Qwen2.5-1.5B-Instruct) · hai arm tự chọn `free` (`lora_dropout` 0.1) và `r32` (r32/α64). Kết quả T4 fp16: `results/public/{anchor,recipe_arm_*}_*`; kết quả RTX PRO 6000 bf16: `results/public/recipe_grid_bf16/` |
 | `results.csv` | bảng kết quả (chỉ có dòng tiêu đề khi khởi tạo) |
 | `sgod_v1.yaml` | *(F Việc 4 sẽ thêm)* recipe cho bộ SGOD |
 
