@@ -20,7 +20,7 @@ Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** v
 
 ## 2026-10-16 — [D-V2] lõi eval người viết 150 câu SGOD (Hy, My, Dinh — đóng băng eval_human_core.jsonl) (PR #14)
 
-- `data/sgod/eval_human_core.jsonl`: Xây dựng và đóng băng tập Ground Truth 150 câu hỏi tiếng Việt thủ công (`source: human`) độc lập cho 22 tools của SGOD Tool Catalogue v1, đóng góp đồng đều bởi 3 thành viên: Thehy-IT (`sgod-0001` .. `sgod-0050`), BaoMyTH (`sgod-0051` .. `sgod-0100`), Hồ Văn Dinh (`sgod-0101` .. `sgod-0150`). Đạt 100% tiêu chí: mỗi tool ≥ 4 câu (vượt sàn ≥ 3 câu/tool); 30 câu ngoài phạm vi (20.0% ≥ 10%); 24 câu bị từ chối quyền (16.0% ≥ 10%); phân bố 95 câu `employee` và 55 câu `company_admin`. Tuân thủ tuyệt đối nguyên tắc Blind Evaluation (không đọc prompt sinh dữ liệu).
+- `data/sgod/eval_human_core.jsonl`: Xây dựng và đóng băng tập Ground Truth 150 câu hỏi tiếng Việt thủ công (`source: human`) độc lập cho 22 tools của SGOD Tool Catalogue v1, đóng góp đồng đều bởi 3 thành viên: Thehy-IT (`sgod-0001` .. `sgod-0050`), BaoMyTH (`sgod-0051` .. `sgod-0100`), Hồ Văn Dinh (`sgod-0101` .. `sgod-0150`). Đạt 100% tiêu chí: mỗi tool ≥ 4 câu (vượt sàn ≥ 3 câu/tool); 30 câu ngoài phạm vi (20.0% ≥ 10%); 24 câu bị từ chối quyền (16.0% ≥ 10%); phân bố 89 câu `employee` và 61 câu `company_admin`. Tuân thủ tuyệt đối nguyên tắc Blind Evaluation (không đọc prompt sinh dữ liệu).
 
 ## 2026-10-14 — [D-V1] danh mục tool SGOD v1: 22 tool chỉ đọc, tool_policy, mapping — nhóm D: Hy, My, Dinh (PR #5)
 
