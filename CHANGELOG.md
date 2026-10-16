@@ -1,4 +1,5 @@
 # CHANGELOG
+
 - 2026-10-14 — [CHUNG] `README.md`, `HUONG_DAN_LAM_VIEC.md` §1.1/§2, `docs/roadmap.md`, `NOTICE.md`, chú thích `main-guard.yml`, `notebooks/*README.md` + `_setup_snippet.md` (phần văn xuôi): repo public và `main` có branch protection từ 2026-09-18 (PR, 1 approve, CI `checks`, nhánh cập nhật theo `main`; không áp cho admin) — bỏ mô tả cũ "private, không có branch protection" (PR #13).
 - 2026-10-14 — [CHUNG] `scripts/check_provenance.py`: số dính hậu tố `pp` (vd `+0.5pp`) được đọc đúng giá trị thay vì `0`; fixture `tests/fixtures/report_pp_unindexed.md` + `index_pp_fixture.md` trong CI (PR #13).
 - 2026-10-14 — [CHUNG] CI: `check_provenance.py` trên mọi báo cáo đã commit (thiếu `Ghi chú trục đo` = lỗi), `validate_tools.py` + `gen_tool_api_mapping.py --check`, header `results.csv`, INDEX/RUNLOG append-only + `scripts/check_index_ids.py` (mới, `cli.md`) (PR #13).
@@ -16,6 +17,10 @@
 
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
+
+## 2026-10-16 — [D-V2] lõi eval người viết 150 câu SGOD (Hy, My, Dinh — đóng băng eval_human_core.jsonl) (PR #14)
+
+- `data/sgod/eval_human_core.jsonl`: Xây dựng và đóng băng tập Ground Truth 150 câu hỏi tiếng Việt thủ công (`source: human`) độc lập cho 22 tools của SGOD Tool Catalogue v1, đóng góp đồng đều bởi 3 thành viên: Thehy-IT (`sgod-0001` .. `sgod-0050`), BaoMyTH (`sgod-0051` .. `sgod-0100`), Hồ Văn Dinh (`sgod-0101` .. `sgod-0150`). Đạt 100% tiêu chí: mỗi tool ≥ 4 câu (vượt sàn ≥ 3 câu/tool); 30 câu ngoài phạm vi (20.0% ≥ 10%); 24 câu bị từ chối quyền (16.0% ≥ 10%); phân bố 89 câu `employee` và 61 câu `company_admin`. Tuân thủ tuyệt đối nguyên tắc Blind Evaluation (không đọc prompt sinh dữ liệu).
 
 ## 2026-10-14 — [D-V1] danh mục tool SGOD v1: 22 tool chỉ đọc, tool_policy, mapping — nhóm D: Hy, My, Dinh (PR #5)
 
