@@ -1,0 +1,3 @@
+# Text files are stored and checked out with LF on every OS, so the sha256 of a frozen file
+# (data/sgod eval sets, tools/sgod/*.json, prompts/*.txt, roles.json) is the same on Windows, macOS, Linux and Colab.
+* text=auto eol=lf

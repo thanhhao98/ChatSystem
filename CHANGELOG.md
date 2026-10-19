@@ -1,5 +1,6 @@
 # CHANGELOG
-
+- 2026-10-20 — [D-V2] `data/sgod/eval_human_core.jsonl`: lõi eval người viết 150 câu (`source: human`; Hy `sgod-0001…0050`, My `0051…0100`, Dinh `0101…0150`), viết trước khi đọc prompt sinh; 22/22 tool, mỗi tool ≥ 4 câu `allowed`; `employee` 89 · `company_admin` 61; `expected_tool: null` 31 (20,7 %); `denied` 23 (15,3 %). Đóng băng: sha256 tệp `41c7e7bd…` trong `data/sgod/eval_human_core.sha256` (sha `ffe5c961…` đăng ngày 16/10 tính trên bản CRLF do Git for Windows checkout ra, không phải byte của tệp). Sửa khi review, trước khi đóng băng: `sgod-0038` → `null` (không tool nào trả danh sách vai trò/quyền cấp doanh nghiệp nên không thể `denied` theo hợp đồng 3 §6); `sgod-0085` thêm `limit: 10`; `category` theo một luật — null → `out_of_scope`, denied → `permission_denial`, ≥ 2 khoá `expected_params` → `multi_constraint`, còn lại `single_tool`; không dùng `dependent` vì pha 2 chỉ một lượt (17 dòng chỉ đổi `category`); câu denied giữ `expected_tool` là tool bị chặn (hợp đồng 3 §6); bỏ 3 tệp nháp theo người (`eval_human_{thehy,baomy,dinh}.jsonl`, trùng từng dòng với lõi) (PR #14).
+- 2026-10-20 — [CHUNG] `.gitattributes` (`* text=auto eol=lf`): mọi máy checkout tệp văn bản với LF, sha256 của tệp đóng băng không đổi theo hệ điều hành; CI: mọi `data/sgod/*.sha256` phải khớp tệp của nó và chỉ được thêm mới, không sửa/xoá (PR #14).
 - 2026-10-14 — [CHUNG] `README.md`, `HUONG_DAN_LAM_VIEC.md` §1.1/§2, `docs/roadmap.md`, `NOTICE.md`, chú thích `main-guard.yml`, `notebooks/*README.md` + `_setup_snippet.md` (phần văn xuôi): repo public và `main` có branch protection từ 2026-09-18 (PR, 1 approve, CI `checks`, nhánh cập nhật theo `main`; không áp cho admin) — bỏ mô tả cũ "private, không có branch protection" (PR #13).
 - 2026-10-14 — [CHUNG] `scripts/check_provenance.py`: số dính hậu tố `pp` (vd `+0.5pp`) được đọc đúng giá trị thay vì `0`; fixture `tests/fixtures/report_pp_unindexed.md` + `index_pp_fixture.md` trong CI (PR #13).
 - 2026-10-14 — [CHUNG] CI: `check_provenance.py` trên mọi báo cáo đã commit (thiếu `Ghi chú trục đo` = lỗi), `validate_tools.py` + `gen_tool_api_mapping.py --check`, header `results.csv`, INDEX/RUNLOG append-only + `scripts/check_index_ids.py` (mới, `cli.md`) (PR #13).
@@ -17,10 +18,6 @@
 
 Mọi thay đổi đáng kể của repo ghi ở đây, **trong cùng commit** với thay đổi (quy tắc PR). Định dạng:
 `YYYY-MM-DD — [mã việc] tóm tắt (PR #n)`. Mới nhất ở trên.
-
-## 2026-10-16 — [D-V2] lõi eval người viết 150 câu SGOD (Hy, My, Dinh — đóng băng eval_human_core.jsonl) (PR #14)
-
-- `data/sgod/eval_human_core.jsonl`: Xây dựng và đóng băng tập Ground Truth 150 câu hỏi tiếng Việt thủ công (`source: human`) độc lập cho 22 tools của SGOD Tool Catalogue v1, đóng góp đồng đều bởi 3 thành viên: Thehy-IT (`sgod-0001` .. `sgod-0050`), BaoMyTH (`sgod-0051` .. `sgod-0100`), Hồ Văn Dinh (`sgod-0101` .. `sgod-0150`). Đạt 100% tiêu chí: mỗi tool ≥ 4 câu (vượt sàn ≥ 3 câu/tool); 30 câu ngoài phạm vi (20.0% ≥ 10%); 24 câu bị từ chối quyền (16.0% ≥ 10%); phân bố 89 câu `employee` và 61 câu `company_admin`. Tuân thủ tuyệt đối nguyên tắc Blind Evaluation (không đọc prompt sinh dữ liệu).
 
 ## 2026-10-14 — [D-V1] danh mục tool SGOD v1: 22 tool chỉ đọc, tool_policy, mapping — nhóm D: Hy, My, Dinh (PR #5)
 

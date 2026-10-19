@@ -134,6 +134,27 @@ jobs:
           done < <(git -c core.quotePath=false ls-files 'findings/*.md' 'docs/reports/*.md' 'results/*.md' | grep -v -x -e 'results/INDEX.md' -e 'results/RUNLOG.md')
           exit $fail
 
+      - name: Frozen data — every data/sgod/*.sha256 still matches its file
+        run: |
+          # sha posted = frozen: a frozen file is never edited in place; a fix ships as a new version
+          # with an errata note and a new .sha256 (docs/contracts/eval_metric.md, header + §7).
+          cd data/sgod
+          for f in *.sha256; do
+            [ -e "$f" ] || continue
+            if ! sha256sum -c "$f"; then
+              echo "::error file=data/sgod/$f::tệp đã đóng băng bị sửa tại chỗ — sửa lỗi bằng phiên bản mới + errata + sha mới"
+              exit 1
+            fi
+          done
+
+      - name: data/sgod/*.sha256 are add-only (never edited or deleted)
+        if: github.event_name == 'pull_request'
+        run: |
+          if git diff --diff-filter=MD --name-only HEAD^1 HEAD -- 'data/sgod/*.sha256' | grep .; then
+            echo "::error::data/sgod/*.sha256 chỉ được thêm mới — không sửa/xoá sha của tệp đã đóng băng"
+            exit 1
+          fi
+
       - name: training/recipes/results.csv keeps exactly the contract header
         run: |
           expected='arm,model,lora_rank,lr,completion_only,mask_fn_names,epochs,max_rows,seed,steps,wall_clock_min,gpu,tool_name_acc,param_acc,json_valid_rate,ci_lo,ci_hi,results_file,who,date'
