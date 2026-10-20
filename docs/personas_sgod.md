@@ -395,7 +395,7 @@ Nguồn: `asset/GET_maintenance_schedules.json` (2 lịch), `asset/GET_maintenan
 |---|---|---|---|
 | trạng thái lịch (`status`, query `GET /maintenance/schedules`) | `active` (cả 2 lịch) | `draft`, `completed` | `status` của `list_maintenance_schedules`; schema chỉ nhận `active` (đang hiệu lực) và `completed` (đã hoàn thành) |
 | trạng thái công việc bảo trì (`ChangeMaintenanceTaskStatusDto`) | `processing` (`asset/GET_maintenance_tasks.json`); `scheduled`, `completed`, `on-hold` (qua `statusOrigin` / `statusChange`, §3.5) | `overdue` | chỉ ngữ cảnh |
-| id lịch bảo trì | `6ad615353b0f8e12e2f1910d` (tài sản `[SEED] Máy in HP LaserJet Pro M404dn`), `6ad615353b0f8e12e2f190e4` (tài sản `[SEED] Máy lạnh Daikin FTKB50 2HP`) | — | `schedule_id` của `get_maintenance_schedule`, `maintenanceScheduleId` của `list_maintenance_tasks` (khoá gợi ý `schedule_id`) |
+| id lịch bảo trì | `6ad615353b0f8e12e2f1910d` (tài sản `[SEED] Máy in HP LaserJet Pro M404dn` theo `assetId`, §3.1), `6ad615353b0f8e12e2f190e4` (tài sản `[SEED] Máy lạnh Daikin FTKB50 2HP` theo `assetId`, §3.1) | — | `schedule_id` của `get_maintenance_schedule`, `maintenanceScheduleId` của `list_maintenance_tasks` (khoá gợi ý `schedule_id`) |
 | `maintenanceType` | `condition-based` (lịch `…1910d`), `preventive` (lịch `…190e4`) | `schedule`, `emergency`, `corrective` | chỉ ngữ cảnh |
 | `locationAsset` | `internal` (cả 2 lịch) | `external` (`docs/sgod/openapi-asset.json`) | chỉ ngữ cảnh |
 | công việc bảo trì (`asset/GET_maintenance_tasks.json`) | id `6ad615353b0f8e12e2f1910e`, `taskTitle` `Thay trống mực (drum)`, `status` `processing`, `maintenanceScheduleId` `6ad615353b0f8e12e2f1910d` | — | chỉ ngữ cảnh: không tool v1 nào nhận id công việc |
@@ -403,8 +403,8 @@ Nguồn: `asset/GET_maintenance_schedules.json` (2 lịch), `asset/GET_maintenan
 - Hai id lịch là toàn bộ giá trị cho `schedule_id` và `maintenanceScheduleId` (§5.2). Chỉ lịch `…1910d` có bản chi tiết và
   danh sách công việc được chụp; lịch `…190e4` chỉ có trong danh sách lịch nhưng là id thật, dùng được làm tham số.
 - `subjectId` của yêu cầu nhân viên là id **công việc** bảo trì (`subjectKind: maintenance_task`; vd
-  `6ad615353b0f8e12e2f1910e` của yêu cầu `[SEED]` là công việc `Thay trống mực (drum)`), không phải id lịch: không dùng làm
-  `schedule_id` hay `maintenanceScheduleId`.
+  `6ad615353b0f8e12e2f1910e`, `subjectId` của 2 yêu cầu mới trong bản 2026-10-21, là công việc `Thay trống mực (drum)`),
+  không phải id lịch: không dùng làm `schedule_id` hay `maintenanceScheduleId`.
 
 ### 3.7 Tài khoản nhân viên
 
@@ -531,8 +531,8 @@ giờ lấy mẫu `cursor`.
 | `get_location` | `location_id` → 20 id ở §3.2 | có |
 | `list_my_conversations`, `list_maintenance_records`, `list_staff_requests`, `list_categories`, `list_locations` | `limit` | có |
 | `get_my_profile`, `get_my_permissions`, `get_enterprise_profile`, `get_unread_counts`, `get_asset_statistics`, `get_transfer_summary`, `get_staff_request_summary` | không tham số → `{}` | có (rỗng) |
-| `get_maintenance_schedule` | `schedule_id` (bắt buộc) → 2 id lịch ở §3.6 | có |
-| `list_maintenance_tasks` | `maintenanceScheduleId` (bắt buộc) → 2 id lịch ở §3.6; `limit` | có |
+| `get_maintenance_schedule` | `schedule_id` (bắt buộc) → 2 id lịch ở §3.6 (`asset/GET_maintenance_schedules.json`) | có |
+| `list_maintenance_tasks` | `maintenanceScheduleId` (bắt buộc) → 2 id lịch ở §3.6 (`asset/GET_maintenance_schedules.json`); `limit` | có |
 
 ### 5.3 Một lượt, một lần gọi tool
 
@@ -568,9 +568,9 @@ giờ lấy mẫu `cursor`.
   `data/sgod/eval_human_core.jsonl` là tập kiểm tra đóng băng: phía sinh không mở tệp này, và D Việc 3 không mở
   `datagen/prompts_eval/`. Ví dụ trong prompt tự viết mới. Câu ví dụ và câu trích trong tài liệu này đã kiểm bằng máy:
   SequenceMatcher < 0,5 với mọi câu của lõi.
-- Kiểm bằng máy: `generate_scenarios.py` loại câu có SequenceMatcher ≥ 0,65 so với `EVAL_SETS_FOR_LEAKAGE`
-  (`data/sgod/eval_v1.json`, gồm cả lõi người viết) khi tệp đã có. Trước Điểm đồng bộ 2 tệp chưa tồn tại, nên pilot chỉ được
-  bảo vệ bằng kỷ luật prompt.
+- Kiểm bằng máy: `generate_scenarios.py` loại câu có SequenceMatcher ≥ 0,65 so với các tệp đã có trong
+  `EVAL_SETS_FOR_LEAKAGE` (`config_sgod.py`). `data/sgod/eval_v1.json` (gồm cả lõi người viết) chỉ có từ Điểm đồng bộ 2,
+  nên trước đó câu sinh chỉ được máy so với lõi khi danh sách có `data/sgod/eval_human_core.jsonl`.
 
 ### 5.6 `BUCKET_PLAN` = persona × intent × complexity
 
@@ -582,15 +582,17 @@ giờ lấy mẫu `cursor`.
   mọi persona (cả `company_admin`) với `category` đúng bằng `permission_denial` (ý "Ngoại lệ" dưới, §6).
 - **Complexity:** `single` / `multi_constraint` theo §5.1, chỉ với tool có từ 2 tham số lấy mẫu được.
 - **Dạng tuple** giữ như `generate_scenarios.py` đọc: `BUCKET_PLAN` = `(category, role, count)`, `TRACKB_BUCKET_PLAN` =
-  `(tool, category, role, count)` + gợi ý `PARAM_SAMPLER`; `run_pipeline.sh` (kể cả `--pilot`) luôn sinh bằng `--trackb`,
-  tức đọc `TRACKB_BUCKET_PLAN`. Không thêm phần tử vào tuple: ghép persona × intent × complexity vào tên `category` (vd
-  `thu_kho__get_location__single`), mỗi tên có gợi ý trong `CATEGORY_HINTS` hoặc `datagen/prompts/category_<tên>.md`.
+  `(tool, category, role, count)` + gợi ý `PARAM_SAMPLER`; `run_pipeline.sh` sinh dữ liệu huấn luyện (kể cả `--pilot`)
+  bằng `--trackb`, tức đọc `TRACKB_BUCKET_PLAN`. Không thêm phần tử vào tuple: ghép persona × intent × complexity vào tên
+  `category` (vd `thu_kho__get_location__single`), mỗi tên có gợi ý trong `CATEGORY_HINTS` hoặc
+  `datagen/prompts/category_<tên>.md`.
 - **Ngoại lệ — yêu cầu ghi:** `category` phải đúng chuỗi `permission_denial`, không ghép persona. `Preamble.assistant_for`
-  của `build_parity_trainset.py` (cũng là đường của `assemble_trackb_trainset.py`) chỉ cho hàng `expected_tool: null` câu
-  `REFUSAL_VI` khi `category == "permission_denial"`; tên ghép (vd `thu_kho__ghi__permission_denial`) ra `DEFLECT_VI`.
-  Yêu cầu ghi của cả 7 persona viết chung trong `datagen/prompts/category_permission_denial.md`; tool của tuple để `None`
-  (không gợi ý tham số) hoặc là một tool đọc chỉ để lấy thực thể từ `PARAM_SAMPLER` (`seed_tool` chỉ là gợi ý, labeler không
-  thấy). Bucket câu `denied` theo persona vẫn ghép tên như mọi bucket khác: nhãn `denied` tự ra `REFUSAL_VI`.
+  của `build_parity_trainset.py` (cũng là đường của `assemble_trackb_trainset.py`) chỉ cho hàng `expected_tool: null` +
+  `allowed` câu `REFUSAL_VI` khi `category == "permission_denial"`; tên ghép (vd `thu_kho__ghi__permission_denial`) ra
+  `DEFLECT_VI`. Yêu cầu ghi của cả 7 persona viết chung trong `datagen/prompts/category_permission_denial.md`; tool của
+  tuple để `None` (không gợi ý tham số) hoặc là một tool đọc chỉ để lấy thực thể từ `PARAM_SAMPLER` (`seed_tool` chỉ là
+  gợi ý, labeler không thấy). Bucket câu `denied` theo persona vẫn ghép tên như mọi bucket khác: nhãn `denied` tự ra
+  `REFUSAL_VI`.
 - `get_maintenance_schedule` và `list_maintenance_tasks` nay có id lịch truy được (§3.6) nên vào `BUCKET_PLAN` /
   `TRACKB_BUCKET_PLAN` như các tool khác (bucket nhỏ, §5.3). Phần GPT bổ sung của D Việc 4 cũng sinh được câu cho hai tool
   này để đủ ≥ 15 bản ghi / tool (`eval_metric.md` §1); chỉ có 2 id nên độ đa dạng nằm ở cách nói, không ở giá trị.
@@ -618,9 +620,10 @@ luật** từ `tool_policy.json`, không bằng LLM (`eval_metric.md` §1).
   `null` / `allowed` / `out_of_scope`. Preamble quy tắc 5 buộc trợ lý từ chối thao tác tạo / sửa / xoá và không gọi tool,
   câu mẫu của quy tắc chính là `REFUSAL_VI`; vì vậy dữ liệu **huấn luyện** sinh yêu cầu ghi (mọi vai trò) trong bucket
   `category` = `permission_denial`: labeler vẫn gán `expected_tool: null` + `allowed`, và `build_parity_trainset.py` cho hàng
-  `null` có `category == "permission_denial"` câu `REFUSAL_VI` (hàng `null` khác ra `DEFLECT_VI`; §5.6). `label_system.md`
-  phải dặn labeler trả `tool = null` cho yêu cầu ghi: nếu labeler chọn một tool đọc mà vai trò được phép, hàng thành lời
-  gọi tool sai. Điểm eval không đổi vì thang chấm với `expected_tool: null` chỉ xét không gọi tool (`eval_metric.md` §4).
+  `null` có `category == "permission_denial"` câu `REFUSAL_VI` (hàng `null` + `allowed` khác ra `DEFLECT_VI`; §5.6).
+  `label_system.md` phải dặn labeler trả `tool = null` cho yêu cầu ghi: nếu labeler chọn một tool đọc mà vai trò được
+  phép, hàng thành lời gọi tool sai. Điểm eval không đổi vì thang chấm với `expected_tool: null` chỉ xét không gọi tool
+  (`eval_metric.md` §4).
 - Dữ liệu cấp doanh nghiệp mà v1 không có tool (vd sơ đồ phòng ban) cũng là `null`, không phải `denied`, kể cả với
   `employee`.
 - `category` của bản ghi eval theo một luật như lõi eval (CHANGELOG `[D-V2]`): `null` → `out_of_scope`; `denied` →
@@ -642,8 +645,8 @@ luật** từ `tool_policy.json`, không bằng LLM (`eval_metric.md` §1).
     đã thực hiện, chi phí, biên bản);
   - `get_maintenance_schedule` (chi tiết một lịch: loại bảo trì, thời gian, trạng thái lịch) ↔ `list_maintenance_tasks`
     (các công việc của lịch: người làm, hạn, trạng thái công việc); cả hai nhận id lịch;
-  - `get_my_profile` ↔ `get_my_permissions` (mô tả của cả hai nhắc "vai trò"; "quyền" → `get_my_permissions`, "hồ sơ /
-    thông tin tài khoản" → `get_my_profile`);
+  - `get_my_profile` ↔ `get_my_permissions` (mô tả của cả hai nhắc "vai trò"; "quyền" → `get_my_permissions`, "hồ sơ"
+    hay "thông tin tài khoản" → `get_my_profile`);
   - `get_my_profile` (tài khoản của mình, kể cả doanh nghiệp đang thuộc) ↔ `get_enterprise_profile` (hồ sơ đăng ký của
     doanh nghiệp: email, số điện thoại; với `employee` là `denied`);
   - `list_my_conversations` ↔ `get_unread_counts` ("tin chưa đọc" → `get_unread_counts`).
