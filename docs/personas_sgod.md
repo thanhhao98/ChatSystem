@@ -11,8 +11,8 @@
 >   đã được viết trước, từ danh mục tool; tài liệu này không sửa, không mở rộng và không trích lõi đó.
 > - **Nguồn:** vai trò — `docs/contracts/roles.md` + `tools/sgod/roles.json` (hợp đồng 3, đóng băng); tool và quyền —
 >   `tools/sgod/sgod_tools.json` + `tools/sgod/tool_policy.json` (22 tool chỉ đọc); thực thể — `fixtures/sgod/` (phản hồi
->   thật đã che PII, S Việc 2); hành vi trợ lý — `prompts/system_preamble_v1.txt`. Sửa sau ngày chốt: PR `[S-V3]` +
->   `CHANGELOG.md`.
+>   thật đã che PII, S Việc 2; bản chụp lại 2026-10-21); hành vi trợ lý — `prompts/system_preamble_v1.txt`. Sửa sau ngày
+>   chốt: PR `[S-V3]` + `CHANGELOG.md`.
 
 ## 1. Ba tier tài khoản SGOD → vai trò chat (tóm tắt hợp đồng 3)
 
@@ -27,10 +27,10 @@
   `sub_enterprise` cho phản hồi **đăng nhập**; chưa kiểm được `GET /sgod-auth/v1/users/myself` trả đúng chuỗi đó cho hai tier
   `employee`. Khi có bản bắt thật, giá trị được ghi vào `roles.md` §1 (ghi chú quan sát, không đổi phiên bản — xem đầu
   `roles.md`).
-- Quan sát trong fixture: danh sách nhân sự của doanh nghiệp thử (`fixtures/sgod/auth/GET_enterprise_users.json`, 6 tài
-  khoản) gồm 3 tài khoản `belong: "EnterpriseUser"` và 3 tài khoản `belong: "Subenterprise"`, cùng `tenantId` với chủ doanh
-  nghiệp (`belong: "Enterprise"` trong `auth/GET_session_context.json`). Cả hai tier `employee` là người dùng bên trong cùng
-  một tenant, khớp lý do gộp ở `roles.md` §2.4.
+- Quan sát trong fixture: danh sách nhân sự của doanh nghiệp thử (`fixtures/sgod/auth/GET_enterprise_users.json`, bản
+  chụp 2026-10-21: 4 tài khoản) gồm 3 tài khoản `belong: "EnterpriseUser"` và 1 tài khoản `belong: "Subenterprise"`, cùng
+  `tenantId` với chủ doanh nghiệp (`belong: "Enterprise"` trong `auth/GET_session_context.json`). Cả hai tier `employee` là
+  người dùng bên trong cùng một tenant, khớp lý do gộp ở `roles.md` §2.4.
 - Vai trò suy theo tier đăng nhập, đối chiếu chéo bằng `userType`; **không bao giờ** theo ObjectId vai trò của SGOD
   (`roles.md` §4).
 - Tool mở theo vai trò (`tools/sgod/tool_policy.json`): `company_admin` 22/22; `employee` 17, tức mọi tool trừ **5 tool chỉ
@@ -62,7 +62,8 @@ Cách đọc mỗi persona:
 - **Hỏi nhưng không được** = câu `denied`: chỉ có ở persona `employee` và chỉ với 5 tool chỉ dành cho `company_admin` (§6).
   Persona `company_admin` không có câu `denied` trong v1.
 - **Ngoài phạm vi** = câu `expected_tool: null`: yêu cầu ghi (tạo / sửa / xoá / duyệt), dữ liệu không có tool v1 và chủ đề
-  ngoài quản lý tài sản (§6).
+  ngoài quản lý tài sản (§6). Riêng yêu cầu ghi: nhãn eval vẫn là `null`, nhưng khi sinh dữ liệu huấn luyện thì nằm trong
+  bucket `permission_denial` để hàng huấn luyện là câu từ chối `REFUSAL_VI` (§5.6, §6).
 - **Ví dụ** (tối đa 2 mỗi persona) viết mới cho tài liệu này, chỉ để minh hoạ văn phong và nhãn; nhãn sau dấu → (tool,
   tham số hoặc `denied`, `category` theo §6) dành cho người viết prompt đối chiếu, câu sinh ra không bao giờ chứa tên tool
   hay tham số. Không dán nguyên văn ví dụ vào `datagen/prompts/` hay `datagen/prompts_eval/` làm few-shot: mỗi bộ prompt
@@ -145,8 +146,9 @@ Cách đọc mỗi persona:
 - **Ngoài phạm vi hay gặp (`null`):** yêu cầu ghi — báo hỏng laptop, xin cấp thêm màn hình, đổi mật khẩu, cập nhật số điện
   thoại; ngoài lĩnh vực — đơn nghỉ phép, bảng lương, thời tiết, quán ăn trưa; chào hỏi, cảm ơn.
 - **Ví dụ:**
-  - "Dạ hôm qua em mới nhận QA Test Laptop, em muốn kiểm tra trên hệ thống máy đó ghi là đang ở đâu ạ" → `get_asset`
-    `{"asset_ref": "QA Test Laptop"}` · `single_tool`
+  - "Dạ em vừa được bàn giao cái Laptop Dell Latitude 5440, cho em hỏi trên hệ thống máy này cấu hình thế nào và đang ở
+    tình trạng gì ạ" → `get_asset` `{"asset_ref": "Laptop Dell Latitude 5440"}` · `single_tool` (tên đã bỏ tiền tố
+    `[SEED] `, §3)
   - "e xin sđt mấy anh chị cùng cty dc ko ạ" → `list_enterprise_users`, `denied` · `permission_denial`
 
 ### 2.4 P4 `ky_thuat_vien_bao_tri` — Kỹ thuật viên bảo trì
@@ -158,7 +160,8 @@ Cách đọc mỗi persona:
 - **Nhu cầu thường gặp:**
   - P4.N1 Lịch bảo trì đang hiệu lực hoặc đã hoàn thành, kèm số lượng → `list_maintenance_schedules` (`status`, `limit`).
   - P4.N2 Chi tiết một lịch và các công việc của lịch đó, khi có id lịch → `get_maintenance_schedule` (`schedule_id`),
-    `list_maintenance_tasks` (`maintenanceScheduleId`, `limit`). Fixture chưa có id lịch nào (§3.6).
+    `list_maintenance_tasks` (`maintenanceScheduleId`, `limit`); 2 id lịch truy được ở §3.6 (lịch của máy in có công việc
+    `Thay trống mực (drum)` đang `processing`).
   - P4.N3 Các lần bảo trì đã ghi nhận → `list_maintenance_records`.
   - P4.N4 Yêu cầu đổi trạng thái đã gửi, số yêu cầu gửi đi / chờ duyệt → `list_staff_requests`,
     `get_staff_request_summary`.
@@ -171,16 +174,16 @@ Cách đọc mỗi persona:
 - **Ngoài phạm vi hay gặp (`null`):** yêu cầu ghi — đánh dấu công việc hoàn thành, chuyển công việc sang `on-hold`, tạo lịch
   bảo trì mới; câu hỏi cách làm và ngoài lĩnh vực — cách sửa máy in kẹt giấy, giá linh kiện, dự báo thời tiết.
 - **Ví dụ:**
-  - "lich bt dang active cho xem 10 cai" → `list_maintenance_schedules` `{"status": "active", "limit": 10}` ·
-    `multi_constraint`
+  - "cv cua lich 6ad615353b0f8e12e2f1910d, lay 5 dong thoi" → `list_maintenance_tasks`
+    `{"maintenanceScheduleId": "6ad615353b0f8e12e2f1910d", "limit": 5}` · `multi_constraint`
   - "so lieu tong ts ca cty sao roi" → `get_asset_statistics`, `denied` · `permission_denial`
 
 ### 2.5 P5 `thu_kho` — Thủ kho
 
 - **Vai trò:** `employee` · `role_vi`: Nhân viên · tier Enterprise User.
-- **Bối cảnh:** quản lý kho và vị trí lưu trữ (doanh nghiệp thử có các vị trí dạng `ZZTEST-… Kho A`, `Kho B`,
-  `Kho A - Tang 1 (sua)`, §3.2), đối chiếu tài sản theo mã khi kiểm kê, theo dõi phiếu chuyển giao. Hay gõ mã số và dán id
-  từ màn hình.
+- **Bối cảnh:** quản lý kho và vị trí lưu trữ (doanh nghiệp thử có `[SEED] Kho tổng`, các tầng của `[SEED] Trụ sở chính`
+  và các vị trí dạng `ZZTEST-… Kho A`, `Kho B`, `Kho A - Tang 1 (sua)`, §3.2), đối chiếu tài sản theo mã khi kiểm kê, theo
+  dõi phiếu chuyển giao. Hay gõ mã số và dán id từ màn hình.
 - **Nhu cầu thường gặp:**
   - P5.N1 Danh sách vị trí / kho và số tài sản ở mỗi nơi; chi tiết một vị trí khi có id → `list_locations`,
     `get_location` (`location_id`).
@@ -258,8 +261,15 @@ Cách đọc mỗi persona:
   lớn không truy được về fixture (dải mã `000000001`…`000000059`, trạng thái `inactive`, `date_phrase`, đa số tên tài sản /
   vị trí / danh mục mẫu): thay bằng các bảng dưới.
 - Doanh nghiệp thử là tenant của môi trường QA (`fixtures/sgod/README.md` §5): tên dạng `ZZTEST-…`, `QA Test …`, có chữ
-  không dấu và hậu tố `(sua)`. Câu sinh ra dùng **nguyên văn** các giá trị này; không Việt hoá, không sửa chính tả, không
-  suy ra giá trị "còn thiếu" theo mẫu (mã kế tiếp, thêm Kho A / Kho B cho mọi tiền tố).
+  không dấu và hậu tố `(sua)`; từ 2026-10-21 có thêm dữ liệu mẫu tiếng Việt có dấu mang tiền tố `[SEED] `. Câu sinh ra dùng
+  **nguyên văn** các giá trị này (trừ tiền tố `[SEED] `, ý dưới); không Việt hoá, không sửa chính tả, không suy ra giá trị
+  "còn thiếu" theo mẫu (mã kế tiếp, thêm Kho A / Kho B cho mọi tiền tố).
+- **Tiền tố `[SEED] `** là dấu đánh dấu dữ liệu thử, người dùng thật không bao giờ gõ: câu hỏi nêu tên **đã bỏ tiền tố**
+  (vd "Laptop Dell Latitude 5440", không phải "[SEED] Laptop Dell Latitude 5440") và `asset_ref` / `search` chép đúng tên
+  đã bỏ tiền tố đó. `search` của API khớp theo đoạn của tên (kiểm trên API thật: lượt `search=<từ khoá>` của
+  `docs/sgod/tools_v1_live_check.md` dùng một từ của tên vẫn trả đúng mục), nên tên đã bỏ tiền tố vẫn tra ra tài sản.
+  `ENTITY_POOLS` giữ giá trị đúng như fixture và sampler bỏ tiền tố khi đưa vào gợi ý (hoặc pool lưu sẵn tên đã bỏ tiền tố,
+  kèm chú thích tệp nguồn).
 - Giá trị chỉ có trong Swagger (2026-10-14) được phép dùng, luôn ghi **"khai báo trong Swagger, chưa thấy trong dữ liệu"**
   (nguồn: `fixtures/sgod/README.md` §4, `docs/sgod/openapi-*.json`).
 - Cột **Tham số v1** cho biết giá trị vào được tham số nào; "chỉ ngữ cảnh" = chỉ làm câu tự nhiên hơn, không bao giờ thành
@@ -267,25 +277,35 @@ Cách đọc mỗi persona:
 
 ### 3.1 Tài sản
 
-Nguồn: `asset/GET_assets.json` (cả hai tài sản); `asset/GET_assets_id.json` (`ZZTEST-2610100426 x4`).
+Nguồn: `asset/GET_assets.json` (cả 7 tài sản, bản 2026-10-21); `asset/GET_assets_id.json` (`ZZTEST-2610100426 x4`).
 
 | Tên (`name`) | Mã (`assetCode`) | id | Khoá gợi ý | Tham số v1 |
 |---|---|---|---|---|
 | `QA Test Laptop` | `000000001` | `6aa2c177da46d70ee2f491c1` | `asset_name`, `asset_code`, `asset_id` | `asset_ref` của `get_asset`, `get_asset_histories`; `search` của `list_my_assets` |
 | `ZZTEST-2610100426 x4` | `000000003` | `6ac9be9827541dacd0a77e9f` | `asset_name`, `asset_code`, `asset_id` | như trên |
+| `[SEED] Laptop Dell Latitude 5440` | `000000004` | `6ad615353b0f8e12e2f190bf` | `asset_name`, `asset_code`, `asset_id` | như trên |
+| `[SEED] Màn hình LG 27UP850` | `000000005` | `6ad615353b0f8e12e2f190c0` | `asset_name`, `asset_code`, `asset_id` | như trên |
+| `[SEED] Máy in HP LaserJet Pro M404dn` | `000000006` | `6ad615353b0f8e12e2f190c1` | `asset_name`, `asset_code`, `asset_id` | như trên |
+| `[SEED] Máy lạnh Daikin FTKB50 2HP` | `000000007` | `6ad615353b0f8e12e2f190c2` | `asset_name`, `asset_code`, `asset_id` | như trên |
+| `[SEED] Mực in HP 76A` | `000000008` | `6ad615353b0f8e12e2f190c3` | `asset_name`, `asset_code`, `asset_id` | như trên |
 
 - `asset_ref` nhận tên, mã hoặc id. `search` nhận tên, mã hoặc một đoạn nguyên văn của chúng (vd `QA Test`, `Laptop`,
-  `ZZTEST`, `ZZTEST-2610100426`); `search` chỉ khớp `name` / `assetCode` (`x_sgod.notes` của `list_my_assets`).
-- Doanh nghiệp thử chỉ có 2 tài sản này; không dùng mã hay tên tài sản nào khác. Các `assetId` khác xuất hiện trong phiếu
-  chuyển giao và yêu cầu nhân viên (`asset/GET_asset_transfers.json`, `asset/GET_request_staff.json`) không có trong danh
-  sách tài sản, nên không dùng làm `asset_ref`.
-- Chỉ ngữ cảnh (trường chi tiết trả về, không phải tham số): `manufacturer` `Hoa Phat`, `origin` `VN` (chỉ
-  `ZZTEST-2610100426 x4`); sự kiện lịch sử `register_asset` (`asset/GET_assets_id_histories.json`); thuộc tính ở §3.9.
-  Không dùng hãng hay xuất xứ làm từ khoá `search`.
+  `ZZTEST`, `ZZTEST-2610100426`, `Dell Latitude`, `Daikin`); `search` chỉ khớp `name` / `assetCode` (`x_sgod.notes` của
+  `list_my_assets`). Tên `[SEED]` luôn bỏ tiền tố (§3). Đoạn chung của nhiều tài sản (vd `Laptop`: `QA Test Laptop` và
+  `[SEED] Laptop Dell Latitude 5440`) chỉ hợp với `search`; `asset_ref` dùng tên đủ hoặc mã.
+- Doanh nghiệp thử chỉ có 7 tài sản này (không có mã `000000002`); không dùng mã hay tên tài sản nào khác. `assetId` trong
+  phiếu chuyển giao, yêu cầu nhân viên và lịch bảo trì (`asset/GET_asset_transfers.json`, `asset/GET_request_staff.json`,
+  `asset/GET_maintenance_schedules.json`) chỉ là tài sản trong bảng khi trùng một id ở trên (vd `6ad615353b0f8e12e2f190c1`
+  là máy in `[SEED]`, có trong yêu cầu nhân viên và lịch `…1910d`); các id còn lại không có trong danh sách tài sản, không
+  dùng làm `asset_ref`.
+- Chỉ ngữ cảnh (trường chi tiết trả về, không phải tham số): `manufacturer` (`Hoa Phat`, `Dell`, `LG`, `HP`, `Daikin`),
+  `origin` (`VN`, `CN`, `KR`, `TH`), `totalQuantity`; sự kiện lịch sử `register_asset` (`asset/GET_assets_id_histories.json`);
+  thuộc tính ở §3.9. Hãng hay xuất xứ chỉ làm từ khoá `search` khi là một đoạn của tên (vd `Daikin`).
 
 ### 3.2 Vị trí / kho
 
-Nguồn: `asset/GET_locations.json` (15 vị trí); `ZZTEST-2610100427 Kho B` có thêm bản chi tiết `asset/GET_locations_id.json`.
+Nguồn: `asset/GET_locations.json` (20 vị trí, bản 2026-10-21); `ZZTEST-2610100427 Kho B` có thêm bản chi tiết
+`asset/GET_locations_id.json`.
 
 | Tên vị trí (`name`) | id | Ghi chú |
 |---|---|---|
@@ -304,20 +324,30 @@ Nguồn: `asset/GET_locations.json` (15 vị trí); `ZZTEST-2610100427 Kho B` c�
 | `ZZTEST-2610100421 Kho A - Tang 1 (sua)` | `6ac9bd3527541dacd0a77bae` | con của `ZZTEST-2610100421 Kho A`; bí danh `tang mot` |
 | `ZZTEST-2610100421 Kho B` | `6ac9bd3527541dacd0a77baf` | |
 | `QA Test Location` | `6aa2c144da46d70ee2f491c0` | |
+| `[SEED] Trụ sở chính` | `6ad615353b0f8e12e2f190ba` | có 3 vị trí con (3 tầng bên dưới) |
+| `[SEED] Tầng 1 - Lễ tân` | `6ad615353b0f8e12e2f190bb` | con của `[SEED] Trụ sở chính`; `totalAsset: 2` |
+| `[SEED] Tầng 2 - Phòng Kỹ thuật` | `6ad615353b0f8e12e2f190bc` | con của `[SEED] Trụ sở chính`; `totalAsset: 4` |
+| `[SEED] Tầng 3 - Phòng Kế toán` | `6ad615353b0f8e12e2f190bd` | con của `[SEED] Trụ sở chính`; `totalAsset: 4` |
+| `[SEED] Kho tổng` | `6ad615353b0f8e12e2f190be` | `totalAsset: 2` |
 
 - Khoá gợi ý: `location_name` (chỉ ngữ cảnh: `list_locations` không có tham số tìm theo tên) và `location_id` (tham số
   `location_id` của `get_location`).
-- Mọi vị trí có `totalAsset: 0`. Trường `detail` là địa chỉ đã che (`Địa chỉ mẫu NN`), không dùng. Chỉ dùng id trong bảng
-  làm `location_id` (id `0000000000000000000000ff` trong `locations` của tài sản không phải một vị trí trong danh sách).
+- Vị trí `ZZTEST-…`, `QA Test Location` và `[SEED] Trụ sở chính` có `totalAsset: 0`. Vị trí `[SEED]` không có bí danh riêng
+  (`aliasNames` chỉ là tên viết thường). Trường `detail` là địa chỉ đã che (`Địa chỉ mẫu NN`), không dùng. Chỉ dùng id trong
+  bảng làm `location_id` (id `0000000000000000000000ff` trong `locations` của tài sản không phải một vị trí trong danh sách).
 
 ### 3.3 Danh mục
 
-Nguồn: `asset/GET_categories.json`.
+Nguồn: `asset/GET_categories.json` (6 danh mục, bản 2026-10-21).
 
 | Tên danh mục (`name`) | Ghi chú |
 |---|---|
 | `QA Test Category` | `totalAsset: 1` |
 | `ZZTEST-2610100426 Ghe (sua)` | `totalAsset: 1`; chữ không dấu, giữ nguyên |
+| `[SEED] Thiết bị văn phòng` | `totalAsset: 5`; danh mục cha của 3 danh mục `[SEED]` dưới |
+| `[SEED] Thiết bị CNTT` | `totalAsset: 3` (laptop, màn hình, máy in); con của `[SEED] Thiết bị văn phòng` |
+| `[SEED] Điện lạnh` | `totalAsset: 1` (máy lạnh); con của `[SEED] Thiết bị văn phòng` |
+| `[SEED] Vật tư tiêu hao` | `totalAsset: 1` (mực in); con của `[SEED] Thiết bị văn phòng` |
 
 - Khoá gợi ý: `category_name`, **chỉ ngữ cảnh**: v1 không có tham số lọc theo danh mục (`categoryId` không có trong schema
   `list_my_assets`). Câu "danh mục X có mấy tài sản" → `list_categories` (phản hồi có `totalAsset`), không phải
@@ -346,7 +376,7 @@ Nguồn: `asset/GET_request_staff.json`, `asset/GET_request_staff_summary.json`.
 | Trường | Thấy trong dữ liệu | Khai báo trong Swagger, chưa thấy trong dữ liệu |
 |---|---|---|
 | `typeRequest` | `change-status-maintenance` | `change-status` (`CreateRequestStaffChangeStatusDto`) |
-| `statusRequest` | `confirm`, `deny`, `cancel` | — |
+| `statusRequest` | `confirm`, `deny`, `cancel`, `pending` (bản 2026-10-21) | — |
 | `statusChange` | `processing`, `completed`, `on-hold` | — |
 | `statusOrigin` | `scheduled`, `processing` | — |
 | `subjectKind` | `maintenance_task` | — |
@@ -357,20 +387,24 @@ Nguồn: `asset/GET_request_staff.json`, `asset/GET_request_staff_summary.json`.
 
 ### 3.6 Bảo trì
 
-Nguồn: `asset/GET_maintenance_schedules.json`, `asset/GET_maintenance_records.json` (đều là danh sách rỗng);
-`asset/GET_request_staff.json`.
+Nguồn: `asset/GET_maintenance_schedules.json` (2 lịch), `asset/GET_maintenance_schedules_id.json` (chi tiết lịch
+`6ad615353b0f8e12e2f1910d`), `asset/GET_maintenance_tasks.json` (công việc của lịch đó) — cả ba bản 2026-10-21;
+`asset/GET_maintenance_records.json` (danh sách rỗng); `asset/GET_request_staff.json`.
 
 | Trường | Thấy trong dữ liệu | Khai báo trong Swagger, chưa thấy trong dữ liệu | Tham số v1 |
 |---|---|---|---|
-| trạng thái lịch (`status`, query `GET /maintenance/schedules`) | — (danh sách lịch rỗng) | `draft`, `active`, `completed` | `status` của `list_maintenance_schedules`; schema chỉ nhận `active` (đang hiệu lực) và `completed` (đã hoàn thành) |
-| trạng thái công việc bảo trì (`ChangeMaintenanceTaskStatusDto`) | `scheduled`, `processing`, `completed`, `on-hold` (qua `statusOrigin` / `statusChange`, §3.5) | `overdue` | chỉ ngữ cảnh |
-| id lịch bảo trì | **không có** | — | `schedule_id`, `maintenanceScheduleId`: chưa có giá trị truy được |
+| trạng thái lịch (`status`, query `GET /maintenance/schedules`) | `active` (cả 2 lịch) | `draft`, `completed` | `status` của `list_maintenance_schedules`; schema chỉ nhận `active` (đang hiệu lực) và `completed` (đã hoàn thành) |
+| trạng thái công việc bảo trì (`ChangeMaintenanceTaskStatusDto`) | `processing` (`asset/GET_maintenance_tasks.json`); `scheduled`, `completed`, `on-hold` (qua `statusOrigin` / `statusChange`, §3.5) | `overdue` | chỉ ngữ cảnh |
+| id lịch bảo trì | `6ad615353b0f8e12e2f1910d` (tài sản `[SEED] Máy in HP LaserJet Pro M404dn`), `6ad615353b0f8e12e2f190e4` (tài sản `[SEED] Máy lạnh Daikin FTKB50 2HP`) | — | `schedule_id` của `get_maintenance_schedule`, `maintenanceScheduleId` của `list_maintenance_tasks` (khoá gợi ý `schedule_id`) |
+| `maintenanceType` | `condition-based` (lịch `…1910d`), `preventive` (lịch `…190e4`) | `schedule`, `emergency`, `corrective` | chỉ ngữ cảnh |
+| `locationAsset` | `internal` (cả 2 lịch) | `external` (`docs/sgod/openapi-asset.json`) | chỉ ngữ cảnh |
+| công việc bảo trì (`asset/GET_maintenance_tasks.json`) | id `6ad615353b0f8e12e2f1910e`, `taskTitle` `Thay trống mực (drum)`, `status` `processing`, `maintenanceScheduleId` `6ad615353b0f8e12e2f1910d` | — | chỉ ngữ cảnh: không tool v1 nào nhận id công việc |
 
-- Doanh nghiệp thử chưa có lịch bảo trì nên `asset/GET_maintenance_schedules_id.json` và `asset/GET_maintenance_tasks.json`
-  không được chụp (`fixtures/sgod/README.md` §3). Vì vậy `get_maintenance_schedule` và `list_maintenance_tasks` chưa có
-  `PARAM_SAMPLER` (§5.2). Cần id thật thì bình luận vào task S Việc 2 để chụp lại trên hạ tầng tham chiếu.
-- `subjectId` của yêu cầu nhân viên là id **công việc** bảo trì (`subjectKind: maintenance_task`), không phải id lịch: không
-  dùng làm `schedule_id` hay `maintenanceScheduleId`.
+- Hai id lịch là toàn bộ giá trị cho `schedule_id` và `maintenanceScheduleId` (§5.2). Chỉ lịch `…1910d` có bản chi tiết và
+  danh sách công việc được chụp; lịch `…190e4` chỉ có trong danh sách lịch nhưng là id thật, dùng được làm tham số.
+- `subjectId` của yêu cầu nhân viên là id **công việc** bảo trì (`subjectKind: maintenance_task`; vd
+  `6ad615353b0f8e12e2f1910e` của yêu cầu `[SEED]` là công việc `Thay trống mực (drum)`), không phải id lịch: không dùng làm
+  `schedule_id` hay `maintenanceScheduleId`.
 
 ### 3.7 Tài khoản nhân viên
 
@@ -403,9 +437,9 @@ Nguồn: `asset/GET_assets.json`, `asset/GET_assets_id.json`; trạng thái `act
 
 | Trường | Thấy trong dữ liệu | Khai báo trong Swagger, chưa thấy trong dữ liệu |
 |---|---|---|
-| `unit` (đơn vị) | `piece` | `can`, `box`, `bottle`, `pack`, `tree`, `pot`, `set`, `jar`, `kg`, `gram`, `m` |
+| `unit` (đơn vị) | `piece`; `cái`, `hộp` (tài sản `[SEED]`, bản 2026-10-21; không có trong enum Swagger) | `can`, `box`, `bottle`, `pack`, `tree`, `pot`, `set`, `jar`, `kg`, `gram`, `m` |
 | `importanceLevel` (mức quan trọng) | `normal` | `important`, `confidential` |
-| `assetType` (loại) | `normal` | `expendable` |
+| `assetType` (loại) | `normal`, `expendable` (`[SEED] Mực in HP 76A`) | — |
 | `status` (trạng thái tài sản / phiên trạng thái) | `active` | `repair`, `not_use`, `broken`, `sold`, `used_up` (`CreateAssetStatusDto`) |
 
 - Tất cả **chỉ ngữ cảnh**: không tool v1 nào lọc theo đơn vị, mức quan trọng, loại hay trạng thái tài sản (`GET /assets`
@@ -416,10 +450,10 @@ Nguồn: `asset/GET_assets.json`, `asset/GET_assets_id.json`; trạng thái `act
 
 - PII đã che (`fixtures/sgod/README.md` §2): `TestNN Nguyễn`, `Người dùng NN`, `userNN`, `userNN@example.com`,
   `Doanh nghiệp Demo NN`, `Địa chỉ mẫu NN`, cùng số điện thoại / URL ảnh / IP đã che, và mọi chuỗi ghép từ chúng (tiêu đề
-  hội thoại `private`, tên vai trò dạng `Enterprise … - <id>` trong `auth/GET_roles.json`).
-- `enterpriseId`, `tenantId`, id người dùng (`createdBy`, `fromUserId`, `toUserId`, `requesterId`, `approverId`,
-  `staffId`…) và ObjectId vai trò (`roles`, `primaryRoleId`): preamble quy tắc 2 cấm truyền mã doanh nghiệp / tenant,
-  `roles.md` §4 cấm dựa vào ObjectId vai trò.
+  hội thoại `private`).
+- `enterpriseId`, `tenantId` (kể cả trong tên vai trò của `auth/GET_roles.json`, dạng `Enterprise User - <tenantId>`), id
+  người dùng (`createdBy`, `fromUserId`, `toUserId`, `requesterId`, `approverId`, `staffId`…) và ObjectId vai trò (`roles`,
+  `primaryRoleId`): preamble quy tắc 2 cấm truyền mã doanh nghiệp / tenant, `roles.md` §4 cấm dựa vào ObjectId vai trò.
 - Mã quyền trong `auth/GET_session_context.json` (`auth:ReadAsset`…) là quyền của tài khoản chủ doanh nghiệp, không phải
   của `employee`; câu hỏi về quyền viết bằng lời ("mình được phép xoá vị trí kho không").
 - `cursor` (vd `meta.nextCursor` trong `asset/GET_request_staff.json`): câu một lượt không có con trỏ trang (§5.3).
@@ -459,7 +493,7 @@ Kiểm tra trên bảng:
 
 - 22/22 tool là nhu cầu ✓ của ít nhất 1 persona. Tool có đúng 1 persona cần: `get_enterprise_profile`,
   `list_my_conversations`, `get_unread_counts`, `get_asset_statistics` (P1) và `get_maintenance_schedule`,
-  `list_maintenance_tasks` (P4; chưa có id truy được, §3.6).
+  `list_maintenance_tasks` (P4; 2 id lịch truy được, §3.6).
 - 5/5 tool chỉ dành cho `company_admin` là câu `denied` của ít nhất 2 persona `employee`: `get_enterprise_profile` (P5, P7),
   `list_enterprise_users` (P3, P6, P7), `list_my_conversations` (P3, P4, P6), `get_unread_counts` (P3, P6),
   `get_asset_statistics` (P4, P5, P7). Cả năm tool là nhu cầu ✓ của P1; `list_enterprise_users` còn là nhu cầu của P2.
@@ -474,8 +508,8 @@ Kiểm tra trên bảng:
   lượng). Ràng buộc không có tham số tương ứng (§5.4) không được tính.
 - Chỉ các tool sau có từ 2 tham số lấy mẫu được, nên chỉ chúng có bucket `multi_constraint`: `list_my_assets` (`search` +
   `limit`), `list_maintenance_schedules` (`status` + `limit`), `list_enterprise_users` (`status` + `limit`; với persona
-  `employee` câu vẫn là `denied`), `list_asset_transfers` (`onlyMine` + `limit`). `list_maintenance_tasks`
-  (`maintenanceScheduleId` + `limit`) chỉ khi fixture có id lịch. Các tool còn lại chỉ có `single`.
+  `employee` câu vẫn là `denied`), `list_asset_transfers` (`onlyMine` + `limit`), `list_maintenance_tasks`
+  (`maintenanceScheduleId` + `limit`, id lịch ở §3.6). Các tool còn lại chỉ có `single` (kể cả `get_maintenance_schedule`).
 - Không có `dependent` hay chuỗi nhiều bước: pha 2 chỉ một lượt (`docs/contracts/eval_metric.md` §4).
 
 ### 5.2 Tham số lấy mẫu theo tool (`PARAM_SAMPLER`)
@@ -488,17 +522,17 @@ giờ lấy mẫu `cursor`.
 
 | Tool | Tham số lấy mẫu → nguồn giá trị | Sampler |
 |---|---|---|
-| `list_my_assets` | `search` → §3.1 (tên, mã, đoạn nguyên văn); `limit` | có |
-| `get_asset`, `get_asset_histories` | `asset_ref` → §3.1 (tên, mã hoặc id) | có |
+| `list_my_assets` | `search` → §3.1 (tên, mã, đoạn nguyên văn; tên `[SEED]` bỏ tiền tố); `limit` | có |
+| `get_asset`, `get_asset_histories` | `asset_ref` → §3.1 (tên đã bỏ tiền tố `[SEED] `, mã hoặc id) | có |
 | `list_maintenance_schedules` | `status` → `active` / `completed` (§3.6); `limit` | có |
 | `list_enterprise_users` | `status` → §3.7; `limit`; `search`: không có giá trị truy được | có |
 | `list_asset_transfers` | `onlyMine` → `true` khi câu nói "của tôi / của mình"; `limit` | có |
 | `get_asset_transfer` | `transfer_id` → 5 id ở §3.4 | có |
-| `get_location` | `location_id` → 15 id ở §3.2 | có |
+| `get_location` | `location_id` → 20 id ở §3.2 | có |
 | `list_my_conversations`, `list_maintenance_records`, `list_staff_requests`, `list_categories`, `list_locations` | `limit` | có |
 | `get_my_profile`, `get_my_permissions`, `get_enterprise_profile`, `get_unread_counts`, `get_asset_statistics`, `get_transfer_summary`, `get_staff_request_summary` | không tham số → `{}` | có (rỗng) |
-| `get_maintenance_schedule` | `schedule_id` (bắt buộc): không có id truy được (§3.6) | **chưa**: để ngoài `BUCKET_PLAN` |
-| `list_maintenance_tasks` | `maintenanceScheduleId` (bắt buộc): không có id truy được (§3.6) | **chưa**: để ngoài `BUCKET_PLAN` |
+| `get_maintenance_schedule` | `schedule_id` (bắt buộc) → 2 id lịch ở §3.6 | có |
+| `list_maintenance_tasks` | `maintenanceScheduleId` (bắt buộc) → 2 id lịch ở §3.6; `limit` | có |
 
 ### 5.3 Một lượt, một lần gọi tool
 
@@ -510,8 +544,8 @@ giờ lấy mẫu `cursor`.
   `list_maintenance_tasks`): chỉ sinh câu **chứa sẵn id** (§3). Không sinh câu phải tra trước rồi mới gọi được (chi tiết một
   kho nêu bằng tên, công việc bảo trì của một tài sản, chi tiết phiếu chuyển giao của một tài sản): các câu này cần hai lần
   gọi tool.
-- Người dùng thật ít khi gõ ObjectId: `asset_ref` ưu tiên tên hoặc mã; bucket của `get_location`, `get_asset_transfer`
-  (câu luôn chứa id) giữ nhỏ, diễn đạt như dán id từ màn hình.
+- Người dùng thật ít khi gõ ObjectId: `asset_ref` ưu tiên tên hoặc mã; bucket của `get_location`, `get_asset_transfer`,
+  `get_maintenance_schedule`, `list_maintenance_tasks` (câu luôn chứa id) giữ nhỏ, diễn đạt như dán id từ màn hình.
 
 ### 5.4 Thời gian và ràng buộc ngoài schema
 
@@ -522,9 +556,9 @@ giờ lấy mẫu `cursor`.
 - Bộ lọc không có trong schema v1 cũng vậy: trạng thái / danh mục / vị trí / mức quan trọng của tài sản (`list_my_assets`),
   trạng thái / loại phiếu chuyển giao, trạng thái / loại yêu cầu nhân viên, loại hội thoại. `label_scenarios.py` bỏ khoá
   ngoài schema (`fix_params_for_tool`, có ghi log), nên câu dựa trên các bộ lọc này mất ràng buộc và lệch bucket.
-- Lỗi chính tả, viết tắt, thiếu dấu chỉ áp vào phần lời. Giá trị tự do thành tham số (tên, mã, id) giữ đúng chuỗi ở §3 để
-  nhãn chép nguyên văn được (preamble quy tắc 4); trạng thái có thể nói bằng lời ("đang hiệu lực", "bị khoá") và được gán về
-  giá trị enum (§6).
+- Lỗi chính tả, viết tắt, thiếu dấu chỉ áp vào phần lời. Giá trị tự do thành tham số (tên, mã, id) giữ đúng chuỗi ở §3
+  (tên `[SEED]` bỏ tiền tố) để nhãn chép nguyên văn được (preamble quy tắc 4); trạng thái có thể nói bằng lời ("đang hiệu
+  lực", "bị khoá") và được gán về giá trị enum (§6).
 - Không nêu tên tool hay tên tham số kỹ thuật trong câu; không tên người, email, số điện thoại; không mã doanh nghiệp /
   tenant (preamble quy tắc 2).
 
@@ -543,16 +577,23 @@ giờ lấy mẫu `cursor`.
 - **Persona:** 7 khoá ở §2.0; vai trò của bucket theo cột `role` (`BUCKET_PLAN` dùng nhãn `employee` / `admin`, `ROLE_MAP`
   đổi `admin` → `company_admin`). Prompt sinh nêu rõ persona (nhãn, bối cảnh, văn phong ở §2), vai trò (`role` + `role_vi`)
   và danh sách tool mở cho vai trò đó (17 hoặc 22, §1).
-- **Intent:** các nhu cầu `Pk.Nn` ở §2 (tool đích); thêm bucket `permission_denial` cho mỗi persona `employee` × tool `denied`
-  của persona đó, và bucket `out_of_scope` (yêu cầu ghi, dữ liệu không có tool, ngoài lĩnh vực) cho mọi persona.
+- **Intent:** các nhu cầu `Pk.Nn` ở §2 (tool đích); thêm bucket câu `denied` cho mỗi persona `employee` × tool `denied` của
+  persona đó, bucket `out_of_scope` (dữ liệu không có tool, ngoài lĩnh vực) cho mọi persona, và bucket **yêu cầu ghi** của
+  mọi persona (cả `company_admin`) với `category` đúng bằng `permission_denial` (ý "Ngoại lệ" dưới, §6).
 - **Complexity:** `single` / `multi_constraint` theo §5.1, chỉ với tool có từ 2 tham số lấy mẫu được.
 - **Dạng tuple** giữ như `generate_scenarios.py` đọc: `BUCKET_PLAN` = `(category, role, count)`, `TRACKB_BUCKET_PLAN` =
   `(tool, category, role, count)` + gợi ý `PARAM_SAMPLER`; `run_pipeline.sh` (kể cả `--pilot`) luôn sinh bằng `--trackb`,
   tức đọc `TRACKB_BUCKET_PLAN`. Không thêm phần tử vào tuple: ghép persona × intent × complexity vào tên `category` (vd
   `thu_kho__get_location__single`), mỗi tên có gợi ý trong `CATEGORY_HINTS` hoặc `datagen/prompts/category_<tên>.md`.
-- Tool chưa có sampler (`get_maintenance_schedule`, `list_maintenance_tasks`) để ngoài `BUCKET_PLAN` /
-  `TRACKB_BUCKET_PLAN` cho đến khi có fixture chứa id lịch. Hệ quả cho D Việc 4: phần GPT bổ sung cũng không sinh được câu
-  cho hai tool này từ giá trị truy được, nên mức ≥ 15 bản ghi / tool của eval_v1 (`eval_metric.md` §1) cần id lịch thật.
+- **Ngoại lệ — yêu cầu ghi:** `category` phải đúng chuỗi `permission_denial`, không ghép persona. `Preamble.assistant_for`
+  của `build_parity_trainset.py` (cũng là đường của `assemble_trackb_trainset.py`) chỉ cho hàng `expected_tool: null` câu
+  `REFUSAL_VI` khi `category == "permission_denial"`; tên ghép (vd `thu_kho__ghi__permission_denial`) ra `DEFLECT_VI`.
+  Yêu cầu ghi của cả 7 persona viết chung trong `datagen/prompts/category_permission_denial.md`; tool của tuple để `None`
+  (không gợi ý tham số) hoặc là một tool đọc chỉ để lấy thực thể từ `PARAM_SAMPLER` (`seed_tool` chỉ là gợi ý, labeler không
+  thấy). Bucket câu `denied` theo persona vẫn ghép tên như mọi bucket khác: nhãn `denied` tự ra `REFUSAL_VI`.
+- `get_maintenance_schedule` và `list_maintenance_tasks` nay có id lịch truy được (§3.6) nên vào `BUCKET_PLAN` /
+  `TRACKB_BUCKET_PLAN` như các tool khác (bucket nhỏ, §5.3). Phần GPT bổ sung của D Việc 4 cũng sinh được câu cho hai tool
+  này để đủ ≥ 15 bản ghi / tool (`eval_metric.md` §1); chỉ có 2 id nên độ đa dạng nằm ở cách nói, không ở giá trị.
 
 ## 6. Quy tắc gán nhãn (hợp đồng 3 §6)
 
@@ -563,20 +604,23 @@ luật** từ `tool_policy.json`, không bằng LLM (`eval_metric.md` §1).
 |---|---|---|---|
 | Câu ứng với một tool mà vai trò được phép | tên tool | `allowed` | `single_tool` hoặc `multi_constraint` |
 | Câu ứng với một tool **có trong** `sgod_tools.json` nhưng `tool_policy.json[tool].roles` không chứa `user_role`; ở v1 chỉ xảy ra khi `employee` hỏi 1 trong 5 tool chỉ dành cho `company_admin` | **giữ tên tool đó** | `denied` | `permission_denial` |
-| Yêu cầu ghi (tạo / sửa / xoá / duyệt / từ chối / nhận phiếu / khoá tài khoản / gửi tin nhắn / đánh dấu đã đọc / đổi mật khẩu …): v1 không có tool ghi | `null` | `allowed` | `out_of_scope` |
+| Yêu cầu ghi (tạo / sửa / xoá / duyệt / từ chối / nhận phiếu / khoá tài khoản / gửi tin nhắn / đánh dấu đã đọc / đổi mật khẩu …): v1 không có tool ghi | `null` | `allowed` | bản ghi eval: `out_of_scope`; hàng huấn luyện: `permission_denial` (tên bucket, ra `REFUSAL_VI`) |
 | Không tool nào phù hợp: ngoài lĩnh vực, chào hỏi, hỏi cách làm, câu mơ hồ, dữ liệu không có tool v1 (sơ đồ phòng ban, xuất Excel …) | `null` | `allowed` | `out_of_scope` |
 
 - `denied` ⇔ tool đích có trong `sgod_tools.json` và `tool_policy.json[tool].roles` không chứa `user_role` (`roles.md` §6).
   `company_admin` không bao giờ có câu `denied` trong v1 (được mở đủ 22 tool).
 - Bản ghi eval `denied` **giữ tên tool bị chặn** trong `expected_tool` (như lõi eval, CHANGELOG `[D-V2]`). Thang chấm bước 1
-  chỉ xét không có call nào trỏ tới tool ngoài quyền; thang chấm không xét câu chữ từ chối (`eval_metric.md` §4). Pipeline
-  huấn luyện hiện tại (`label_scenarios.py`, stage A của `verify_trainset.py`) lưu hàng `denied` với `expected_tool: null`;
-  hàng parity sinh ra vẫn là `REFUSAL_VI` nên nội dung hàng huấn luyện không đổi. Quy tắc giữ tên tool áp cho bản ghi eval.
+  chỉ xét không có call nào trỏ tới tool ngoài quyền; thang chấm không xét câu chữ từ chối (`eval_metric.md` §4). Ở pipeline
+  huấn luyện, `build_parity_trainset.py` luôn cho hàng `denied` câu `REFUSAL_VI`, dù nhãn để `expected_tool: null` hay giữ
+  tên tool, nên nội dung hàng huấn luyện không đổi. Quy tắc giữ tên tool áp cho bản ghi eval.
 - Yêu cầu ghi **không bao giờ** là `denied`, kể cả khi người hỏi là `employee` và đối tượng là dữ liệu chỉ dành cho
-  `company_admin` (vd khoá tài khoản một nhân viên): không có tool nào để chặn, nên nhãn là `null` / `allowed` /
-  `out_of_scope`. Preamble quy tắc 5 vẫn buộc trợ lý từ chối và không gọi tool. Lưu ý: `build_parity_trainset.py` hiện cho
-  mọi hàng `null` + `allowed` câu trả lời `DEFLECT_VI`, kể cả câu ghi, trong khi câu mẫu của quy tắc 5 là `REFUSAL_VI`;
-  điểm eval không đổi vì thang chấm chỉ xét không gọi tool.
+  `company_admin` (vd khoá tài khoản một nhân viên): không có tool nào để chặn (hợp đồng 3 §6), nên nhãn **eval** là
+  `null` / `allowed` / `out_of_scope`. Preamble quy tắc 5 buộc trợ lý từ chối thao tác tạo / sửa / xoá và không gọi tool,
+  câu mẫu của quy tắc chính là `REFUSAL_VI`; vì vậy dữ liệu **huấn luyện** sinh yêu cầu ghi (mọi vai trò) trong bucket
+  `category` = `permission_denial`: labeler vẫn gán `expected_tool: null` + `allowed`, và `build_parity_trainset.py` cho hàng
+  `null` có `category == "permission_denial"` câu `REFUSAL_VI` (hàng `null` khác ra `DEFLECT_VI`; §5.6). `label_system.md`
+  phải dặn labeler trả `tool = null` cho yêu cầu ghi: nếu labeler chọn một tool đọc mà vai trò được phép, hàng thành lời
+  gọi tool sai. Điểm eval không đổi vì thang chấm với `expected_tool: null` chỉ xét không gọi tool (`eval_metric.md` §4).
 - Dữ liệu cấp doanh nghiệp mà v1 không có tool (vd sơ đồ phòng ban) cũng là `null`, không phải `denied`, kể cả với
   `employee`.
 - `category` của bản ghi eval theo một luật như lõi eval (CHANGELOG `[D-V2]`): `null` → `out_of_scope`; `denied` →
@@ -596,6 +640,8 @@ luật** từ `tool_policy.json`, không bằng LLM (`eval_metric.md` §1).
   - `list_staff_requests` ↔ `get_staff_request_summary` (như trên);
   - `list_maintenance_schedules` (`status: completed`, lịch đã hoàn thành) ↔ `list_maintenance_records` (các lần bảo trì
     đã thực hiện, chi phí, biên bản);
+  - `get_maintenance_schedule` (chi tiết một lịch: loại bảo trì, thời gian, trạng thái lịch) ↔ `list_maintenance_tasks`
+    (các công việc của lịch: người làm, hạn, trạng thái công việc); cả hai nhận id lịch;
   - `get_my_profile` ↔ `get_my_permissions` (mô tả của cả hai nhắc "vai trò"; "quyền" → `get_my_permissions`, "hồ sơ /
     thông tin tài khoản" → `get_my_profile`);
   - `get_my_profile` (tài khoản của mình, kể cả doanh nghiệp đang thuộc) ↔ `get_enterprise_profile` (hồ sơ đăng ký của
