@@ -31,8 +31,11 @@ tools/sgod/roles.json ───────┘            (nguồn DUY NHẤT v�
 Phần GPT bổ sung của eval_v1 (D Việc 4) đi đường riêng `run_pipeline.sh --eval-aug`: `generate_scenarios.py` theo
 `BUCKET_PLAN` với prompt `prompts_eval/` → `label_scenarios.py` → `polish_scenarios.py` (arbiter ≠ GPT bị chấm sửa nhãn,
 alternates) → `export_eval_aug.py` → `data/sgod/eval_aug.json` (bản ghi hợp đồng 2, `source: gpt_aug`); mọi tệp trung gian
-mang tiền tố `eval_aug_`, không bao giờ trùng tệp của tập huấn luyện. Tuỳ chọn: `audit_test_cases.py` (kiểm tra schema +
-review nhãn của một file case bất kỳ). `preflight.py` kiểm tra offline `config_sgod.py` + thư mục prompt trước mọi bước LLM.
+mang tiền tố `eval_aug_`, không bao giờ trùng tệp của tập huấn luyện. Bước generate của `--eval-aug` cần
+`prompts_eval/domain_system.md` (thiếu thì preflight báo `ERROR`: generate sẽ dùng `DOMAIN_SYSTEM` của tập huấn luyện).
+Hàng mà arbiter lỗi, hoặc arbiter đổi quyền (denied ↔ allowed), hoặc chưa qua arbiter, được gắn `_needs_review` để nhóm D
+xem lại. Tuỳ chọn: `audit_test_cases.py` (kiểm tra schema + review nhãn của một file case bất kỳ). `preflight.py` kiểm tra
+offline `config_sgod.py` + thư mục prompt trước mọi bước LLM.
 
 ## Bảng các bước
 
@@ -109,7 +112,8 @@ python training/validate_dataset.py data/sgod/pilot_train.jsonl --preamble promp
   `IRRELEVANCE_CONFIG`, `MIX_TARGETS`. Mỗi khối có 1–2 ví dụ đã điền (`list_my_assets`, `get_asset`,
   `list_maintenance_schedules`) và giá trị của hệ thống tham chiếu (POC v1) trong comment để tham khảo độ dày.
 - Trước khi mở PR prompt/config: `bash datagen/run_pipeline.sh --check --pilot` (và `--check --eval-aug` cho
-  `prompts_eval/`) — không cần key; `ERROR` (tool/role sai trong plan, `PARAM_SAMPLER` lỗi, thiếu hint irrelevance) thì
+  `prompts_eval/`) — không cần key; `ERROR` (tool/role sai trong plan, `PARAM_SAMPLER` lỗi, thiếu hint irrelevance,
+  `--eval-aug` thiếu `prompts_eval/domain_system.md`) thì
   pipeline sẽ không chạy; `WARN` liệt kê tool chưa có trong `TRACKB_BUCKET_PLAN` và tệp `.md` không bước nào đọc (sai tên).
 - Xem lại `data/sgod/quarantine.json` sau mỗi lần chạy trên hạ tầng tham chiếu, đề xuất sửa prompt/config qua PR.
 - Các chỗ đánh dấu `# TODO(SGOD):` trong code là phần còn phụ thuộc hệ thống tham chiếu POC v1 (danh sách cặp tool mơ hồ trong

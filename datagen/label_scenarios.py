@@ -7,12 +7,13 @@ Per query:
     fulfils the request (ignoring permissions) + its params.
   - Consensus: agree -> that tool; disagree -> primary model's tool + alternates, flagged _needs_review.
   - PERMISSION is rule-based via tool_policy.json (audit_test_cases.role_allows): tool not allowed
-    for the role -> expected_tool=null, expected_permission="denied". Never model-judged. The blocked
-    tool is kept in `_blocked_tool` (eval records keep it as expected_tool, contract 3 §6).
+    for the role -> expected_tool=null, expected_permission="denied". Never model-judged.
   - Params schema-filtered to the tool's properties (dropped keys are logged, not silent).
 
-Output: --output (labeled cases, ids SC... -> SN...) + --report (proposals/agreement per row; models are
-written as config_sgod.model_alias, errors as config_sgod.err_text — no gateway ids, no message bodies).
+Output: --output (labeled cases, ids SC... -> SN...; a denied case also carries the blocked tool in
+`_blocked_tool`, which export_eval_aug.py writes as expected_tool, contract 3 §6) + --report
+(proposals/agreement per row; models are written as config_sgod.model_alias, errors as
+config_sgod.err_text — no gateway ids, no message bodies).
 
 Usage (LLM stage — runs on the reference infrastructure, needs OPENAI_API_KEY):
   OPENAI_API_KEY=... python3 datagen/label_scenarios.py --input data/sgod/raw.json \
@@ -105,12 +106,12 @@ def main():
               "expected_permission": permission}
         if qc.get("seed_tool"):
             tc["_seed_tool"] = qc["seed_tool"]
-        if permission == "denied":
-            tc["_blocked_tool"] = primary
         if alternates and expected_tool:
             tc["expected_tool_alternates"] = alternates
         if not agree:
             tc["_needs_review"] = True
+        if permission == "denied":
+            tc["_blocked_tool"] = primary
         rep = {"id": tc["id"], "proposals": [(cfg.model_alias(m), t) for m, t, _ in proposals], "agree": agree,
                "expected_tool": expected_tool, "permission": permission, "dropped_params": dropped}
         return tc, rep

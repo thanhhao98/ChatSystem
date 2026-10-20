@@ -10,10 +10,13 @@ ERROR (exit 1):
     in sgod_tools.json;
   - a PARAM_SAMPLER entry for an unknown tool, or one that raises / does not return a dict;
   - an irrelevance kind with neither IRRELEVANCE_CONFIG["<kind>_hint"] nor irrelevance_<kind>.md;
-  - a missing prompt directory; training prompts used for eval augmentation or the reverse.
+  - a missing prompt directory; training prompts used for eval augmentation or the reverse;
+  - eval-aug generation without <prompt dir>/domain_system.md (it would fall back to the TRAINING
+    DOMAIN_SYSTEM, contract 2 §1: the gpt_aug part is generated with its own prompt set).
 WARNING: a category with neither CATEGORY_HINTS entry nor category_<name>.md (the bare name is sent to the
-  model), a *.md file the run never reads (typo?), an empty prompt file, catalogue tools the training plan
-  does not cover, fractions that do not sum to 1.
+  model) or, for eval-aug, without its own category_<name>.md (the training hint would be sent), a *.md file
+  the run never reads (typo?), an empty prompt file, catalogue tools the training plan does not cover,
+  fractions that do not sum to 1.
 INFO: which prompt files override which defaults, leakage sets found, models (aliases), plan size and an
   estimate of the LLM calls of the run.
 
@@ -54,11 +57,15 @@ def main():
     p.add_argument("--scale", type=float, default=1.0)
     p.add_argument("--max-total", type=int, default=0)
     p.add_argument("--irrel-count", type=int, default=300, help="for the call estimate (train/pilot)")
+    p.add_argument("--stages", default="", help="stages this run executes, space-separated (run_pipeline.sh "
+                                                  "passes them); default: every stage of the mode")
     audit.add_catalogue_args(p)
     args = p.parse_args()
 
     errors, warns, infos = [], [], []
     eval_mode = args.mode == "eval-aug"
+    stages = set(args.stages.split()) or None   # None = every stage of the mode
+    runs_generate = stages is None or "generate" in stages
     prompt_dir = args.prompt_dir or (cfg.PROMPT_DIR_EVAL if eval_mode else cfg.PROMPT_DIR)
     pd = cfg.repo_path(prompt_dir).resolve()
     if pd == cfg.repo_path(cfg.PROMPT_DIR).resolve() and eval_mode:
@@ -69,6 +76,12 @@ def main():
                       f"dùng --eval-aug")
     if not pd.is_dir():
         errors.append(f"không có thư mục prompt {prompt_dir}")
+    elif eval_mode and runs_generate:
+        f = pd / "domain_system.md"
+        if not (f.is_file() and f.read_text(encoding="utf-8").strip()):
+            errors.append(f"--eval-aug cần {prompt_dir}/domain_system.md: thiếu tệp này thì generate dùng DOMAIN_SYSTEM "
+                          f"của tập huấn luyện, trong khi phần gpt_aug phải sinh bằng bộ prompt riêng (hợp đồng 2 §1, "
+                          f"datagen/prompts_eval/README.md)")
 
     tools, _perms = audit.load_catalogue(args)
     catalogue = set(tools)
@@ -104,6 +117,9 @@ def main():
         has_file = f.is_file() and f.read_text(encoding="utf-8").strip()
         if not has_file and cat not in cfg.CATEGORY_HINTS:
             warns.append(f"category {cat!r} không có CATEGORY_HINTS và không có {f.name}: model chỉ nhận tên {cat!r}")
+        elif not has_file and eval_mode and runs_generate:
+            warns.append(f"category {cat!r}: không có {f.name} trong {prompt_dir} nên generate dùng CATEGORY_HINTS "
+                         f"của tập huấn luyện")
 
     # ── PARAM_SAMPLER (train/pilot generation steers each query with it) ─────
     for tool, fn in cfg.PARAM_SAMPLER.items():
@@ -174,6 +190,7 @@ def main():
     else:
         est["verify"] = math.ceil(rows * REVIEW_SHARE) * n_label
         est["irrelevance"] = sum(math.ceil(max(1, round(args.irrel_count * f)) / IRREL_BATCH) for f in kinds.values())
+    est = {k: v for k, v in est.items() if stages is None or k in stages}   # only the stages that run
     infos.append(f"plan {plan_name}: {len(buckets)} bucket, {rows} hàng (scale={args.scale}, "
                  f"max_total={args.max_total or '-'}); ước tính ≈ {sum(est.values())} lần gọi LLM {est}")
 

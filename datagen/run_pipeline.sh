@@ -120,7 +120,7 @@ has_stage verify && [ "$VERIFY_MODE" != offline ] && NEEDS_KEY=1
 
 # ── preflight (offline): config + prompt dir checked before any LLM call ─────
 if [ "$CHECK_ONLY" = 1 ] || [ "$NEEDS_KEY" = 1 ]; then
-  "$PY" datagen/preflight.py --mode "$MODE" --prompt-dir "$PROMPT_DIR" --scale "$SCALE" \
+  "$PY" datagen/preflight.py --mode "$MODE" --prompt-dir "$PROMPT_DIR" --scale "$SCALE" --stages "$STAGES" \
       --max-total "$MAX_TOTAL" --irrel-count "$IRREL_COUNT" || { echo "LỖI: preflight thất bại (xem ERROR ở trên)" >&2; exit 2; }
   [ "$CHECK_ONLY" = 1 ] && exit 0
 fi
@@ -263,9 +263,14 @@ fi
 
 # ── STAGE 6b (eval-aug): contract-2 eval records for the Data team to review ─
 if has_stage export; then
-  SRC="$POLISHED"; [ -s "$SRC" ] || SRC="$LABELED"
+  SRC="$POLISHED"; XFLAG=""
+  if [ ! -s "$SRC" ]; then   # contract 2: alternates come from the arbiter; unpolished rows are flagged
+    SRC="$LABELED"; XFLAG="--unpolished"
+    echo "  WARN: chưa có $POLISHED — xuất từ $LABELED (chưa qua arbiter), mọi bản ghi gắn _needs_review" >&2
+  fi
   stage "STAGE 6b export $SRC -> $EXPORT"
-  run datagen/export_eval_aug.py --input "$SRC" --output "$EXPORT" || exit 19
+  # shellcheck disable=SC2086
+  run datagen/export_eval_aug.py --input "$SRC" --output "$EXPORT" $XFLAG || exit 19
 fi
 
 # ── STAGE 7: alignment audit against the current catalogue ───────────────────

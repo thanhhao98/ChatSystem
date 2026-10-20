@@ -6,8 +6,10 @@ LABEL_MODELS and lets ARBITER_MODEL (≠ the GPT under test) fix labels + altern
 cases into records shaped like data/sgod/eval_human_core.jsonl (docs/contracts/eval_metric.md §1):
   - user_role in the chat-role vocabulary (ROLE_MAP: "admin" -> "company_admin");
   - source = "gpt_aug"; expected_tool_alternates is always a list;
-  - denied rows keep the BLOCKED tool as expected_tool (contract 3 §6, like the human core) — the labeler
-    stored it in `_blocked_tool` because the training format needs null there;
+  - denied rows keep the BLOCKED tool as expected_tool (contract 3 §6, like the human core): the case's own
+    expected_tool when the labeler kept it there (with the params the query states), else `_blocked_tool`
+    (cases written with expected_tool=null); every record is checked against the rule "denied iff
+    tool_policy.json[expected_tool].roles lacks user_role";
   - category by the rule used for the human core: null -> out_of_scope, denied -> permission_denial,
     ≥ 2 expected_params keys -> multi_constraint, else single_tool (generation category kept in _gen_category);
   - the offline gates of verify_trainset (stage A/B) run on every row; findings go to `_issues`.
@@ -45,6 +47,8 @@ def main():
     p.add_argument("--input", default=f"{cfg.DATA_DIR}/eval_aug_polished.json",
                    help="eval_aug_polished.json (or eval_aug_labeled.json when polish was skipped)")
     p.add_argument("--output", default=f"{cfg.DATA_DIR}/eval_aug.json")
+    p.add_argument("--unpolished", action="store_true",
+                   help="input never went through polish (arbiter): flag every record _needs_review")
     audit.add_catalogue_args(p)
     args = p.parse_args()
 
@@ -54,7 +58,7 @@ def main():
     cases = json.loads(cfg.repo_path(args.input).read_text(encoding="utf-8"))
     out = []
     for tc in cases:
-        issues = vt.stage_a_format(tc, valid, perms) or vt.stage_b_schema(tc, tools, perms, meta)
+        issues = list(vt.stage_a_format(tc, valid, perms) or vt.stage_b_schema(tc, tools, perms, meta))
         role = tc.get("user_role", "employee")
         rec = {"id": str(tc.get("id")), "category": "", "user_role": cfg.ROLE_MAP.get(role, role),
                "input": tc.get("input", ""), "expected_tool": tc.get("expected_tool"),
@@ -63,16 +67,26 @@ def main():
                "expected_tool_alternates": sorted(tc.get("expected_tool_alternates") or []),
                "source": "gpt_aug"}
         if rec["expected_permission"] == "denied":
-            if tc.get("_blocked_tool"):
-                rec["expected_tool"], rec["expected_params"] = tc["_blocked_tool"], {}
-            else:
-                issues = list(issues) + ["denied without _blocked_tool: expected_tool must name the blocked tool"]
+            rec["expected_tool_alternates"] = []   # step 1 of the ladder ignores names
+            if not rec["expected_tool"]:           # label written as null + _blocked_tool: no params kept
+                rec["expected_tool"], rec["expected_params"] = tc.get("_blocked_tool"), {}
+            et = rec["expected_tool"]
+            if not et:
+                issues.append("denied without a tool: expected_tool must name the blocked tool (contract 3 §6)")
+            elif et in valid and audit.role_allows(rec["user_role"], et, perms):   # allowed rows: stage A
+                issues.append(f"denied but {rec['user_role']} may call {et} (contract 3 §6)")
+        if tc.get("_polish_error"):
+            issues.append("arbiter (polish) failed on this row: label from the labelers only")
+        if args.unpolished:
+            issues.append("not polished: label from the labelers only (no arbiter)")
         rec["category"] = category_for(rec)
         if tc.get("category"):
             rec["_gen_category"] = tc["category"]
         for k in KEEP_PRIVATE:
             if k in tc:
                 rec[k] = tc[k]
+        if args.unpolished or tc.get("_polish_error"):
+            rec["_needs_review"] = True
         if issues:
             rec["_issues"] = issues
         out.append(rec)
