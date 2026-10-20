@@ -100,7 +100,7 @@ Lộ trình đầy đủ (Việc 1–5, Đầu ra cuối kỳ, epic S, ba Điể
 README.md · HUONG_DAN_LAM_VIEC.md · CHANGELOG.md · NOTICE.md · .env.example · requirements.txt · requirements-train.txt
 docs/
   contracts/         cli.md · training_row_format.md · eval_metric.md · roles.md (epic S, 09-27)
-  architecture.md · roadmap.md · serving.md · personas_sgod.md (stub, epic S 09-27)
+  architecture.md · roadmap.md · serving.md · personas_sgod.md (epic S, chốt 10-21)
   sgod-api-reference.md (spec, bí mật đã thay placeholder) · sgod/ (openapi-*.json, query_params.md — S Việc 1)
   onboarding_slides.pdf · reports/ (D_final.md, F_final.md)
 prompts/             system_preamble_v0.txt (đóng băng) · system_preamble_v1.txt (09-27) · fixed_replies.json
