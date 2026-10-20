@@ -25,16 +25,22 @@ tool_policy.json allows and >= 1 correct refusal for a role it does not allow. T
   * writes a Vietnamese Markdown report (default docs/sgod/tools_v1_live_check.md).
 
 READ-ONLY: every request is checked before it is sent — tool calls must be GET; the only POSTs allowed are login
-(POST /sgod-auth/v1/<tier>/sessions) and session refresh (POST /sgod-auth/v1/sessions/refresh).
+(POST /sgod-auth/v1/<tier>/sessions) and session refresh (POST /sgod-auth/v1/sessions/refresh). Redirects are never
+followed (urllib would resend x-api-key / Authorization to the host named by Location): a 30x is recorded as is.
 
 Credentials come ONLY from the environment (names as .env.example); they are never printed or written:
   SGOD_BASE_URL, SGOD_AUTH_API_KEY, SGOD_ASSET_API_KEY, SGOD_CHAT_API_KEY      (required)
   SGOD_ENTERPRISE_EMAIL, SGOD_ENTERPRISE_PASSWORD                             (required: company_admin)
   SGOD_EUSER_EMAIL, SGOD_EUSER_PASSWORD                                       (optional: employee)
-The report and the console lines go through the capture_fixtures.py Masker: known secrets (API keys, passwords,
-login e-mails, tokens) become <redacted>, the gateway address becomes <SGOD_GATEWAY>, and Masker.leaks then refuses
-to write anything that still holds an e-mail, a phone number, a JWT, an IP or the gateway (nothing is written, exit 2).
-Query values (search words, ids, cursors) stay in memory; only query keys are recorded.
+SGOD_BASE_URL must be http(s)://<host>[:port]; CR/LF left by a CRLF .env is stripped from every value.
+Output guard, three layers: (1) the report and the API-derived console lines go through the capture_fixtures.py
+Masker (known secrets — API keys, passwords, login e-mails, tokens — become <redacted>, the gateway address
+<SGOD_GATEWAY>) and scrub_text (URLs, JWT pieces, host:port, internal host names, e-mails, IPv4, VN phones);
+(2) during a live run sys.stdout / sys.stderr are line-filtered by scrub_text, and every transport or unexpected
+exception is reported by type name and code location only, never by its message (it may hold the URL or a header
+value); (3) Masker.leaks then refuses to write a report that still holds an e-mail, a phone number, a JWT, an IP or
+the gateway (nothing is written, exit 2). Query values (search words, ids, cursors) stay in memory; only query keys
+are recorded.
 
 Usage:
   python tools/sgod/verify_tools_live.py --dry-run                 # plan + offline audit: no env, no network
@@ -42,19 +48,25 @@ Usage:
   python tools/sgod/verify_tools_live.py [--out docs/sgod/tools_v1_live_check.md] [--limit 5]
 
 Exit: 0 = every call for an allowed role passed and the offline audit is clean; 1 = at least one failure (the
-report is still written); 2 = refused to run (missing env, failed company_admin login, read-only or leak guard).
+report is still written); 2 = refused to run or aborted (missing / malformed env, failed company_admin login,
+read-only or leak guard, unexpected error); nothing is written.
 """
 from __future__ import annotations
 
 import argparse
 import datetime as dt
 import hashlib
+import io
+import json
 import os
 import re
 import subprocess
 import sys
 import time
+import traceback
+import urllib.error
 import urllib.parse
+import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -97,8 +109,99 @@ KIND_VI = {"not_found": "không tìm thấy", "route_missing": "route không t�
            "unauthorized": "401", "forbidden": "403", "server_error": "lỗi server", "error": "lỗi"}
 
 
+# Generic redaction under the Masker guard (same e-mail / IPv4 / phone / JWT patterns as Masker.leaks).
+EMAIL_RE = re.compile(r"[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,}")
+IPV4_RE = re.compile(r"\b\d{1,3}(?:\.\d{1,3}){3}\b")
+VN_PHONE_RE = re.compile(r"(?:\+84|\b0)[35789]\d{8}\b")
+JWTISH_RE = re.compile(r"eyJ[\w-]{6,}(?:\.[\w-]*)*")  # a JWT or any piece of one (a truncated echo keeps no 2nd dot)
+URL_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9+.-]*://[^\s'\"<>]*")
+HOSTPORT_RE = re.compile(r"\b[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+:\d{2,5}\b")
+INTERNAL_HOST_RE = re.compile(r"\b[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.(?:internal|local|lan|corp|intra|svc|private)\b")
+
+
 class ReadOnlyViolation(RuntimeError):
     """A request that is neither a GET nor an allowed login / refresh POST. It is never sent."""
+
+
+def scrub_text(s: str, secrets=(), hosts=()) -> str:
+    """Replace known secret values, the gateway address, URLs, JWT pieces, host:port pairs, internal host names,
+    e-mails (except the @example.com fakes), IPv4 addresses (except the capture_fixtures "ip" fakes) and VN phones."""
+    for sec in sorted({x for x in secrets if isinstance(x, str) and x}, key=len, reverse=True):
+        s = s.replace(sec, "<redacted>")
+    for h in sorted({x for x in hosts if isinstance(x, str) and x}, key=len, reverse=True):
+        s = s.replace(h, "<SGOD_GATEWAY>")
+    s = URL_RE.sub("<url>", s)
+    s = JWTISH_RE.sub("<redacted-token>", s)
+    s = EMAIL_RE.sub(lambda m: m.group(0) if m.group(0).endswith("@example.com") else "<email>", s)
+    s = HOSTPORT_RE.sub("<host:port>", s)
+    s = INTERNAL_HOST_RE.sub("<host>", s)
+    s = IPV4_RE.sub(lambda m: m.group(0) if m.group(0).startswith("203.0.113.") else "<ip>", s)
+    return VN_PHONE_RE.sub("<phone>", s)
+
+
+class RedactingStream(io.TextIOBase):
+    """Line-buffered stand-in for sys.stdout / sys.stderr during a live run: every line passes through `scrub`
+    before it reaches the terminal, so print()s, warnings and tracebacks alike never show a secret or the gateway."""
+
+    def __init__(self, inner, scrub) -> None:
+        super().__init__()
+        self._inner, self._scrub, self._buf = inner, scrub, ""
+
+    @property
+    def encoding(self):
+        return getattr(self._inner, "encoding", "utf-8")
+
+    def writable(self) -> bool:
+        return True
+
+    def isatty(self) -> bool:
+        return self._inner.isatty()
+
+    def write(self, s: str) -> int:
+        self._buf += s
+        *lines, self._buf = self._buf.split("\n")
+        for line in lines:
+            self._inner.write(self._scrub(line) + "\n")
+        return len(s)
+
+    def flush(self) -> None:  # a partial line stays buffered: a value is never split across two scrub calls
+        self._inner.flush()
+
+    def drain(self) -> None:
+        if self._buf:
+            self._inner.write(self._scrub(self._buf) + "\n")
+            self._buf = ""
+        self._inner.flush()
+
+
+def valid_base_url(base: str) -> bool:
+    try:
+        u = urllib.parse.urlsplit(base)
+        return (u.scheme in ("http", "https") and bool(u.hostname) and u.username is None
+                and (u.port is None or u.port > 0) and not u.query and not u.fragment)
+    except ValueError:  # e.g. a non-numeric port
+        return False
+
+
+def gateway_hosts(base: str) -> list[str]:
+    """Every spelling of the gateway address that may show up in text (URL, host:port, bare host), longest first."""
+    u = urllib.parse.urlsplit(base)
+    hosts = {base, u.netloc, u.hostname or ""}
+    if u.hostname and u.port:
+        hosts.add(f"{u.hostname}:{u.port}")
+    return sorted((h for h in hosts if h), key=len, reverse=True)
+
+
+def where(e: BaseException) -> str:
+    """Code location of an exception — innermost frame, plus the deepest frame in tools/sgod/ when that differs —
+    never its message (it may hold a URL or a value). No "file:line" form: scrub_text would read it as host:port."""
+    frames = traceback.extract_tb(e.__traceback__)
+    if not frames:
+        return "?"
+    fmt = lambda f: f"{os.path.basename(f.filename)} dòng {f.lineno} ({f.name})"  # noqa: E731
+    here = Path(__file__).resolve().parent
+    own = [f for f in frames if Path(f.filename).resolve().parent == here]
+    return fmt(frames[-1]) + (f" ← {fmt(own[-1])}" if own and own[-1] is not frames[-1] else "")
 
 
 # ── catalogue helpers (shared by --dry-run and the live run) ──────────────────────────────────────────────
@@ -327,7 +430,8 @@ def pick_match(items, ref: str):
 
 
 def api_text(body: dict) -> str:
-    """error / message of an envelope on one line, without query strings or ObjectIds, at most 140 chars."""
+    """error / message of an envelope on one line, without query strings, ObjectIds, URLs, host names, e-mails, IPs,
+    phones or JWT pieces (scrubbed BEFORE the cut, so a truncated value cannot slip through), at most 140 chars."""
     parts = []
     for k in ("error", "message"):
         v = body.get(k)
@@ -338,7 +442,7 @@ def api_text(body: dict) -> str:
     s = " | ".join(dict.fromkeys(parts))
     s = re.sub(r"\?\S*", "", s)
     s = re.sub(r"\b[0-9a-f]{24}\b", "<id>", s)
-    return " ".join(s.split())[:140]
+    return " ".join(scrub_text(s).split())[:140]
 
 
 def classify(status, body, err) -> tuple[str, str]:
@@ -372,14 +476,28 @@ def qv(v):
 
 
 # ── live run ──────────────────────────────────────────────────────────────────────────────────────────────
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Hand a 30x back as the response instead of following it: urllib would resend x-api-key and Authorization to
+    whatever host the Location header names."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
 class ReadOnlyGateway(cf.Gateway):
-    """capture_fixtures.Gateway that refuses, before sending, anything but GET and the login / refresh POSTs."""
+    """capture_fixtures.Gateway hardened for a run whose output is published: refuses, before sending, anything but
+    GET and the login / refresh POSTs; never follows a redirect; strips CR/LF and blanks around SGOD_BASE_URL and the
+    API keys (a CRLF .env would make http.client raise an error whose message holds the header value); reduces every
+    transport exception to its type name (a message may hold the URL or a header value)."""
     device_id = DEVICE_ID
 
     def __init__(self, tiers) -> None:
         super().__init__()
+        self.base = self.base.strip().rstrip("/")
+        self.keys = {k: v.strip() for k, v in self.keys.items()}
         self.allowed_posts = {f"/sgod-auth/v1/{t}/sessions" for t in tiers} | {REFRESH_PATH}
         self.counts = {"GET": 0, "login": 0, "refresh": 0}
+        self._opener = urllib.request.build_opener(_NoRedirect())
 
     def call(self, method, path, query=None, token=None, body=None):
         if method == "GET" and body is None:
@@ -389,7 +507,33 @@ class ReadOnlyGateway(cf.Gateway):
         else:
             raise ReadOnlyViolation(f"{method} {path}: only GET tool calls and the login / session-refresh POSTs "
                                     f"are allowed")
-        return super().call(method, path, query, token, body)
+        try:
+            return self._send(method, path, query, token, body)
+        except Exception as e:  # noqa: BLE001 — type name only, never str(e)
+            return None, None, f"network error: {type(e).__name__}"
+
+    def _send(self, method, path, query, token, body):
+        """capture_fixtures.Gateway.call, through this gateway's own opener (no redirect handling)."""
+        url = self.base + path + (("?" + urllib.parse.urlencode(query)) if query else "")
+        headers = {"Accept": "application/json", "x-api-key": self.key_for(path), "x-device-id": self.device_id}
+        if token:
+            headers["Authorization"] = "Bearer " + token
+        data = None
+        if body is not None:
+            data = json.dumps(body).encode()
+            headers["Content-Type"] = "application/json"
+        req = urllib.request.Request(url, data=data, headers=headers, method=method)
+        try:
+            with self._opener.open(req, timeout=30) as r:
+                status, raw = r.status, r.read()
+        except urllib.error.HTTPError as e:  # 4xx / 5xx still carry the gateway envelope; a 30x lands here too
+            status, raw = e.code, e.read()
+        if 300 <= status < 400:
+            return status, None, f"HTTP {status} redirect (not followed)"
+        try:
+            return status, json.loads(raw.decode("utf-8")), None
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return status, None, f"non-JSON body ({len(raw)} B)"
 
 
 def safe_print(masker, line: str) -> None:
@@ -412,7 +556,7 @@ class Session:
         if why:
             return why
         self.token, self.refresh_token = access, refresh
-        self.masker.secrets += [s for s in (access, refresh) if s]
+        self.masker.secrets += [s for s in (access, refresh) if isinstance(s, str) and s]
         return None
 
     def _near_expiry(self) -> bool:
@@ -426,7 +570,7 @@ class Session:
             if isinstance(body, dict) and body.get("success") and isinstance(data, dict) and data.get("accessToken"):
                 self.token = data["accessToken"]
                 self.refresh_token = data.get("refreshToken") or self.refresh_token
-                self.masker.secrets += [s for s in (self.token, self.refresh_token) if s]
+                self.masker.secrets += [s for s in (self.token, self.refresh_token) if isinstance(s, str) and s]
                 return True
         return self.login() is None
 
@@ -481,8 +625,10 @@ class Runner:
         masked = self.sess.masker.mask(body) if body is not None else None  # also teaches the masker every PII value
         kind, text = classify(status, masked, err)
         row.http = status
-        if isinstance(body, dict):
-            row.success, row.status_code = body.get("success"), body.get("statusCode")
+        if isinstance(body, dict):  # only a bool / a 3-digit code is echoed: these land in the report and the console
+            s, sc = body.get("success"), body.get("statusCode")
+            row.success = s if s is None or isinstance(s, bool) else "?"
+            row.status_code = int(sc) if re.fullmatch(r"\d{3}", str(sc)) else (None if sc is None else "?")
         data = body.get("data") if isinstance(body, dict) else None
         if kind == "ok":
             row.shape, row.fields = describe(data)
@@ -495,7 +641,18 @@ class Runner:
 
     def run(self) -> None:
         for idx in exec_order(self.tools):
-            self.run_tool(idx)
+            try:
+                self.run_tool(idx)
+            except ReadOnlyViolation:
+                raise
+            except Exception as e:  # noqa: BLE001 — one tool's unexpected data must not end the run; never str(e)
+                name = self.tools[idx]["function"]["name"]
+                row = Row(idx, name, self.sess.role, authorize(self.policy, self.sess.role, name), "—",
+                          str(self.tools[idx]["x_sgod"].get("path", "")), [], seq=len(self.rows))
+                row.verdict, row.fail = V_FAIL, True
+                row.note = f"lỗi trong script: {type(e).__name__} tại {where(e)}"
+                self.rows.append(row)
+                print(f"  [{self.sess.role}] {name}: {row.note}", flush=True)
 
     def run_tool(self, idx: int) -> None:  # noqa: C901 — one linear script per tool reads best here
         t = self.tools[idx]
@@ -519,7 +676,8 @@ class Runner:
                 if not src:
                     src_note = "chưa khai báo nguồn id → gọi bằng ObjectId không tồn tại"
                 elif (src_entry or {}).get("ok"):
-                    src_note = f"nguồn rỗng ({src[0]} không có mục) → gọi bằng ObjectId hợp lệ không tồn tại"
+                    src_note = (f"mục đầu {src[0]} thiếu trường `{src[1]}`" if isinstance(first, dict)
+                                else f"nguồn rỗng ({src[0]} không có mục)") + " → gọi bằng ObjectId hợp lệ không tồn tại"
                 else:
                     src_note = f"nguồn không dùng được ({src[0]} lỗi) → gọi bằng ObjectId hợp lệ không tồn tại"
             else:
@@ -570,12 +728,13 @@ class Runner:
                 elif probe:
                     if kind == "route_missing":
                         row.verdict, row.fail = V_MISSING, True
-                    elif kind in ("server_error", "error"):
-                        row.verdict, row.fail = V_FAIL, True
-                    else:
+                    elif kind in ("not_found", "ok"):
                         row.verdict = V_NODATA
                         if kind == "ok":
                             notes.append("success:true với id không tồn tại")
+                    else:  # 400 / 401 / 403 / 5xx / no envelope: the route answered, but not with "not found"
+                        row.verdict, row.fail = V_FAIL, True
+                        notes.append(f"id không tồn tại nhưng API không trả 'không tìm thấy' ({KIND_VI.get(kind, kind)})")
                 elif kind == "ok":
                     row.verdict, row.real_success = V_OK, True
                 elif kind == "route_missing":
@@ -1006,10 +1165,39 @@ def print_plan(tools: list, policy: dict, roles_doc: dict, a: dict, limit: int, 
 
 
 def run_live(args, tools: list, policy: dict, roles_doc: dict, a: dict, paths: dict) -> int:
-    missing = [n for n in REQUIRED_ENV if not os.environ.get(n)]
+    """Checks the environment, then runs _run_live behind the output guard: sys.stdout / sys.stderr are line-filtered
+    by scrub_text, and an unexpected exception is reported by type and code location only (exit 2)."""
+    missing = [n for n in REQUIRED_ENV if not (os.environ.get(n) or "").strip()]
     if missing:
         print(f"verify_tools_live: thiếu biến môi trường {', '.join(missing)} (xem .env.example) — không chạy")
         return 2
+    base = os.environ["SGOD_BASE_URL"].strip().rstrip("/")
+    if not valid_base_url(base):
+        print("verify_tools_live: SGOD_BASE_URL phải có dạng http(s)://<host>[:port] (giá trị không in ra) — không chạy")
+        return 2
+    raw = [os.environ.get(n) or "" for n in REQUIRED_ENV[1:] + OPTIONAL_ENV]  # API keys, e-mails, passwords
+    masker = cf.Masker(raw + [v.strip() for v in raw], "")  # login tokens are appended to masker.secrets later
+    masker.hosts = gateway_hosts(base)  # longest first: "host:port" before the bare host (no stray ":port" left)
+    real_out, real_err = sys.stdout, sys.stderr
+    scrub = lambda t: scrub_text(t, masker.secrets, masker.hosts)  # noqa: E731 — reads the live lists
+    sys.stdout, sys.stderr = RedactingStream(real_out, scrub), RedactingStream(real_err, scrub)
+    try:
+        return _run_live(args, tools, policy, roles_doc, a, paths, masker)
+    except KeyboardInterrupt:
+        print("verify_tools_live: dừng (Ctrl-C)", file=sys.stderr)
+        return 130
+    except BaseException as e:  # noqa: BLE001 — type + code location only: the message may hold a URL or a value
+        print(f"verify_tools_live: ABORT — lỗi {type(e).__name__} tại {where(e)} (thông điệp lỗi không in ra)",
+              file=sys.stderr)
+        return 2
+    finally:
+        for s in (sys.stdout, sys.stderr):
+            if isinstance(s, RedactingStream):
+                s.drain()
+        sys.stdout, sys.stderr = real_out, real_err
+
+
+def _run_live(args, tools: list, policy: dict, roles_doc: dict, a: dict, paths: dict, masker) -> int:
     try:
         for t in tools:
             require_get(t["function"]["name"], t["x_sgod"])
@@ -1019,10 +1207,6 @@ def run_live(args, tools: list, policy: dict, roles_doc: dict, a: dict, paths: d
     tiers = list((roles_doc.get("tiers") or {}).keys())
     login_eps = roles_doc.get("login_endpoints") or {}
     gw = ReadOnlyGateway(tiers)
-    host = urllib.parse.urlparse(gw.base).netloc
-    secrets = list(gw.keys.values()) + [os.environ.get(n) for n in REQUIRED_ENV[4:] + OPTIONAL_ENV]
-    masker = cf.Masker(secrets, host)
-    masker.hosts.sort(key=len, reverse=True)  # replace "host:port" before the bare host (no stray ":port" left)
 
     rows, caches, accounts, role_order = [], {}, [], []
     employee_absent, exit_code = "", 0
@@ -1031,7 +1215,8 @@ def run_live(args, tools: list, policy: dict, roles_doc: dict, a: dict, paths: d
             print(f"verify_tools_live: roles.json tiers[{tier!r}] != {role!r} — không chạy")
             return 2
         ep = login_eps.get(tier, f"POST /sgod-auth/v1/{tier}/sessions")
-        email, password = os.environ.get(e_env), os.environ.get(p_env)
+        # a CRLF .env leaves "\r" on every value; a password keeps any other blank it may have on purpose
+        email, password = (os.environ.get(e_env) or "").strip(), (os.environ.get(p_env) or "").strip("\r\n")
         if not (email and password):
             employee_absent = (f"hạ tầng tham chiếu chưa có tài khoản thử tầng `{tier}` (`{e_env}` / `{p_env}` không "
                                f"đặt). Từ chối cho `{role}` do `tool_policy.json` bảo đảm bằng mã: Layer 1 — danh sách "
@@ -1085,6 +1270,7 @@ def run_live(args, tools: list, policy: dict, roles_doc: dict, a: dict, paths: d
            "accounts": accounts, "counts": gw.counts, "limit": args.limit, "employee_absent": employee_absent,
            "scope": scope}
     text, api_texts = render_report(ctx)
+    text = scrub_text(text, masker.secrets, masker.hosts)  # placeholders for anything the per-field masking missed
     fails = guard(masker, text, api_texts)
     if fails:
         print(f"verify_tools_live: ABORT — kiểm tra rò rỉ thất bại {fails}; không ghi báo cáo")
