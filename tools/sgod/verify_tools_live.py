@@ -831,7 +831,7 @@ class Runner:
                 else:
                     row.verdict = V_INFO
                     row.note = (f"id trong asset.locations của get_asset KHÔNG tra được bằng get_location "
-                                f"({KIND_VI.get(kind, kind)}) — mô tả tool gợi ý lấy id từ get_asset")
+                                f"({KIND_VI.get(kind, kind)}) — mô tả get_location không được gợi ý lấy id từ get_asset")
 
 
 def filter_note(kind: str, param: str, value, items, base_ids: list) -> tuple[bool, str]:
@@ -1000,7 +1000,7 @@ def render_report(ctx: dict) -> tuple[str, list[str]]:
     L += ["", "Lượt gọi: **chính** = gọi đúng như executor gọi tool (tool danh sách: `limit`); **resolve** = bước tra "
           "ref → id của `x_sgod.resolve`; **<tham số>=…** = một tham số lọc tuỳ chọn của tool (từ khoá tìm lấy từ mục "
           "đầu của lượt chính, giá trị enum ưu tiên giá trị có trong dữ liệu); **cursor** = trang 2 bằng `nextCursor` "
-          "của lượt chính; **id từ get_asset** = kiểm tra thêm gợi ý trong mô tả `get_location`.",
+          "của lượt chính; **id từ get_asset** = kiểm tra thêm: id trong `asset.locations` có dùng được cho `get_location` không.",
           "",
           f"Kết luận: **{V_OK}** = `success:true` trên dữ liệu thật · **{V_WARN}** = `success:true` nhưng có dấu hiệu "
           f"API bỏ qua tham số hoặc thiếu cursor (xem ghi chú) · **{V_NODATA}** = nguồn rỗng nên gọi bằng ObjectId hợp "
