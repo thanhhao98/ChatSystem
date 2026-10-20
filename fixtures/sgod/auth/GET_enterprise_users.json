@@ -109,64 +109,10 @@
         "isRemoved": false,
         "isBlocked": false,
         "isRevokedWallet": false
-      },
-      {
-        "id": "6a85d275934a8bdc16de4546",
-        "email": "user06@example.com",
-        "userName": "user06",
-        "fullName": {
-          "firstName": "Test06",
-          "lastName": "Nguyễn"
-        },
-        "phone": "+84000000006",
-        "phoneNumber": "+84000000006",
-        "avatarUrl": "",
-        "logoUrl": "",
-        "status": "Active",
-        "roles": [
-          "6a85bad6a8d2133e058c93ab",
-          "6a85bf1ca8d2133e058c93bd"
-        ],
-        "departmentId": "",
-        "positionId": "",
-        "bossId": "",
-        "belong": "Subenterprise",
-        "tenantId": "6a85bad6a8d2133e058c93a9",
-        "gender": "Other",
-        "isRemoved": false,
-        "isBlocked": false,
-        "isRevokedWallet": false
-      },
-      {
-        "id": "6a85d302934a8bdc16de454a",
-        "email": "user07@example.com",
-        "userName": "user07",
-        "fullName": {
-          "firstName": "Test06",
-          "lastName": "Nguyễn"
-        },
-        "phone": "+84000000006",
-        "phoneNumber": "+84000000006",
-        "avatarUrl": "",
-        "logoUrl": "",
-        "status": "Active",
-        "roles": [
-          "6a85bad6a8d2133e058c93ab",
-          "6a85bf1ca8d2133e058c93bd"
-        ],
-        "departmentId": "",
-        "positionId": "",
-        "bossId": "",
-        "belong": "Subenterprise",
-        "tenantId": "6a85bad6a8d2133e058c93a9",
-        "gender": "Other",
-        "isRemoved": false,
-        "isBlocked": false,
-        "isRevokedWallet": false
       }
     ],
-    "total": "6"
+    "total": "4"
   },
   "message": "Enterprise users retrieved successfully",
-  "timestamp": "2026-10-14T01:57:49.267Z"
+  "timestamp": "2026-10-20T20:59:02.383Z"
 }

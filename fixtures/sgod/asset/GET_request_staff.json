@@ -3,6 +3,58 @@
   "data": {
     "items": [
       {
+        "images": [],
+        "files": [],
+        "id": "6ad615353b0f8e12e2f19111",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ad615353b0f8e12e2f190c1",
+        "requesterId": "6a85c01ba8d2133e058c93c1",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ad615353b0f8e12e2f190e3",
+        "subjectId": "6ad615353b0f8e12e2f1910e",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "pending",
+        "statusChange": "completed",
+        "statusOrigin": "processing",
+        "quantity": 1,
+        "description": "Đã thay drum, in thử đạt",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1792378800",
+        "timeEnd": "0",
+        "approvalContent": "",
+        "qrCode": "",
+        "createdAt": "1792378800",
+        "updatedAt": "1792378800"
+      },
+      {
+        "images": [],
+        "files": [],
+        "id": "6ad615353b0f8e12e2f19110",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ad615353b0f8e12e2f190c1",
+        "requesterId": "6a85c01ba8d2133e058c93c1",
+        "approverId": "6a85bad6a8d2133e058c93a9",
+        "assetStatusId": "6ad615353b0f8e12e2f190e3",
+        "subjectId": "6ad615353b0f8e12e2f1910e",
+        "subjectKind": "maintenance_task",
+        "typeRequest": "change-status-maintenance",
+        "statusRequest": "confirm",
+        "statusChange": "processing",
+        "statusOrigin": "scheduled",
+        "quantity": 1,
+        "description": "Bắt đầu thay drum",
+        "locationId": "",
+        "previousLocationId": "",
+        "timeStart": "1792224000",
+        "timeEnd": "0",
+        "approvalContent": "OK",
+        "qrCode": "02526aa8-5130-4d24-b623-5d9277769eb4",
+        "createdAt": "1792224000",
+        "updatedAt": "1792227600"
+      },
+      {
         "images": [
           "smoke/test.png"
         ],
@@ -241,74 +293,14 @@
         "qrCode": "",
         "createdAt": "1791606300",
         "updatedAt": "1791606300"
-      },
-      {
-        "images": [
-          "smoke/test.png"
-        ],
-        "files": [
-          "smoke/test.pdf"
-        ],
-        "id": "6ac9be1b27541dacd0a77e16",
-        "enterpriseId": "6a85bad6a8d2133e058c93a9",
-        "assetId": "6ac9be0f27541dacd0a77d73",
-        "requesterId": "6a85be56a8d2133e058c93b9",
-        "approverId": "6a85bad6a8d2133e058c93a9",
-        "assetStatusId": "6ac9be1927541dacd0a77dfb",
-        "subjectId": "6ac9be1a27541dacd0a77e0b",
-        "subjectKind": "maintenance_task",
-        "typeRequest": "change-status-maintenance",
-        "statusRequest": "confirm",
-        "statusChange": "processing",
-        "statusOrigin": "scheduled",
-        "quantity": 6,
-        "description": "smoke → processing",
-        "locationId": "",
-        "previousLocationId": "",
-        "timeStart": "1791606299",
-        "timeEnd": "0",
-        "approvalContent": "ok",
-        "qrCode": "ab77801d-88d4-4762-91f7-2049786564f1",
-        "createdAt": "1791606299",
-        "updatedAt": "1791606299"
-      },
-      {
-        "images": [
-          "smoke/test.png"
-        ],
-        "files": [
-          "smoke/test.pdf"
-        ],
-        "id": "6ac9bdea27541dacd0a77d17",
-        "enterpriseId": "6a85bad6a8d2133e058c93a9",
-        "assetId": "6ac9bde227541dacd0a77ca6",
-        "requesterId": "6a85be56a8d2133e058c93b9",
-        "approverId": "6a85bad6a8d2133e058c93a9",
-        "assetStatusId": "6ac9bde827541dacd0a77cee",
-        "subjectId": "6ac9bde827541dacd0a77d01",
-        "subjectKind": "maintenance_task",
-        "typeRequest": "change-status-maintenance",
-        "statusRequest": "cancel",
-        "statusChange": "on-hold",
-        "statusOrigin": "processing",
-        "quantity": 6,
-        "description": "smoke → on-hold",
-        "locationId": "",
-        "previousLocationId": "",
-        "timeStart": "1791606250",
-        "timeEnd": "0",
-        "approvalContent": "Cancelled by requester",
-        "qrCode": "",
-        "createdAt": "1791606250",
-        "updatedAt": "1791606250"
       }
     ],
     "meta": {
-      "nextCursor": "eyJ0cyI6MTc5MTYwNjI1MDY0MCwib2lkIjoiNmFjOWJkZWEyNzU0MWRhY2QwYTc3ZDE3In0",
+      "nextCursor": "eyJ0cyI6MTc5MTYwNjMwMDEyNCwib2lkIjoiNmFjOWJlMWMyNzU0MWRhY2QwYTc3ZTFlIn0",
       "hasNextPage": true,
       "limit": 10
     }
   },
   "message": "OK",
-  "timestamp": "2026-10-14T01:57:52.642Z"
+  "timestamp": "2026-10-20T20:59:06.386Z"
 }

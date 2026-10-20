@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "staffs": [
+          "6a85c01ba8d2133e058c93c1"
+        ],
+        "followers": [
+          "6a85d302934a8bdc16de454a"
+        ],
+        "id": "6ad615353b0f8e12e2f1910e",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "taskTitle": "Thay trống mực (drum)",
+        "startDate": "2026-10-17T09:00:00.000Z",
+        "endDate": "2026-10-24T09:00:00.000Z",
+        "quantity": 1,
+        "description": "",
+        "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d",
+        "status": "processing",
+        "createdAt": "2026-10-14T09:00:00.000Z",
+        "updatedAt": "2026-10-17T09:00:00.000Z"
+      }
+    ],
+    "meta": {
+      "nextCursor": "",
+      "hasNextPage": false,
+      "limit": 10
+    }
+  },
+  "message": "OK",
+  "timestamp": "2026-10-20T20:59:05.307Z"
+}
