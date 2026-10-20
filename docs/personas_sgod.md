@@ -63,10 +63,10 @@ Cách đọc mỗi persona:
   Persona `company_admin` không có câu `denied` trong v1.
 - **Ngoài phạm vi** = câu `expected_tool: null`: yêu cầu ghi (tạo / sửa / xoá / duyệt), dữ liệu không có tool v1 và chủ đề
   ngoài quản lý tài sản (§6).
-- **Ví dụ** (tối đa 2 mỗi persona) viết mới cho tài liệu này, chỉ để minh hoạ văn phong và nhãn; nhãn sau dấu → dành cho
-  người viết prompt đối chiếu, câu sinh ra không bao giờ chứa tên tool hay tham số. Không dán nguyên văn ví dụ vào
-  `datagen/prompts/` hay `datagen/prompts_eval/` làm few-shot: mỗi bộ prompt tự viết ví dụ riêng, để train và eval không
-  xuất phát từ cùng một câu mẫu.
+- **Ví dụ** (tối đa 2 mỗi persona) viết mới cho tài liệu này, chỉ để minh hoạ văn phong và nhãn; nhãn sau dấu → (tool,
+  tham số hoặc `denied`, `category` theo §6) dành cho người viết prompt đối chiếu, câu sinh ra không bao giờ chứa tên tool
+  hay tham số. Không dán nguyên văn ví dụ vào `datagen/prompts/` hay `datagen/prompts_eval/` làm few-shot: mỗi bộ prompt
+  tự viết ví dụ riêng, để train và eval không xuất phát từ cùng một câu mẫu.
 
 ### 2.1 P1 `giam_doc` — Giám đốc doanh nghiệp (chủ tài khoản doanh nghiệp)
 
@@ -85,13 +85,13 @@ Cách đọc mỗi persona:
     `get_enterprise_profile`.
 - **Văn phong:** xưng "tôi" hoặc "anh"; câu mệnh lệnh ngắn ("cho xem", "báo nhanh", "check giúp"), ít kính ngữ; gõ trên
   điện thoại nên hay thiếu dấu và viết tắt `cty`, `ts` (tài sản), `nv` (nhân viên), `bn` (bao nhiêu), `ko`; chen từ tiếng
-  Anh `report`, `check`, `status`.
+  Anh `report`, `check`, `list`.
 - **Hỏi nhưng không được (`denied`):** không có — `company_admin` được mở đủ 22 tool.
 - **Ngoài phạm vi hay gặp (`null`):** yêu cầu ghi — duyệt hoặc từ chối phiếu chuyển giao, khoá tài khoản một nhân viên,
   nhắn tin cho cả nhóm; dữ liệu không có tool v1 — sơ đồ phòng ban, xuất báo cáo tài sản ra Excel; ngoài lĩnh vực — doanh
   thu quý, giá vàng, lịch họp, chào hỏi xã giao.
 - **Ví dụ:**
-  - "Cty mình tổng cộng bn ts, mấy cái là ts quan trọng?" → `get_asset_statistics` `{}` · `single`
+  - "report nhanh tổng ts cty + số cái đã gắn QR" → `get_asset_statistics` `{}` · `single_tool`
   - "co nv nao dang bi khoa ko, list 10 nguoi thoi" → `list_enterprise_users` `{"status": "Blocked", "limit": 10}` ·
     `multi_constraint`
 
@@ -112,15 +112,17 @@ Cách đọc mỗi persona:
   - P2.N5 Tài khoản nhân viên chưa kích hoạt hoặc bị khoá, khi có người báo không đăng nhập được →
     `list_enterprise_users` (`status`, `limit`).
 - **Văn phong:** xưng "mình" hoặc "tôi", lịch sự trung tính ("giúp mình", "nhé"); câu rõ ràng, hay kèm số lượng ("5 cái",
-  "20 dòng") và mã chính xác; dùng từ tiếng Anh `list`, `search`, `filter`, `ID`; ít lỗi chính tả nhưng hay viết tắt `ts`,
+  "20 dòng") và mã chính xác; dùng từ tiếng Anh `list`, `filter`, `ID`, `code`; ít lỗi chính tả nhưng hay viết tắt `ts`,
   `ds` (danh sách), `sl` (số lượng).
 - **Hỏi nhưng không được (`denied`):** không có — `company_admin` được mở đủ 22 tool.
 - **Ngoài phạm vi hay gặp (`null`):** yêu cầu ghi — thêm tài sản mới, đổi tên danh mục, tạo lịch bảo trì, nhập danh sách
   tài sản từ tệp Excel; dữ liệu không có tool v1 — xuất danh sách ra Excel; câu hỏi cách làm — quy trình đăng ký tài sản
   mới, cách in tem mã QR, cách tính khấu hao.
 - **Ví dụ:**
-  - "Tìm giúp mình 5 ts có chữ ZZTEST nhé" → `list_my_assets` `{"search": "ZZTEST", "limit": 5}` · `multi_constraint`
-  - "check lịch sử thay đổi của tài sản 000000003" → `get_asset_histories` `{"asset_ref": "000000003"}` · `single`
+  - "ds ts có mã hoặc tên chứa ZZTEST, mình cần 5 dòng thôi" → `list_my_assets` `{"search": "ZZTEST", "limit": 5}` ·
+    `multi_constraint`
+  - "000000003 đã được chỉnh những gì kể từ khi đăng ký, mình cần rà lại" → `get_asset_histories`
+    `{"asset_ref": "000000003"}` · `single_tool`
 
 ### 2.3 P3 `nhan_vien_van_phong` — Nhân viên văn phòng
 
@@ -143,7 +145,8 @@ Cách đọc mỗi persona:
 - **Ngoài phạm vi hay gặp (`null`):** yêu cầu ghi — báo hỏng laptop, xin cấp thêm màn hình, đổi mật khẩu, cập nhật số điện
   thoại; ngoài lĩnh vực — đơn nghỉ phép, bảng lương, thời tiết, quán ăn trưa; chào hỏi, cảm ơn.
 - **Ví dụ:**
-  - "Cho em hỏi QA Test Laptop hiện đang để ở đâu ạ?" → `get_asset` `{"asset_ref": "QA Test Laptop"}` · `single`
+  - "Dạ hôm qua em mới nhận QA Test Laptop, em muốn kiểm tra trên hệ thống máy đó ghi là đang ở đâu ạ" → `get_asset`
+    `{"asset_ref": "QA Test Laptop"}` · `single_tool`
   - "e xin sđt mấy anh chị cùng cty dc ko ạ" → `list_enterprise_users`, `denied` · `permission_denial`
 
 ### 2.4 P4 `ky_thuat_vien_bao_tri` — Kỹ thuật viên bảo trì
@@ -161,16 +164,16 @@ Cách đọc mỗi persona:
     `get_staff_request_summary`.
   - P4.N5 Lịch sử thay đổi của một tài sản trước khi xử lý → `get_asset_histories` (`asset_ref`).
 - **Văn phong:** ngắn, gần như không xưng hô; hay bỏ dấu và viết tắt `bt` (bảo trì), `cv` (công việc), `ts`, `ko`, `dc`;
-  dùng nguyên từ tiếng Anh của hệ thống `active`, `completed`, `on-hold`, `task`, `done`.
+  gõ nguyên giá trị trạng thái của hệ thống (`active`, `completed`, `on-hold`) và chen từ tiếng Anh `task`, `done`.
 - **Hỏi nhưng không được (`denied`):**
   - thống kê tài sản toàn công ty → `get_asset_statistics`;
-  - các cuộc trò chuyện của tổ bảo trì → `list_my_conversations`.
+  - các nhóm chat mình đang tham gia (vd nhóm của tổ bảo trì) → `list_my_conversations`.
 - **Ngoài phạm vi hay gặp (`null`):** yêu cầu ghi — đánh dấu công việc hoàn thành, chuyển công việc sang `on-hold`, tạo lịch
   bảo trì mới; câu hỏi cách làm và ngoài lĩnh vực — cách sửa máy in kẹt giấy, giá linh kiện, dự báo thời tiết.
 - **Ví dụ:**
   - "lich bt dang active cho xem 10 cai" → `list_maintenance_schedules` `{"status": "active", "limit": 10}` ·
     `multi_constraint`
-  - "Thống kê tổng ts toàn cty giúp với" → `get_asset_statistics`, `denied` · `permission_denial`
+  - "so lieu tong ts ca cty sao roi" → `get_asset_statistics`, `denied` · `permission_denial`
 
 ### 2.5 P5 `thu_kho` — Thủ kho
 
@@ -189,13 +192,14 @@ Cách đọc mỗi persona:
   lượng), `vt` (vị trí), `ts`; thiếu dấu khi vội.
 - **Hỏi nhưng không được (`denied`):**
   - tổng tài sản toàn doanh nghiệp → `get_asset_statistics`;
-  - hồ sơ doanh nghiệp (tên, email đăng ký) → `get_enterprise_profile`.
+  - hồ sơ doanh nghiệp (email, số điện thoại đăng ký của doanh nghiệp) → `get_enterprise_profile`.
 - **Ngoài phạm vi hay gặp (`null`):** yêu cầu ghi — nhập kho, xuất kho, tạo phiếu chuyển giao, xác nhận đã nhận phiếu, thêm
   vị trí kho mới; dữ liệu không có tool v1 — xuất tồn kho ra Excel; câu hỏi cách làm — cách in mã QR.
 - **Ví dụ:**
-  - "Xem chi tiết vị trí 6ac9bec727541dacd0a77f80" → `get_location` `{"location_id": "6ac9bec727541dacd0a77f80"}` · `single`
-  - "phiếu chuyển giao 6ac9c52451e750872e755fad gồm những gì" → `get_asset_transfer`
-    `{"transfer_id": "6ac9c52451e750872e755fad"}` · `single`
+  - "vt 6ac9bd3527541dacd0a77baf: tên kho, sl ts hiện có" → `get_location` `{"location_id": "6ac9bd3527541dacd0a77baf"}` ·
+    `single_tool`
+  - "đối chiếu kiểm kê: phiếu 6ac9be1627541dacd0a77df0 chuyển tài sản gì, số lượng bao nhiêu, đã hoàn tất chưa"
+    → `get_asset_transfer` `{"transfer_id": "6ac9be1627541dacd0a77df0"}` · `single_tool`
 
 ### 2.6 P6 `kinh_doanh_chi_nhanh` — Nhân viên kinh doanh tại chi nhánh
 
@@ -218,8 +222,8 @@ Cách đọc mỗi persona:
 - **Ngoài phạm vi hay gặp (`null`):** yêu cầu ghi — xin cấp tài sản mới, bấm nhận phiếu chuyển giao; ngoài lĩnh vực — doanh
   số tháng, thông tin khách hàng, giờ mở cửa chi nhánh, bóng đá, thời tiết.
 - **Ví dụ:**
-  - "Bên mình đang có bao nhiêu phiếu chuyển giao chờ nhận vậy" → `get_transfer_summary` `{}` · `single`
-  - "minh co tin nhan nao chua doc ko" → `get_unread_counts`, `denied` · `permission_denial`
+  - "pls check giup minh so phieu ban giao dang cho minh nhan nhaaa" → `get_transfer_summary` `{}` · `single_tool`
+  - "inbox cua minh con may tin chua xem v" → `get_unread_counts`, `denied` · `permission_denial`
 
 ### 2.7 P7 `hanh_chinh_don_vi_con` — Nhân viên hành chính – tổng hợp của đơn vị con
 
@@ -244,13 +248,13 @@ Cách đọc mỗi persona:
 - **Ví dụ:**
   - "Vui lòng liệt kê 3 lịch bảo trì đã hoàn thành." → `list_maintenance_schedules`
     `{"status": "completed", "limit": 3}` · `multi_constraint`
-  - "Cho tôi xin hồ sơ doanh nghiệp đang đăng ký trên hệ thống." → `get_enterprise_profile`, `denied` ·
-    `permission_denial`
+  - "Xin cung cấp thông tin liên hệ chính thức của doanh nghiệp (email, điện thoại) để đưa vào báo cáo quý."
+    → `get_enterprise_profile`, `denied` · `permission_denial`
 
 ## 3. Thực thể dùng trong câu hỏi (chỉ từ `fixtures/sgod/`)
 
 - Mọi giá trị dưới đây có trong tệp ghi ở dòng **Nguồn** (đường dẫn tính từ `fixtures/sgod/`). Đây là **toàn bộ** giá trị
-  được phép trong `ENTITY_POOLS` của `datagen/config_sgod.py`. Giá trị mẫu đang có trong config chỉ là chỗ giữ chỗ và phần
+  được phép trong `ENTITY_POOLS` của `datagen/config_sgod.py`. Giá trị mẫu đang có trong config chỉ để giữ chỗ và phần
   lớn không truy được về fixture (dải mã `000000001`…`000000059`, trạng thái `inactive`, `date_phrase`, đa số tên tài sản /
   vị trí / danh mục mẫu): thay bằng các bảng dưới.
 - Doanh nghiệp thử là tenant của môi trường QA (`fixtures/sgod/README.md` §5): tên dạng `ZZTEST-…`, `QA Test …`, có chữ
@@ -294,7 +298,7 @@ Nguồn: `asset/GET_locations.json` (15 vị trí); `ZZTEST-2610100427 Kho B` c�
 | `ZZTEST-2610100424 Kho A` | `6ac9be0d27541dacd0a77d69` | có vị trí con |
 | `ZZTEST-2610100424 Kho A - Tang 1 (sua)` | `6ac9be0d27541dacd0a77d6a` | con của `ZZTEST-2610100424 Kho A`; bí danh `tang mot` |
 | `ZZTEST-2610100424 Kho B` | `6ac9be0d27541dacd0a77d6b` | |
-| `ZZTEST-2610100423 Kho A - Tang 1 (sua)` | `6ac9bde027541dacd0a77c9f` | bí danh `tang mot`; không có vị trí cha trong danh sách |
+| `ZZTEST-2610100423 Kho A - Tang 1 (sua)` | `6ac9bde027541dacd0a77c9f` | bí danh `tang mot`; không có `parentId` |
 | `ZZTEST-2610100423 Kho B` | `6ac9bde027541dacd0a77ca0` | |
 | `ZZTEST-2610100421 Kho A` | `6ac9bd3527541dacd0a77bad` | có vị trí con |
 | `ZZTEST-2610100421 Kho A - Tang 1 (sua)` | `6ac9bd3527541dacd0a77bae` | con của `ZZTEST-2610100421 Kho A`; bí danh `tang mot` |
@@ -405,8 +409,8 @@ Nguồn: `asset/GET_assets.json`, `asset/GET_assets_id.json`; trạng thái `act
 | `status` (trạng thái tài sản / phiên trạng thái) | `active` | `repair`, `not_use`, `broken`, `sold`, `used_up` (`CreateAssetStatusDto`) |
 
 - Tất cả **chỉ ngữ cảnh**: không tool v1 nào lọc theo đơn vị, mức quan trọng, loại hay trạng thái tài sản (`GET /assets`
-  không có bộ lọc trạng thái, `x_sgod.notes` của `list_my_assets`). "Bao nhiêu tài sản quan trọng" ở cấp toàn doanh nghiệp →
-  `get_asset_statistics` (trường `importantAssets`).
+  không có bộ lọc trạng thái, `x_sgod.notes` của `list_my_assets`). Số tài sản quan trọng ở cấp toàn doanh nghiệp →
+  `get_asset_statistics` (trường `importantAssets` theo `x_sgod.notes`; chưa có fixture `GET /assets/summary`).
 
 ### 3.10 Không dùng làm thực thể
 
@@ -417,7 +421,7 @@ Nguồn: `asset/GET_assets.json`, `asset/GET_assets_id.json`; trạng thái `act
   `staffId`…) và ObjectId vai trò (`roles`, `primaryRoleId`): preamble quy tắc 2 cấm truyền mã doanh nghiệp / tenant,
   `roles.md` §4 cấm dựa vào ObjectId vai trò.
 - Mã quyền trong `auth/GET_session_context.json` (`auth:ReadAsset`…) là quyền của tài khoản chủ doanh nghiệp, không phải
-  của `employee`; câu hỏi về quyền viết bằng lời ("tôi có được tạo tài sản không").
+  của `employee`; câu hỏi về quyền viết bằng lời ("mình được phép xoá vị trí kho không").
 - `cursor` (vd `meta.nextCursor` trong `asset/GET_request_staff.json`): câu một lượt không có con trỏ trang (§5.3).
 - Nội dung ca âm trong `negative/` (route đã bỏ hoặc phản hồi lỗi).
 
@@ -476,7 +480,8 @@ Kiểm tra trên bảng:
 
 ### 5.2 Tham số lấy mẫu theo tool (`PARAM_SAMPLER`)
 
-Một mục cho mỗi tool trong `sgod_tools.json`; tên tham số đúng schema; giá trị lấy từ §3 hoặc từ ràng buộc của schema / API.
+Một mục cho mỗi tool trong `sgod_tools.json`; khoá là nhãn tiếng Việt như mục mẫu trong config (vd `số lượng`), mỗi nhãn
+ứng với đúng một tham số của schema; giá trị lấy từ §3 hoặc từ ràng buộc của schema / API.
 `limit` là số nguyên ≥ 1 (schema), tối đa theo API là 100 cho `GET /assets`, `GET /enterprise-users`, `GET /conversations`
 và 500 cho các danh sách còn lại (`docs/sgod/query_params.md`); nên dùng số nhỏ người dùng hay nói (3, 5, 10, 20). Không bao
 giờ lấy mẫu `cursor`.
@@ -505,7 +510,8 @@ giờ lấy mẫu `cursor`.
   `list_maintenance_tasks`): chỉ sinh câu **chứa sẵn id** (§3). Không sinh câu phải tra trước rồi mới gọi được (chi tiết một
   kho nêu bằng tên, công việc bảo trì của một tài sản, chi tiết phiếu chuyển giao của một tài sản): các câu này cần hai lần
   gọi tool.
-- Câu chứa id chỉ nên là phần nhỏ của bucket: người dùng thật ít khi gõ ObjectId; diễn đạt như dán id từ màn hình.
+- Người dùng thật ít khi gõ ObjectId: `asset_ref` ưu tiên tên hoặc mã; bucket của `get_location`, `get_asset_transfer`
+  (câu luôn chứa id) giữ nhỏ, diễn đạt như dán id từ màn hình.
 
 ### 5.4 Thời gian và ràng buộc ngoài schema
 
@@ -526,7 +532,8 @@ giờ lấy mẫu `cursor`.
 
 - Không chép hay diễn đạt lại hàng nào của lõi eval hay của bất kỳ tập dữ liệu nào trong repo (`data/`) vào prompt.
   `data/sgod/eval_human_core.jsonl` là tập kiểm tra đóng băng: phía sinh không mở tệp này, và D Việc 3 không mở
-  `datagen/prompts_eval/`. Ví dụ trong prompt tự viết mới.
+  `datagen/prompts_eval/`. Ví dụ trong prompt tự viết mới. Câu ví dụ và câu trích trong tài liệu này đã kiểm bằng máy:
+  SequenceMatcher < 0,5 với mọi câu của lõi.
 - Kiểm bằng máy: `generate_scenarios.py` loại câu có SequenceMatcher ≥ 0,65 so với `EVAL_SETS_FOR_LEAKAGE`
   (`data/sgod/eval_v1.json`, gồm cả lõi người viết) khi tệp đã có. Trước Điểm đồng bộ 2 tệp chưa tồn tại, nên pilot chỉ được
   bảo vệ bằng kỷ luật prompt.
@@ -539,6 +546,10 @@ giờ lấy mẫu `cursor`.
 - **Intent:** các nhu cầu `Pk.Nn` ở §2 (tool đích); thêm bucket `permission_denial` cho mỗi persona `employee` × tool `denied`
   của persona đó, và bucket `out_of_scope` (yêu cầu ghi, dữ liệu không có tool, ngoài lĩnh vực) cho mọi persona.
 - **Complexity:** `single` / `multi_constraint` theo §5.1, chỉ với tool có từ 2 tham số lấy mẫu được.
+- **Dạng tuple** giữ như `generate_scenarios.py` đọc: `BUCKET_PLAN` = `(category, role, count)`, `TRACKB_BUCKET_PLAN` =
+  `(tool, category, role, count)` + gợi ý `PARAM_SAMPLER`; `run_pipeline.sh` (kể cả `--pilot`) luôn sinh bằng `--trackb`,
+  tức đọc `TRACKB_BUCKET_PLAN`. Không thêm phần tử vào tuple: ghép persona × intent × complexity vào tên `category` (vd
+  `thu_kho__get_location__single`), mỗi tên có gợi ý trong `CATEGORY_HINTS` hoặc `datagen/prompts/category_<tên>.md`.
 - Tool chưa có sampler (`get_maintenance_schedule`, `list_maintenance_tasks`) để ngoài `BUCKET_PLAN` /
   `TRACKB_BUCKET_PLAN` cho đến khi có fixture chứa id lịch. Hệ quả cho D Việc 4: phần GPT bổ sung cũng không sinh được câu
   cho hai tool này từ giá trị truy được, nên mức ≥ 15 bản ghi / tool của eval_v1 (`eval_metric.md` §1) cần id lịch thật.
@@ -563,25 +574,32 @@ luật** từ `tool_policy.json`, không bằng LLM (`eval_metric.md` §1).
   hàng parity sinh ra vẫn là `REFUSAL_VI` nên nội dung hàng huấn luyện không đổi. Quy tắc giữ tên tool áp cho bản ghi eval.
 - Yêu cầu ghi **không bao giờ** là `denied`, kể cả khi người hỏi là `employee` và đối tượng là dữ liệu chỉ dành cho
   `company_admin` (vd khoá tài khoản một nhân viên): không có tool nào để chặn, nên nhãn là `null` / `allowed` /
-  `out_of_scope`. Preamble quy tắc 5 vẫn buộc trợ lý từ chối và không gọi tool.
+  `out_of_scope`. Preamble quy tắc 5 vẫn buộc trợ lý từ chối và không gọi tool. Lưu ý: `build_parity_trainset.py` hiện cho
+  mọi hàng `null` + `allowed` câu trả lời `DEFLECT_VI`, kể cả câu ghi, trong khi câu mẫu của quy tắc 5 là `REFUSAL_VI`;
+  điểm eval không đổi vì thang chấm chỉ xét không gọi tool.
 - Dữ liệu cấp doanh nghiệp mà v1 không có tool (vd sơ đồ phòng ban) cũng là `null`, không phải `denied`, kể cả với
   `employee`.
-- `category` theo một luật như lõi eval (CHANGELOG `[D-V2]`): `null` → `out_of_scope`; `denied` → `permission_denial`;
-  ≥ 2 khoá trong `expected_params` → `multi_constraint`; còn lại `single_tool`. Không dùng `dependent`.
+- `category` của bản ghi eval theo một luật như lõi eval (CHANGELOG `[D-V2]`): `null` → `out_of_scope`; `denied` →
+  `permission_denial`; ≥ 2 khoá trong `expected_params` → `multi_constraint`; còn lại `single_tool`. Không dùng
+  `dependent`. Hàng sinh qua `label_scenarios.py` mang tên bucket trong `category`; bản ghi eval phải gán lại theo luật này.
 - `expected_params`: chỉ khoá có trong schema của tool đích, giá trị lấy từ câu, không bịa (preamble quy tắc 4):
   `asset_ref` = nguyên văn tên / mã / id người dùng nêu; `search` = từ khoá người dùng nêu; `limit` chỉ khi câu nêu số
-  lượng; `onlyMine: true` khi câu nói rõ phiếu chuyển giao "của tôi / của mình". Trạng thái nói bằng lời gán về enum: lịch
-  bảo trì "đang hiệu lực / sắp / cần bảo trì" → `active`, "đã xong / đã hoàn thành" → `completed`; tài khoản "chưa kích hoạt"
-  → `Pending`, "bị khoá" → `Blocked`, "đang hoạt động" → `Active`, "đã xác minh" → `Verified`.
+  lượng; `onlyMine: true` khi câu nói rõ phiếu chuyển giao "của tôi / của mình" ("bên mình" chưa đủ). Trạng thái nói bằng
+  lời gán về enum: lịch bảo trì "đang hiệu lực / sắp / cần bảo trì" → `active`, "đã xong / đã hoàn thành" → `completed`;
+  tài khoản "chưa kích hoạt" → `Pending`, "bị khoá" → `Blocked`, "đang hoạt động" → `Active`, "đã xác minh" → `Verified`.
 - Cặp tool dễ nhầm (cho danh sách cặp mơ hồ của `reviewer_system.md`; ghi `expected_tool_alternates` khi hai tool cùng hợp
   lý, alternates do arbiter ≠ GPT bị chấm quyết định):
   - `list_my_assets` (liệt kê / tìm theo từ khoá) ↔ `get_asset` (một tài sản cụ thể nêu tên hoặc mã);
-  - `list_my_assets` ("tôi có bao nhiêu tài sản") ↔ `get_asset_statistics` (số liệu toàn doanh nghiệp; với `employee` là
-    `denied`), nên câu sinh ra phải nói rõ phạm vi;
-  - `list_asset_transfers` ↔ `get_transfer_summary` ("bao nhiêu phiếu" → tổng hợp theo tab; "những phiếu nào" → danh sách);
+  - `list_my_assets` (đếm hay liệt kê tài sản của mình) ↔ `get_asset_statistics` (số liệu toàn doanh nghiệp; với
+    `employee` là `denied`), nên câu sinh ra phải nói rõ phạm vi;
+  - `list_asset_transfers` ↔ `get_transfer_summary` (hỏi số phiếu theo tab → tổng hợp; hỏi từng phiếu → danh sách);
   - `list_staff_requests` ↔ `get_staff_request_summary` (như trên);
+  - `list_maintenance_schedules` (`status: completed`, lịch đã hoàn thành) ↔ `list_maintenance_records` (các lần bảo trì
+    đã thực hiện, chi phí, biên bản);
   - `get_my_profile` ↔ `get_my_permissions` (mô tả của cả hai nhắc "vai trò"; "quyền" → `get_my_permissions`, "hồ sơ /
     thông tin tài khoản" → `get_my_profile`);
+  - `get_my_profile` (tài khoản của mình, kể cả doanh nghiệp đang thuộc) ↔ `get_enterprise_profile` (hồ sơ đăng ký của
+    doanh nghiệp: email, số điện thoại; với `employee` là `denied`);
   - `list_my_conversations` ↔ `get_unread_counts` ("tin chưa đọc" → `get_unread_counts`).
 
 ## 7. Điều kiện chốt
