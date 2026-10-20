@@ -195,7 +195,7 @@ của bạn khác: `notebooks/finetune/README.md` § *Lưu ý về cấu hình T
   mặc định của script (`DEFAULT_MAX_LEN = 2560`), notebook 01 và CI đều dùng `--max-len 2560`. Lọc/không lọc hàng dài là
   quyết định của nhóm D ở bước dữ liệu.
 - **Preamble v1**: văn bản nền đã đóng băng (Điểm đồng bộ 1); mục *Quy tắc chọn tool* chỉ được **thêm** đến tag `tools-v1`
-  (2026-11-04); trạng thái và sha256 ở `prompts/README.md`, không ghi trong tệp prompt.
+  (2026-10-21); trạng thái và sha256 ở `prompts/README.md`, không ghi trong tệp prompt.
 - Trục đo **không trộn**: đổi eval / tools / preamble / scorer là trục mới; bảng chỉ so số cùng trục
   (`docs/contracts/eval_metric.md` §6).
 

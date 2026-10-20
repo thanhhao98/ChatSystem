@@ -149,6 +149,10 @@ không có tool thay thế nên đây **không** phải trục đo mới: mọi 
 lực. Bước 1 không đổi: bản ghi denied mang tên tool bị chặn (mục 1) nhưng bước này không so tên — gọi một tool mà vai
 trò được phép vẫn pass.
 
+**Dạng list cũ.** `expected_tool` là một list tên tool (dạng cũ; bộ eval mới không dùng — pass 1 của
+`audit_test_cases.py` báo lỗi và stage A của `verify_trainset.py` loại nhãn dạng này): bước 3 nhận bất kỳ tên nào trong
+list và bỏ qua `expected_tool_alternates`; bước 4 luôn dùng `expected_params`.
+
 **Strict first-call.** Bước 3–4 chỉ xét `predicted_tool_calls[0]`; call thứ hai trở đi **bị bỏ qua** khi chấm tên và
 tham số. Đầu ra nhiều call mà call đầu sai tool là `wrong_tool` dù một call sau đúng. (Bước 1 — từ chối — vẫn xét
 **mọi** call: chỉ cần một call vượt quyền là fail.) `eval_toolcall.py` cài đặt đúng điều này (`STRICT_FIRST_CALL = True`)

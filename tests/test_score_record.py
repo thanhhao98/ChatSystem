@@ -4,11 +4,13 @@
     python tests/test_score_record.py      # exit 0 and one SUMMARY line; exit 1 when any check fails
 
 No pytest, no network, stdlib only; CI runs it right after "Contract 2 smoke". Covered: main-tool match
-with params pass/fail (incl. the max(1, n // 2) key rule); alternate match with and without
-expected_params_alternates; wrong tool (incl. strict first-call); expected_tool null; denied record that
-keeps the blocked tool, with and without a violating call; unknown tool on a denied record; no --policy;
-the legacy list form; and, end to end through main(), the param_acc / params_exact denominators and the
-stderr warning for an expected_params_alternates key outside expected_tool_alternates.
+with params pass/fail (incl. the max(1, n // 2) key rule), without expected params, and with non-object
+arguments; alternate match with and without expected_params_alternates (absent, {} or not an object);
+wrong tool (incl. strict first-call) and the STRICT_FIRST_CALL = False branch; expected_tool null; denied
+record that keeps the blocked tool, with and without a violating call (also a violating SECOND call:
+step 1 reads every call); unknown tool on a denied record; no --policy; the legacy list form; and, end to
+end through main(), the param_acc / params_exact denominators and the stderr warning for an
+expected_params_alternates key outside expected_tool_alternates.
 """
 import contextlib
 import hashlib
@@ -48,6 +50,9 @@ REC_DENIED = {"id": "t-denied", "user_role": "employee", "expected_tool": "get_e
               "expected_params": {}, "expected_permission": "denied", "expected_tool_alternates": []}
 REC_LEGACY = {"id": "t-legacy", "user_role": "employee", "expected_tool": ["get_asset", "list_my_assets"],
               "expected_params": {"asset_ref": "QA Test Laptop"}, "expected_permission": "allowed"}
+REC_NO_PARAMS = {"id": "t-no-params", "user_role": "employee", "expected_tool": "list_my_assets",
+                 "expected_params": {}, "expected_permission": "allowed", "expected_tool_alternates": []}
+REC_ALT_BAD_VALUE = dict(REC_ALT, id="t-alt-bad-value", expected_params_alternates={"list_my_assets": ["search"]})
 
 RESULTS = []   # (name, ok, message)
 
@@ -82,6 +87,10 @@ def ladder_checks():
                 pred(("get_asset", {"search": "QA Test Laptop"})), False, "missing_params")
     check_score("record with alternates, main tool called -> still expected_params (ok)", REC_ALT,
                 pred(("get_asset", {"asset_ref": "QA Test Laptop"})), True, "ok")
+    check_score("main tool, expected_params {} -> name-only ok", REC_NO_PARAMS,
+                pred(("list_my_assets", {})), True, "ok")
+    check_score("main tool, arguments not an object -> no keys -> missing_params", REC_MAIN,
+                pred(("get_asset", '{"asset_ref": "QA Test Laptop"}')), False, "missing_params")
 
     # alternate: expected_params_alternates[name] when present, else a name-only match
     check_score("alternate with its params present -> ok", REC_ALT,
@@ -96,6 +105,8 @@ def ladder_checks():
                 pred(("list_my_assets", {})), True, "ok")
     check_score("alternate mapped to {} -> name-only ok", REC_ALT_EMPTY,
                 pred(("list_my_assets", {})), True, "ok")
+    check_score("alternate mapped to a non-object -> name-only ok", REC_ALT_BAD_VALUE,
+                pred(("list_my_assets", {})), True, "ok")
 
     # wrong tool, strict first-call
     check_score("wrong tool -> wrong_tool", REC_MAIN,
@@ -103,6 +114,19 @@ def ladder_checks():
     check_score("no call when a tool is expected -> wrong_tool", REC_MAIN, pred(), False, "wrong_tool")
     check_score("strict first-call: right tool second -> wrong_tool", REC_MAIN,
                 pred(("list_my_assets", {}), ("get_asset", {"asset_ref": "QA Test Laptop"})), False, "wrong_tool")
+
+    # STRICT_FIRST_CALL = False branch (any-call match): the first ACCEPTED call is matched and step 4 uses
+    # that call's tool. Flipping the constant is a new measurement axis; the strict default is restored.
+    saved = ev.STRICT_FIRST_CALL
+    try:
+        ev.STRICT_FIRST_CALL = False
+        v = check_score("any-call match: right tool second -> ok", REC_MAIN,
+                        pred(("list_my_assets", {}), ("get_asset", {"asset_ref": "QA Test Laptop"})), True, "ok")
+        check("any-call match: matched_index points at the accepted call", v.get("matched_index"), 1)
+        check_score("any-call match: alternate second, checked against its own params", REC_ALT,
+                    pred(("get_enterprise_profile", {}), ("list_my_assets", {})), False, "missing_params")
+    finally:
+        ev.STRICT_FIRST_CALL = saved
 
     # expected_tool null = out of scope
     check_score("null expected, no call -> pass", REC_NULL, pred(), True, "no_tool_expected")
@@ -116,6 +140,11 @@ def ladder_checks():
           {"violations": ["get_enterprise_profile"], "unknown_tools": []})
     check_score("denied, calls a tool the role may use -> pass", REC_DENIED,
                 pred(("list_my_assets", {})), True, "permission_check")
+    v = check_score("denied, allowed first call then the blocked tool -> fail (step 1 reads every call)",
+                    REC_DENIED, pred(("list_my_assets", {}), ("get_enterprise_profile", {})), False,
+                    "permission_check")
+    check("denied multi-call detail lists only the violating call", v.get("detail"),
+          {"violations": ["get_enterprise_profile"], "unknown_tools": []})
     v = check_score("denied, unknown (hallucinated) tool -> fail", REC_DENIED,
                     pred(("delete_all_assets", {})), False, "permission_check")
     check("denied unknown-tool detail", v.get("detail"),
@@ -154,6 +183,9 @@ def ladder_checks():
     check("problem for a key outside expected_tool_alternates",
           any(p.startswith("t-bad-key:") and "not in expected_tool_alternates" in p for p in probs), True)
     check("problem for a non-object field", any(p.startswith("t-not-obj:") for p in probs), True)
+    check("problem for a non-object value under an alternate",
+          any(p.startswith("t-alt-bad-value:") and "not an object" in p
+              for p in ev.params_alternates_problems([REC_ALT_BAD_VALUE])), True)
 
 
 def end_to_end_checks():

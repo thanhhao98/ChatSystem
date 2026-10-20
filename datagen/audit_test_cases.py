@@ -326,7 +326,8 @@ def apply_review(tc: dict, review: dict, tools: dict) -> dict:
     """Return a possibly-modified copy of tc honouring the reviewer's verdict.
     Permission is re-derived by RULE from the final tool + role (never trusted from the model):
     a tool the role may not call -> "denied" and the case KEEPS that tool + params (contract 3 §6);
-    a null tool means out of scope -> "allowed"."""
+    a null tool means out of scope -> "allowed", with no params and no alternates (as label_scenarios.py
+    and polish_scenarios.py write it)."""
     out = dict(tc)
     verdict = review.get("verdict", "ok")
     if verdict == "ok":
@@ -348,6 +349,10 @@ def apply_review(tc: dict, review: dict, tools: dict) -> dict:
         out.pop("expected_params_alternates", None)
     else:
         out["expected_permission"] = "allowed"
+        if et is None:   # out of scope: a reviewer-cleared tool must not leave its params/alternates behind
+            out["expected_params"] = {}
+            out.pop("expected_tool_alternates", None)
+            out.pop("expected_params_alternates", None)
     return out
 
 
