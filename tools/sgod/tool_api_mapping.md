@@ -15,7 +15,7 @@ Mọi tool đều gọi qua gateway với hai header (`x-api-key` của service 
 | `get_my_profile` | auth | GET | `/sgod-auth/v1/users/myself` | ✓ | employee, company_admin | ✗ | — | — |
 | `get_my_permissions` | auth | GET | `/sgod-auth/v1/session/context` | ✓ | employee, company_admin | ✗ | — | — |
 | `get_enterprise_profile` | auth | GET | `/sgod-auth/v1/enterprises/profile` | ✓ | company_admin | ✗ | — | — |
-| `list_enterprise_users` | auth | GET | `/sgod-auth/v1/enterprise-users` | ✓ | company_admin | ✗ | — | `search` (string); `status` (string enum: Pending, Verified, Active, Blocked); `limit` (integer); `cursor` (string) |
+| `list_enterprise_users` | auth | GET | `/sgod-auth/v1/enterprise-users` | ✓ | company_admin | ✗ | — | `search` (string); `status` (string enum: Pending, Verified, Active, Blocked); `limit` (integer) |
 | `list_my_conversations` | chat | GET | `/sgod-chat/v1/conversations` | ✓ | company_admin | ✗ | — | `limit` (integer); `cursor` (string) |
 | `get_unread_counts` | chat | GET | `/sgod-chat/v1/conversations/unread-counts` | ✓ | company_admin | ✗ | — | — |
 | `get_asset_statistics` | asset | GET | `/sgod-asset/v1/assets/summary` | ✓ | company_admin | ✗ | — | — |

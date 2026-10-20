@@ -1,7 +1,36 @@
 {
   "success": true,
   "data": {
-    "items": [],
+    "items": [
+      {
+        "id": "6ad615353b0f8e12e2f1910d",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ad615353b0f8e12e2f190c1",
+        "assetStatusId": "6ad615353b0f8e12e2f190e3",
+        "maintenanceType": "condition-based",
+        "locationAsset": "internal",
+        "status": "active",
+        "startMaintenanceDate": "2026-10-15T09:00:00.000Z",
+        "createdBy": "6a85bad6a8d2133e058c93a9",
+        "createdAt": "2026-10-14T09:00:00.000Z",
+        "updatedAt": "2026-10-14T09:00:00.000Z",
+        "endMaintenanceDate": "2026-11-18T09:00:00.000Z"
+      },
+      {
+        "id": "6ad615353b0f8e12e2f190e4",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "assetId": "6ad615353b0f8e12e2f190c2",
+        "assetStatusId": "6ad615353b0f8e12e2f190df",
+        "maintenanceType": "preventive",
+        "locationAsset": "internal",
+        "status": "active",
+        "startMaintenanceDate": "2026-10-09T09:00:00.000Z",
+        "createdBy": "6a85d263934a8bdc16de4544",
+        "createdAt": "2026-10-04T09:00:00.000Z",
+        "updatedAt": "2026-10-04T09:00:00.000Z",
+        "endMaintenanceDate": "2026-11-28T09:00:00.000Z"
+      }
+    ],
     "meta": {
       "nextCursor": "",
       "hasNextPage": false,
@@ -9,5 +38,5 @@
     }
   },
   "message": "OK",
-  "timestamp": "2026-10-14T01:57:51.565Z"
+  "timestamp": "2026-10-20T20:59:05.010Z"
 }

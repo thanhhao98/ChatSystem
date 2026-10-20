@@ -103,6 +103,8 @@ def env(name: str, required: bool = True) -> str | None:
 
 
 class Gateway:
+    device_id = DEVICE_ID  # x-device-id header; a subclass may override it (tools/sgod/verify_tools_live.py)
+
     def __init__(self) -> None:
         self.base = env("SGOD_BASE_URL").rstrip("/")
         self.keys = {"auth": env("SGOD_AUTH_API_KEY"), "asset": env("SGOD_ASSET_API_KEY"), "chat": env("SGOD_CHAT_API_KEY")}
@@ -112,7 +114,7 @@ class Gateway:
 
     def call(self, method: str, path: str, query: dict | None = None, token: str | None = None, body: dict | None = None):
         url = self.base + path + (("?" + urllib.parse.urlencode(query)) if query else "")
-        headers = {"Accept": "application/json", "x-api-key": self.key_for(path), "x-device-id": DEVICE_ID}
+        headers = {"Accept": "application/json", "x-api-key": self.key_for(path), "x-device-id": self.device_id}
         if token:
             headers["Authorization"] = "Bearer " + token
         data = None
@@ -132,12 +134,19 @@ class Gateway:
         except (UnicodeDecodeError, json.JSONDecodeError):
             return status, None, f"non-JSON body ({len(raw)} B)"
 
-    def login(self, tier: str, email: str, password: str):
+    def try_login(self, tier: str, email: str, password: str):
+        """(accessToken, refreshToken, None) on success, else (None, None, reason); the reason never holds a secret."""
         status, body, err = self.call("POST", f"/sgod-auth/v1/{tier}/sessions", body={"credential": email, "password": password})
         data = (body or {}).get("data") or {}
         if status != 200 or not (body or {}).get("success") or "accessToken" not in data:
-            sys.exit(f"login failed for tier {tier}: http={status} {err or ''} success={(body or {}).get('success')}")
-        return data["accessToken"], data.get("refreshToken")
+            return None, None, f"login failed for tier {tier}: http={status} {err or ''} success={(body or {}).get('success')}"
+        return data["accessToken"], data.get("refreshToken"), None
+
+    def login(self, tier: str, email: str, password: str):
+        access, refresh, why = self.try_login(tier, email, password)
+        if why:
+            sys.exit(why)
+        return access, refresh
 
 
 class Masker:

@@ -1,8 +1,8 @@
 # Fixture phản hồi SGOD (S Việc 2)
 
 > **Nguồn:** mọi tệp `.json` trong thư mục này là **toàn bộ body thật** do gateway SGOD trả về, chụp trên hạ tầng tham chiếu
-> bằng `tools/sgod/capture_fixtures.py capture` ngày **2026-10-14** (tài khoản thử tầng enterprise, chỉ `GET` + đăng nhập / làm mới phiên), sau đó che PII bằng giá trị giả nhất
-> quán. Không tệp nào được viết tay hay sinh từ mẫu. `manifest.tsv` ghi cho từng tệp: endpoint đã gọi (kèm query), tầng tài
+> bằng `tools/sgod/capture_fixtures.py capture` ngày **2026-10-14**, chụp lại **2026-10-21** (tài khoản thử tầng enterprise, chỉ `GET` + đăng nhập / làm mới phiên), sau đó che PII bằng giá trị giả nhất
+> quán. Lần chụp lại chỉ thay các tệp có dữ liệu đổi (11 tệp, §5); tệp khác giữ bản 2026-10-14 (cột thời điểm của `manifest.tsv`). Không tệp nào được viết tay hay sinh từ mẫu. `manifest.tsv` ghi cho từng tệp: endpoint đã gọi (kèm query), tầng tài
 > khoản, mã HTTP, thời điểm chụp và sha256. Thực tập sinh không gọi SGOD trực tiếp: cần thêm hoặc chụp lại fixture thì bình
 > luận vào task S Việc 2 để chạy lại script trên hạ tầng tham chiếu.
 
@@ -30,7 +30,7 @@ sau khi che vẫn còn email ngoài `example.com`, số điện thoại Việt N
 
 ## 3. Danh mục tệp
 
-29 tệp (asset 14 · auth 6 · chat 3 · negative 6), sinh từ `manifest.tsv`:
+31 tệp (asset 16 · auth 6 · chat 3 · negative 6), sinh từ `manifest.tsv`:
 
 | Tệp | Endpoint (đã gọi) | Tầng | HTTP | Ghi chú |
 |---|---|---|---|---|
@@ -49,9 +49,9 @@ sau khi che vẫn còn email ngoài `example.com`, số điện thoại Việt N
 | `asset/GET_categories.json` | `GET /sgod-asset/v1/categories` `{"limit": 20}` | enterprise | 200 |  |
 | `asset/GET_locations.json` | `GET /sgod-asset/v1/locations` `{"limit": 20}` | enterprise | 200 |  |
 | `asset/GET_locations_id.json` | `GET /sgod-asset/v1/locations/6ac9bec727541dacd0a77f80` | enterprise | 200 |  |
-| `asset/GET_maintenance_schedules.json` | `GET /sgod-asset/v1/maintenance/schedules` `{"limit": 10}` | enterprise | 200 | danh sách rỗng: doanh nghiệp thử chưa có lịch bảo trì |
-| — (`asset/GET_maintenance_schedules_id.json`) | `GET /sgod-asset/v1/maintenance/schedules/{id}` | enterprise | — | không ghi: danh sách lịch bảo trì rỗng nên không có id để gọi |
-| — (`asset/GET_maintenance_tasks.json`) | `GET /sgod-asset/v1/maintenance/tasks` `{"maintenanceScheduleId": "{schedule_id}", "limit": 10}` | enterprise | — | không ghi: danh sách lịch bảo trì rỗng nên không có id để gọi |
+| `asset/GET_maintenance_schedules.json` | `GET /sgod-asset/v1/maintenance/schedules` `{"limit": 10}` | enterprise | 200 | 2 lịch (chụp lại 2026-10-21; bản 2026-10-14 là danh sách rỗng) |
+| `asset/GET_maintenance_schedules_id.json` | `GET /sgod-asset/v1/maintenance/schedules/6ad615353b0f8e12e2f1910d` | enterprise | 200 | mới 2026-10-21 |
+| `asset/GET_maintenance_tasks.json` | `GET /sgod-asset/v1/maintenance/tasks` `{"maintenanceScheduleId": "6ad615353b0f8e12e2f1910d", "limit": 10}` | enterprise | 200 | mới 2026-10-21 |
 | `asset/GET_maintenance_records.json` | `GET /sgod-asset/v1/maintenance/records` `{"limit": 10}` | enterprise | 200 | danh sách rỗng |
 | `asset/GET_asset_transfers.json` | `GET /sgod-asset/v1/asset-transfers` `{"limit": 10}` | enterprise | 200 |  |
 | `asset/GET_asset_transfers_id.json` | `GET /sgod-asset/v1/asset-transfers/6ac9c52451e750872e755fad` | enterprise | 200 |  |
@@ -72,6 +72,7 @@ sau khi che vẫn còn email ngoài `example.com`, số điện thoại Việt N
 
 | field | value | source file(s) | declared in live OpenAPI enum |
 |---|---|---|---|
+| `assetType` | `expendable` | `asset/GET_assets.json` | GET /sgod-asset/v1/assets/summary (query); schema CreateAssetDto.assetType (+1) |
 | `assetType` | `normal` | `asset/GET_assets.json`, `asset/GET_assets_id.json` | GET /sgod-asset/v1/assets/summary (query); schema CreateAssetDto.assetType (+1) |
 | `belong` | `Enterprise` | `auth/GET_session_context.json` | schema InitiateResetPasswordDto.belong |
 | `belong` | `EnterpriseUser` | `auth/GET_enterprise_users.json` | schema InitiateResetPasswordDto.belong |
@@ -85,10 +86,14 @@ sau khi che vẫn còn email ngoài `example.com`, số điện thoại Việt N
 | `layer` | `Enterprise` | `auth/GET_roles.json` | schema CreatePositionDto.layer |
 | `layer` | `EnterpriseUser` | `auth/GET_roles.json` | schema CreateRoleDto.layer |
 | `layer` | `Subenterprise` | `auth/GET_roles.json` | schema CreateRoleDto.layer |
+| `locationAsset` | `internal` | `asset/GET_maintenance_schedules.json`, `asset/GET_maintenance_schedules_id.json` | schema CreateMaintenanceScheduleDto.locationAsset; schema UpdateMaintenanceScheduleDto.locationAsset |
+| `maintenanceType` | `condition-based` | `asset/GET_maintenance_schedules.json`, `asset/GET_maintenance_schedules_id.json` | schema CreateMaintenanceScheduleDto.maintenanceType |
+| `maintenanceType` | `preventive` | `asset/GET_maintenance_schedules.json` | schema CreateMaintenanceScheduleDto.maintenanceType |
 | `roleType` | `ENTERPRISE` | `auth/GET_roles.json` | schema CreateRoleDto.role_type |
 | `sourceType` | `SYSTEM` | `auth/GET_roles.json` | — |
 | `status` | `Active` | `auth/GET_enterprise_users.json`, `auth/GET_enterprises_profile.json`, `auth/GET_users_myself.json`, `negative/FLOW_401_refresh_retry_success.json` | GET /sgod-auth/v1/departments/deleted (query); GET /sgod-auth/v1/enterprise-users (query) (+10) |
-| `status` | `active` | `asset/GET_asset_statuses_by_asset_assetId.json`, `asset/GET_assets.json`, `asset/GET_assets_id.json` | GET /sgod-asset/v1/maintenance/schedules (query); schema AddAssetLocationDto.status (+3) |
+| `status` | `active` | `asset/GET_asset_statuses_by_asset_assetId.json`, `asset/GET_assets.json`, `asset/GET_assets_id.json`, `asset/GET_maintenance_schedules.json`, `asset/GET_maintenance_schedules_id.json` | GET /sgod-asset/v1/maintenance/schedules (query); schema AddAssetLocationDto.status (+3) |
+| `status` | `processing` | `asset/GET_maintenance_tasks.json` | schema ChangeMaintenanceTaskStatusDto.status |
 | `statusAsset` | `active` | `asset/GET_asset_transfers.json`, `asset/GET_asset_transfers_id.json` | — |
 | `statusChange` | `completed` | `asset/GET_request_staff.json` | — |
 | `statusChange` | `on-hold` | `asset/GET_request_staff.json` | — |
@@ -98,6 +103,7 @@ sau khi che vẫn còn email ngoài `example.com`, số điện thoại Việt N
 | `statusRequest` | `cancel` | `asset/GET_request_staff.json` | — |
 | `statusRequest` | `confirm` | `asset/GET_request_staff.json` | schema ApproveRequestStaffDto.statusRequest |
 | `statusRequest` | `deny` | `asset/GET_request_staff.json` | schema ApproveRequestStaffDto.statusRequest |
+| `statusRequest` | `pending` | `asset/GET_request_staff.json` | — |
 | `statusTransfer` | `accept` | `asset/GET_asset_transfers.json`, `asset/GET_asset_transfers_id.json` | GET /sgod-asset/v1/asset-transfers/history (query) |
 | `subjectKind` | `maintenance_task` | `asset/GET_request_staff.json` | — |
 | `type` | `change-status` | `asset/GET_asset_statuses_by_asset_assetId.json` | — |
@@ -105,6 +111,8 @@ sau khi che vẫn còn email ngoài `example.com`, số điện thoại Việt N
 | `type` | `private` | `chat/GET_conversations.json` | GET /sgod-chat/v1/conversations (query) |
 | `typeRequest` | `change-status-maintenance` | `asset/GET_request_staff.json` | schema CreateRequestStaffChangeStatusDto.typeRequest |
 | `typeTransfer` | `revoke-asset` | `asset/GET_asset_transfers.json`, `asset/GET_asset_transfers_id.json` | — |
+| `unit` | `cái` | `asset/GET_assets.json` | — |
+| `unit` | `hộp` | `asset/GET_assets.json` | — |
 | `unit` | `piece` | `asset/GET_assets.json`, `asset/GET_assets_id.json` | GET /sgod-asset/v1/assets/summary (query); schema CreateAssetDto.unit (+1) |
 | `userType` | `enterprise` | `auth/GET_enterprises_profile.json`, `auth/GET_users_myself.json`, `negative/FLOW_401_refresh_retry_success.json` | schema LoginResponseDto.userType |
 | `workflowPhase` | `completed` | `asset/GET_asset_transfers.json`, `asset/GET_asset_transfers_id.json` | — |
@@ -116,24 +124,32 @@ cột cuối là nơi Swagger khai báo cùng giá trị (tối đa 2 nơi, `(+N
 
 | Trường (nơi khai báo) | Giá trị khai báo | Đã thấy trong fixture |
 |---|---|---|
-| `status` của lịch bảo trì (`GET /maintenance/schedules`, query) | `draft` · `active` · `completed` | — (danh sách rỗng) |
-| `status` của task bảo trì (`ChangeMaintenanceTaskStatusDto`) | `scheduled` · `processing` · `completed` · `overdue` · `on-hold` | `processing`, `completed`, `on-hold` (qua `statusChange` / `statusOrigin` của request-staff) |
+| `status` của lịch bảo trì (`GET /maintenance/schedules`, query) | `draft` · `active` · `completed` | `active` (2026-10-21) |
+| `status` của task bảo trì (`ChangeMaintenanceTaskStatusDto`) | `scheduled` · `processing` · `completed` · `overdue` · `on-hold` | `processing` (`asset/GET_maintenance_tasks.json`); `completed`, `on-hold` (qua `statusChange` / `statusOrigin` của request-staff) |
+| `maintenanceType` (`CreateMaintenanceScheduleDto`) | `schedule` · `preventive` · `emergency` · `corrective` · `condition-based` | `condition-based`, `preventive` (2026-10-21) |
 | `status` trạng thái tài sản tại vị trí (`CreateAssetStatusDto`) | `active` · `repair` · `not_use` · `broken` · `sold` · `used_up` | `active` |
 | `importanceLevel` (`GET /assets`, query) | `normal` · `important` · `confidential` | `normal` |
-| `assetType` | `normal` · `expendable` | `normal` |
-| `unit` | `can` · `piece` · `box` · `bottle` · `pack` · `tree` · `pot` · `set` · `jar` · `kg` · `gram` · `m` | `piece` |
+| `assetType` | `normal` · `expendable` | `normal`, `expendable` (2026-10-21) |
+| `unit` | `can` · `piece` · `box` · `bottle` · `pack` · `tree` · `pot` · `set` · `jar` · `kg` · `gram` · `m` | `piece`; dữ liệu 2026-10-21 còn có `cái`, `hộp` (không có trong enum Swagger) |
 | `status` phiếu chuyển giao (`GET /asset-transfers`, query) | `pending` · `accept` · `deny` · `revoke` · `cancel` | `accept` |
 | `typeRequest` (`CreateRequestStaffChangeStatusDto`) | `change-status` · `change-status-maintenance` | `change-status-maintenance` |
-| `statusRequest` (`ApproveRequestStaffDto`) | `confirm` · `deny` | `confirm`, `deny`, và `cancel` (chỉ thấy trong dữ liệu) |
+| `statusRequest` (`ApproveRequestStaffDto`) | `confirm` · `deny` | `confirm`, `deny`, và `cancel`, `pending` (chỉ thấy trong dữ liệu) |
 | `type` của request-staff (`GET /request-staff`, query) | `send` · `receive` | — (tham số lọc) |
 | `status` tài khoản (`GET /enterprise-users`, query) | `Pending` · `Verified` · `Active` · `Blocked` | `Active` |
 | `userType` (`LoginResponseDto`) | `enterprise` · `enterprise_user` · `sub_enterprise` · `sgod_user` · `sgod_admin` | `enterprise` |
 | `type` hội thoại (`GET /conversations`, query) | `group` · `private` · `all` | `group`, `private` |
 
-## 5. Đối chiếu khi chụp (2026-10-14)
+## 5. Đối chiếu khi chụp (2026-10-14, chụp lại 2026-10-21)
 
-- Danh mục tool v1 (`tools/sgod/sgod_tools.json`, 22 tool): mọi endpoint có tệp mẫu trả 200, trừ
-  `GET /maintenance/schedules/{id}` và `GET /maintenance/tasks` (doanh nghiệp thử chưa có lịch bảo trì).
+- **2026-10-21:** doanh nghiệp thử có thêm dữ liệu mẫu đánh dấu `[SEED]` (tài sản `[SEED] Laptop Dell Latitude 5440`…,
+  danh mục, vị trí, 2 lịch bảo trì, 1 công việc bảo trì, phiếu yêu cầu); danh sách nhân sự còn 4 tài khoản (3 `EnterpriseUser`,
+  1 `Subenterprise`). Chụp lại toàn bộ, chỉ commit 11 tệp có dữ liệu đổi: `asset/GET_{assets,categories,locations,locations_id,
+  maintenance_schedules,request_staff,request_staff_summary}.json`, `auth/GET_{enterprise_users,roles}.json` và 2 tệp mới
+  `asset/GET_maintenance_schedules_id.json`, `asset/GET_maintenance_tasks.json`. Mọi giá trị của bản 2026-10-14 vẫn có trong
+  bản mới (chỉ thêm). Tiền tố `[SEED] ` là dấu dữ liệu mẫu, không phải tên người dùng gõ.
+- Danh mục tool v1 (`tools/sgod/sgod_tools.json`, 22 tool): cả 22 tool có lượt gọi thật `success:true` ngày 2026-10-21 —
+  xem `docs/sgod/tools_v1_live_check.md` (S Việc 4; `GET /assets/summary` của `get_asset_statistics` được kiểm ở đó, không
+  có tệp mẫu ở đây).
 - Spec §4: `GET /maintenance/schedules/count-by-tab` nay trả `success:true`; `GET /dashboard/summary`, `GET /asset-offers`,
   `GET /categories-offer` trả 404 (route đã bỏ); `GET /import-export/exports` vẫn lỗi (HTTP 200 + `success:false`, 500).
 - Access token sống 900 s (`expiresIn` trong phản hồi làm mới phiên).
