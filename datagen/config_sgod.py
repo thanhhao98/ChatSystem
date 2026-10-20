@@ -25,6 +25,7 @@ import json
 import os
 import random
 import sys
+import threading
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -54,12 +55,16 @@ DATA_DIR = "data/sgod"                                # every stage output lands
 # ───────────────────────────────────────────────────────────────────────────
 # 1. LLM MODEL PLACEHOLDERS — models are switched in ONE place.
 #    Scripts read these as their --model defaults. The values are placeholder names; the real
-#    served name depends on the OPENAI_BASE_URL gateway of the reference infrastructure.
+#    served name depends on the OPENAI_BASE_URL gateway of the reference infrastructure, so the
+#    operator sets it through the environment (GEN_MODEL, LABEL_MODELS = space-separated list,
+#    ARBITER_MODEL) — the same names run_pipeline.sh reads. Never commit a gateway-specific id here;
+#    files written under data/sgod/ only carry model_alias() (the part after the last "/").
 # ───────────────────────────────────────────────────────────────────────────
-GEN_MODEL = "gpt-4o"                       # generate_scenarios / generate_irrelevance
-LABEL_MODELS = ["gpt-4o", "gpt-4o-mini"]   # label_scenarios + verify_trainset stage C (consensus)
-ARBITER_MODEL = "gpt-4o"                   # polish_scenarios / audit_test_cases pass 2
-                                           # (for eval_v1 augmentation MUST differ from the GPT under test)
+GEN_MODEL = os.environ.get("GEN_MODEL") or "gpt-4o"           # generate_scenarios / generate_irrelevance
+LABEL_MODELS = (os.environ.get("LABEL_MODELS") or "").split() or ["gpt-4o", "gpt-4o-mini"]
+#                                                             # label_scenarios + verify_trainset stage C (consensus)
+ARBITER_MODEL = os.environ.get("ARBITER_MODEL") or "gpt-4o"   # polish_scenarios / audit_test_cases pass 2
+#                                  (for eval_v1 augmentation MUST differ from the GPT under test: SCORED_MODEL)
 
 # ───────────────────────────────────────────────────────────────────────────
 # 2. ROLES — chat roles come from tools/sgod/roles.json (contract 3). ROLE_MAP maps the labels
@@ -327,9 +332,11 @@ YIELD_BUDGET = 0.58
 # ───────────────────────────────────────────────────────────────────────────
 # 12. ANTI-LEAKAGE — SequenceMatcher threshold + the eval sets generated rows must NOT resemble.
 #     eval_v1.json does not exist until Điểm đồng bộ 2; generators skip missing files with a WARNING.
+#     The frozen human core (eval_human_core.jsonl, part of eval_v1) is listed as well so the pilot and
+#     the eval-augmentation run are screened against it before eval_v1.json exists.
 # ───────────────────────────────────────────────────────────────────────────
 LEAKAGE_THRESHOLD = 0.65
-EVAL_SETS_FOR_LEAKAGE = ["data/sgod/eval_v1.json"]
+EVAL_SETS_FOR_LEAKAGE = ["data/sgod/eval_v1.json", "data/sgod/eval_human_core.jsonl"]
 
 DEFAULT_SEED = 20260616
 
@@ -365,35 +372,120 @@ MISSING_KEY_MSG = ("LỖI: thiếu biến môi trường OPENAI_API_KEY. Bước
 def require_openai_client():
     """Build the OpenAI client from the environment or exit 2 with a Vietnamese message.
 
-    Every LLM stage MUST go through here so OPENAI_BASE_URL is always honoured.
+    Every LLM stage MUST go through here so OPENAI_BASE_URL is always honoured. LLM_TIMEOUT (seconds per
+    request, default 120) and LLM_MAX_RETRIES (transient errors only, default 3) bound a stuck gateway;
+    the client's own default timeout is 600 s.
     """
     key = os.environ.get("OPENAI_API_KEY")
     if not key:
         print(MISSING_KEY_MSG, file=sys.stderr)
         raise SystemExit(2)
     from openai import OpenAI  # imported lazily: offline stages never need the package
-    return OpenAI(api_key=key, base_url=os.environ.get("OPENAI_BASE_URL") or None)
+    return OpenAI(api_key=key, base_url=os.environ.get("OPENAI_BASE_URL") or None,
+                  timeout=float(os.environ.get("LLM_TIMEOUT") or 120),
+                  max_retries=int(os.environ.get("LLM_MAX_RETRIES") or 3))
+
+
+def model_alias(model) -> str:
+    """Model id as written to files and SUMMARY lines: the part after the last "/". Provider/route
+    prefixes are specific to one gateway and must not reach data/sgod/ (public repo)."""
+    return str(model or "").rsplit("/", 1)[-1] or "?"
+
+
+def err_text(exc) -> str:
+    """Exception summary that is safe to print and to write into reports: class, HTTP status and the
+    structured code/param/type fields. Never the message body — gateways echo key fragments in it."""
+    head = type(exc).__name__
+    status = getattr(exc, "status_code", None)
+    if status:
+        head += f"({status})"
+    extra = []
+    for k in ("code", "param", "type"):
+        v = getattr(exc, k, None)
+        if isinstance(v, (str, int)) and str(v) and str(v) != str(status):
+            extra.append(f"{k}={str(v)[:40]}")
+    return " ".join([head] + extra)
+
+
+FATAL_HTTP = {401, 403, 404}   # bad key / model not allowed for the key / unknown model or route
+
+
+def is_retryable(exc) -> bool:
+    """Transient: no HTTP status (timeout, dropped connection), 408, 409, 429 or 5xx. A 400/422 (bad
+    parameter, content filter) fails the same way on every retry."""
+    status = getattr(exc, "status_code", None)
+    return status is None or status in (408, 409, 429) or status >= 500
+
+
+class FatalLLMError(SystemExit):
+    """The gateway refused the key or the model (401/403/404): every further call fails the same way.
+
+    Subclass of SystemExit on purpose: the broad `except Exception` handlers of the stages do not
+    swallow it, so the stage stops at once with exit code 1 and writes no final output file (the
+    pipeline then re-runs it next time instead of skipping it)."""
+
+
+def chat(client, **kwargs):
+    """client.chat.completions.create + CallMeter. Every LLM call of datagen/ goes through here.
+
+    Returns the response; errors are counted per model and re-raised (FatalLLMError for 401/403/404)."""
+    model = kwargs.get("model")
+    try:
+        resp = client.chat.completions.create(**kwargs)
+    except Exception as exc:  # noqa: BLE001
+        METER.error(model)
+        if getattr(exc, "status_code", None) in FATAL_HTTP:
+            raise FatalLLMError(
+                f"LỖI: gateway LLM từ chối khoá hoặc model {model_alias(model)!r}: {err_text(exc)}. Kiểm tra "
+                f"OPENAI_API_KEY / OPENAI_BASE_URL và GEN_MODEL / LABEL_MODELS / ARBITER_MODEL "
+                f"(tên model đúng như gateway phục vụ).") from exc
+        raise
+    METER.add(resp, model)
+    return resp
 
 
 class CallMeter:
-    """Counts chat.completions calls and tokens so every run can report cost in its summary line."""
+    """Counts chat.completions calls, failed calls and tokens — in total and per model alias — so every
+    run can report cost in its SUMMARY line. Thread-safe (generate/label/verify call it from workers).
+
+    summary(): "llm_calls=N prompt_tokens=P completion_tokens=C errors=E by_model=<alias>:N/P/C/E,..."
+    (run_pipeline.sh adds these up over the stages of one invocation)."""
 
     def __init__(self):
+        self._lock = threading.Lock()
         self.calls = 0
         self.prompt_tokens = 0
         self.completion_tokens = 0
         self.errors = 0
+        self.by_model = {}   # alias -> [calls, prompt_tokens, completion_tokens, errors]
 
-    def add(self, resp):
-        self.calls += 1
+    def _slot(self, model):
+        return self.by_model.setdefault(model_alias(model), [0, 0, 0, 0])
+
+    def add(self, resp, model=None):
         u = getattr(resp, "usage", None)
-        if u is not None:
-            self.prompt_tokens += int(getattr(u, "prompt_tokens", 0) or 0)
-            self.completion_tokens += int(getattr(u, "completion_tokens", 0) or 0)
+        pt = int(getattr(u, "prompt_tokens", 0) or 0) if u is not None else 0
+        ct = int(getattr(u, "completion_tokens", 0) or 0) if u is not None else 0
+        with self._lock:
+            self.calls += 1
+            self.prompt_tokens += pt
+            self.completion_tokens += ct
+            slot = self._slot(model or getattr(resp, "model", None))
+            slot[0] += 1
+            slot[1] += pt
+            slot[2] += ct
+
+    def error(self, model=None):
+        with self._lock:
+            self.errors += 1
+            self._slot(model)[3] += 1
 
     def summary(self):
-        return (f"llm_calls={self.calls} prompt_tokens={self.prompt_tokens} "
-                f"completion_tokens={self.completion_tokens} errors={self.errors}")
+        with self._lock:
+            per = ",".join(f"{m}:{c}/{p}/{k}/{e}" for m, (c, p, k, e) in sorted(self.by_model.items()))
+            return (f"llm_calls={self.calls} prompt_tokens={self.prompt_tokens} "
+                    f"completion_tokens={self.completion_tokens} errors={self.errors}"
+                    + (f" by_model={per}" if per else ""))
 
 
 METER = CallMeter()

@@ -166,9 +166,8 @@ def main():
         for m in args.models:
             try:
                 tool, _ = labeler.review(client, catalogue, tc["input"], role, m, label_system)
-            except Exception as exc:  # noqa: BLE001
-                cfg.METER.errors += 1
-                rec.setdefault("errors", []).append(f"{m}: {exc}")
+            except Exception as exc:  # noqa: BLE001  (counted by cfg.chat; FatalLLMError passes through)
+                rec.setdefault("errors", []).append(f"{cfg.model_alias(m)}: {cfg.err_text(exc)}")
                 continue
             votes.append(tool if tool in valid else None)
         if et is None and tc.get("expected_permission") == "allowed":
@@ -185,34 +184,42 @@ def main():
 
     pass_out = cfg.repo_path(args.pass_out)
     pass_out.parent.mkdir(parents=True, exist_ok=True)
+    partial = pass_out.with_name(pass_out.name + ".partial")   # checkpoints; --pass-out only when complete
     if to_semantic:
         done = 0
         with ThreadPoolExecutor(max_workers=args.workers) as ex:
             futs = {ex.submit(stage_c, tc, rec): tc for tc, rec in to_semantic}
-            for fut in as_completed(futs):
-                tc = futs[fut]
-                verdict, rec = fut.result()
-                if verdict == "pass":
-                    passed.append(tc)
-                    rec["verdict"] = "pass"
-                    n_c += 1
-                else:
-                    quarantined.append({**tc, "_reject_stage": "C", "_votes": rec.get("votes")})
-                    rec["verdict"] = "quarantine_semantic"
-                report.append(rec)
-                done += 1
-                if done % 200 == 0:
-                    print(f"  stage C {done}/{len(to_semantic)} | passed={n_c} quarantine={len(quarantined)}",
-                          flush=True)
-                    pass_out.write_text(json.dumps(passed, ensure_ascii=False, indent=2), encoding="utf-8")
+            try:
+                for fut in as_completed(futs):
+                    tc = futs[fut]
+                    verdict, rec = fut.result()
+                    if verdict == "pass":
+                        passed.append(tc)
+                        rec["verdict"] = "pass"
+                        n_c += 1
+                    else:
+                        quarantined.append({**tc, "_reject_stage": "C", "_votes": rec.get("votes")})
+                        rec["verdict"] = "quarantine_semantic"
+                    report.append(rec)
+                    done += 1
+                    if done % 200 == 0:
+                        print(f"  stage C {done}/{len(to_semantic)} | passed={n_c} quarantine={len(quarantined)}",
+                              flush=True)
+                        partial.write_text(json.dumps(passed, ensure_ascii=False, indent=2), encoding="utf-8")
+            except BaseException:   # FatalLLMError / Ctrl-C: drop queued rows, write no final output
+                for f in futs:
+                    f.cancel()
+                raise
 
     passed.sort(key=lambda t: str(t.get("id")))
     quarantined.sort(key=lambda t: str(t.get("id")))
     report.sort(key=lambda r: str(r.get("id")))
-    pass_out.write_text(json.dumps(passed, ensure_ascii=False, indent=2), encoding="utf-8")
     cfg.repo_path(args.quarantine_out).write_text(json.dumps(quarantined, ensure_ascii=False, indent=2),
                                                   encoding="utf-8")
     cfg.repo_path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    # --pass-out last: run_pipeline.sh treats its existence as "stage done"
+    pass_out.write_text(json.dumps(passed, ensure_ascii=False, indent=2), encoding="utf-8")
+    partial.unlink(missing_ok=True)
     n = len(cases) or 1
     print(f"\n=== Verification pass-rates (n={len(cases)}) ===")
     print(f"  Stage A (format/exist): {n_a}/{len(cases)} = {n_a / n:.1%}")

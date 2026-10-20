@@ -33,19 +33,19 @@ def kind_hint(kind, prompt_dir):
 
 def gen_batch(client, system_text, kind, hint, n, model):
     up = f"Loại: {kind}. {hint}\nTạo {n} câu KHÁC NHAU. Trộn văn phong. Mảng JSON thuần."
-    for attempt in range(5):
+    for attempt in range(5):  # transient drops only; 401/403/404 raise cfg.FatalLLMError at once
         try:
-            r = client.chat.completions.create(
-                model=model, temperature=1.15, max_tokens=1400, timeout=60,
-                messages=[{"role": "system", "content": system_text}, {"role": "user", "content": up}])
-            cfg.METER.add(r)
+            r = cfg.chat(client, model=model, temperature=1.15, max_tokens=1400, timeout=60,
+                         messages=[{"role": "system", "content": system_text}, {"role": "user", "content": up}])
             t = (r.choices[0].message.content or "").strip()
             t = t[t.find("["): t.rfind("]") + 1] if "[" in t else "[]"
             return [s.strip() for s in json.loads(t) if isinstance(s, str) and len(s.strip()) >= 3]
         except json.JSONDecodeError:
             return []
-        except Exception:  # noqa: BLE001
-            cfg.METER.errors += 1
+        except Exception as exc:  # noqa: BLE001
+            print(f"  {kind} batch error: {cfg.err_text(exc)}", flush=True)
+            if not cfg.is_retryable(exc):
+                return []
             time.sleep(3 * (attempt + 1))
     return []
 
@@ -66,9 +66,9 @@ def main():
     client = cfg.require_openai_client()
     system_text = cfg.load_prompt("irrelevance_system", SYS_DEFAULT, args.prompt_dir)
 
-    accepted = simindex.build_leak_index(
-        cfg.EVAL_SETS_FOR_LEAKAGE,
-        train_paths=[args.train] if cfg.repo_path(args.train).exists() else [])
+    accepted = simindex.build_leak_index(   # repo-rooted paths: the script may run from any directory
+        [cfg.repo_path(p) for p in cfg.EVAL_SETS_FOR_LEAKAGE],
+        train_paths=[cfg.repo_path(args.train)] if cfg.repo_path(args.train).exists() else [])
     print(f"Leakage index: {len(accepted)} reference queries (threshold {cfg.LEAKAGE_THRESHOLD})")
 
     frac = cfg.IRRELEVANCE_CONFIG["kinds"]
@@ -78,6 +78,7 @@ def main():
         frac = {args.only_kind: 1.0}
     out_path = cfg.repo_path(args.output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    partial = out_path.with_name(out_path.name + ".partial")   # checkpoints; <output> only when complete
     out = []
     role_cycle = list(cfg.CASE_ROLES)
     for kind, f in frac.items():
@@ -97,9 +98,10 @@ def main():
                                 "expected_permission": "allowed", "_irrelevance_kind": kind})
                     got += 1
         print(f"  {kind}: {got}/{target}", flush=True)
-        out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+        partial.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
 
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    partial.unlink(missing_ok=True)
     print("by kind:", dict(Counter(c["_irrelevance_kind"] for c in out)))
     print(f"SUMMARY irrelevance: rows={len(out)} target={args.count} -> {out_path} | {cfg.METER.summary()}")
     return 0 if out else 1

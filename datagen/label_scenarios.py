@@ -7,10 +7,12 @@ Per query:
     fulfils the request (ignoring permissions) + its params.
   - Consensus: agree -> that tool; disagree -> primary model's tool + alternates, flagged _needs_review.
   - PERMISSION is rule-based via tool_policy.json (audit_test_cases.role_allows): tool not allowed
-    for the role -> expected_tool=null, expected_permission="denied". Never model-judged.
+    for the role -> expected_tool=null, expected_permission="denied". Never model-judged. The blocked
+    tool is kept in `_blocked_tool` (eval records keep it as expected_tool, contract 3 §6).
   - Params schema-filtered to the tool's properties (dropped keys are logged, not silent).
 
-Output: --output (labeled cases, ids SC... -> SN...) + --report (proposals/agreement per row).
+Output: --output (labeled cases, ids SC... -> SN...) + --report (proposals/agreement per row; models are
+written as config_sgod.model_alias, errors as config_sgod.err_text — no gateway ids, no message bodies).
 
 Usage (LLM stage — runs on the reference infrastructure, needs OPENAI_API_KEY):
   OPENAI_API_KEY=... python3 datagen/label_scenarios.py --input data/sgod/raw.json \
@@ -37,11 +39,9 @@ Trả về JSON thuần: {"tool": "<tên công cụ hoặc null>", "params": {<t
 def review(client, catalogue, q, role, model, system_text=None):
     """One model's proposal for (tool, params). Raises on transport errors."""
     up = f"DANH MỤC CÔNG CỤ:\n{catalogue}\n\nVai trò: {role}\nTruy vấn: {q!r}\nChọn công cụ + tham số. JSON thuần."
-    r = client.chat.completions.create(
-        model=model, temperature=0.0, max_tokens=300,
-        messages=[{"role": "system", "content": system_text or LABEL_SYS_DEFAULT},
-                  {"role": "user", "content": up}])
-    cfg.METER.add(r)
+    r = cfg.chat(client, model=model, temperature=0.0, max_tokens=300,
+                 messages=[{"role": "system", "content": system_text or LABEL_SYS_DEFAULT},
+                           {"role": "user", "content": up}])
     t = (r.choices[0].message.content or "").strip()
     t = t[t.find("{"): t.rfind("}") + 1] if "{" in t else "{}"
     try:
@@ -73,7 +73,7 @@ def main():
     queries = json.loads(cfg.repo_path(args.input).read_text(encoding="utf-8"))
     if args.limit:
         queries = queries[:args.limit]
-    print(f"Labelling {len(queries)} queries with {args.models} against {len(valid)} tools")
+    print(f"Labelling {len(queries)} queries with {[cfg.model_alias(m) for m in args.models]} against {len(valid)} tools")
 
     def process_one(qc):
         q, role = qc["input"], qc.get("user_role", "employee")
@@ -81,9 +81,8 @@ def main():
         for m in args.models:
             try:
                 tool, params = review(client, catalogue, q, role, m, system_text)
-            except Exception as exc:  # noqa: BLE001
-                cfg.METER.errors += 1
-                return None, {"id": qc["id"], "error": str(exc)}
+            except Exception as exc:  # noqa: BLE001  (already counted by cfg.chat; FatalLLMError passes through)
+                return None, {"id": qc["id"], "error": f"{cfg.model_alias(m)}: {cfg.err_text(exc)}"}
             proposals.append((m, tool, params))
         norm = [t if t in valid else None for _, t, _ in proposals]
         if not norm:
@@ -106,31 +105,39 @@ def main():
               "expected_permission": permission}
         if qc.get("seed_tool"):
             tc["_seed_tool"] = qc["seed_tool"]
+        if permission == "denied":
+            tc["_blocked_tool"] = primary
         if alternates and expected_tool:
             tc["expected_tool_alternates"] = alternates
         if not agree:
             tc["_needs_review"] = True
-        rep = {"id": tc["id"], "proposals": [(m, t) for m, t, _ in proposals], "agree": agree,
+        rep = {"id": tc["id"], "proposals": [(cfg.model_alias(m), t) for m, t, _ in proposals], "agree": agree,
                "expected_tool": expected_tool, "permission": permission, "dropped_params": dropped}
         return tc, rep
 
     out, report = [], []
     out_path = cfg.repo_path(args.output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    partial = out_path.with_name(out_path.name + ".partial")   # checkpoints; <output> only when complete
     done = 0
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
         futs = {ex.submit(process_one, qc): qc for qc in queries}
-        for fut in as_completed(futs):
-            tc, rep = fut.result()
-            report.append(rep)
-            if tc is not None:
-                out.append(tc)
-            done += 1
-            if done % 200 == 0:
-                nr = sum(1 for t in out if t.get("_needs_review"))
-                print(f"  {done}/{len(queries)} | kept={len(out)} review={nr}", flush=True)
-                out_path.write_text(json.dumps(sorted(out, key=lambda t: t["id"]), ensure_ascii=False, indent=2),
-                                    encoding="utf-8")
+        try:
+            for fut in as_completed(futs):
+                tc, rep = fut.result()
+                report.append(rep)
+                if tc is not None:
+                    out.append(tc)
+                done += 1
+                if done % 200 == 0:
+                    nr = sum(1 for t in out if t.get("_needs_review"))
+                    print(f"  {done}/{len(queries)} | kept={len(out)} review={nr}", flush=True)
+                    partial.write_text(json.dumps(sorted(out, key=lambda t: t["id"]), ensure_ascii=False,
+                                                  indent=2), encoding="utf-8")
+        except BaseException:   # FatalLLMError / Ctrl-C: drop queued rows, write no final output
+            for f in futs:
+                f.cancel()
+            raise
 
     out.sort(key=lambda t: t["id"])
     report.sort(key=lambda r: r.get("id", ""))
@@ -138,8 +145,13 @@ def main():
     n_denied = sum(1 for t in out if t["expected_permission"] == "denied")
     n_none = sum(1 for t in out if t["expected_tool"] is None and t["expected_permission"] == "allowed")
     n_err = sum(1 for r in report if "error" in r)
-    out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    if n_err:
+        print(f"  {n_err} row(s) dropped on LLM errors, by cause: "
+              f"{dict(Counter(r['error'] for r in report if 'error' in r).most_common(5))}")
     cfg.repo_path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    # --output last: run_pipeline.sh treats its existence as "stage done"
+    out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    partial.unlink(missing_ok=True)
     print("by category:", dict(Counter(c["category"] for c in out)))
     print("by expected_tool (top):", dict(Counter(c["expected_tool"] for c in out).most_common(12)))
     drop_by_tool = Counter(f"{r.get('expected_tool')}.{k}" for r in report for k in r.get("dropped_params", []))

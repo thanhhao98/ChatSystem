@@ -46,11 +46,10 @@ def arbiter(client, model, catalogue, tc, system_text=None):
           f"Nhãn hiện tại: tool={tc.get('expected_tool')!r}, params={tc.get('expected_params')!r}, "
           f"alternates={tc.get('expected_tool_alternates')!r}\n\n"
           f"Sửa và đánh bóng. Trả JSON thuần.")
-    r = client.chat.completions.create(
-        model=model, max_completion_tokens=1500, temperature=0.0,
-        response_format={"type": "json_object"},
-        messages=[{"role": "system", "content": system_text or ARB_SYS_DEFAULT}, {"role": "user", "content": up}])
-    cfg.METER.add(r)
+    r = cfg.chat(client, model=model, max_completion_tokens=1500, temperature=0.0,
+                 response_format={"type": "json_object"},
+                 messages=[{"role": "system", "content": system_text or ARB_SYS_DEFAULT},
+                           {"role": "user", "content": up}])
     return json.loads(r.choices[0].message.content or "{}")
 
 
@@ -91,10 +90,9 @@ def main():
             continue
         try:
             a = arbiter(client, args.model, catalogue, tc, system_text)
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:  # noqa: BLE001  (LLM errors counted by cfg.chat; FatalLLMError passes through)
             errors += 1
-            cfg.METER.errors += 1
-            print(f"  [{tc['id']}] ERR {str(exc)[:80]} — keeping old label")
+            print(f"  [{tc['id']}] ERR {cfg.err_text(exc)} — keeping old label")
             out.append(tc)
             time.sleep(1)
             continue
@@ -115,7 +113,9 @@ def main():
                "expected_params": params, "expected_permission": permission}
         if alts and expected_tool:
             new["expected_tool_alternates"] = sorted(set(alts))
-        for k in ("source", "_seed_tool"):
+        if permission == "denied":
+            new["_blocked_tool"] = tool   # eval records keep it as expected_tool (contract 3 §6)
+        for k in ("source", "_seed_tool", "_needs_review"):
             if k in tc:
                 new[k] = tc[k]
         out.append(new)
