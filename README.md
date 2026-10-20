@@ -66,9 +66,9 @@ Hai nhóm gặp nhau ở **bốn hợp đồng** (`docs/contracts/`), soạn tro
 | # | Hợp đồng | Tệp | Đóng băng | Cổng máy |
 |---|---|---|---|---|
 | 1 | Định dạng hàng huấn luyện | `docs/contracts/training_row_format.md` | **đã đóng băng** — Điểm đồng bộ 1 (2026-09-27) | `training/validate_dataset.py` |
-| 2 | Bộ eval, thước đo, schema dự đoán/kết quả, H1 | `docs/contracts/eval_metric.md` | Điểm đồng bộ 2 — 2026-11-19 | `training/eval_toolcall.py`, `training/bootstrap_ci.py` |
+| 2 | Bộ eval, thước đo, schema dự đoán/kết quả, H1 | `docs/contracts/eval_metric.md` | Điểm đồng bộ 2 — 2026-10-29 | `training/eval_toolcall.py`, `training/bootstrap_ci.py` |
 | 3 | Ánh xạ tier SGOD → vai trò chat | `docs/contracts/roles.md` (epic S, 09-27) + `tools/sgod/roles.json` | **đã đóng băng** — Điểm đồng bộ 1 (2026-09-27) | đọc bởi datagen, labeler, executor |
-| 4 | Hình dạng danh mục tool | `tools/sgod/sgod_tools.json` + `tool_policy.json` (D Việc 1, S Việc 4 xác minh) | tag `tools-v1` — 2026-11-04 | `tools/sgod/validate_tools.py` |
+| 4 | Hình dạng danh mục tool | `tools/sgod/sgod_tools.json` + `tool_policy.json` (D Việc 1, S Việc 4 xác minh) | tag `tools-v1` — 2026-10-21 | `tools/sgod/validate_tools.py` |
 
 Mọi script là giao diện chung và có dòng lệnh cố định: `docs/contracts/cli.md`. Notebook chỉ **gọi** script, không cài
 đặt lại logic.

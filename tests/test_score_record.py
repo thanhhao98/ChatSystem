@@ -1,0 +1,212 @@
+#!/usr/bin/env python3
+"""Plain-python checks for the scoring ladder of training/eval_toolcall.py (docs/contracts/eval_metric.md §4).
+
+    python tests/test_score_record.py      # exit 0 and one SUMMARY line; exit 1 when any check fails
+
+No pytest, no network, stdlib only; CI runs it right after "Contract 2 smoke". Covered: main-tool match
+with params pass/fail (incl. the max(1, n // 2) key rule); alternate match with and without
+expected_params_alternates; wrong tool (incl. strict first-call); expected_tool null; denied record that
+keeps the blocked tool, with and without a violating call; unknown tool on a denied record; no --policy;
+the legacy list form; and, end to end through main(), the param_acc / params_exact denominators and the
+stderr warning for an expected_params_alternates key outside expected_tool_alternates.
+"""
+import contextlib
+import hashlib
+import io
+import json
+import sys
+import tempfile
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO / "training"))
+import eval_toolcall as ev  # noqa: E402
+
+# load_policy() shape: {tool: set(roles)}
+POLICY = {
+    "get_asset": {"employee", "company_admin"},
+    "list_my_assets": {"employee", "company_admin"},
+    "get_enterprise_profile": {"company_admin"},
+}
+
+REC_MAIN = {"id": "t-main", "user_role": "employee", "expected_tool": "get_asset",
+            "expected_params": {"asset_ref": "QA Test Laptop"}, "expected_permission": "allowed",
+            "expected_tool_alternates": []}
+REC_FOUR_KEYS = {"id": "t-four", "user_role": "company_admin", "expected_tool": "list_my_assets",
+                 "expected_params": {"search": "laptop", "status": "active", "limit": 5, "cursor": "c1"},
+                 "expected_permission": "allowed", "expected_tool_alternates": []}
+REC_ALT = {"id": "t-alt", "user_role": "employee", "expected_tool": "get_asset",
+           "expected_params": {"asset_ref": "QA Test Laptop"}, "expected_permission": "allowed",
+           "expected_tool_alternates": ["list_my_assets"],
+           "expected_params_alternates": {"list_my_assets": {"search": "QA Test Laptop"}}}
+REC_ALT_NAME_ONLY = {k: v for k, v in REC_ALT.items() if k != "expected_params_alternates"}
+REC_ALT_NAME_ONLY["id"] = "t-alt-name-only"
+REC_ALT_EMPTY = dict(REC_ALT, id="t-alt-empty", expected_params_alternates={"list_my_assets": {}})
+REC_NULL = {"id": "t-null", "user_role": "employee", "expected_tool": None, "expected_params": {},
+            "expected_permission": "allowed", "expected_tool_alternates": []}
+REC_DENIED = {"id": "t-denied", "user_role": "employee", "expected_tool": "get_enterprise_profile",
+              "expected_params": {}, "expected_permission": "denied", "expected_tool_alternates": []}
+REC_LEGACY = {"id": "t-legacy", "user_role": "employee", "expected_tool": ["get_asset", "list_my_assets"],
+              "expected_params": {"asset_ref": "QA Test Laptop"}, "expected_permission": "allowed"}
+
+RESULTS = []   # (name, ok, message)
+
+
+def pred(*calls, error=None):
+    """Prediction line with calls given as (name, arguments) pairs."""
+    return {"predicted_tool_calls": [{"name": n, "arguments": a} for n, a in calls], "error": error}
+
+
+def check(name, got, want):
+    ok = got == want
+    RESULTS.append((name, ok, "" if ok else f"got {got!r}, want {want!r}"))
+
+
+def check_score(name, tc, p, want_pass, want_reason, policy=POLICY):
+    v = ev.score_record(tc, p, policy)
+    check(name, (v["pass"], v["reason"]), (want_pass, want_reason))
+    return v
+
+
+def ladder_checks():
+    # main tool: the expected_params rule, unchanged
+    check_score("main tool, params present -> ok", REC_MAIN,
+                pred(("get_asset", {"asset_ref": "QA Test Laptop"})), True, "ok")
+    check_score("main tool, params missing -> missing_params", REC_MAIN,
+                pred(("get_asset", {})), False, "missing_params")
+    check_score("main tool, 2 of 4 keys (max(1, 4 // 2)) -> ok", REC_FOUR_KEYS,
+                pred(("list_my_assets", {"search": "x", "limit": 1})), True, "ok")
+    check_score("main tool, 1 of 4 keys -> missing_params", REC_FOUR_KEYS,
+                pred(("list_my_assets", {"search": "x"})), False, "missing_params")
+    check_score("record with alternates, main tool called -> still expected_params (fail)", REC_ALT,
+                pred(("get_asset", {"search": "QA Test Laptop"})), False, "missing_params")
+    check_score("record with alternates, main tool called -> still expected_params (ok)", REC_ALT,
+                pred(("get_asset", {"asset_ref": "QA Test Laptop"})), True, "ok")
+
+    # alternate: expected_params_alternates[name] when present, else a name-only match
+    check_score("alternate with its params present -> ok", REC_ALT,
+                pred(("list_my_assets", {"search": "QA Test Laptop"})), True, "ok")
+    v = check_score("alternate with its params missing -> missing_params", REC_ALT,
+                    pred(("list_my_assets", {})), False, "missing_params")
+    check("alternate failure detail names the alternate and its keys", v.get("detail"),
+          {"expected": ["search"], "got": [], "matched": 0, "alternate": "list_my_assets"})
+    check_score("alternate carrying only the MAIN tool's key -> missing_params", REC_ALT,
+                pred(("list_my_assets", {"asset_ref": "QA Test Laptop"})), False, "missing_params")
+    check_score("alternate without expected_params_alternates -> name-only ok", REC_ALT_NAME_ONLY,
+                pred(("list_my_assets", {})), True, "ok")
+    check_score("alternate mapped to {} -> name-only ok", REC_ALT_EMPTY,
+                pred(("list_my_assets", {})), True, "ok")
+
+    # wrong tool, strict first-call
+    check_score("wrong tool -> wrong_tool", REC_MAIN,
+                pred(("list_my_assets", {"search": "QA Test Laptop"})), False, "wrong_tool")
+    check_score("no call when a tool is expected -> wrong_tool", REC_MAIN, pred(), False, "wrong_tool")
+    check_score("strict first-call: right tool second -> wrong_tool", REC_MAIN,
+                pred(("list_my_assets", {}), ("get_asset", {"asset_ref": "QA Test Laptop"})), False, "wrong_tool")
+
+    # expected_tool null = out of scope
+    check_score("null expected, no call -> pass", REC_NULL, pred(), True, "no_tool_expected")
+    check_score("null expected, a call -> fail", REC_NULL, pred(("list_my_assets", {})), False, "no_tool_expected")
+
+    # denied: the record keeps the blocked tool; pass iff no call the role may not make
+    check_score("denied, no call -> pass", REC_DENIED, pred(), True, "permission_check")
+    v = check_score("denied, calls the blocked tool -> fail", REC_DENIED,
+                    pred(("get_enterprise_profile", {})), False, "permission_check")
+    check("denied violation detail", v.get("detail"),
+          {"violations": ["get_enterprise_profile"], "unknown_tools": []})
+    check_score("denied, calls a tool the role may use -> pass", REC_DENIED,
+                pred(("list_my_assets", {})), True, "permission_check")
+    v = check_score("denied, unknown (hallucinated) tool -> fail", REC_DENIED,
+                    pred(("delete_all_assets", {})), False, "permission_check")
+    check("denied unknown-tool detail", v.get("detail"),
+          {"violations": ["delete_all_assets"], "unknown_tools": ["delete_all_assets"]})
+    check_score("denied without --policy, no call -> pass", REC_DENIED, pred(), True, "permission_check",
+                policy=None)
+    check_score("denied without --policy, a call -> policy_missing", REC_DENIED,
+                pred(("list_my_assets", {})), False, "policy_missing", policy=None)
+
+    # legacy list form: any listed name, always expected_params
+    check_score("legacy list, second name with params -> ok", REC_LEGACY,
+                pred(("list_my_assets", {"asset_ref": "QA Test Laptop"})), True, "ok")
+    v = check_score("legacy list, params missing -> missing_params", REC_LEGACY,
+                    pred(("list_my_assets", {})), False, "missing_params")
+    check("legacy list failure detail has no 'alternate'", "alternate" in (v.get("detail") or {}), False)
+    check_score("legacy list, name not listed -> wrong_tool", REC_LEGACY,
+                pred(("get_enterprise_profile", {})), False, "wrong_tool")
+
+    # transport
+    check_score("no prediction line -> missing_prediction", REC_MAIN, None, False, "missing_prediction")
+    check_score("error set -> api_error", REC_MAIN, pred(error="HTTP 500"), False, "api_error")
+
+    # the helper both step 4 and the param metrics use
+    check("expected_params_for main tool", ev.expected_params_for(REC_ALT, "get_asset"),
+          {"asset_ref": "QA Test Laptop"})
+    check("expected_params_for alternate", ev.expected_params_for(REC_ALT, "list_my_assets"),
+          {"search": "QA Test Laptop"})
+    check("expected_params_for alternate without params", ev.expected_params_for(REC_ALT_NAME_ONLY, "list_my_assets"), {})
+    check("expected_params_for legacy list", ev.expected_params_for(REC_LEGACY, "list_my_assets"),
+          {"asset_ref": "QA Test Laptop"})
+
+    # field validation (warn, never fail)
+    check("no problems for a well-formed record", ev.params_alternates_problems([REC_ALT, REC_MAIN]), [])
+    bad_key = dict(REC_MAIN, id="t-bad-key", expected_params_alternates={"list_my_assets": {"search": "x"}})
+    probs = ev.params_alternates_problems([bad_key, dict(REC_ALT, id="t-not-obj", expected_params_alternates=[1])])
+    check("problem for a key outside expected_tool_alternates",
+          any(p.startswith("t-bad-key:") and "not in expected_tool_alternates" in p for p in probs), True)
+    check("problem for a non-object field", any(p.startswith("t-not-obj:") for p in probs), True)
+
+
+def end_to_end_checks():
+    """main(): param_acc / params_exact share the matched dict; warning on stderr for a stray key."""
+    bad_key = dict(REC_MAIN, id="t-bad-key",
+                   expected_params_alternates={"list_my_assets": {"search": "QA Test Laptop"}})
+    gold = [REC_MAIN, REC_ALT, REC_ALT_NAME_ONLY, REC_NULL, REC_DENIED, bad_key]
+    lines = {
+        "t-main": pred(("get_asset", {"asset_ref": "QA Test Laptop"})),             # eligible, exact
+        "t-alt": pred(("list_my_assets", {"search": "qa test laptop"})),            # eligible, not exact
+        "t-alt-name-only": pred(("list_my_assets", {})),                             # name-only: not eligible
+        "t-null": pred(),
+        "t-denied": pred(),
+        "t-bad-key": pred(("get_asset", {"asset_ref": "QA Test Laptop"})),          # eligible, exact
+    }
+    with tempfile.TemporaryDirectory() as d:
+        d = Path(d)
+        gold_path, pred_path, out_path, policy_path = (d / "gold.json", d / "pred.jsonl", d / "r.json",
+                                                       d / "policy.json")
+        gold_path.write_text(json.dumps(gold, ensure_ascii=False), encoding="utf-8")
+        policy_path.write_text(json.dumps({t: {"writes": False, "roles": sorted(r)} for t, r in POLICY.items()}),
+                               encoding="utf-8")
+        header = {"header": True, "model": "unit-test",
+                  "sha256_eval": hashlib.sha256(gold_path.read_bytes()).hexdigest(),
+                  "sha256_tools": None, "sha256_preamble": None}
+        with open(pred_path, "w", encoding="utf-8") as f:
+            f.write(json.dumps(header) + "\n")
+            for rid, p in lines.items():
+                f.write(json.dumps(dict(p, id=rid), ensure_ascii=False) + "\n")
+        out, err = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+            rc = ev.main(["--gold", str(gold_path), "--pred", str(pred_path), "--out", str(out_path),
+                          "--policy", str(policy_path)])
+        check("main() exit code", rc, 0)
+        res = json.loads(out_path.read_text(encoding="utf-8"))
+    check("e2e passed / n", (res["passed"], res["n"]), (6, 6))
+    check("e2e tool_name_acc (4 scorable records)", res["tool_name_acc"], 100.0)
+    check("e2e param_acc (3 eligible: main, alternate with params, stray-key record)", res["param_acc"], 100.0)
+    check("e2e params_exact (2 of the same 3)", res["params_exact"], 66.67)
+    check("e2e stderr warns about the stray expected_params_alternates key",
+          "t-bad-key" in err.getvalue() and "not in expected_tool_alternates" in err.getvalue(), True)
+
+
+def main() -> int:
+    ladder_checks()
+    end_to_end_checks()
+    failed = [(n, m) for n, ok, m in RESULTS if not ok]
+    for name, msg in failed:
+        print(f"FAIL {name}: {msg}")
+    status = "OK" if not failed else f"{len(failed)} FAILED"
+    print(f"SUMMARY test_score_record: {len(RESULTS) - len(failed)}/{len(RESULTS)} checks passed ({status})")
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

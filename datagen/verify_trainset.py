@@ -5,12 +5,17 @@ expected_permission, expected_tool_alternates?, _needs_review?}.
 
 Stage A — FORMAT/EXISTENCE (offline):
   input non-empty; expected_tool null OR in the catalogue; params is a dict; permission in
-  {allowed, denied}; denied => tool null; allowed tool => permitted for the role (tool_policy.json).
+  {allowed, denied}; allowed tool => permitted for the role (tool_policy.json); denied => the kept
+  blocked tool is NOT permitted for the role (contract 3 §6), or the tool is null (older labels, and
+  REFUSAL rows inverted by audit_trainset_vs_api.py carry no tool). A denied case always becomes a
+  REFUSAL_VI row (build_parity_trainset.py), never a tool call.
 Stage B — SCHEMA/PARAM VALIDITY (offline, audit_test_cases.schema_audit + extras):
   param keys ∈ schema; enum membership; required params present (id/reference slots may be absent
-  — they are resolved at serve time, see ID_SLOT rules below).
+  — they are resolved at serve time, see ID_SLOT rules below). Enum/required are skipped for denied
+  cases: their params never reach a training row.
 Stage C — SEMANTIC CONSENSUS (network, label_scenarios.review):
-  N models independently pick the tool; PASS if >= --consensus-min agree with the label.
+  N models independently pick the tool; PASS if >= --consensus-min agree with the label (for a denied
+  case: with the kept blocked tool).
   Otherwise QUARANTINE (kept aside for human review — never silently dropped).
 
 Outputs: --pass-out (A+B(+C) survivors), --quarantine-out (with _reject_stage/_issues), --report.
@@ -63,11 +68,12 @@ def stage_a_format(tc, valid_tools, perms=None):
         issues.append("params not a dict")
     if tc.get("expected_permission") not in ("allowed", "denied"):
         issues.append("bad permission value")
-    if tc.get("expected_permission") == "denied" and et is not None:
-        issues.append("denied but expected_tool not null")
     if et is not None and tc.get("expected_permission") == "allowed":
         if not audit.role_allows(tc.get("user_role", "employee"), et, perms):
             issues.append(f"role {tc.get('user_role')} not permitted for {et}")
+    elif et is not None and tc.get("expected_permission") == "denied":
+        if audit.role_allows(tc.get("user_role", "employee"), et, perms):   # contract 3 §6
+            issues.append(f"denied but role {tc.get('user_role')} IS permitted for {et}")
     return issues
 
 
@@ -76,7 +82,7 @@ def stage_b_schema(tc, tools, perms, meta=None):
     res = audit.schema_audit([tc], tools, perms)[0]
     issues = list(res["issues"])
     et = tc.get("expected_tool")
-    if et and et in tools:
+    if et and et in tools and tc.get("expected_permission") != "denied":   # denied -> REFUSAL_VI, params unused
         schema = tools[et].get("parameters", {}) or {}
         props = schema.get("properties", {}) or {}
         params = tc.get("expected_params", {}) or {}
@@ -173,10 +179,10 @@ def main():
             votes.append(tool if tool in valid else None)
         if et is None and tc.get("expected_permission") == "allowed":
             agree = sum(1 for v in votes if v is None)
-        elif tc.get("expected_permission") == "denied":
+        elif et is None:   # denied without a tool name (older labels): any consistent tool counts
             non_null = [v for v in votes if v is not None]
             agree = max(Counter(non_null).values()) if non_null else 0
-        else:
+        else:              # allowed tool, or the blocked tool a denied case keeps (contract 3 §6)
             alts = set(tc.get("expected_tool_alternates") or [])
             agree = sum(1 for v in votes if v == et or v in alts)
         rec["votes"] = votes
@@ -226,7 +232,8 @@ def main():
     print(f"  quarantine by stage: {dict(Counter(q['_reject_stage'] for q in quarantined))}")
 
     rc = 0
-    listish = [c for c in passed if (c.get("expected_tool") or "").startswith(("list_", "search"))]
+    listish = [c for c in passed if c.get("expected_permission") != "denied"   # denied rows train as REFUSAL_VI
+               and (c.get("expected_tool") or "").startswith(("list_", "search"))]
     with_filter = [c for c in listish if any(k not in NONFILTER_KEYS for k in (c.get("expected_params") or {}))]
     if listish:
         cov = len(with_filter) / len(listish)

@@ -5,7 +5,8 @@ consensus labels (POC v1: the two labeler models agreed on only 62% of rows).
 Per case the arbiter sees: the query, the user role, the full tool catalogue, and the current
 label. It returns the corrected expected_tool (+alternates), params, and a lightly polished query
 (grammar/clarity only — intent, asset names/codes and register are kept). PERMISSION is then
-recomputed by RULE (tool_policy.json) — never model-judged — and params are schema-filtered.
+recomputed by RULE (tool_policy.json) — never model-judged; a tool the role may not call gives
+"denied" and the case keeps that tool (contract 3 §6) — and params are schema-filtered.
 Output is a new file so the input is untouched.
 
 For eval_v1 augmentation the arbiter model MUST differ from the GPT under test (contract 2).
@@ -107,7 +108,7 @@ def main():
 
         permission, expected_tool = "allowed", tool   # permission by RULE, not arbiter
         if tool and not audit.role_allows(tc["user_role"], tool, perms):
-            permission, expected_tool, alts = "denied", None, []
+            permission, alts = "denied", []   # keeps the blocked tool + params (contract 3 §6)
         params = audit.fix_params_for_tool(expected_tool, params, tools)[0] if expected_tool else {}
 
         new = {"id": tc["id"], "category": tc.get("category", ""), "user_role": tc["user_role"],
