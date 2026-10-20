@@ -267,7 +267,9 @@ Cách đọc mỗi persona:
 - **Tiền tố `[SEED] `** là dấu đánh dấu dữ liệu thử, người dùng thật không bao giờ gõ: câu hỏi nêu tên **đã bỏ tiền tố**
   (vd "Laptop Dell Latitude 5440", không phải "[SEED] Laptop Dell Latitude 5440") và `asset_ref` / `search` chép đúng tên
   đã bỏ tiền tố đó. `search` của API khớp theo đoạn của tên (kiểm trên API thật: lượt `search=<từ khoá>` của
-  `docs/sgod/tools_v1_live_check.md` dùng một từ của tên vẫn trả đúng mục), nên tên đã bỏ tiền tố vẫn tra ra tài sản.
+  `docs/sgod/tools_v1_live_check.md` dùng một từ của tên vẫn trả đúng mục), nên tên đã bỏ tiền tố vẫn tra ra tài sản —
+  gọi thật 2026-10-21: `search` = "Laptop Dell Latitude 5440", "Máy in HP LaserJet Pro M404dn", "Mực in HP 76A" hay mã
+  `000000006` đều trả đúng **1** tài sản; riêng `Laptop` trả 2 (`QA Test Laptop`, `[SEED] Laptop Dell Latitude 5440`).
   `ENTITY_POOLS` giữ giá trị đúng như fixture và sampler bỏ tiền tố khi đưa vào gợi ý (hoặc pool lưu sẵn tên đã bỏ tiền tố,
   kèm chú thích tệp nguồn).
 - Giá trị chỉ có trong Swagger (2026-10-14) được phép dùng, luôn ghi **"khai báo trong Swagger, chưa thấy trong dữ liệu"**
