@@ -11,6 +11,8 @@ No other datagen module may read permission data from anywhere else (no permissi
 Pass 1 (programmatic, offline): hard schema bugs
   - expected_tool not in the catalogue; expected_params keys outside the tool's schema
   - role/permission mismatch (role cannot call the tool yet expected_permission='allowed', or vice versa)
+  - expected_permission='denied' with a null expected_tool (a denied record keeps the blocked tool,
+    contract 3 §6; null = out of scope)
   - list-valued expected_tool (multi-step) -> rejected: phase 2 is single-turn, single-call
 Pass 2 (LLM semantic review, needs OPENAI_API_KEY): is expected_tool the BEST tool for the query?
   The reviewer may confirm, propose a fix, or mark the case ambiguous with expected_tool_alternates.
@@ -172,10 +174,15 @@ PARAM_RENAME = {}
 
 
 def fix_params_for_tool(tool: str, params, tools: dict):
-    """Schema-filter `params` to the tool's declared properties. Returns (kept, dropped_keys)."""
+    """Schema-filter `params` to the tool's declared properties. Returns (kept, dropped_keys).
+
+    A null or blank value means "not given": labelers fill unused optional keys with null
+    ({"search": "x", "limit": null, "cursor": null}); keeping them would train the model to emit
+    `"limit": null` and make eval rows demand keys the user never mentioned. They are removed
+    silently (not reported as dropped: the key itself is valid)."""
     if not isinstance(params, dict):
         return {}, []
-    out = dict(params)
+    out = {k: v for k, v in params.items() if v is not None and not (isinstance(v, str) and not v.strip())}
     for wrong, right in PARAM_RENAME.get(tool, {}).items():
         if wrong in out and right not in out:
             out[right] = out.pop(wrong)
@@ -267,7 +274,7 @@ Decision rules:
    - TODO(SGOD): <tool A> vs <tool B> for <query shape> — fill from the SGOD catalogue.
    - A named asset ("xem máy in Canon") may be answered by the detail tool with a name reference OR by the list tool with a free-text filter; mark as alternates when both exist.
 4. Asset codes in SGOD are sequential digits (e.g. 000000012) and asset names are free text; a detail tool that accepts a name/code reference is preferred over a list when exactly one asset is meant.
-5. For `permission_denial` cases (a role asking for a tool it may not call): expected_tool should be null (text response) and expected_permission='denied'. If the test case has any other shape, fix it.
+5. For `permission_denial` cases (a role asking for something only a tool it may not call can answer): expected_tool KEEPS that blocked tool (with the params the query states) and expected_permission='denied' — the assistant refuses at serve time, but the label names the blocked tool. expected_tool is null ONLY when no catalogue tool fits the request (out of scope), which includes every create/update/delete request because the catalogue is read-only. If the test case has any other shape, fix it.
 6. Always check `expected_params` keys are valid for the tool. If you change the tool, regenerate the params. Never invent parameters named like company/tenant/enterprise id — the JWT scopes those.
 7. Exactly ONE tool call per case (single turn). Never propose a list of tools.
 
@@ -275,7 +282,7 @@ Return STRICT JSON with this shape:
 {
   "verdict": "ok" | "fix" | "ambiguous",
   "reasoning": "one short sentence",
-  "expected_tool": <string or null>,            // canonical answer (keep original if ok)
+  "expected_tool": <string or null>,            // canonical answer (keep original if ok); the blocked tool for a denied case; null only if no tool fits
   "expected_params": <dict>,                    // canonical params for the chosen tool
   "expected_permission": "allowed" | "denied",
   "expected_tool_alternates": [<other acceptable tools>]   // OPTIONAL — only if "ambiguous"
@@ -303,7 +310,8 @@ TEST CASE
 
 Audit this label. Return JSON only."""
 
-    resp = client.chat.completions.create(
+    resp = cfg.chat(
+        client,
         model=model,
         messages=[
             {"role": "system", "content": system_text or REVIEWER_SYSTEM_DEFAULT},
@@ -312,7 +320,6 @@ Audit this label. Return JSON only."""
         temperature=0.0,
         response_format={"type": "json_object"},
     )
-    cfg.METER.add(resp)
     raw = resp.choices[0].message.content or "{}"
     try:
         return json.loads(raw)
@@ -322,7 +329,10 @@ Audit this label. Return JSON only."""
 
 def apply_review(tc: dict, review: dict, tools: dict) -> dict:
     """Return a possibly-modified copy of tc honouring the reviewer's verdict.
-    Permission is re-derived by RULE from the final tool + role (never trusted from the model)."""
+    Permission is re-derived by RULE from the final tool + role (never trusted from the model):
+    a tool the role may not call -> "denied" and the case KEEPS that tool + params (contract 3 §6);
+    a null tool means out of scope -> "allowed", with no params and no alternates (as label_scenarios.py
+    and polish_scenarios.py write it)."""
     out = dict(tc)
     verdict = review.get("verdict", "ok")
     if verdict == "ok":
@@ -338,12 +348,16 @@ def apply_review(tc: dict, review: dict, tools: dict) -> dict:
             out["expected_tool_alternates"] = sorted(set(alts))
     et = out.get("expected_tool")
     if et is not None and not role_allows(out.get("user_role", "employee"), et):
+        # denied keeps the blocked tool; alternates do not apply (step 1 of the ladder ignores names)
         out["expected_permission"] = "denied"
-        out["expected_tool"] = None
-        out["expected_params"] = {}
         out.pop("expected_tool_alternates", None)
-    elif et is not None:
+        out.pop("expected_params_alternates", None)
+    else:
         out["expected_permission"] = "allowed"
+        if et is None:   # out of scope: a reviewer-cleared tool must not leave its params/alternates behind
+            out["expected_params"] = {}
+            out.pop("expected_tool_alternates", None)
+            out.pop("expected_params_alternates", None)
     return out
 
 
@@ -367,6 +381,10 @@ def main() -> int:
           f"{sorted(k for k in perms if not k.startswith('_') and k != 'admin_only')}")
 
     pass1 = schema_audit(tcs, tools, perms)
+    for r in pass1:   # contract 3 §6 (not in schema_audit: inverted REFUSAL training rows carry no tool)
+        if r["tc"].get("expected_permission") == "denied" and r["tc"].get("expected_tool") is None:
+            r["issues"].append("denied but expected_tool is null: a denied record keeps the blocked tool "
+                               "(contract 3 §6); null = out of scope with expected_permission='allowed'")
     n_with_issues = sum(1 for r in pass1 if r["issues"])
     print(f"\nPass 1 (schema): {n_with_issues}/{len(tcs)} cases with issues")
     for r in pass1:
@@ -387,17 +405,16 @@ def main() -> int:
     perms_text = describe_permissions(perms)
     reviews, fixed_tcs = [], []
     cap = args.pass2_limit or len(tcs)
-    print(f"\nPass 2 ({args.model} review): {cap} cases")
+    print(f"\nPass 2 ({cfg.model_alias(args.model)} review): {cap} cases")
     for i, tc in enumerate(tcs):
         if i >= cap:
             fixed_tcs.append(tc)
             continue
         try:
             review = gpt_review(client, catalogue, perms_text, tc, args.model, system_text)
-        except Exception as exc:  # noqa: BLE001 — keep going, record the error
-            cfg.METER.errors += 1
-            print(f"  {tc.get('id')}: review failed ({exc})")
-            review = {"verdict": "ok", "reasoning": f"error: {exc}"}
+        except Exception as exc:  # noqa: BLE001 — keep going, record the error (counted by cfg.chat)
+            print(f"  {tc.get('id')}: review failed ({cfg.err_text(exc)})")
+            review = {"verdict": "ok", "reasoning": f"error: {cfg.err_text(exc)}"}
         reviews.append({"id": tc.get("id"), "review": review,
                         "schema_issues": next((r["issues"] for r in pass1 if r["id"] == tc.get("id")), [])})
         fixed_tcs.append(apply_review(tc, review, tools))

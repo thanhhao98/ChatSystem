@@ -32,21 +32,28 @@ Scoring ladder (eval_metric.md section 4; ported from the POC v1 benchmark's eva
    ``tool_policy.json`` roles do not contain the record's user_role; a tool absent from the policy
    (hallucinated name) counts as not allowed for any role. Needs --policy. Without --policy: zero
    predicted calls -> pass; any call -> fail "policy_missing".            reason "permission_check"
-2. expected_tool is null                         -> pass iff zero predicted calls   ("no_tool_expected")
+   A denied record keeps the blocked tool in expected_tool (contract 3 section 6); this step does not
+   compare names, so a call to a tool the role IS allowed to use still passes.
+2. expected_tool is null (out of scope)          -> pass iff zero predicted calls   ("no_tool_expected")
 3. tool name must be in {expected_tool} U expected_tool_alternates       -> otherwise fail "wrong_tool"
+   With --policy an alternate counts only if its tool_policy.json roles contain the record's user_role.
    STRICT_FIRST_CALL = True: only the FIRST predicted call is considered (strict accuracy).
    False: the first call whose name is accepted is used (POC v1 behaviour, eval_metric.md wording).
-4. params: at least max(1, len(expected_params)//2) expected keys present in the matched call's
-   arguments (keys only, values not compared)     -> otherwise fail "missing_params"
+4. params of the matched call's tool (expected_params_for): name == expected_tool (or the legacy list
+   form) -> expected_params; name is an alternate -> expected_params_alternates.get(name, {}).
+   Non-empty: at least max(1, len(params)//2) of its keys present in the matched call's arguments
+   (keys only, values not compared)               -> otherwise fail "missing_params"
+   Empty (alternate without its own params = name-only match) -> no param check.
    pass                                           -> reason "ok"
+   Records without alternates are scored exactly as before the optional field existed.
 
 Secondary metrics (reported, never decide H1): ``tool_name_acc`` (step 3 passed, over records with a
 non-null expected_tool and permission allowed), ``param_acc`` (step 4 passed, over records where the
-tool matched and expected_params is non-empty), ``params_exact`` (every expected key present with an
-equal value after str() coercion, same denominator as param_acc), ``json_valid_rate`` (every
-``<tool_call>`` tag in raw_text parses; with no tags: a structured call or a JSON body), latency
-p50/p95 (ms, over records that have a latency), and breakdowns ``by_source`` / ``by_role`` /
-``by_group`` (``--group-by <field>``).
+tool matched and the matched tool's expected params are non-empty), ``params_exact`` (every key of
+that same dict present with an equal value after str() coercion, same denominator as param_acc),
+``json_valid_rate`` (every ``<tool_call>`` tag in raw_text parses; with no tags: a structured call or
+a JSON body), latency p50/p95 (ms, over records that have a latency), and breakdowns ``by_source`` /
+``by_role`` / ``by_group`` (``--group-by <field>``).
 
 Output ``results.json``::
 
@@ -72,7 +79,7 @@ from pathlib import Path
 
 STRICT_FIRST_CALL = True   # see docstring step 3; flipping this is a scorer change = new measurement axis
 # Note: no percent sign in this string -- it is printed into reports that scripts/check_provenance.py scans.
-SCORER_VERSION = ("eval_toolcall/1.2 (" + ("strict first-call" if STRICT_FIRST_CALL else "any-call match")
+SCORER_VERSION = ("eval_toolcall/1.3 (" + ("strict first-call" if STRICT_FIRST_CALL else "any-call match")
                   + "; params >= half of keys; unknown tool = violation)")
 TOOL_CALL_RE = re.compile(r"<tool_call>\s*(.*?)\s*</tool_call>", re.DOTALL)
 
@@ -170,6 +177,44 @@ def pct(a: int, b: int) -> float | None:
 
 
 # ─────────────────────────────────────────────────────────────────── the ladder ──
+def expected_params_for(tc: dict, name) -> dict:
+    """Expected params for the tool a matched call names (eval_metric.md section 4, step 4).
+
+    name == expected_tool, or the legacy list form -> expected_params (unchanged behaviour);
+    name is an alternate -> expected_params_alternates.get(name, {}). An empty dict is a name-only
+    match: no param check, and the record is left out of the param_acc / params_exact denominator."""
+    expected_tool = tc.get("expected_tool")
+    if isinstance(expected_tool, list) or name == expected_tool:
+        params = tc.get("expected_params")
+    else:
+        by_alt = tc.get("expected_params_alternates")
+        params = by_alt.get(name) if isinstance(by_alt, dict) else None
+    return params if isinstance(params, dict) else {}
+
+
+def params_alternates_problems(gold: list[dict]) -> list[str]:
+    """expected_params_alternates must map alternate names (a subset of expected_tool_alternates)
+    to param objects. Keys outside the alternates are never read by the ladder -> warn, don't fail."""
+    problems = []
+    for tc in gold:
+        by_alt = tc.get("expected_params_alternates")
+        if by_alt is None:
+            continue
+        rid = tc.get("id")
+        if not isinstance(by_alt, dict):
+            problems.append(f"{rid}: expected_params_alternates is not an object (ignored)")
+            continue
+        extra = sorted(set(by_alt) - set(tc.get("expected_tool_alternates") or []))
+        if extra:
+            problems.append(f"{rid}: expected_params_alternates key(s) {extra} not in expected_tool_alternates "
+                            f"(ignored)")
+        bad = sorted(k for k, v in by_alt.items() if k not in extra and not isinstance(v, dict))
+        if bad:
+            problems.append(f"{rid}: expected_params_alternates value for {bad} is not an object "
+                            f"(treated as no params)")
+    return problems
+
+
 def score_record(tc: dict, pred: dict | None, policy: dict | None) -> dict:
     """Returns {"pass", "reason", "detail"?, "matched_index"? (steps 3/4 reached)}."""
     if pred is None:
@@ -178,7 +223,6 @@ def score_record(tc: dict, pred: dict | None, policy: dict | None) -> dict:
         return {"pass": False, "reason": "api_error", "detail": str(pred["error"])[:300]}
 
     expected_tool = tc.get("expected_tool")
-    expected_params = tc.get("expected_params") or {}
     expected_perm = tc.get("expected_permission", "allowed")
     alternates = tc.get("expected_tool_alternates") or []
     role = tc.get("user_role") or pred.get("user_role") or "employee"
@@ -206,7 +250,9 @@ def score_record(tc: dict, pred: dict | None, policy: dict | None) -> dict:
     if isinstance(expected_tool, list):          # legacy "any of these" form
         accepted = set(expected_tool)
     else:
-        accepted = {expected_tool, *alternates}
+        # an alternate counts only if the caller's role may call it (with --policy); a blocked
+        # alternate would otherwise score a call the executor refuses as "ok"
+        accepted = {expected_tool, *(a for a in alternates if policy is None or role in policy.get(a, ()))}
     if STRICT_FIRST_CALL:
         idx = 0 if names and names[0] in accepted else None
     else:
@@ -215,19 +261,24 @@ def score_record(tc: dict, pred: dict | None, policy: dict | None) -> dict:
         return {"pass": False, "reason": "wrong_tool",
                 "detail": f"expected one of {sorted(accepted)}, got {names or 'none'}"}
 
-    # (4) params: at least half of the expected keys (min 1) present in the matched call's arguments (keys only)
-    if expected_params and isinstance(expected_params, dict):
+    # (4) params of the matched call's tool: at least half of its expected keys (min 1) present in the
+    # call's arguments (keys only). An alternate without its own params is a name-only match.
+    expected_params = expected_params_for(tc, names[idx])
+    if expected_params:
         args = calls[idx].get("arguments")
         args = args if isinstance(args, dict) else {}
         matched = sum(1 for k in expected_params if k in args)
         if matched < max(1, len(expected_params) // 2):
-            return {"pass": False, "reason": "missing_params", "matched_index": idx,
-                    "detail": {"expected": sorted(expected_params), "got": sorted(args), "matched": matched}}
+            detail = {"expected": sorted(expected_params), "got": sorted(args), "matched": matched}
+            if names[idx] != expected_tool and not isinstance(expected_tool, list):
+                detail["alternate"] = names[idx]
+            return {"pass": False, "reason": "missing_params", "matched_index": idx, "detail": detail}
     return {"pass": True, "reason": "ok", "matched_index": idx}
 
 
-def params_exact_of(tc: dict, call: dict) -> bool:
-    expected = tc.get("expected_params") or {}
+def params_exact_of(expected: dict, call: dict) -> bool:
+    """Every key of ``expected`` (the matched tool's params, see expected_params_for) present in the
+    call's arguments with an equal value after str() coercion."""
     args = call.get("arguments")
     args = args if isinstance(args, dict) else {}
     return all(k in args and str(args[k]) == str(v) for k, v in expected.items())
@@ -385,6 +436,11 @@ def main(argv=None) -> int:
     extra = set(preds) - {r.get("id") for r in gold}
     if extra:
         print(f"WARNING: {len(extra)} prediction id(s) not in gold (ignored)", file=sys.stderr)
+    alt_problems = params_alternates_problems(gold)
+    for pr in alt_problems[:20]:
+        print(f"WARNING: {pr}", file=sys.stderr)
+    if len(alt_problems) > 20:
+        print(f"WARNING: ... {len(alt_problems) - 20} more expected_params_alternates problem(s)", file=sys.stderr)
 
     # Restrict to predicted ids: explicit flag, or implied by a --limit smoke run (header.limit non-null).
     n_gold_total = len(gold)
@@ -429,10 +485,13 @@ def main(argv=None) -> int:
             n_tool_expected += 1
             if verdict.get("matched_index") is not None:
                 n_tool_correct += 1
-                if tc.get("expected_params"):
+                matched_call = calls[verdict["matched_index"]]
+                # same dict as step 4: the matched tool's params; empty (name-only alternate) -> not eligible
+                matched_params = expected_params_for(tc, matched_call["name"])
+                if matched_params:
                     n_param_eligible += 1
                     n_param_ok += 1 if verdict["reason"] == "ok" else 0
-                    n_param_exact += 1 if params_exact_of(tc, calls[verdict["matched_index"]]) else 0
+                    n_param_exact += 1 if params_exact_of(matched_params, matched_call) else 0
 
         by_reason[verdict["reason"]] += 1
         for field, table in groups.items():

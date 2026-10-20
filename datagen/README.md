@@ -28,8 +28,14 @@ tools/sgod/roles.json ───────┘            (nguồn DUY NHẤT v�
  [7] audit_trainset_vs_api.py  (đối chiếu lại với catalogue hiện tại; exit 1 nếu lệch) ──► training/validate_dataset.py
 ```
 
-Tuỳ chọn: `polish_scenarios.py` (arbiter mạnh sửa nhãn + đánh bóng câu; dùng cho phần GPT bổ sung của eval_v1 với
-prompt trong `prompts_eval/`), `audit_test_cases.py` (kiểm tra schema + review nhãn của một file case bất kỳ).
+Phần GPT bổ sung của eval_v1 (D Việc 4) đi đường riêng `run_pipeline.sh --eval-aug`: `generate_scenarios.py` theo
+`BUCKET_PLAN` với prompt `prompts_eval/` → `label_scenarios.py` → `polish_scenarios.py` (arbiter ≠ GPT bị chấm sửa nhãn,
+alternates) → `export_eval_aug.py` → `data/sgod/eval_aug.json` (bản ghi hợp đồng 2, `source: gpt_aug`); mọi tệp trung gian
+mang tiền tố `eval_aug_`, không bao giờ trùng tệp của tập huấn luyện. Bước generate của `--eval-aug` cần
+`prompts_eval/domain_system.md` (thiếu thì preflight báo `ERROR`: generate sẽ dùng `DOMAIN_SYSTEM` của tập huấn luyện).
+Hàng mà arbiter lỗi, hoặc arbiter đổi quyền (denied ↔ allowed), hoặc chưa qua arbiter, được gắn `_needs_review` để nhóm D
+xem lại. Tuỳ chọn: `audit_test_cases.py` (kiểm tra schema + review nhãn của một file case bất kỳ). `preflight.py` kiểm tra
+offline `config_sgod.py` + thư mục prompt trước mọi bước LLM.
 
 ## Bảng các bước
 
@@ -43,11 +49,14 @@ prompt trong `prompts_eval/`), `audit_test_cases.py` (kiểm tra schema + review
 | 6 | `assemble_trackb_trainset.py` / `build_parity_trainset.py` | 3 luồng ở trên, preamble v1, `fixed_replies.json` | `train.jsonl`, `val.jsonl` (hoặc `pilot_train.jsonl`) | Không | ai cũng được |
 | 7 | `audit_trainset_vs_api.py` | `train.jsonl`, `val.jsonl`, catalogue | `alignment_report.json`, exit 0/1 | Không | ai cũng được, CI |
 | — | `audit_test_cases.py --dry-run` | file case bất kỳ | `audit_report.json` | Không (`--dry-run`) / Có (pass 2) | intern / hạ tầng tham chiếu |
-| — | `polish_scenarios.py` | `labeled.json` | `labeled.polished.json` | **Có** (ARBITER_MODEL) | hạ tầng tham chiếu |
+| — | `polish_scenarios.py` (`--eval-aug`) | `eval_aug_labeled.json` | `eval_aug_polished.json` | **Có** (ARBITER_MODEL) | hạ tầng tham chiếu |
+| — | `export_eval_aug.py` (`--eval-aug`) | `eval_aug_polished.json` | `eval_aug.json` (hợp đồng 2, `source: gpt_aug`) | Không | ai cũng được |
+| — | `preflight.py` (`run_pipeline.sh --check`) | `config_sgod.py`, thư mục prompt, catalogue | lỗi/cảnh báo, exit 0/1 | Không | intern trước khi mở PR; tự chạy trước mọi bước LLM |
 
 Mọi script đều có `--help`, thoát mã 0 khi thành công, in **một dòng `SUMMARY ...`** cuối cùng (kèm số lần gọi LLM và
-token để ghi chi phí vào comment ClickUp của task). Script cần LLM sẽ thoát mã **2** kèm thông báo tiếng Việt nếu thiếu
-`OPENAI_API_KEY`; `OPENAI_BASE_URL` luôn được tôn trọng.
+token, tổng và theo từng model: `by_model=<alias>:calls/prompt/completion/errors`). Script cần LLM sẽ thoát mã **2** kèm
+thông báo tiếng Việt nếu thiếu `OPENAI_API_KEY`; `OPENAI_BASE_URL` luôn được tôn trọng. Gateway từ chối khoá hoặc model
+(HTTP 401/403/404) ⇒ bước dừng ngay, thoát mã khác 0, không ghi tệp đầu ra; lỗi tạm thời (timeout, 429, 5xx) được thử lại.
 
 ## Ngân sách hiệu suất (yield) 0.58
 
@@ -56,24 +65,42 @@ trainset. Muốn N hàng domain đã kiểm định thì đặt tổng `TRACKB_B
 Báo cáo chất lượng (D Việc 5) phải nêu yield thực tế so với 0.58, độ tương đồng lớn nhất với `eval_v1`, và số hàng
 cách ly (`quarantine.json`) theo stage A/B/C.
 
-## Chạy pipeline trên hạ tầng tham chiếu (Epic S Việc 5)
+## Chạy trên hạ tầng tham chiếu (Epic S Việc 5)
+
+Biến môi trường (chỉ tên; giá trị nằm trên hạ tầng tham chiếu, **không bao giờ** commit):
+
+| Biến | Ý nghĩa |
+|---|---|
+| `OPENAI_API_KEY`, `OPENAI_BASE_URL` | khoá và địa chỉ gateway LLM tương thích OpenAI (`https://<openai-compatible-gateway>/v1`) |
+| `GEN_MODEL`, `LABEL_MODELS` (cách nhau bởi dấu cách), `ARBITER_MODEL` | tên model **đúng như gateway phục vụ**; giá trị trong `config_sgod.py` chỉ là placeholder |
+| `SCORED_MODEL` | model GPT sẽ được chấm (S Việc 8). Pipeline từ chối mọi GEN/LABEL/ARBITER trùng tên (hợp đồng 2: arbiter ≠ GPT bị chấm); **bắt buộc** với `--eval-aug` |
+| `MAX_TOTAL`, `SCALE`, `IRREL_COUNT`, `GEN_WORKERS`/`LBL_WORKERS`/`VER_WORKERS` | cỡ kế hoạch; `--pilot` mặc định 60 / 8 / 4 nhưng giá trị export vẫn được ưu tiên |
+| `PROMPT_DIR`, `OUT_DIR`, `VERIFY_MODE`, `TOOL_DEFS_PATH`/`TOOL_POLICY_PATH`/`ROLES_PATH` | như trong `run_pipeline.sh --help` |
+| `LLM_TIMEOUT`, `LLM_MAX_RETRIES` | giây cho mỗi request (mặc định 120) và số lần thử lại lỗi tạm thời (mặc định 3) |
 
 ```bash
-export OPENAI_API_KEY=...            # KHÔNG bao giờ commit; tuỳ chọn export OPENAI_BASE_URL=https://<gateway>/v1
-bash datagen/run_pipeline.sh --pilot                 # 50 hàng -> data/sgod/pilot_train.jsonl (D Việc 3, 10-13)
-bash datagen/run_pipeline.sh                         # chạy đủ; bước nào có output rồi thì bỏ qua (resumable)
-bash datagen/run_pipeline.sh --stage verify --force  # chạy lại một bước
-bash datagen/run_pipeline.sh --stage replay,assemble,audit   # các bước offline, không cần key
-python training/validate_dataset.py data/sgod/train.jsonl data/sgod/val.jsonl \
-    --preamble prompts/system_preamble_v1.txt --tools tools/sgod/sgod_tools.json
+bash datagen/run_pipeline.sh --check --pilot      # preflight offline, không cần key — chạy ngay khi PR của nhóm D tới
+bash datagen/run_pipeline.sh --pilot              # pilot_* -> data/sgod/pilot_train.jsonl (kế hoạch 60 + 8 irrelevance)
+bash datagen/run_pipeline.sh --eval-aug           # eval_aug_* -> data/sgod/eval_aug.json (D Việc 4; cần SCORED_MODEL)
+bash datagen/run_pipeline.sh                      # chạy đủ (D Việc 5); bước nào có output rồi thì bỏ qua (resumable)
+bash datagen/run_pipeline.sh --stage verify --force         # chạy lại một bước
+bash datagen/run_pipeline.sh --stage replay,assemble,audit  # các bước offline, không cần key
+python training/validate_dataset.py data/sgod/pilot_train.jsonl --preamble prompts/system_preamble_v1.txt \
+    --tools tools/sgod/sgod_tools.json --roles tools/sgod/roles.json
 ```
 
-Núm điều chỉnh qua biến môi trường: `SCALE`, `MAX_TOTAL`, `IRREL_COUNT`, `GEN_WORKERS`/`LBL_WORKERS`/`VER_WORKERS`,
-`VERIFY_MODE=review-only|full|offline`, `PROMPT_DIR`, `OUT_DIR`, `TOOL_DEFS_PATH`/`TOOL_POLICY_PATH`/`ROLES_PATH`.
-Model đổi ở **một chỗ**: `GEN_MODEL`, `LABEL_MODELS`, `ARBITER_MODEL` trong `config_sgod.py` (giá trị mặc định chỉ là
-placeholder; tên model thật do gateway LLM của hạ tầng tham chiếu quyết định). Sau mỗi lần chạy trên hạ tầng tham chiếu,
-output của từng stage được commit vào `data/sgod/` và dòng `SUMMARY` được ghi vào comment ClickUp của task trong ≤ 2 ngày
-làm việc.
+- Mỗi lần chạy ghi `OUT_DIR/<tiền tố>pipeline.log` (bị `.gitignore`); dòng cuối `SUMMARY run_pipeline: ... | llm_calls=…
+  prompt_tokens=… completion_tokens=… errors=… by_model=…` cộng mọi bước của lần chạy đó — dán dòng này vào comment
+  ClickUp của task. Một lần chạy trên cùng `OUT_DIR` + chế độ tại một thời điểm (khoá `.<tiền tố>pipeline.lock`).
+- Bước bị ngắt giữa chừng chỉ để lại `<đầu ra>.partial` nên lần chạy sau làm lại bước đó; sinh lại đầu vào của một bước
+  thì chạy lại bước sau với `--force` (pipeline cảnh báo khi đầu vào mới hơn đầu ra).
+- Tệp trong `data/sgod/` chỉ ghi tên model rút gọn (phần sau dấu `/` cuối) và loại lỗi + mã HTTP, không ghi nội dung lỗi
+  của gateway. Không commit tên model có tiền tố nhà cung cấp, địa chỉ gateway hay khoá.
+- `val.jsonl` chỉ có hàng domain nên qua `validate_dataset.py` như trên. `train.jsonl` đầy đủ trộn hàng replay mang
+  preamble v0 (hợp đồng 1 §5) trong khi `validate_dataset.py` chỉ so với một `--preamble`: hàng replay báo
+  `preamble_mismatch` cho tới khi cổng hợp đồng 1 nhận cả hai preamble.
+- Sau mỗi lần chạy trên hạ tầng tham chiếu, output của từng stage được commit vào `data/sgod/` (trừ `*.log`, `*.partial`)
+  và dòng `SUMMARY` được ghi vào comment ClickUp của task trong ≤ 2 ngày làm việc.
 
 ## Thực tập sinh sửa gì
 
@@ -84,6 +111,10 @@ làm việc.
   (từ `fixtures/sgod/`), `PARAM_SAMPLER` (một entry cho **mỗi** tool trong `sgod_tools.json`), `TRACKB_BUCKET_PLAN`,
   `IRRELEVANCE_CONFIG`, `MIX_TARGETS`. Mỗi khối có 1–2 ví dụ đã điền (`list_my_assets`, `get_asset`,
   `list_maintenance_schedules`) và giá trị của hệ thống tham chiếu (POC v1) trong comment để tham khảo độ dày.
+- Trước khi mở PR prompt/config: `bash datagen/run_pipeline.sh --check --pilot` (và `--check --eval-aug` cho
+  `prompts_eval/`) — không cần key; `ERROR` (tool/role sai trong plan, `PARAM_SAMPLER` lỗi, thiếu hint irrelevance,
+  `--eval-aug` thiếu `prompts_eval/domain_system.md`) thì
+  pipeline sẽ không chạy; `WARN` liệt kê tool chưa có trong `TRACKB_BUCKET_PLAN` và tệp `.md` không bước nào đọc (sai tên).
 - Xem lại `data/sgod/quarantine.json` sau mỗi lần chạy trên hạ tầng tham chiếu, đề xuất sửa prompt/config qua PR.
 - Các chỗ đánh dấu `# TODO(SGOD):` trong code là phần còn phụ thuộc hệ thống tham chiếu POC v1 (danh sách cặp tool mơ hồ trong
   `REVIEWER_SYSTEM`, bảng đổi tên tham số `PARAM_RENAME`, quy tắc slot id trong `verify_trainset.ID_SLOT_SUFFIXES`).
@@ -100,7 +131,10 @@ người dùng thật. `audit_trainset_vs_api.py` kiểm tra lại `messages[0]`
 
 - **Chỉ đơn lượt (single-turn), một tool call mỗi hàng.** Nhãn dạng list (multi_step) bị stage A/B loại.
 - **Quyền do luật quyết định**, không do LLM: `tool_policy.json` ⇒ `writes == true` là admin-only; tool không được phép
-  cho vai trò ⇒ `expected_tool = null`, `expected_permission = "denied"` ⇒ hàng huấn luyện là `REFUSAL_VI`.
+  cho vai trò ⇒ `expected_permission = "denied"` và bản ghi **giữ** tên tool bị chặn trong `expected_tool` (hợp đồng 3
+  §6; bản ghi eval sinh qua `prompts_eval/` cũng vậy) ⇒ hàng huấn luyện là `REFUSAL_VI`, không có tool call.
+  `expected_tool = null` chỉ dành cho câu ngoài phạm vi (không tool nào phù hợp, kể cả yêu cầu tạo/sửa/xoá vì danh mục
+  v1 chỉ đọc).
 - **Chống rò rỉ**: mọi câu sinh ra phải có SequenceMatcher < 0.65 với `data/sgod/eval_v1.json` (khi file chưa tồn tại,
   script cảnh báo và bỏ qua — trước Điểm đồng bộ 2 chỉ chạy pilot).
 - **Không bịa tham số mã doanh nghiệp/tenant** — JWT đã scope (spec §1).
