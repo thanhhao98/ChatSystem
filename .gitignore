@@ -41,6 +41,9 @@ Thumbs.db
 # --- Scratch ---
 *.log
 tmp/
+# datagen/run_pipeline.sh: stage checkpoints and the per-OUT_DIR run lock
+*.partial
+.*pipeline.lock/
 
 # --- local GPU verification output (scripts/verify_on_gpu.sh) ---
 verify_out/

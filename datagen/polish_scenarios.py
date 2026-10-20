@@ -40,18 +40,24 @@ Nhiệm vụ:
 Chỉ trả JSON: {"tool": <str|null>, "alternates": [<str>...], "params": {...}, "polished_query": <str>}."""
 
 
+def current_tool(tc):
+    """The tool the current label names: a denied case written with expected_tool=null keeps the
+    blocked tool in `_blocked_tool` (label_scenarios.py). Without it the arbiter would see a denied
+    case exactly like an out-of-scope one (tool=None) and could turn it into one."""
+    return tc.get("expected_tool") or tc.get("_blocked_tool")
+
+
 def arbiter(client, model, catalogue, tc, system_text=None):
     up = (f"DANH MỤC CÔNG CỤ:\n{catalogue}\n\n"
           f"Vai trò: {tc['user_role']}\n"
           f"Câu truy vấn: {tc['input']!r}\n"
-          f"Nhãn hiện tại: tool={tc.get('expected_tool')!r}, params={tc.get('expected_params')!r}, "
+          f"Nhãn hiện tại: tool={current_tool(tc)!r}, params={tc.get('expected_params')!r}, "
           f"alternates={tc.get('expected_tool_alternates')!r}\n\n"
           f"Sửa và đánh bóng. Trả JSON thuần.")
-    r = client.chat.completions.create(
-        model=model, max_completion_tokens=1500, temperature=0.0,
-        response_format={"type": "json_object"},
-        messages=[{"role": "system", "content": system_text or ARB_SYS_DEFAULT}, {"role": "user", "content": up}])
-    cfg.METER.add(r)
+    r = cfg.chat(client, model=model, max_completion_tokens=1500, temperature=0.0,
+                 response_format={"type": "json_object"},
+                 messages=[{"role": "system", "content": system_text or ARB_SYS_DEFAULT},
+                           {"role": "user", "content": up}])
     return json.loads(r.choices[0].message.content or "{}")
 
 
@@ -80,23 +86,23 @@ def main():
     out_path.parent.mkdir(parents=True, exist_ok=True)
     partial = out_path.with_suffix(out_path.suffix + ".partial")
     done = {}
-    if partial.exists():
-        done = {c["id"]: c for c in json.loads(partial.read_text(encoding="utf-8"))}
+    if partial.exists():   # rows the arbiter failed on are retried, not resumed
+        done = {c["id"]: c for c in json.loads(partial.read_text(encoding="utf-8")) if not c.get("_polish_error")}
         print(f"Resuming: {len(done)} already polished")
 
     out, report = [], []
-    changed_tool = polished_q = errors = 0
+    changed_tool = changed_perm = polished_q = errors = attempted = 0
     for i, tc in enumerate(cases):
         if tc["id"] in done:
             out.append(done[tc["id"]])
             continue
+        attempted += 1
         try:
             a = arbiter(client, args.model, catalogue, tc, system_text)
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:  # noqa: BLE001  (LLM errors counted by cfg.chat; FatalLLMError passes through)
             errors += 1
-            cfg.METER.errors += 1
-            print(f"  [{tc['id']}] ERR {str(exc)[:80]} — keeping old label")
-            out.append(tc)
+            print(f"  [{tc['id']}] ERR {cfg.err_text(exc)} — keeping old label, flagged _needs_review")
+            out.append({**tc, "_needs_review": True, "_polish_error": True})   # never looks arbitrated
             time.sleep(1)
             continue
 
@@ -116,25 +122,38 @@ def main():
                "expected_params": params, "expected_permission": permission}
         if alts and expected_tool:
             new["expected_tool_alternates"] = sorted(set(alts))
-        for k in ("source", "_seed_tool"):
+        if permission == "denied":
+            new["_blocked_tool"] = tool   # eval records keep it as expected_tool (contract 3 §6)
+        for k in ("source", "_seed_tool", "_needs_review"):
             if k in tc:
                 new[k] = tc[k]
+        old_tool, old_perm = current_tool(tc), tc.get("expected_permission", "allowed")
+        if permission != old_perm:   # e.g. denied -> out of scope: changes the denied share, a human decides
+            changed_perm += 1
+            new["_needs_review"] = True
         out.append(new)
-        changed_tool += (new["expected_tool"] or None) != (tc.get("expected_tool") or None)
+        changed_tool += (current_tool(new) or None) != (old_tool or None)
         polished_q += pq != tc["input"]
-        report.append({"id": tc["id"], "old_tool": tc.get("expected_tool"), "new_tool": expected_tool,
-                       "polished": pq != tc["input"]})
+        report.append({"id": tc["id"], "old_tool": old_tool, "new_tool": current_tool(new),
+                       "old_permission": old_perm, "new_permission": permission, "polished": pq != tc["input"]})
         if (i + 1) % 20 == 0:
             partial.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
             print(f"  {i + 1}/{len(cases)} | tool_changed={changed_tool} polished={polished_q}")
 
+    if attempted and errors == attempted:   # no row reached the arbiter: no output, so the stage re-runs
+        partial.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
+        print(f"SUMMARY polish: FAILED — arbiter errors on all {attempted} row(s), no output written "
+              f"(checkpoint {partial.name}) | {cfg.METER.summary()}")
+        return 1
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     cfg.repo_path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     if partial.exists():
         partial.unlink()
+    if errors:
+        print(f"  WARN: {errors} row(s) kept the labelers' label after arbiter errors (_polish_error, _needs_review)")
     print("new tool dist (top):", dict(Counter(c.get("expected_tool") for c in out).most_common(10)))
-    print(f"SUMMARY polish: cases={len(out)} tool_changed={changed_tool} polished={polished_q} "
-          f"errors={errors} -> {out_path} | {cfg.METER.summary()}")
+    print(f"SUMMARY polish: cases={len(out)} tool_changed={changed_tool} permission_changed={changed_perm} "
+          f"polished={polished_q} errors={errors} -> {out_path} | {cfg.METER.summary()}")
     return 0
 
 

@@ -44,10 +44,25 @@ def load_train_queries(path) -> list:
 
 
 def load_case_inputs(path) -> list:
-    """`input` fields of a case file: JSON list (eval/labeled) or JSONL (parity rows)."""
+    """`input` fields of a case file: JSON list (eval/labeled), JSONL of parity rows (user turn of
+    `messages`) or JSONL of eval records (`input`, e.g. data/sgod/eval_human_core.jsonl)."""
     p = Path(path)
     if p.suffix == ".jsonl":
-        return load_train_queries(p)
+        qs = []
+        with open(p, encoding="utf-8") as f:
+            for line in f:
+                if not line.strip():
+                    continue
+                d = json.loads(line)
+                if not isinstance(d, dict):
+                    continue
+                if d.get("messages"):
+                    q = next((m.get("content", "") for m in d["messages"] if m.get("role") == "user"), "")
+                else:
+                    q = d.get("input") or ""
+                if q:
+                    qs.append(q)
+        return qs
     data = json.loads(p.read_text(encoding="utf-8"))
     if isinstance(data, dict):
         data = data.get("cases") or data.get("results") or []

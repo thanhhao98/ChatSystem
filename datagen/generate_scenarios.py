@@ -53,13 +53,10 @@ def gen_batch(client, system_text, category, hint, role, n, model, param_hints=N
                   f"Trộn văn phong (trang trọng/thân mật/viết tắt/lỗi chính tả nhẹ). Mỗi câu là MỘT yêu cầu "
                   f"duy nhất. Tạo {n} câu truy vấn tiếng Việt KHÁC NHAU. Mảng JSON thuần.")
     last = None
-    for attempt in range(5):  # retry transient connection/network drops
+    for attempt in range(5):  # transient drops only; 401/403/404 raise cfg.FatalLLMError at once
         try:
-            r = client.chat.completions.create(
-                model=model, temperature=1.15, max_tokens=1500, timeout=60,
-                messages=[{"role": "system", "content": system_text}, {"role": "user", "content": up}],
-            )
-            cfg.METER.add(r)
+            r = cfg.chat(client, model=model, temperature=1.15, max_tokens=1500, timeout=60,
+                         messages=[{"role": "system", "content": system_text}, {"role": "user", "content": up}])
             txt = (r.choices[0].message.content or "").strip()
             txt = txt[txt.find("["): txt.rfind("]") + 1] if "[" in txt else "[]"
             arr = json.loads(txt)
@@ -68,7 +65,8 @@ def gen_batch(client, system_text, category, hint, role, n, model, param_hints=N
             return []
         except Exception as exc:  # noqa: BLE001
             last = exc
-            cfg.METER.errors += 1
+            if not cfg.is_retryable(exc):
+                break
             time.sleep(3 * (attempt + 1))
     raise last if last else RuntimeError("gen_batch failed")
 
@@ -146,9 +144,9 @@ def main():
     client = cfg.require_openai_client()
     system_text = cfg.load_prompt("domain_system", cfg.DOMAIN_SYSTEM, args.prompt_dir)
 
-    leak = simindex.build_leak_index(
-        list(cfg.EVAL_SETS_FOR_LEAKAGE) + list(args.extra_leakage),
-        train_paths=[args.train] if cfg.repo_path(args.train).exists() else [])
+    leak = simindex.build_leak_index(   # repo-rooted paths: the script may run from any directory
+        [cfg.repo_path(p) for p in list(cfg.EVAL_SETS_FOR_LEAKAGE) + list(args.extra_leakage)],
+        train_paths=[cfg.repo_path(args.train)] if cfg.repo_path(args.train).exists() else [])
     print(f"Leakage index: {len(leak)} reference queries (threshold {args.sim_threshold})")
     seen = simindex.SimIndex()
 
@@ -156,6 +154,9 @@ def main():
     out_lock = threading.Lock()
     out_path = cfg.repo_path(args.output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    # Checkpoints go to <output>.partial; <output> itself is written only when every bucket is done,
+    # so run_pipeline.sh never mistakes an interrupted run for a finished stage.
+    partial = out_path.with_name(out_path.name + ".partial")
 
     def gen_bucket(bi, bucket):
         if trackb:
@@ -173,8 +174,8 @@ def main():
             try:
                 cands = gen_batch(client, system_text, cat, hint, role, min(args.batch, max(4, target - got)),
                                   args.model, param_hints=param_hints)
-            except Exception as exc:  # noqa: BLE001
-                print(f"  {cat}/{role} batch error: {exc}")
+            except Exception as exc:  # noqa: BLE001  (cfg.FatalLLMError is not an Exception: it stops the run)
+                print(f"  {cat}/{role} batch error: {cfg.err_text(exc)}", flush=True)
                 time.sleep(1)
                 continue
             for q in cands:
@@ -192,17 +193,21 @@ def main():
     done = 0
     with ThreadPoolExecutor(max_workers=args.gen_workers) as ex:
         futs = {ex.submit(gen_bucket, bi, b): bi for bi, b in enumerate(buckets)}
-        for fut in as_completed(futs):
-            bi, label, got, target = fut.result()
-            done += 1
-            print(f"  [{done}/{len(buckets)}] {label}: {got}/{target}", flush=True)
-            with out_lock:  # atomic checkpoint after each bucket
-                tmp = out_path.with_suffix(out_path.suffix + ".tmp")
-                tmp.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-                tmp.replace(out_path)
+        try:
+            for fut in as_completed(futs):
+                bi, label, got, target = fut.result()
+                done += 1
+                print(f"  [{done}/{len(buckets)}] {label}: {got}/{target}", flush=True)
+                with out_lock:  # checkpoint after each bucket (never the final file)
+                    partial.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+        except BaseException:   # FatalLLMError / Ctrl-C: drop the queued buckets, keep only the .partial
+            for f in futs:
+                f.cancel()
+            raise
 
     out.sort(key=lambda r: r["id"])
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    partial.unlink(missing_ok=True)
     print("by category:", dict(Counter(c["category"] for c in out)))
     print(f"SUMMARY generate: rows={len(out)} target={total} fill={len(out) / max(total, 1):.0%} "
           f"-> {out_path} | {cfg.METER.summary()}")

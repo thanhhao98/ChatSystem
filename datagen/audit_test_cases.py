@@ -174,10 +174,15 @@ PARAM_RENAME = {}
 
 
 def fix_params_for_tool(tool: str, params, tools: dict):
-    """Schema-filter `params` to the tool's declared properties. Returns (kept, dropped_keys)."""
+    """Schema-filter `params` to the tool's declared properties. Returns (kept, dropped_keys).
+
+    A null or blank value means "not given": labelers fill unused optional keys with null
+    ({"search": "x", "limit": null, "cursor": null}); keeping them would train the model to emit
+    `"limit": null` and make eval rows demand keys the user never mentioned. They are removed
+    silently (not reported as dropped: the key itself is valid)."""
     if not isinstance(params, dict):
         return {}, []
-    out = dict(params)
+    out = {k: v for k, v in params.items() if v is not None and not (isinstance(v, str) and not v.strip())}
     for wrong, right in PARAM_RENAME.get(tool, {}).items():
         if wrong in out and right not in out:
             out[right] = out.pop(wrong)
@@ -305,7 +310,8 @@ TEST CASE
 
 Audit this label. Return JSON only."""
 
-    resp = client.chat.completions.create(
+    resp = cfg.chat(
+        client,
         model=model,
         messages=[
             {"role": "system", "content": system_text or REVIEWER_SYSTEM_DEFAULT},
@@ -314,7 +320,6 @@ Audit this label. Return JSON only."""
         temperature=0.0,
         response_format={"type": "json_object"},
     )
-    cfg.METER.add(resp)
     raw = resp.choices[0].message.content or "{}"
     try:
         return json.loads(raw)
@@ -400,17 +405,16 @@ def main() -> int:
     perms_text = describe_permissions(perms)
     reviews, fixed_tcs = [], []
     cap = args.pass2_limit or len(tcs)
-    print(f"\nPass 2 ({args.model} review): {cap} cases")
+    print(f"\nPass 2 ({cfg.model_alias(args.model)} review): {cap} cases")
     for i, tc in enumerate(tcs):
         if i >= cap:
             fixed_tcs.append(tc)
             continue
         try:
             review = gpt_review(client, catalogue, perms_text, tc, args.model, system_text)
-        except Exception as exc:  # noqa: BLE001 — keep going, record the error
-            cfg.METER.errors += 1
-            print(f"  {tc.get('id')}: review failed ({exc})")
-            review = {"verdict": "ok", "reasoning": f"error: {exc}"}
+        except Exception as exc:  # noqa: BLE001 — keep going, record the error (counted by cfg.chat)
+            print(f"  {tc.get('id')}: review failed ({cfg.err_text(exc)})")
+            review = {"verdict": "ok", "reasoning": f"error: {cfg.err_text(exc)}"}
         reviews.append({"id": tc.get("id"), "review": review,
                         "schema_issues": next((r["issues"] for r in pass1 if r["id"] == tc.get("id")), [])})
         fixed_tcs.append(apply_review(tc, review, tools))
