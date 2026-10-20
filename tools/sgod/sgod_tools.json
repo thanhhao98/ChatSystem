@@ -67,7 +67,7 @@
       "resolve": "GET /sgod-asset/v1/assets?search={asset_ref}",
       "notes": [
         "Chuỗi name→id giữ MỘT lượt gọi tool: executor chạy resolve (GET /assets?search=) rồi GET /assets/{id}, giống _resolve_asset_ref ở hệ thống tham chiếu (POC v1).",
-        "Nếu asset_ref đã là ObjectId 24 hex hoặc assetCode 9 chữ số, executor có thể bỏ qua bước resolve (quy ước cho S Việc 6).",
+        "Nếu asset_ref là ObjectId 24 hex, executor phải gọi thẳng GET /assets/{id}, không qua resolve: search chỉ khớp name/assetCode nên không tìm ra id (quy ước cho S Việc 6). assetCode 9 chữ số đi qua resolve bình thường.",
         "Phản hồi bọc trong data.asset (spec §2 mẫu GET /assets/{id}).",
         "Gọi thật 2026-10-14 (tài khoản thử enterprise, hạ tầng tham chiếu): GET /assets?search=<tên> và ?search=<assetCode> trả đúng 1 tài sản; /assets/suggest trả success:false, statusCode 404 (route đã bỏ)."
       ]
@@ -217,10 +217,6 @@
             "type": "integer",
             "minimum": 1,
             "description": "Số nhân viên tối đa trả về trong một trang"
-          },
-          "cursor": {
-            "type": "string",
-            "description": "Con trỏ phân trang từ kết quả trang trước"
           }
         },
         "required": []
@@ -237,8 +233,8 @@
       "writes": false,
       "id_params": [],
       "notes": [
-        "Từ PR #7; tham số lấy từ docs/sgod/openapi-auth.json (PR #9), khớp Swagger auth-service 2026-10-14: search, status (enum Pending/Verified/Active/Blocked), limit (1–100, mặc định 20), cursor.",
-        "Bỏ departmentId/positionId/roleId: model không có tool nào trả các id này ở v1. Bỏ page: dùng cursor như các tool khác.",
+        "Từ PR #7; tham số lấy từ docs/sgod/openapi-auth.json (PR #9), khớp Swagger auth-service 2026-10-14: search, status (enum Pending/Verified/Active/Blocked), limit (1–100, mặc định 20).",
+        "Bỏ departmentId/positionId/roleId: model không có tool nào trả các id này ở v1. Bỏ page và cursor: gọi thật 2026-10-21 trả data = {users, total}, không có con trỏ trang nào để truyền tiếp (docs/sgod/tools_v1_live_check.md) — tool chỉ lấy trang đầu, limit ≤ 100.",
         "Chỉ company_admin: danh sách nhân sự toàn doanh nghiệp (docs/contracts/roles.md §2.2). Dữ liệu cá nhân (email, số điện thoại) — executor chỉ trả trường tối thiểu.",
         "Gọi thật 2026-10-14 (tài khoản thử enterprise, hạ tầng tham chiếu): status=Active → 200, status=Blocked → 200 (danh sách rỗng)."
       ]
@@ -356,7 +352,7 @@
       "id_params": ["asset_ref"],
       "resolve": "GET /sgod-asset/v1/assets?search={asset_ref}",
       "notes": [
-        "Tra tên tài sản thành id qua resolve trước khi gọi lấy lịch sử.",
+        "Tra tên tài sản thành id qua resolve trước khi gọi lấy lịch sử; asset_ref là ObjectId 24 hex thì gọi thẳng, không qua resolve (như get_asset).",
         "Gọi thật 2026-10-14 (tài khoản thử enterprise, hạ tầng tham chiếu): resolve qua GET /assets?search= (không còn /assets/suggest); GET /assets/{id}/histories trả 200."
       ]
     }
@@ -693,7 +689,7 @@
     "type": "function",
     "function": {
       "name": "get_location",
-      "description": "Lấy chi tiết một vị trí lưu trữ tài sản khi đã có id vị trí (vd location id trong kết quả get_asset).",
+      "description": "Lấy chi tiết một vị trí lưu trữ tài sản khi đã có id vị trí (id từ kết quả list_locations).",
       "parameters": {
         "type": "object",
         "properties": {
@@ -714,7 +710,8 @@
       "writes": false,
       "id_params": ["location_id"],
       "notes": [
-        "Spec §3 intent table: 'Where is asset X / its location' step 2."
+        "Spec §3 intent table: 'Where is asset X / its location' step 2.",
+        "Gọi thật 2026-10-21: id trong asset.locations của get_asset trả 404 LOCATION_NOT_FOUND (chỉ là danh sách tổng hợp từ các phiên trạng thái đang mở, theo Swagger getAsset) — mô tả không còn gợi ý lấy id từ get_asset; id lấy từ list_locations thì 200 (docs/sgod/tools_v1_live_check.md)."
       ]
     }
   }
