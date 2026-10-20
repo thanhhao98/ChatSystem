@@ -107,6 +107,11 @@ def ladder_checks():
                 pred(("list_my_assets", {})), True, "ok")
     check_score("alternate mapped to a non-object -> name-only ok", REC_ALT_BAD_VALUE,
                 pred(("list_my_assets", {})), True, "ok")
+    rec_blocked_alt = dict(REC_ALT_NAME_ONLY, id="t-alt-blocked", expected_tool_alternates=["get_enterprise_profile"])
+    check_score("alternate the role may not call -> wrong_tool (with --policy)", rec_blocked_alt,
+                pred(("get_enterprise_profile", {})), False, "wrong_tool")
+    check_score("alternate the role may not call, no --policy -> accepted", rec_blocked_alt,
+                pred(("get_enterprise_profile", {})), True, "ok", policy=None)
 
     # wrong tool, strict first-call
     check_score("wrong tool -> wrong_tool", REC_MAIN,

@@ -36,6 +36,7 @@ Scoring ladder (eval_metric.md section 4; ported from the POC v1 benchmark's eva
    compare names, so a call to a tool the role IS allowed to use still passes.
 2. expected_tool is null (out of scope)          -> pass iff zero predicted calls   ("no_tool_expected")
 3. tool name must be in {expected_tool} U expected_tool_alternates       -> otherwise fail "wrong_tool"
+   With --policy an alternate counts only if its tool_policy.json roles contain the record's user_role.
    STRICT_FIRST_CALL = True: only the FIRST predicted call is considered (strict accuracy).
    False: the first call whose name is accepted is used (POC v1 behaviour, eval_metric.md wording).
 4. params of the matched call's tool (expected_params_for): name == expected_tool (or the legacy list
@@ -78,7 +79,7 @@ from pathlib import Path
 
 STRICT_FIRST_CALL = True   # see docstring step 3; flipping this is a scorer change = new measurement axis
 # Note: no percent sign in this string -- it is printed into reports that scripts/check_provenance.py scans.
-SCORER_VERSION = ("eval_toolcall/1.2 (" + ("strict first-call" if STRICT_FIRST_CALL else "any-call match")
+SCORER_VERSION = ("eval_toolcall/1.3 (" + ("strict first-call" if STRICT_FIRST_CALL else "any-call match")
                   + "; params >= half of keys; unknown tool = violation)")
 TOOL_CALL_RE = re.compile(r"<tool_call>\s*(.*?)\s*</tool_call>", re.DOTALL)
 
@@ -249,7 +250,9 @@ def score_record(tc: dict, pred: dict | None, policy: dict | None) -> dict:
     if isinstance(expected_tool, list):          # legacy "any of these" form
         accepted = set(expected_tool)
     else:
-        accepted = {expected_tool, *alternates}
+        # an alternate counts only if the caller's role may call it (with --policy); a blocked
+        # alternate would otherwise score a call the executor refuses as "ok"
+        accepted = {expected_tool, *(a for a in alternates if policy is None or role in policy.get(a, ()))}
     if STRICT_FIRST_CALL:
         idx = 0 if names and names[0] in accepted else None
     else:

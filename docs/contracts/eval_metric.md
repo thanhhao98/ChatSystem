@@ -47,7 +47,8 @@ hỏi, ví dụ câu "xem tài sản QA Test Laptop":
 
 Vắng mặt (hoặc tool thay thế không có khoá trong đó) = chỉ so **tên** tool thay thế, không chấm tham số. Khoá phải
 thuộc `expected_tool_alternates`; khoá khác bị bỏ qua và `eval_toolcall.py` cảnh báo trên stderr. Bản ghi denied
-không cần tool thay thế (bước 1 ở mục 4 không so tên).
+không cần tool thay thế (bước 1 ở mục 4 không so tên). Tool thay thế phải là tool mà `user_role` của bản ghi được gọi
+(`tool_policy.json`); tool bị chặn với vai trò đó không bao giờ được tính là đúng ở bước 3.
 
 Ví dụ (bản ghi đầu của `data/public/xlam_2k.eval.json`, rút gọn còn tool đầu trong 2 tool):
 
@@ -84,8 +85,8 @@ Dòng **đầu** là header; các dòng sau mỗi bản ghi eval một dòng, c�
 
 | Trường header | Nghĩa |
 |---|---|
-| `model` | tên model như gateway/vLLM trả về (`served-model-name`), hoặc `base+adapter` với backend transformers |
-| `base_url_host` | host của endpoint (không kèm khóa) hoặc `"transformers"` |
+| `model` | tên model như gateway/vLLM trả về (`served-model-name`), hoặc `base+adapter` với backend transformers. Repo public: model gọi qua gateway nội bộ ghi **tên công khai** (vd `gpt-5.2`), không ghi id có tiền tố nhà cung cấp của gateway |
+| `base_url_host` | host của endpoint (không kèm khóa) hoặc `"transformers"`. Gateway nội bộ ghi `<openai-compatible-gateway>`, không ghi tên máy thật (`localhost:<port>` giữ nguyên) |
 | `git_sha` | commit của repo ChatSystem lúc chạy |
 | `sha256_eval` | sha256 **tệp** eval (`sha256sum data/sgod/eval_v1.json`) |
 | `sha256_tools` | sha256 tệp `tools/sgod/sgod_tools.json`; `null` khi bản ghi eval mang `tools` riêng (bộ công khai) |
@@ -138,15 +139,16 @@ Tệp `.md` đi kèm (`--md`) in bảng tổng + bảng theo `source` (`--group-
 | 0b | `error` khác `null` | fail | `api_error` |
 | 1 | `expected_permission == "denied"` | pass **khi và chỉ khi** không có call nào trong `predicted_tool_calls` trỏ tới tool mà `tool_policy.json[tool].roles` **không chứa** `user_role`. Tool không có trong `tool_policy.json` (bịa tên) coi là không cho phép với mọi vai trò. Nếu scorer chạy **không có** `--policy` mà gặp bản ghi denied: không có call → pass; có call → fail `policy_missing` (bộ công khai không có bản ghi denied nên không gặp). | `permission_check` (hoặc `policy_missing`) |
 | 2 | `expected_tool` là `null` (ngoài phạm vi) | pass khi và chỉ khi `predicted_tool_calls` rỗng | `no_tool_expected` |
-| 3 | **call đầu tiên** (`predicted_tool_calls[0]`) không có `name ∈ {expected_tool} ∪ expected_tool_alternates` — kể cả khi `predicted_tool_calls` rỗng | fail | `wrong_tool` |
+| 3 | **call đầu tiên** (`predicted_tool_calls[0]`) không có `name ∈ {expected_tool} ∪ expected_tool_alternates` — kể cả khi `predicted_tool_calls` rỗng. Có `--policy`: tool thay thế chỉ được tính khi `tool_policy.json[tool].roles` chứa `user_role` | fail | `wrong_tool` |
 | 4 | với **call đầu tiên**, lấy bộ tham số kỳ vọng của tool mà call đó gọi: `name == expected_tool` (hoặc dạng list cũ) → `expected_params`; `name` là tool thay thế → `expected_params_alternates.get(name, {})`. Bộ đó khác rỗng và số khoá của nó có mặt trong `arguments` `< max(1, len(bộ) // 2)` (bộ rỗng → không chấm tham số) | fail | `missing_params` |
 | 5 | còn lại | pass | `ok` |
 
 **Tham số của tool thay thế (bước 4).** Bước 4 chấm theo bộ tham số của tool được gọi, không đem `expected_params` của
 `expected_tool` áp cho tool thay thế (khoá thường khác tên, vd `asset_ref` ↔ `search`). Bản ghi không có tool thay thế,
-hoặc có nhưng call đầu gọi đúng `expected_tool`, chấm **y hệt** trước khi có `expected_params_alternates`; bộ công khai
-không có tool thay thế nên đây **không** phải trục đo mới: mọi số đã báo cáo (INDEX R001–R054) không đổi và vẫn hiệu
-lực. Bước 1 không đổi: bản ghi denied mang tên tool bị chặn (mục 1) nhưng bước này không so tên — gọi một tool mà vai
+hoặc có nhưng call đầu gọi đúng `expected_tool`, chấm **y hệt** trước khi có `expected_params_alternates`; bộ
+công khai không có tool thay thế nên đây **không** phải trục đo mới: mọi số đã báo cáo (INDEX R001–R054) không đổi và
+vẫn hiệu lực. `eval_toolcall.py` ghi phiên bản `eval_toolcall/1.3` trong trường `scorer` từ thay đổi này (bước 3 lọc
+tool thay thế theo vai trò, bước 4 theo tool được gọi). Bước 1 không đổi: bản ghi denied mang tên tool bị chặn (mục 1) nhưng bước này không so tên — gọi một tool mà vai
 trò được phép vẫn pass.
 
 **Dạng list cũ.** `expected_tool` là một list tên tool (dạng cũ; bộ eval mới không dùng — pass 1 của
