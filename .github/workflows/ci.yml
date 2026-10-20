@@ -81,6 +81,9 @@ jobs:
           --preamble prompts/system_preamble_v0.txt
           --out /tmp/r.json --md /tmp/r.md
 
+      - name: Contract 2 — score_record checks (tests/test_score_record.py; alternates, denied, null, legacy list)
+        run: python tests/test_score_record.py
+
       - name: bootstrap_ci.py smoke (+ Markdown report)
         run: python training/bootstrap_ci.py --run a=/tmp/r.json --md /tmp/boot.md
 

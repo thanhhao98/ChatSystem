@@ -8,7 +8,8 @@ Training prompts must be identical to serving:
     vLLM at serve time). That is why each row carries "role".
   - user    = the case input.
   - assistant = <tool_call>{"name":..,"arguments":{..}}</tool_call>  for a tool label,
-                REFUSAL_VI for expected_permission == "denied",
+                REFUSAL_VI for expected_permission == "denied" (the case keeps the blocked tool name,
+                contract 3 §6, but the row never calls it),
                 DEFLECT_VI for expected_tool == null (out-of-scope / chitchat / ambiguous).
     Fixed replies come from prompts/fixed_replies.json.
 

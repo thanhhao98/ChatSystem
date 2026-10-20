@@ -27,6 +27,68 @@
         "search": "qa test category",
         "createdAt": "1789051188542",
         "updatedAt": "1789051255752"
+      },
+      {
+        "aliasNames": [
+          "[seed] vật tư tiêu hao"
+        ],
+        "subs": [],
+        "id": "6ad615353b0f8e12e2f190b9",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "[SEED] Vật tư tiêu hao",
+        "totalAsset": 1,
+        "search": "[seed] vật tư tiêu hao",
+        "createdAt": "1787216400000",
+        "updatedAt": "1787216400000",
+        "parentId": "6ad615353b0f8e12e2f190b6",
+        "_parentId": "parentId"
+      },
+      {
+        "aliasNames": [
+          "[seed] điện lạnh"
+        ],
+        "subs": [],
+        "id": "6ad615353b0f8e12e2f190b8",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "[SEED] Điện lạnh",
+        "totalAsset": 1,
+        "search": "[seed] điện lạnh",
+        "createdAt": "1787216400000",
+        "updatedAt": "1787216400000",
+        "parentId": "6ad615353b0f8e12e2f190b6",
+        "_parentId": "parentId"
+      },
+      {
+        "aliasNames": [
+          "[seed] thiết bị cntt"
+        ],
+        "subs": [],
+        "id": "6ad615353b0f8e12e2f190b7",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "[SEED] Thiết bị CNTT",
+        "totalAsset": 3,
+        "search": "[seed] thiết bị cntt",
+        "createdAt": "1787216400000",
+        "updatedAt": "1787216400000",
+        "parentId": "6ad615353b0f8e12e2f190b6",
+        "_parentId": "parentId"
+      },
+      {
+        "aliasNames": [
+          "[seed] thiết bị văn phòng"
+        ],
+        "subs": [
+          "6ad615353b0f8e12e2f190b7",
+          "6ad615353b0f8e12e2f190b8",
+          "6ad615353b0f8e12e2f190b9"
+        ],
+        "id": "6ad615353b0f8e12e2f190b6",
+        "enterpriseId": "6a85bad6a8d2133e058c93a9",
+        "name": "[SEED] Thiết bị văn phòng",
+        "totalAsset": 5,
+        "search": "[seed] thiết bị văn phòng",
+        "createdAt": "1787216400000",
+        "updatedAt": "1787216400000"
       }
     ],
     "meta": {
@@ -36,5 +98,5 @@
     }
   },
   "message": "OK",
-  "timestamp": "2026-10-14T01:57:51.136Z"
+  "timestamp": "2026-10-20T20:59:04.506Z"
 }

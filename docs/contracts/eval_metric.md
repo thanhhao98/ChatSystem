@@ -3,9 +3,9 @@
 | | |
 |---|---|
 | Phiên bản | v1 (Drop 0, 2026-09-13) |
-| Đóng băng | **Điểm đồng bộ 2 — 2026-11-19** (dời từ 2026-10-25; nhóm D, ký sau review). Từ đó `data/sgod/eval_v1.json` bất biến; sửa lỗi → `eval_v1.1` + errata + sha mới. |
+| Đóng băng | **Điểm đồng bộ 2 — 2026-10-29** (nhóm D, ký sau review). Từ đó `data/sgod/eval_v1.json` bất biến; sửa lỗi → `eval_v1.1` + errata + sha mới. |
 | Cổng máy | `training/eval_toolcall.py` (chấm), `training/bootstrap_ci.py` (CI + McNemar + kết luận H1), `training/predict_toolcall.py` (dự đoán, ghi header sha256). Dòng lệnh: `docs/contracts/cli.md`. |
-| Nguồn gốc | Thang chấm chuyển từ `slm_baseline.py::evaluate` (L120–197) của hệ thống tham chiếu (POC v1), với hai nâng cấp ghi ở mục 4. |
+| Nguồn gốc | Thang chấm chuyển từ `slm_baseline.py::evaluate` (L120–197) của hệ thống tham chiếu (POC v1), với các khác biệt ghi ở mục 4. |
 
 ## 1. Bản ghi eval
 
@@ -17,10 +17,11 @@ Một bộ eval là **một tệp JSON** chứa một list bản ghi:
   "category":                <string; nhóm câu hỏi — ví dụ single_tool | multi_constraint | dependent | out_of_scope | permission_denial; tập giá trị chốt trong docs/eval_v1_card.md>,
   "user_role":               <"employee" | "company_admin" | "system_admin">,
   "input":                   <string; câu hỏi tiếng Việt một lượt>,
-  "expected_tool":           <string | null; null = không được gọi tool nào (ngoài phạm vi, hoặc bị từ chối)>,
+  "expected_tool":           <string | null; tool kỳ vọng — bản ghi "denied" GIỮ tên tool bị chặn (hợp đồng 3 §6); null = ngoài phạm vi: không tool nào phù hợp, kể cả yêu cầu tạo/sửa/xoá (danh mục v1 chỉ đọc)>,
   "expected_params":         <object; các tham số kỳ vọng — chỉ những giá trị suy ra được từ câu hỏi>,
   "expected_permission":     <"allowed" | "denied">,
   "expected_tool_alternates": <list string, tuỳ chọn; tool khác cũng chấp nhận được (do arbiter ≠ GPT bị chấm quyết định)>,
+  "expected_params_alternates": <object, tuỳ chọn; {"<tên tool thay thế>": {<tham số kỳ vọng cho tool đó>}}; khoá ⊆ expected_tool_alternates>,
   "source":                  <"human" | "gpt_aug" | "public">,
   "tools":                   <list OpenAI function object, CHỈ bộ công khai — mỗi bản ghi mang danh mục riêng>
 }
@@ -28,6 +29,26 @@ Một bộ eval là **một tệp JSON** chứa một list bản ghi:
 
 Bộ SGOD **không** có trường `tools`: predictor và scorer đọc `tools/sgod/sgod_tools.json` + `tool_policy.json`
 (`--tools`, `--policy`) và lọc theo `user_role`.
+
+**Bản ghi `denied` và `null`** (khớp hợp đồng 3 §6 và lõi `eval_human_core.jsonl`, 23 câu denied):
+`expected_permission: "denied"` khi và chỉ khi `tool_policy.json[expected_tool].roles` không chứa `user_role`. Bản ghi
+denied **giữ** tên tool bị chặn trong `expected_tool` (và tham số suy ra từ câu hỏi, nếu có) dù câu trả lời đúng là từ
+chối, không gọi tool. `expected_tool: null` chỉ dành cho câu **ngoài phạm vi** (`expected_permission: "allowed"`).
+Hàng huấn luyện (hợp đồng 1) của một câu denied vẫn là `REFUSAL_VI`, không có tool call.
+
+**`expected_params_alternates`** (tuỳ chọn): người review tay điền khi một tool thay thế cũng nhận giá trị lấy từ câu
+hỏi, ví dụ câu "xem tài sản QA Test Laptop":
+
+```json
+{"expected_tool": "get_asset", "expected_params": {"asset_ref": "QA Test Laptop"},
+ "expected_tool_alternates": ["list_my_assets"],
+ "expected_params_alternates": {"list_my_assets": {"search": "QA Test Laptop"}}}
+```
+
+Vắng mặt (hoặc tool thay thế không có khoá trong đó) = chỉ so **tên** tool thay thế, không chấm tham số. Khoá phải
+thuộc `expected_tool_alternates`; khoá khác bị bỏ qua và `eval_toolcall.py` cảnh báo trên stderr. Bản ghi denied
+không cần tool thay thế (bước 1 ở mục 4 không so tên). Tool thay thế phải là tool mà `user_role` của bản ghi được gọi
+(`tool_policy.json`); tool bị chặn với vai trò đó không bao giờ được tính là đúng ở bước 3.
 
 Ví dụ (bản ghi đầu của `data/public/xlam_2k.eval.json`, rút gọn còn tool đầu trong 2 tool):
 
@@ -48,9 +69,10 @@ Ví dụ (bản ghi đầu của `data/public/xlam_2k.eval.json`, rút gọn cò
 ```
 
 Yêu cầu tối thiểu của `eval_v1.json` (D Việc 4): mục tiêu 500 bản ghi, sàn 400; ≥ 15 bản ghi/tool; mọi vai trò xuất
-hiện; ≥ 10 % `expected_tool: null`; ≥ 10 % `expected_permission: denied`; lõi người viết (`source: human`, ≥ 150 câu,
-D Việc 2) viết **trước** khi đọc bất kỳ prompt sinh dữ liệu nào; phần `gpt_aug` sinh bằng bộ prompt riêng
-`datagen/prompts_eval/`; `expected_permission` gán **bằng luật** từ `tool_policy.json`, không bằng LLM.
+hiện; ≥ 10 % `expected_tool: null` (ngoài phạm vi); ≥ 10 % `expected_permission: denied` (giữ tên tool bị chặn); lõi
+người viết (`source: human`, ≥ 150 câu, D Việc 2) viết **trước** khi đọc bất kỳ prompt sinh dữ liệu nào; phần `gpt_aug`
+sinh bằng bộ prompt riêng `datagen/prompts_eval/`; `expected_permission` gán **bằng luật** từ `tool_policy.json`, không
+bằng LLM.
 
 ## 2. Tệp dự đoán (`*.predictions.jsonl`)
 
@@ -63,8 +85,8 @@ Dòng **đầu** là header; các dòng sau mỗi bản ghi eval một dòng, c�
 
 | Trường header | Nghĩa |
 |---|---|
-| `model` | tên model như gateway/vLLM trả về (`served-model-name`), hoặc `base+adapter` với backend transformers |
-| `base_url_host` | host của endpoint (không kèm khóa) hoặc `"transformers"` |
+| `model` | tên model như gateway/vLLM trả về (`served-model-name`), hoặc `base+adapter` với backend transformers. Repo public: model gọi qua gateway nội bộ ghi **tên công khai** (vd `gpt-5.2`), không ghi id có tiền tố nhà cung cấp của gateway |
+| `base_url_host` | host của endpoint (không kèm khóa) hoặc `"transformers"`. Gateway nội bộ ghi `<openai-compatible-gateway>`, không ghi tên máy thật (`localhost:<port>` giữ nguyên) |
 | `git_sha` | commit của repo ChatSystem lúc chạy |
 | `sha256_eval` | sha256 **tệp** eval (`sha256sum data/sgod/eval_v1.json`) |
 | `sha256_tools` | sha256 tệp `tools/sgod/sgod_tools.json`; `null` khi bản ghi eval mang `tools` riêng (bộ công khai) |
@@ -116,10 +138,22 @@ Tệp `.md` đi kèm (`--md`) in bảng tổng + bảng theo `source` (`--group-
 | 0a | không có dòng dự đoán cho `id` này | fail | `missing_prediction` |
 | 0b | `error` khác `null` | fail | `api_error` |
 | 1 | `expected_permission == "denied"` | pass **khi và chỉ khi** không có call nào trong `predicted_tool_calls` trỏ tới tool mà `tool_policy.json[tool].roles` **không chứa** `user_role`. Tool không có trong `tool_policy.json` (bịa tên) coi là không cho phép với mọi vai trò. Nếu scorer chạy **không có** `--policy` mà gặp bản ghi denied: không có call → pass; có call → fail `policy_missing` (bộ công khai không có bản ghi denied nên không gặp). | `permission_check` (hoặc `policy_missing`) |
-| 2 | `expected_tool` là `null` | pass khi và chỉ khi `predicted_tool_calls` rỗng | `no_tool_expected` |
-| 3 | **call đầu tiên** (`predicted_tool_calls[0]`) không có `name ∈ {expected_tool} ∪ expected_tool_alternates` — kể cả khi `predicted_tool_calls` rỗng | fail | `wrong_tool` |
-| 4 | với **call đầu tiên**: số khoá của `expected_params` có mặt trong `arguments` `< max(1, len(expected_params) // 2)` | fail | `missing_params` |
+| 2 | `expected_tool` là `null` (ngoài phạm vi) | pass khi và chỉ khi `predicted_tool_calls` rỗng | `no_tool_expected` |
+| 3 | **call đầu tiên** (`predicted_tool_calls[0]`) không có `name ∈ {expected_tool} ∪ expected_tool_alternates` — kể cả khi `predicted_tool_calls` rỗng. Có `--policy`: tool thay thế chỉ được tính khi `tool_policy.json[tool].roles` chứa `user_role` | fail | `wrong_tool` |
+| 4 | với **call đầu tiên**, lấy bộ tham số kỳ vọng của tool mà call đó gọi: `name == expected_tool` (hoặc dạng list cũ) → `expected_params`; `name` là tool thay thế → `expected_params_alternates.get(name, {})`. Bộ đó khác rỗng và số khoá của nó có mặt trong `arguments` `< max(1, len(bộ) // 2)` (bộ rỗng → không chấm tham số) | fail | `missing_params` |
 | 5 | còn lại | pass | `ok` |
+
+**Tham số của tool thay thế (bước 4).** Bước 4 chấm theo bộ tham số của tool được gọi, không đem `expected_params` của
+`expected_tool` áp cho tool thay thế (khoá thường khác tên, vd `asset_ref` ↔ `search`). Bản ghi không có tool thay thế,
+hoặc có nhưng call đầu gọi đúng `expected_tool`, chấm **y hệt** trước khi có `expected_params_alternates`; bộ
+công khai không có tool thay thế nên đây **không** phải trục đo mới: mọi số đã báo cáo (INDEX R001–R054) không đổi và
+vẫn hiệu lực. `eval_toolcall.py` ghi phiên bản `eval_toolcall/1.3` trong trường `scorer` từ thay đổi này (bước 3 lọc
+tool thay thế theo vai trò, bước 4 theo tool được gọi). Bước 1 không đổi: bản ghi denied mang tên tool bị chặn (mục 1) nhưng bước này không so tên — gọi một tool mà vai
+trò được phép vẫn pass.
+
+**Dạng list cũ.** `expected_tool` là một list tên tool (dạng cũ; bộ eval mới không dùng — pass 1 của
+`audit_test_cases.py` báo lỗi và stage A của `verify_trainset.py` loại nhãn dạng này): bước 3 nhận bất kỳ tên nào trong
+list và bỏ qua `expected_tool_alternates`; bước 4 luôn dùng `expected_params`.
 
 **Strict first-call.** Bước 3–4 chỉ xét `predicted_tool_calls[0]`; call thứ hai trở đi **bị bỏ qua** khi chấm tên và
 tham số. Đầu ra nhiều call mà call đầu sai tool là `wrong_tool` dù một call sau đúng. (Bước 1 — từ chối — vẫn xét
@@ -127,17 +161,18 @@ tham số. Đầu ra nhiều call mà call đầu sai tool là `wrong_tool` dù 
 và ghi `strict first-call` trong trường `scorer` của `results.json`; đổi sang "call khớp đầu tiên bất kỳ" là đổi thang
 chấm = trục đo mới (mục 6).
 
-Ba khác biệt so với POC v1: (a) bước 1 thay tập admin tool ghi cứng bằng **`tool_policy.json`** (từ chối ⇔ không
+Bốn khác biệt so với POC v1: (a) bước 1 thay tập admin tool ghi cứng bằng **`tool_policy.json`** (từ chối ⇔ không
 gọi tool ngoài quyền của vai trò); (b) bỏ nhánh `multi_step` (pha 2 chỉ một lượt); (c) bước 3 xét **call đầu tiên**
-thay cho "call khớp đầu tiên bất kỳ" của `slm_baseline.py` (strict). Bước 4 giữ nguyên ngưỡng một nửa số **khoá**
-(`max(1, len // 2)`, không so giá trị) như POC v1.
+thay cho "call khớp đầu tiên bất kỳ" của `slm_baseline.py` (strict); (d) bước 4 lấy bộ tham số theo tool được gọi
+(tool thay thế → `expected_params_alternates`). Bước 4 giữ nguyên ngưỡng một nửa số **khoá** (`max(1, len // 2)`,
+không so giá trị) như POC v1.
 
 **Thước đo chính — strict accuracy** = `passed / n` × 100 %. Thước đo phụ (báo cáo, không quyết định H1), đúng tên khoá
 mà `eval_toolcall.py` ghi vào `results.json`: `tool_name_acc` (bước 3 qua, trên bản ghi có `expected_tool` và không denied),
-`param_acc` (bước 4 qua, trên bản ghi đã khớp tool và có `expected_params`), `params_exact` (mọi khoá kỳ vọng có mặt và giá
-trị bằng nhau sau khi ép về chuỗi, cùng mẫu số với `param_acc`), `json_valid_rate` (mọi tag `<tool_call>` trong `raw_text`
-parse được), `latency_p50_ms` / `latency_p95_ms`, và các số trên chia theo `by_source` (`human` / `gpt_aug`), `by_role`,
-`by_group` (`--group-by`).
+`param_acc` (bước 4 qua, trên bản ghi đã khớp tool và có bộ tham số dùng ở bước 4 khác rỗng), `params_exact` (mọi
+khoá của **cùng bộ đó** có mặt và giá trị bằng nhau sau khi ép về chuỗi, cùng mẫu số với `param_acc`),
+`json_valid_rate` (mọi tag `<tool_call>` trong `raw_text` parse được), `latency_p50_ms` / `latency_p95_ms`, và các số
+trên chia theo `by_source` (`human` / `gpt_aug`), `by_role`, `by_group` (`--group-by`).
 
 ## 5. Khoảng tin cậy, kiểm định và giả thuyết đăng ký trước
 
@@ -205,9 +240,9 @@ Tên tệp nộp: `results/sgod_eval_v1/<model>_<YYYY-MM-DD>.predictions.jsonl` 
 
 | Hạng mục | Việc / nguồn | Khi | Ghi chú |
 |---|---|---|---|
-| `data/sgod/eval_human_core.jsonl` | nhóm D (Việc 2) | 2026-10-08 (Thu) | sha256 dán vào bình luận ClickUp; viết trước khi đọc prompt sinh |
-| `data/sgod/pilot_eval.json` + `pilot_train.jsonl` | nhóm D → nhóm F | 2026-10-20 | đầu vào F Việc 3; không dùng cho số báo cáo |
-| `data/sgod/eval_v1.json` + `eval_v1.sha256` + `docs/eval_v1_card.md` | nhóm D (Việc 4), ký sau review | **Điểm đồng bộ 2 — 2026-11-19** (dời từ 2026-10-25) | bất biến; sửa → `eval_v1.1` + errata + sha mới |
+| `data/sgod/eval_human_core.jsonl` | nhóm D (Việc 2) | 2026-10-20 — **đã đóng băng**, sha256 `41c7e7bd…` (`data/sgod/eval_human_core.sha256`) | sha256 dán vào bình luận ClickUp; viết trước khi đọc prompt sinh |
+| `data/sgod/pilot_eval.json` + `pilot_train.jsonl` | nhóm D → nhóm F | 2026-10-28 | đầu vào F Việc 3; không dùng cho số báo cáo |
+| `data/sgod/eval_v1.json` + `eval_v1.sha256` + `docs/eval_v1_card.md` | nhóm D (Việc 4), ký sau review | **Điểm đồng bộ 2 — 2026-10-29** | bất biến; sửa → `eval_v1.1` + errata + sha mới |
 | Tài liệu này (schema + thang chấm + H1) | Drop 0 → Điểm đồng bộ 2 | Điểm đồng bộ 2 | `eval_toolcall.py` / `bootstrap_ci.py` phải khớp ở cùng commit |
-| Baseline GPT trên eval_v1 | S Việc 8 (chạy trên hạ tầng tham chiếu) | 2026-10-29 (Thu) | dự đoán commit vào `results/sgod_eval_v1/`; nhóm F chấm → dòng INDEX kế tiếp còn trống |
-| `tools-v1` (tag) | D Việc 1 + S Việc 4 | 2026-11-04 (dời từ 2026-10-08) | đổi tool = trục đo mới |
+| Baseline GPT trên eval_v1 | S Việc 8 (chạy trên hạ tầng tham chiếu) | 2026-10-31 | dự đoán commit vào `results/sgod_eval_v1/`; nhóm F chấm → dòng INDEX kế tiếp còn trống |
+| `tools-v1` (tag) | D Việc 1 + S Việc 4 | 2026-10-21 | đổi tool = trục đo mới |

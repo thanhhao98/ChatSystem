@@ -131,7 +131,10 @@ người dùng thật. `audit_trainset_vs_api.py` kiểm tra lại `messages[0]`
 
 - **Chỉ đơn lượt (single-turn), một tool call mỗi hàng.** Nhãn dạng list (multi_step) bị stage A/B loại.
 - **Quyền do luật quyết định**, không do LLM: `tool_policy.json` ⇒ `writes == true` là admin-only; tool không được phép
-  cho vai trò ⇒ `expected_tool = null`, `expected_permission = "denied"` ⇒ hàng huấn luyện là `REFUSAL_VI`.
+  cho vai trò ⇒ `expected_permission = "denied"` và bản ghi **giữ** tên tool bị chặn trong `expected_tool` (hợp đồng 3
+  §6; bản ghi eval sinh qua `prompts_eval/` cũng vậy) ⇒ hàng huấn luyện là `REFUSAL_VI`, không có tool call.
+  `expected_tool = null` chỉ dành cho câu ngoài phạm vi (không tool nào phù hợp, kể cả yêu cầu tạo/sửa/xoá vì danh mục
+  v1 chỉ đọc).
 - **Chống rò rỉ**: mọi câu sinh ra phải có SequenceMatcher < 0.65 với `data/sgod/eval_v1.json` (khi file chưa tồn tại,
   script cảnh báo và bỏ qua — trước Điểm đồng bộ 2 chỉ chạy pilot).
 - **Không bịa tham số mã doanh nghiệp/tenant** — JWT đã scope (spec §1).

@@ -7,7 +7,9 @@ Per query:
     fulfils the request (ignoring permissions) + its params.
   - Consensus: agree -> that tool; disagree -> primary model's tool + alternates, flagged _needs_review.
   - PERMISSION is rule-based via tool_policy.json (audit_test_cases.role_allows): tool not allowed
-    for the role -> expected_tool=null, expected_permission="denied". Never model-judged.
+    for the role -> expected_permission="denied" and the case KEEPS that tool + params (contract 3 §6;
+    the eval record names the blocked tool, build_parity_trainset.py still turns it into REFUSAL_VI with
+    no tool call). Never model-judged. expected_tool=null only when no tool fits (out of scope).
   - Params schema-filtered to the tool's properties (dropped keys are logged, not silent).
 
 Output: --output (labeled cases, ids SC... -> SN...; a denied case also carries the blocked tool in
@@ -94,7 +96,7 @@ def main():
 
         permission, expected_tool = "allowed", primary
         if primary and not audit.role_allows(role, primary, perms):
-            permission, expected_tool = "denied", None
+            permission = "denied"   # keeps the blocked tool (contract 3 §6)
         params = next((pp for _, t, pp in proposals if t == primary), {})
         dropped = []
         if expected_tool:
@@ -106,7 +108,7 @@ def main():
               "expected_permission": permission}
         if qc.get("seed_tool"):
             tc["_seed_tool"] = qc["seed_tool"]
-        if alternates and expected_tool:
+        if alternates and expected_tool and permission == "allowed":   # denied: alternates do not apply
             tc["expected_tool_alternates"] = alternates
         if not agree:
             tc["_needs_review"] = True

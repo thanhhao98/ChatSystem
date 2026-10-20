@@ -2,27 +2,27 @@ file	method	path	query	tier	http_status	captured_at / note
 auth/GET_users_myself.json	GET	/sgod-auth/v1/users/myself	{}	enterprise	200	2026-10-14T01:57:48Z sha256:0d25071e
 auth/GET_session_context.json	GET	/sgod-auth/v1/session/context	{}	enterprise	200	2026-10-14T01:57:48Z sha256:680ae1b2
 auth/GET_enterprises_profile.json	GET	/sgod-auth/v1/enterprises/profile	{}	enterprise	200	2026-10-14T01:57:48Z sha256:525162a7
-auth/GET_enterprise_users.json	GET	/sgod-auth/v1/enterprise-users	{"limit": 10}	enterprise	200	2026-10-14T01:57:49Z sha256:480d43f6
-auth/GET_roles.json	GET	/sgod-auth/v1/roles	{}	enterprise	200	2026-10-14T01:57:49Z sha256:d287f1b4
+auth/GET_enterprise_users.json	GET	/sgod-auth/v1/enterprise-users	{"limit": 10}	enterprise	200	2026-10-20T20:59:02Z sha256:de238d78
+auth/GET_roles.json	GET	/sgod-auth/v1/roles	{}	enterprise	200	2026-10-20T20:59:02Z sha256:3b1e47a6
 auth/GET_departments_tree.json	GET	/sgod-auth/v1/departments/tree	{}	enterprise	200	2026-10-14T01:57:50Z sha256:204ed8c3
-asset/GET_assets.json	GET	/sgod-asset/v1/assets	{"limit": 10}	enterprise	200	2026-10-14T01:57:50Z sha256:910839fd
+asset/GET_assets.json	GET	/sgod-asset/v1/assets	{"limit": 10}	enterprise	200	2026-10-20T20:59:03Z sha256:8d937357
 asset/GET_assets_id.json	GET	/sgod-asset/v1/assets/6ac9be9827541dacd0a77e9f	{}	enterprise	200	2026-10-14T01:57:50Z sha256:1af5cff0
 negative/GET_assets_suggest__HTTP200.json	GET	/sgod-asset/v1/assets/suggest	{"q": "ZZTEST-2610100426"}	enterprise	200	2026-10-14T01:57:50Z sha256:49bf88d6
 asset/GET_assets_id_histories.json	GET	/sgod-asset/v1/assets/6ac9be9827541dacd0a77e9f/histories	{"limit": 10}	enterprise	200	2026-10-14T01:57:50Z sha256:204942a7
 asset/GET_asset_statuses_by_asset_assetId.json	GET	/sgod-asset/v1/asset-statuses/by-asset/6ac9be9827541dacd0a77e9f	{"limit": 10}	enterprise	200	2026-10-14T01:57:50Z sha256:f77ce565
 negative/GET_asset_statuses_history_assetId__HTTP404.json	GET	/sgod-asset/v1/asset-statuses/history/6ac9be9827541dacd0a77e9f	{"limit": 10}	enterprise	404	2026-10-14T01:57:50Z sha256:8edd47af
-asset/GET_categories.json	GET	/sgod-asset/v1/categories	{"limit": 20}	enterprise	200	2026-10-14T01:57:51Z sha256:89c13e37
-asset/GET_locations.json	GET	/sgod-asset/v1/locations	{"limit": 20}	enterprise	200	2026-10-14T01:57:51Z sha256:9348c397
-asset/GET_locations_id.json	GET	/sgod-asset/v1/locations/6ac9bec727541dacd0a77f80	{}	enterprise	200	2026-10-14T01:57:51Z sha256:723b1fa1
-asset/GET_maintenance_schedules.json	GET	/sgod-asset/v1/maintenance/schedules	{"limit": 10}	enterprise	200	2026-10-14T01:57:51Z sha256:ad75ae5c
-asset/GET_maintenance_schedules_id.json	GET	/sgod-asset/v1/maintenance/schedules/{id}	{}	enterprise	-	SKIPPED: no schedule_id (upstream list empty or failed)
-asset/GET_maintenance_tasks.json	GET	/sgod-asset/v1/maintenance/tasks	{"maintenanceScheduleId": "{schedule_id}", "limit": 10}	enterprise	-	SKIPPED: no schedule_id (upstream list empty or failed)
+asset/GET_categories.json	GET	/sgod-asset/v1/categories	{"limit": 20}	enterprise	200	2026-10-20T20:59:04Z sha256:a3a2996b
+asset/GET_locations.json	GET	/sgod-asset/v1/locations	{"limit": 20}	enterprise	200	2026-10-20T20:59:04Z sha256:e8531b77
+asset/GET_locations_id.json	GET	/sgod-asset/v1/locations/6ac9bec727541dacd0a77f80	{}	enterprise	200	2026-10-20T20:59:04Z sha256:6d016812
+asset/GET_maintenance_schedules.json	GET	/sgod-asset/v1/maintenance/schedules	{"limit": 10}	enterprise	200	2026-10-20T20:59:04Z sha256:26812041
+asset/GET_maintenance_schedules_id.json	GET	/sgod-asset/v1/maintenance/schedules/6ad615353b0f8e12e2f1910d	{}	enterprise	200	2026-10-20T20:59:05Z sha256:db2cd604
+asset/GET_maintenance_tasks.json	GET	/sgod-asset/v1/maintenance/tasks	{"maintenanceScheduleId": "6ad615353b0f8e12e2f1910d", "limit": 10}	enterprise	200	2026-10-20T20:59:05Z sha256:ed7625ce
 asset/GET_maintenance_records.json	GET	/sgod-asset/v1/maintenance/records	{"limit": 10}	enterprise	200	2026-10-14T01:57:51Z sha256:b64ce505
 asset/GET_asset_transfers.json	GET	/sgod-asset/v1/asset-transfers	{"limit": 10}	enterprise	200	2026-10-14T01:57:52Z sha256:63ad02c3
 asset/GET_asset_transfers_id.json	GET	/sgod-asset/v1/asset-transfers/6ac9c52451e750872e755fad	{}	enterprise	200	2026-10-14T01:57:52Z sha256:3517ee04
 asset/GET_asset_transfers_summary.json	GET	/sgod-asset/v1/asset-transfers/summary	{}	enterprise	200	2026-10-14T01:57:52Z sha256:00394a16
-asset/GET_request_staff.json	GET	/sgod-asset/v1/request-staff	{"limit": 10}	enterprise	200	2026-10-14T01:57:52Z sha256:bf0d9449
-asset/GET_request_staff_summary.json	GET	/sgod-asset/v1/request-staff/summary	{}	enterprise	200	2026-10-14T01:57:52Z sha256:29b7d552
+asset/GET_request_staff.json	GET	/sgod-asset/v1/request-staff	{"limit": 10}	enterprise	200	2026-10-20T20:59:06Z sha256:dc909894
+asset/GET_request_staff_summary.json	GET	/sgod-asset/v1/request-staff/summary	{}	enterprise	200	2026-10-20T20:59:06Z sha256:4eac14ee
 negative/GET_dashboard_statistics_asset__HTTP404.json	GET	/sgod-asset/v1/dashboard/statistics-asset	{}	enterprise	404	2026-10-14T01:57:52Z sha256:2c98f16b
 chat/GET_conversations.json	GET	/sgod-chat/v1/conversations	{"limit": 10}	enterprise	200	2026-10-14T01:57:53Z sha256:46d47bd4
 chat/GET_conversations_unread_counts.json	GET	/sgod-chat/v1/conversations/unread-counts	{}	enterprise	200	2026-10-14T01:57:53Z sha256:6277a790
