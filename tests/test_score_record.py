@@ -234,9 +234,131 @@ def end_to_end_checks():
           "t-bad-key" in err.getvalue() and "not in expected_tool_alternates" in err.getvalue(), True)
 
 
+def sha256_mismatch_checks():
+    """Header checks: eval_toolcall refuses (rc=2) on sha256 mismatch unless --no-header-check is given."""
+    gold = [REC_MAIN]
+    with tempfile.TemporaryDirectory() as d:
+        d = Path(d)
+        gold_path, pred_path, out_path = d / "gold.json", d / "pred.jsonl", d / "r.json"
+        tools_path, prem_path = d / "tools.json", d / "preamble.txt"
+        gold_path.write_text(json.dumps(gold, ensure_ascii=False), encoding="utf-8")
+        tools_path.write_text("[]", encoding="utf-8")
+        prem_path.write_text("hello", encoding="utf-8")
+
+        real_eval = hashlib.sha256(gold_path.read_bytes()).hexdigest()
+        real_tools = hashlib.sha256(tools_path.read_bytes()).hexdigest()
+
+        def run(hdr, extra_args=()):
+            with open(pred_path, "w", encoding="utf-8") as f:
+                f.write(json.dumps(hdr) + "\n")
+                f.write(json.dumps({"id": "t-main", "predicted_tool_calls": [{"name": "get_asset", "arguments": {"asset_ref": "QA Test Laptop"}}]}) + "\n")
+            out, err = io.StringIO(), io.StringIO()
+            with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+                rc = ev.main(["--gold", str(gold_path), "--pred", str(pred_path), "--out", str(out_path)] + list(extra_args))
+            return rc, out.getvalue(), err.getvalue()
+
+        # sha256_eval mismatch
+        bad_eval = {"header": True, "model": "unit", "sha256_eval": "00000000", "sha256_tools": None, "sha256_preamble": None}
+        rc, _, err = run(bad_eval)
+        check("sha256_eval mismatch refuses (rc=2)", rc, 2)
+        check("sha256_eval mismatch stderr mentions REFUSED", "REFUSED" in err, True)
+
+        rc, _, err = run(bad_eval, extra_args=["--no-header-check"])
+        check("sha256_eval mismatch with --no-header-check passes (rc=0)", rc, 0)
+        check("sha256_eval mismatch with --no-header-check warns", "WARNING" in err and "sha256_eval" in err, True)
+
+        # sha256_tools mismatch
+        bad_tools = {"header": True, "model": "unit", "sha256_eval": real_eval, "sha256_tools": "badtoolshash", "sha256_preamble": None}
+        rc, _, err = run(bad_tools, extra_args=["--tools", str(tools_path)])
+        check("sha256_tools mismatch refuses (rc=2)", rc, 2)
+        rc, _, err = run(bad_tools, extra_args=["--tools", str(tools_path), "--no-header-check"])
+        check("sha256_tools mismatch with --no-header-check passes (rc=0)", rc, 0)
+
+        # sha256_preamble mismatch
+        bad_prem = {"header": True, "model": "unit", "sha256_eval": real_eval, "sha256_tools": None, "sha256_preamble": "badpreamblehash"}
+        rc, _, err = run(bad_prem, extra_args=["--preamble", str(prem_path)])
+        check("sha256_preamble mismatch refuses (rc=2)", rc, 2)
+        rc, _, err = run(bad_prem, extra_args=["--preamble", str(prem_path), "--no-header-check"])
+        check("sha256_preamble mismatch with --no-header-check passes (rc=0)", rc, 0)
+
+
+def plumbing_sgod_checks():
+    """Plumbing test: score mock predictions against a JSON-list copy of data/sgod/eval_human_core.jsonl
+    using real sgod_tools.json (tag tools-v1), tool_policy.json, and system_preamble_v1.txt.
+    Smoke test only -- no INDEX rows, no reported numbers."""
+    core_path = REPO / "data" / "sgod" / "eval_human_core.jsonl"
+    tools_path = REPO / "tools" / "sgod" / "sgod_tools.json"
+    policy_path = REPO / "tools" / "sgod" / "tool_policy.json"
+    preamble_path = REPO / "prompts" / "system_preamble_v1.txt"
+
+    if not core_path.exists():
+        return
+
+    records = [json.loads(line) for line in core_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    with tempfile.TemporaryDirectory() as d:
+        d = Path(d)
+        gold_path, pred_path, out_path = d / "eval_human_core.json", d / "pred.jsonl", d / "r.json"
+        gold_path.write_text(json.dumps(records, ensure_ascii=False), encoding="utf-8")
+
+        sha_eval = hashlib.sha256(gold_path.read_bytes()).hexdigest()
+        sha_tools = hashlib.sha256(tools_path.read_bytes()).hexdigest()
+        sha_preamble = hashlib.sha256(preamble_path.read_text(encoding="utf-8").strip().encode("utf-8")).hexdigest()
+
+        header = {
+            "header": True,
+            "model": "gpt-5.2",
+            "backend": "openai",
+            "base_url_host": "<openai-compatible-gateway>",
+            "date": "2026-10-21T18:00:00+00:00",
+            "git_sha": "abc1234",
+            "sha256_eval": sha_eval,
+            "sha256_tools": sha_tools,
+            "sha256_preamble": sha_preamble,
+            "sampling": {"temperature": 0, "max_new_tokens": 256, "seed": 42},
+            "n": len(records),
+        }
+        with open(pred_path, "w", encoding="utf-8") as f:
+            f.write(json.dumps(header) + "\n")
+            for r in records:
+                if r.get("expected_permission") == "denied" or r.get("expected_tool") is None:
+                    calls = []
+                else:
+                    calls = [{"name": r["expected_tool"], "arguments": r.get("expected_params") or {}}]
+                row = {
+                    "id": r["id"],
+                    "predicted_tool_calls": calls,
+                    "predicted_tool": calls[0]["name"] if calls else None,
+                    "raw_text": json.dumps(calls),
+                    "finish_reason": "stop",
+                    "latency_ms": 100,
+                    "error": None,
+                }
+                f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+        out, err = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+            rc = ev.main([
+                "--gold", str(gold_path),
+                "--pred", str(pred_path),
+                "--out", str(out_path),
+                "--tools", str(tools_path),
+                "--policy", str(policy_path),
+                "--preamble", str(preamble_path),
+            ])
+        check("plumbing sgod main() exit code", rc, 0)
+        res = json.loads(out_path.read_text(encoding="utf-8"))
+        check("plumbing sgod n == 150", res["n"], 150)
+        check("plumbing sgod passed == 150", res["passed"], 150)
+        check("plumbing sgod by_reason ok", res["by_reason"].get("ok"), 96)
+        check("plumbing sgod by_reason no_tool_expected", res["by_reason"].get("no_tool_expected"), 31)
+        check("plumbing sgod by_reason permission_check", res["by_reason"].get("permission_check"), 23)
+
+
 def main() -> int:
     ladder_checks()
     end_to_end_checks()
+    sha256_mismatch_checks()
+    plumbing_sgod_checks()
     failed = [(n, m) for n, ok, m in RESULTS if not ok]
     for name, msg in failed:
         print(f"FAIL {name}: {msg}")
