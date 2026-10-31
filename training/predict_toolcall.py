@@ -63,6 +63,11 @@ Examples
   python training/predict_toolcall.py --eval data/public/xlam_2k.eval.json --out results/ft_pred.jsonl \\
       --backend openai --base-url http://localhost:8000/v1 --model qwen-ft
 
+  # SGOD GPT baseline via OpenAI-compatible gateway (masking internal host per eval_metric §2)
+  python training/predict_toolcall.py --eval data/sgod/eval_v1.json --out results/sgod_eval_v1/gpt-5.2.predictions.jsonl \\
+      --backend openai --model gpt-5.2 --base-url-host "<openai-compatible-gateway>" \\
+      --tools tools/sgod/sgod_tools.json --system prompts/system_preamble_v1.txt
+
   # local transformers (base model, 3 records, CPU is fine)
   python training/predict_toolcall.py --eval data/public/xlam_2k.eval.json --out /tmp/pred.jsonl \\
       --backend transformers --model-path Qwen/Qwen2.5-0.5B-Instruct --limit 3
@@ -330,7 +335,10 @@ class OpenAIBackend:
         self.temperature = args.temperature
         self.max_tokens = args.max_new_tokens
         self.temperature_rejected = False
-        self.base_url_host = urlparse(base_url).netloc or base_url      # host[:port], never the key
+        if getattr(args, "base_url_host", None):
+            self.base_url_host = args.base_url_host
+        else:
+            self.base_url_host = urlparse(base_url).netloc or base_url      # host[:port], never the key
         self.batch_size = 1
 
     def sampling(self) -> dict:
@@ -511,6 +519,8 @@ def build_parser() -> argparse.ArgumentParser:
     # openai backend
     p.add_argument("--base-url", default=None,
                    help="OpenAI-compatible base URL (default: $OPENAI_BASE_URL or http://localhost:8000/v1)")
+    p.add_argument("--base-url-host", default=os.environ.get("OPENAI_BASE_URL_HOST"),
+                   help="override base_url_host recorded in header (e.g. '<openai-compatible-gateway>' per eval_metric §2; defaults to $OPENAI_BASE_URL_HOST)")
     p.add_argument("--model", default=None,
                    help="served model name (openai backend; required). For transformers: label only")
     p.add_argument("--api-key-env", default="OPENAI_API_KEY",
