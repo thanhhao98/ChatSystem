@@ -1,0 +1,48 @@
+"""Configuration module for ChatSystem Backend.
+Loads variables from .env and exposes strongly typed paths and settings.
+"""
+
+from __future__ import annotations
+
+import os
+from pathlib import Path
+from typing import Dict
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+ENV_PATH = REPO_ROOT / ".env"
+
+# Auto-load .env into os.environ if present
+if ENV_PATH.is_file():
+    for line in ENV_PATH.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            k, v = line.split("=", 1)
+            k = k.strip()
+            v = v.strip().strip("'\"")
+            if k not in os.environ:
+                os.environ[k] = v
+
+# SGOD Gateway configuration
+SGOD_BASE_URL: str = os.environ.get("SGOD_BASE_URL", "http://10.10.0.2:5000").rstrip("/")
+SGOD_AUTH_API_KEY: str = os.environ.get("SGOD_AUTH_API_KEY", "SmartGenerationofDigital_Sgod2025auth").strip()
+SGOD_ASSET_API_KEY: str = os.environ.get("SGOD_ASSET_API_KEY", "SmartGenerationofDigital_Sgod2025asset").strip()
+SGOD_CHAT_API_KEY: str = os.environ.get("SGOD_CHAT_API_KEY", "SmartGenerationofDigital_Sgod2025chat").strip()
+
+# Google Gemini configuration (via OpenAI-compatible endpoint)
+GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "").strip()
+GEMINI_BASE_URL: str = os.environ.get(
+    "GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai"
+).rstrip("/")
+GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash").strip()
+
+# Internal paths
+ROLES_PATH: Path = REPO_ROOT / "tools" / "sgod" / "roles.json"
+TOOLS_PATH: Path = REPO_ROOT / "tools" / "sgod" / "sgod_tools.json"
+POLICY_PATH: Path = REPO_ROOT / "tools" / "sgod" / "tool_policy.json"
+PREAMBLE_PATH: Path = REPO_ROOT / "prompts" / "system_preamble_v1.txt"
+
+SERVICE_KEYS: Dict[str, str] = {
+    "auth": SGOD_AUTH_API_KEY,
+    "asset": SGOD_ASSET_API_KEY,
+    "chat": SGOD_CHAT_API_KEY,
+}
