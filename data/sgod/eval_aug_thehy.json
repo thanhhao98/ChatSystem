@@ -1,0 +1,1713 @@
+[
+  {
+    "id": "aug-thehy-0001",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách tài sản tôi đang quản lý",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0002",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "tai san cua toi dang co nhung gi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0003",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Liệt kê tất cả thiết bị đang được giao cho tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0004",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi đang giữ những tài sản gì của công ty?",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0005",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tìm tài sản máy in trong danh sách của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy in"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0006",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "xem cac thiet bi laptop toi dang dung",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "laptop"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0007",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Tìm 5 tài sản có tên chứa 'máy tính' trong danh sách của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy tính",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0008",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Hiện 10 thiết bị đầu tiên liên quan đến 'màn hình' mà tôi đang giữ",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "màn hình",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0009",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Những thiết bị nào đang thuộc về tôi trong hệ thống?",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0010",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cho xem danh sach tai san toi quan ly nhe",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0011",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi muốn kiểm tra xem mình đang cầm tài sản gì",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0012",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem toàn bộ tài sản được gán cho tài khoản tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0013",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê tài sản của tôi có từ khóa 'bàn ghế'",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "bàn ghế"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0014",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Tìm 20 tài sản có tên chứa 'máy in' trong danh mục của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy in",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0015",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Các tài sản tôi đang phụ trách gồm những gì?",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0016",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "lay danh sach tai san gan cho tai khoan cua toi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0017",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tìm kiếm tài sản 'camera' trong danh sách của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "camera"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0018",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tài sản nào đang được gán dưới tên tôi?",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0019",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Thông tin chi tiết tài sản laptop Dell XPS 15 của tôi",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "laptop Dell XPS 15"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0020",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem chi tiết tài sản mã TB-0023",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "TB-0023"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0021",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "xem thong tin may in HP LaserJet",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "máy in HP LaserJet"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0022",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài sản 'Máy chiếu phòng họp A' là thiết bị gì?",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "Máy chiếu phòng họp A"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0023",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Chi tiết tài sản mã ASSET-005 là gì?",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "ASSET-005"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0024",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tra cứu tài sản điều hòa phòng giám đốc",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "điều hòa phòng giám đốc"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0025",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "tim kiem thong tin ve man hinh samsung 24 inch",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "màn hình samsung 24 inch"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0026",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tìm tài sản 'bàn làm việc' trong hệ thống",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "bàn làm việc"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "list_my_assets"
+    ],
+    "expected_params_alternates": {
+      "list_my_assets": {
+        "search": "bàn làm việc"
+      }
+    },
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0027",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tìm những thiết bị nào là máy tính trong hệ thống",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy tính"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "get_asset"
+    ],
+    "expected_params_alternates": {
+      "get_asset": {
+        "asset_ref": "máy tính"
+      }
+    },
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0028",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem thông tin tài sản mã số KT-088",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "KT-088"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0029",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Máy scan văn phòng hiện trạng như thế nào?",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "máy scan văn phòng"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0030",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem thông tin chi tiết tài sản 'Xe nâng kho B'",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "Xe nâng kho B"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0031",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Chi tiết tài sản mã IT-2024-001",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "IT-2024-001"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0032",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "thong tin tai san may phat dien du phong",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "máy phát điện dự phòng"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0033",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tài sản 'Router wifi tầng 2' hiện đang ở trạng thái gì?",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "Router wifi tầng 2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0034",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tìm kiếm tài sản máy lạnh trong hệ thống",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "máy lạnh"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "list_my_assets"
+    ],
+    "expected_params_alternates": {
+      "list_my_assets": {
+        "search": "máy lạnh"
+      }
+    },
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0035",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tìm thiết bị nào là UPS trong kho",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "UPS"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "get_asset"
+    ],
+    "expected_params_alternates": {
+      "get_asset": {
+        "asset_ref": "UPS"
+      }
+    },
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0036",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin tài sản bàn làm việc văn phòng tầng 3",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "bàn làm việc văn phòng tầng 3"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0037",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem chi tiết tài sản mã HR-2023-045",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "HR-2023-045"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0038",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lịch sử sử dụng tài sản laptop Dell Inspiron 15",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "laptop Dell Inspiron 15"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0039",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài sản TB-0023 trước đây ở đâu?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "TB-0023"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0040",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Máy in phòng kế toán đã được điều chuyển mấy lần rồi?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "máy in phòng kế toán"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0041",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "lich su dieu chuyen cua man hinh samsung 24 inch",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "màn hình samsung 24 inch"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0042",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Ai đã từng sử dụng tài sản mã ASSET-010 trước đây?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "ASSET-010"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0043",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài sản máy chiếu IT-007 từng ở những phòng nào?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "IT-007"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0044",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lịch sử tài sản điều hòa phòng giám đốc",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "điều hòa phòng giám đốc"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0045",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "xem lich su may tinh ban KT-099 tu truoc den nay",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "KT-099"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0046",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Thiết bị router wifi này trước đây giao cho ai?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "router wifi"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0047",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lịch sử điều chuyển tài sản mã VT-2022-001",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "VT-2022-001"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0048",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tài sản xe nâng kho A từng được sử dụng bởi những ai?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "xe nâng kho A"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0049",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lịch sử bảo trì và sử dụng máy phát điện dự phòng",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "máy phát điện dự phòng"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0050",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "lich su su dung may lanh tang 2",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "máy lạnh tầng 2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0051",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thiết bị 'Máy scan HR-100' trước đây ở bộ phận nào?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "Máy scan HR-100"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0052",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kiểm tra xem tài sản bàn họp phòng 3A đã qua tay mấy người",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "bàn họp phòng 3A"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0053",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tài sản mã PD-2021-007 đã điều chuyển đến đâu?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "PD-2021-007"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0054",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hệ thống phân loại tài sản gồm những danh mục nào?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0055",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cac loai tai san trong he thong la gi",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0056",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Danh mục thiết bị IT gồm những loại gì?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0057",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem tất cả danh mục tài sản hiện có",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0058",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị 5 danh mục tài sản đầu tiên trong hệ thống",
+    "expected_tool": "list_categories",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0059",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Phân loại tài sản trong công ty gồm bao nhiêu nhóm?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0060",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cho xem danh sach cac phan loai thiet bi trong he thong",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0061",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Thiết bị văn phòng được phân vào danh mục nào?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0062",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem toàn bộ danh mục tài sản đang có trong hệ thống",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0063",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê 10 danh mục tài sản trong hệ thống",
+    "expected_tool": "list_categories",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0064",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Công ty đang có bao nhiêu loại tài sản khác nhau?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0065",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Danh mục phân loại thiết bị văn phòng hiện có những gì?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0066",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "lay danh sach tat ca phan loai tai san cua cong ty",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0067",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Các nhóm tài sản chính trong hệ thống quản lý là gì?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0068",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Công ty có những vị trí nào trong hệ thống quản lý?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0069",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Liệt kê tất cả các khu vực lưu trữ tài sản",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0070",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cong ty co bao nhieu phong ban va vi tri luu tai san",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0071",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tòa nhà có bao nhiêu tầng được ghi nhận trong hệ thống?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0072",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị 5 vị trí đầu tiên trong hệ thống",
+    "expected_tool": "list_locations",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0073",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem danh sách phòng ban hiện có trong hệ thống",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0074",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kho và các phòng ban nào đang được quản lý?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0075",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "lay danh sach vi tri luu tru tai san trong he thong",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0076",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tất cả vị trí trong hệ thống gồm những đâu?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0077",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem danh sách tất cả khu vực lưu trữ tài sản của công ty",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0078",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê 15 địa điểm đầu tiên trong toàn bộ hệ thống",
+    "expected_tool": "list_locations",
+    "expected_params": {
+      "limit": 15
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0079",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Danh sách chi nhánh và phòng ban đang hoạt động trong hệ thống?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0080",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "xem tat ca cac vi tri phong ban dang co trong he thong",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0081",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hệ thống đang quản lý những tầng và phòng ban nào?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0082",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Phòng kế toán ở vị trí nào trong tòa nhà?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "phòng kế toán"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0083",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tầng 3 của công ty có những gì?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "Tầng 3"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0084",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Chi tiết khu vực kho B ở đâu và thuộc bộ phận nào?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "kho B"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0085",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "phong hop chinh o tang may vay",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "phòng họp chính"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0086",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem thông tin vị trí phòng IT tầng 2",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "phòng IT tầng 2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0087",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi biết thông tin chi tiết về khu vực kho hàng chính",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "kho hàng chính"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0088",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Phòng giám đốc ở tầng mấy trong hệ thống?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "phòng giám đốc"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0089",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "vi tri va thong tin phong hanh chinh la gi",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "phòng hành chính"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0090",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Chi tiết vị trí khu vực sản xuất tầng 1",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "khu vực sản xuất tầng 1"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0091",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin về chi nhánh Hà Nội trong hệ thống",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "chi nhánh Hà Nội"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0092",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "xem chi tiet vi tri phong nhan su tang 4",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "phòng nhân sự tầng 4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0093",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kho vật tư số 2 thuộc quản lý của đơn vị nào?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "kho vật tư số 2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0094",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Phòng bảo vệ ở tầng trệt, chi tiết vị trí đó là gì?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "phòng bảo vệ tầng trệt"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0095",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem thông tin vị trí trung tâm dữ liệu",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_ref": "trung tâm dữ liệu"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0096",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin doanh nghiệp của chúng tôi là gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0097",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem hồ sơ doanh nghiệp của công ty",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0098",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "thong tin cong ty dang ki la gi",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0099",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hồ sơ và địa chỉ pháp lý của doanh nghiệp tôi là gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0100",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem thông tin của tôi với tư cách quản trị viên doanh nghiệp",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "get_my_profile"
+    ],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0101",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin của tôi và công ty là gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "get_my_profile"
+    ],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0102",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem hồ sơ công ty và thông tin liên hệ chính thức",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0103",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "lay thong tin doanh nghiep trong he thong",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0104",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem thông tin doanh nghiệp của công ty",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0105",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "xem ho so cong ty toi dang lam viec",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0106",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi muốn xem thông tin đăng ký doanh nghiệp",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0107",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Hồ sơ pháp lý của doanh nghiệp nơi tôi làm việc có gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0108",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thống kê tổng quan tài sản của toàn công ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0109",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Báo cáo tổng hợp tình trạng tài sản toàn doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0110",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tổng số thiết bị hiện có trong công ty là bao nhiêu?",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0111",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "thong ke tai san toan bo cong ty hien tai",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0112",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem bảng thống kê tổng quan về tài sản doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0113",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tình trạng tài sản toàn công ty hiện như thế nào?",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0114",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem số liệu thống kê tài sản toàn doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0115",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "bao cao tong quan so luong tai san trong cong ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0116",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem thống kê toàn bộ tài sản công ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0117",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tổng số tài sản trong công ty là bao nhiêu cái?",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0118",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "bao cao thong ke tai san toan cong ty co bao nhieu",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0119",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi muốn xem báo cáo tổng hợp tài sản toàn doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0120",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Thêm thiết bị mới vào danh sách tài sản công ty",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0121",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Xóa tài sản cũ khỏi danh sách quản lý",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0122",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Sửa thông tin tài sản laptop của tôi",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0123",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tải xuống báo cáo tài sản dạng file PDF",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0124",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Doanh thu quý này của công ty là bao nhiêu?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0125",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "tao moi mot tai san vao he thong quan ly",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0126",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Thêm địa điểm mới vào danh sách vị trí tài sản",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0127",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Cập nhật thông tin danh mục tài sản trong hệ thống",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0128",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Xuất file Excel danh sách toàn bộ tài sản",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0129",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Đặt lịch bảo trì định kỳ cho tài sản máy in",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "aug-thehy-0130",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "xoa bo phan cu ra khoi he thong quan ly vi tri",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  }
+]
