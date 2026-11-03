@@ -167,15 +167,24 @@ Chỉ trả về MỘT mảng JSON các chuỗi câu truy vấn tiếng Việt. 
 #    A file datagen/prompts/category_<name>.md, when present, OVERRIDES that category's hint.
 # ───────────────────────────────────────────────────────────────────────────
 CATEGORY_HINTS = {
-    # worked entries
     "my_assets": "NGƯỜI DÙNG hỏi về TÀI SẢN của CHÍNH MÌNH / của doanh nghiệp mình: tài sản tôi đang có, "
-                 "danh sách tài sản, lọc theo trạng thái/danh mục/vị trí (KHÔNG hỏi về người khác)",
-    "asset_detail": "xem chi tiết MỘT tài sản cụ thể theo tên hoặc mã tài sản (mã tài sản dạng số, vd 000000012)",
-    "maintenance": "xem lịch bảo trì: lịch sắp tới, lịch đang hoạt động/đã hoàn tất, tài sản cần bảo trì",
-    "permission_denial": "NGƯỜI DÙNG YÊU CẦU một hành động mà vai trò của họ KHÔNG được phép làm",
-    "out_of_scope": "câu lạc đề hoặc ngoài phạm vi quản lý tài sản (thời tiết, lập trình, tán gẫu)",
-    # TODO(D-Việc-3): add e.g. "asset_query", "location_query", "category_query", "transfer_query",
-    # "dashboard", "my_profile" ... one hint per intent family in the catalogue.
+                 "danh sách tài sản, tìm kiếm theo tên hoặc mã máy (search, limit; KHÔNG có filter status/location)",
+    "asset_detail": "xem chi tiết, cấu hình, lịch sử biến động MỘT tài sản cụ thể theo tên/mã (get_asset, get_asset_histories) "
+                    "hoặc thống kê tài sản toàn công ty của Giám đốc (get_asset_statistics)",
+    "category": "tra cứu danh mục phân loại tài sản trong hệ thống (list_categories)",
+    "location": "tra cứu thông tin về vị trí, phòng ban, kho bãi lưu trữ tài sản (list_locations, get_location)",
+    "maintenance_schedule": "tra cứu lịch bảo dưỡng định kỳ đang hiệu lực hoặc đã xong (list_maintenance_schedules, get_maintenance_schedule)",
+    "maintenance_record": "tra cứu danh sách hồ sơ, nhật ký, biên bản nghiệm thu bảo trì đã hoàn tất (list_maintenance_records)",
+    "maintenance_task": "tra cứu danh sách các đầu việc/hạng mục bảo trì thuộc một lịch cụ thể (list_maintenance_tasks; bắt buộc maintenanceScheduleId)",
+    "user_profile": "tra cứu thông tin hồ sơ tài khoản đang đăng nhập (get_my_profile)",
+    "user_permission": "tra cứu quyền hạn, vai trò chức năng của tài khoản đang đăng nhập (get_my_permissions)",
+    "user_management": "tra cứu danh sách nhân sự doanh nghiệp (list_enterprise_users; admin-only, employee hỏi -> refusal row)",
+    "asset_transfer": "tra cứu danh sách phiếu chuyển giao tài sản (list_asset_transfers; onlyMine, limit), chi tiết phiếu hoặc tổng hợp tab (get_transfer_summary)",
+    "staff_request": "tra cứu danh sách hoặc số lượng tổng hợp yêu cầu của nhân viên (list_staff_requests, get_staff_request_summary)",
+    "chat_conversation": "tra cứu danh sách cuộc trò chuyện hoặc số tin nhắn chưa đọc (list_my_conversations, get_unread_counts; admin-only, employee hỏi -> refusal row)",
+    "permission_denial": "NGƯỜI DÙNG YÊU CẦU hành động không được phép: thao tác ghi (Tạo/Sửa/Xoá/Duyệt -> expected_tool: null) "
+                         "hoặc nhân viên cố truy cập công cụ quản trị (expected_permission: denied)",
+    "out_of_scope": "câu lạc đề hoặc ngoài phạm vi quản lý tài sản (thời tiết, lập trình, tán gẫu, chào hỏi)",
 }
 # POC v1 example hints (kept for reference — the wording style is what matters):
 #   "multi_filter": "liệt kê/tìm tài sản với NHIỀU bộ lọc CÙNG LÚC ... luôn có ≥2 điều kiện lọc"
@@ -196,24 +205,107 @@ BUCKET_PLAN = [
 
 # ───────────────────────────────────────────────────────────────────────────
 # 6. ENTITY POOLS — realistic values injected into generation prompts (surface diversity).
-#    TODO(D-Việc-3): fill from fixtures/sgod/ (real asset names, categories, locations, statuses,
-#    schedule statuses). Keep values PII-free. POC v1 had ~15 keys incl. asset_code/office/employee/
-#    department/category/status/condition/report_type/date_phrase/register.
+#    Trích xuất 100% từ fixtures/sgod/ bản 21/10 (PR #15).
+#    TUYỆT ĐỐI KHÔNG mang tiền tố [SEED] vào thực thể; mã/ID lấy từ hệ thống thật.
 # ───────────────────────────────────────────────────────────────────────────
 ENTITY_POOLS = {
-    "asset_code": [f"{i:09d}" for i in range(1, 60)],                  # SGOD sequential assetCode
-    "asset_name": ["Laptop Dell Latitude 5540", "Máy in Canon LBP", "Màn hình LG 27 inch",
-                   "Máy chiếu Epson", "Xe nâng tay", "Máy lạnh Daikin", "QA Test Laptop"],
-    "category": ["laptop", "máy in", "màn hình", "thiết bị mạng", "bàn ghế", "xe"],
-    "location": ["kho tầng 1", "văn phòng tầng 3", "chi nhánh Đà Nẵng", "kho miền Nam"],
-    "asset_status": ["active", "inactive"],                             # TODO(D-Việc-3): real enum
-    "asset_status_vi": {"active": "đang hoạt động", "inactive": "ngừng sử dụng"},
-    "schedule_status": ["active", "completed"],                         # Swagger + gọi thật 2026-10-14 (draft | active | completed)
-    "schedule_status_vi": {"active": "đang hoạt động", "completed": "đã hoàn tất"},
-    "date_phrase": ["hôm nay", "tuần này", "tháng này", "quý này", "30 ngày qua", "tuần trước"],
-    "quantity": ["3", "5", "10", "tất cả", "20"],
-    "register": ["trang trọng", "thân mật", "viết tắt", "có lỗi chính tả nhẹ",
-                 "ra lệnh ngắn gọn", "lịch sự dùng ạ/nhé"],
+    # Mã tài sản tuần tự từ fixtures/sgod/asset/GET_assets.json
+    "asset_code": [
+        "000000001", "000000003", "000000004", "000000005",
+        "000000006", "000000007", "000000008",
+    ],
+    # Tên tài sản đã loại bỏ hoàn toàn tiền tố [SEED]
+    "asset_name": [
+        "QA Test Laptop",
+        "ZZTEST-2610100426 x4",
+        "Laptop Dell Latitude 5440",
+        "Màn hình LG 27UP850",
+        "Máy in HP LaserJet Pro M404dn",
+        "Máy lạnh Daikin FTKB50 2HP",
+        "Mực in HP 76A",
+    ],
+    # Từ khoá tìm kiếm trích xuất từ tên hoặc mã (khớp search của list_my_assets)
+    "search_keyword": [
+        "Laptop", "Dell Latitude", "Máy in", "HP LaserJet",
+        "Daikin", "Màn hình LG", "Mực in", "QA Test", "ZZTEST", "000000006",
+    ],
+    # Danh mục tài sản từ GET_categories.json
+    "category": [
+        "QA Test Category",
+        "ZZTEST-2610100426 Ghe (sua)",
+        "Thiết bị văn phòng",
+        "Thiết bị CNTT",
+        "Điện lạnh",
+        "Vật tư tiêu hao",
+    ],
+    # Id vị trí/kho từ GET_locations.json
+    "location_id": [
+        "6ac9bec727541dacd0a77f80",
+        "6ac9bec627541dacd0a77f7f",
+        "6ac9bec627541dacd0a77f7e",
+        "6ac9be9627541dacd0a77e89",
+        "6ac9be9627541dacd0a77e8a",
+        "6ac9be9627541dacd0a77e8b",
+        "6aa2c144da46d70ee2f491c0",
+        "6ad615353b0f8e12e2f190ba",
+        "6ad615353b0f8e12e2f190bb",
+        "6ad615353b0f8e12e2f190bc",
+        "6ad615353b0f8e12e2f190bd",
+        "6ad615353b0f8e12e2f190be",
+    ],
+    # Mã lịch bảo trì thật từ fixtures/sgod/asset/GET_maintenance_schedules.json
+    "schedule_id": [
+        "6ad615353b0f8e12e2f1910d",  # Lịch bảo trì máy in HP LaserJet Pro M404dn
+        "6ad615353b0f8e12e2f190e4",  # Lịch bảo trì máy lạnh Daikin FTKB50 2HP
+    ],
+    # Trạng thái lịch bảo trì chuẩn OpenAPI (enum: active, completed)
+    "schedule_status": [
+        "active",
+        "completed",
+    ],
+    # Đầu việc bảo trì thật từ GET_maintenance_tasks.json (đã bỏ [SEED])
+    "task_title": [
+        "Thay trống mực (drum)",
+        "Bảo dưỡng máy lạnh định kỳ",
+        "Kiểm tra đầu phun máy in",
+    ],
+    # Trạng thái công việc bảo trì
+    "task_status": [
+        "processing",
+        "scheduled",
+        "completed",
+        "on-hold",
+    ],
+    # Trạng thái tài khoản người dùng từ openapi-auth / GET_enterprise_users.json
+    "user_status": [
+        "Active",
+        "Blocked",
+        "Pending",
+        "Verified",
+    ],
+    # ID phiếu điều chuyển thật từ GET_asset_transfers.json
+    "transfer_id": [
+        "6ac9bd3e27541dacd0a77c2d",
+        "6ac9be1627541dacd0a77df0",
+        "6ac9be9f27541dacd0a77f0d",
+        "6ac9bece27541dacd0a78006",
+        "6ac9c52451e750872e755fad",
+    ],
+    "transfer_status": ["accept"],
+    "request_status": ["cancel", "confirm", "deny", "pending"],
+    "request_type": ["change-status-maintenance"],
+    # Giới hạn số lượng hiển thị (phân trang limit)
+    "quantity": ["3", "5", "10", "20"],
+    # Sắc thái câu thoại / văn phong
+    "register": [
+        "trang trọng",
+        "thân mật",
+        "viết tắt",
+        "có lỗi chính tả nhẹ",
+        "ra lệnh ngắn gọn",
+        "lịch sự dùng ạ/nhé",
+        "không dấu",
+    ],
 }
 
 
@@ -222,27 +314,110 @@ def _pick(rng, key):
 
 
 # ───────────────────────────────────────────────────────────────────────────
-# 7. PARAM SAMPLER — tool -> fn(rng) -> {slot_label_vi: concrete_value}. Steers each generated
-#    query to a specific point of the tool's PARAMETER space (the anti-paraphrase lever). Slot
-#    labels are Vietnamese; the labeler assigns canonical schema params independently.
-#    TODO(D-Việc-3): one entry per tool in sgod_tools.json (param names must exist in its schema).
+# 7. PARAM SAMPLER — tool -> fn(rng) -> {slot_label_vi: concrete_value}.
+#    Phủ đủ 22/22 tools SGOD (100% schema-valid).
+#    Lưu ý: list_my_assets TUYỆT ĐỐI KHÔNG có bộ lọc status/location/category.
 # ───────────────────────────────────────────────────────────────────────────
 PARAM_SAMPLER = {
+    # ── Nhóm 1: Tài sản & Doanh nghiệp (Thehy-IT phụ trách, 8 tools) ──
+    # 1. list_my_assets: schema có search, limit, cursor (KHÔNG có status)
     "list_my_assets": lambda r: r.choice([
         {},
-        {"trạng thái": ENTITY_POOLS["asset_status_vi"][_pick(r, "asset_status")]},
-        {"danh mục": _pick(r, "category")},
+        {"từ khoá": _pick(r, "search_keyword")},
         {"số lượng": _pick(r, "quantity")},
+        {"từ khoá": _pick(r, "search_keyword"), "số lượng": _pick(r, "quantity")},
     ]),
+    # 2. get_asset: schema có asset_ref (bắt buộc)
     "get_asset": lambda r: r.choice([
         {"tên tài sản": _pick(r, "asset_name")},
         {"mã tài sản": _pick(r, "asset_code")},
     ]),
+    # 3. get_asset_histories: schema có asset_ref (bắt buộc)
+    "get_asset_histories": lambda r: r.choice([
+        {"tên tài sản": _pick(r, "asset_name")},
+        {"mã tài sản": _pick(r, "asset_code")},
+    ]),
+    # 4. list_categories: schema có limit
+    "list_categories": lambda r: r.choice([
+        {},
+        {"số lượng": _pick(r, "quantity")},
+    ]),
+    # 5. list_locations: schema có limit
+    "list_locations": lambda r: r.choice([
+        {},
+        {"số lượng": _pick(r, "quantity")},
+    ]),
+    # 6. get_location: schema có location_id (bắt buộc)
+    "get_location": lambda r: {
+        "mã vị trí": _pick(r, "location_id")
+    },
+    # 7. get_enterprise_profile: không tham số (admin-only)
+    "get_enterprise_profile": lambda r: {},
+    # 8. get_asset_statistics: không tham số (admin-only)
+    "get_asset_statistics": lambda r: {},
+
+    # ── Nhóm 2: Bảo trì, Hồ sơ & Nhân sự (BaoMyTH phụ trách, 7 tools) ──
+    # 9. list_maintenance_schedules: schema có status, limit
     "list_maintenance_schedules": lambda r: r.choice([
         {},
-        {"trạng thái lịch": ENTITY_POOLS["schedule_status_vi"][_pick(r, "schedule_status")]},
-        {"thời gian": _pick(r, "date_phrase")},
+        {"trạng thái": _pick(r, "schedule_status")},
+        {"số lượng": _pick(r, "quantity")},
+        {"trạng thái": _pick(r, "schedule_status"), "số lượng": _pick(r, "quantity")},
     ]),
+    # 10. get_maintenance_schedule: schema có schedule_id (bắt buộc ID thật)
+    "get_maintenance_schedule": lambda r: {
+        "mã lịch": _pick(r, "schedule_id")
+    },
+    # 11. list_maintenance_records: schema có limit
+    "list_maintenance_records": lambda r: r.choice([
+        {},
+        {"số lượng": _pick(r, "quantity")},
+    ]),
+    # 12. list_maintenance_tasks: schema BẮT BUỘC maintenanceScheduleId, có thể kèm limit
+    "list_maintenance_tasks": lambda r: r.choice([
+        {"mã lịch bảo trì": _pick(r, "schedule_id")},
+        {"mã lịch bảo trì": _pick(r, "schedule_id"), "số lượng": _pick(r, "quantity")},
+    ]),
+    # 13. get_my_profile: không tham số
+    "get_my_profile": lambda r: {},
+    # 14. get_my_permissions: không tham số
+    "get_my_permissions": lambda r: {},
+    # 15. list_enterprise_users: schema có status, limit (admin-only)
+    "list_enterprise_users": lambda r: r.choice([
+        {},
+        {"trạng thái": _pick(r, "user_status")},
+        {"số lượng": _pick(r, "quantity")},
+        {"trạng thái": _pick(r, "user_status"), "số lượng": _pick(r, "quantity")},
+    ]),
+
+    # ── Nhóm 3: Điều chuyển, Yêu cầu & Chat (Hồ Văn Dinh phụ trách, 7 tools) ──
+    # 16. list_asset_transfers: schema có onlyMine, limit
+    "list_asset_transfers": lambda r: r.choice([
+        {},
+        {"phạm vi": "chỉ phiếu của tôi"},
+        {"số lượng": _pick(r, "quantity")},
+        {"phạm vi": "chỉ phiếu của tôi", "số lượng": _pick(r, "quantity")},
+    ]),
+    # 17. get_asset_transfer: schema có transfer_id (bắt buộc)
+    "get_asset_transfer": lambda r: {
+        "ID phiếu chuyển giao": _pick(r, "transfer_id")
+    },
+    # 18. get_transfer_summary: không tham số
+    "get_transfer_summary": lambda r: {},
+    # 19. list_staff_requests: schema có limit (không có filter status/typeRequest)
+    "list_staff_requests": lambda r: r.choice([
+        {},
+        {"số lượng": _pick(r, "quantity")},
+    ]),
+    # 20. get_staff_request_summary: không tham số
+    "get_staff_request_summary": lambda r: {},
+    # 21. list_my_conversations: schema có limit (admin-only)
+    "list_my_conversations": lambda r: r.choice([
+        {},
+        {"số lượng": _pick(r, "quantity")},
+    ]),
+    # 22. get_unread_counts: không tham số (admin-only)
+    "get_unread_counts": lambda r: {},
 }
 
 
@@ -254,18 +429,63 @@ def sample_param_hint(tool, rng):
 
 # ───────────────────────────────────────────────────────────────────────────
 # 8. TRACKB_BUCKET_PLAN — LARGE plan keyed by TOOL: (tool, category, role, count).
-#    generate_scenarios.py --trackb uses it together with PARAM_SAMPLER. `tool` is only a hint
-#    carried as "seed_tool"; the labeler decides the label independently.
-#    TODO(D-Việc-3): one or more rows per tool; reads >> writes (phase 2 catalogue is read-only).
-#    POC v1: 48 rows over 33 tools, counts 200..1700, sum ≈ 22.5k.
+#    Phủ đủ 22/22 tools SGOD + 5 refusal rows cho tools admin + hàng ghi permission_denial.
 # ───────────────────────────────────────────────────────────────────────────
 TRACKB_BUCKET_PLAN = [
-    ("list_my_assets", "my_assets", "employee", 20),
+    # ── Nhóm Tài sản & Doanh nghiệp (Thehy-IT: 8 tools, 16 hàng) ──
+    ("list_my_assets", "my_assets", "employee", 18),
     ("list_my_assets", "my_assets", "admin", 12),
-    ("get_asset", "asset_detail", "employee", 12),
-    ("get_asset", "asset_detail", "admin", 12),
-    ("list_maintenance_schedules", "maintenance", "admin", 12),
-    ("list_maintenance_schedules", "maintenance", "employee", 8),
+    ("get_asset", "asset_detail", "employee", 14),
+    ("get_asset", "asset_detail", "admin", 10),
+    ("get_asset_histories", "asset_detail", "employee", 10),
+    ("get_asset_histories", "asset_detail", "admin", 8),
+    ("list_categories", "category", "employee", 8),
+    ("list_categories", "category", "admin", 8),
+    ("list_locations", "location", "employee", 10),
+    ("list_locations", "location", "admin", 10),
+    ("get_location", "location", "employee", 8),
+    ("get_location", "location", "admin", 8),
+    ("get_enterprise_profile", "user_management", "admin", 10),
+    ("get_enterprise_profile", "user_management", "employee", 6),  # Refusal row
+    ("get_asset_statistics", "asset_detail", "admin", 12),
+    ("get_asset_statistics", "asset_detail", "employee", 8),       # Refusal row
+
+    # ── Nhóm Bảo trì & Hồ sơ (BaoMyTH: 7 tools, 14 hàng) ──
+    ("list_maintenance_schedules", "maintenance_schedule", "employee", 16),
+    ("list_maintenance_schedules", "maintenance_schedule", "admin", 12),
+    ("get_maintenance_schedule", "maintenance_schedule", "employee", 12),
+    ("get_maintenance_schedule", "maintenance_schedule", "admin", 8),
+    ("list_maintenance_records", "maintenance_record", "employee", 12),
+    ("list_maintenance_records", "maintenance_record", "admin", 8),
+    ("list_maintenance_tasks", "maintenance_task", "employee", 14),
+    ("list_maintenance_tasks", "maintenance_task", "admin", 10),
+    ("get_my_profile", "user_profile", "employee", 14),
+    ("get_my_profile", "user_profile", "admin", 6),
+    ("get_my_permissions", "user_permission", "employee", 14),
+    ("get_my_permissions", "user_permission", "admin", 6),
+    ("list_enterprise_users", "user_management", "admin", 12),
+    ("list_enterprise_users", "user_management", "employee", 8),  # Refusal row
+
+    # ── Nhóm Điều chuyển, Yêu cầu & Chat (Hồ Văn Dinh: 7 tools, 14 hàng) ──
+    ("list_asset_transfers", "asset_transfer", "employee", 18),
+    ("list_asset_transfers", "asset_transfer", "admin", 10),
+    ("get_asset_transfer", "asset_transfer", "employee", 12),
+    ("get_asset_transfer", "asset_transfer", "admin", 8),
+    ("get_transfer_summary", "asset_transfer", "employee", 14),
+    ("get_transfer_summary", "asset_transfer", "admin", 6),
+    ("list_staff_requests", "staff_request", "employee", 14),
+    ("list_staff_requests", "staff_request", "admin", 8),
+    ("get_staff_request_summary", "staff_request", "employee", 12),
+    ("get_staff_request_summary", "staff_request", "admin", 8),
+    ("list_my_conversations", "chat_conversation", "admin", 14),
+    ("list_my_conversations", "chat_conversation", "employee", 8),  # Refusal row
+    ("get_unread_counts", "chat_conversation", "admin", 14),
+    ("get_unread_counts", "chat_conversation", "employee", 8),       # Refusal row
+
+    # ── Yêu cầu ghi Tạo / Sửa / Xóa (hàng huấn luyện sinh REFUSAL_VI theo preamble v1 luật 5) ──
+    ("get_asset", "permission_denial", "employee", 10),
+    ("list_asset_transfers", "permission_denial", "employee", 8),
+    ("list_maintenance_schedules", "permission_denial", "employee", 8),
 ]
 # Verify the total with:
 #   python3 -c "import sys; sys.path.insert(0,'datagen'); import config_sgod as c; print(sum(n for *_,n in c.TRACKB_BUCKET_PLAN))"
