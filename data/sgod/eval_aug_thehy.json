@@ -1097,7 +1097,7 @@
     "input": "Phòng kế toán ở vị trí nào trong tòa nhà?",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "phòng kế toán"
+      "location_id": "phòng kế toán"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1111,7 +1111,7 @@
     "input": "Tầng 3 của công ty có những gì?",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "Tầng 3"
+      "location_id": "Tầng 3"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1125,7 +1125,7 @@
     "input": "Chi tiết khu vực kho B ở đâu và thuộc bộ phận nào?",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "kho B"
+      "location_id": "kho B"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1139,7 +1139,7 @@
     "input": "phong hop chinh o tang may vay",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "phòng họp chính"
+      "location_id": "phòng họp chính"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1153,7 +1153,7 @@
     "input": "Xem thông tin vị trí phòng IT tầng 2",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "phòng IT tầng 2"
+      "location_id": "phòng IT tầng 2"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1167,7 +1167,7 @@
     "input": "Cho tôi biết thông tin chi tiết về khu vực kho hàng chính",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "kho hàng chính"
+      "location_id": "kho hàng chính"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1181,7 +1181,7 @@
     "input": "Phòng giám đốc ở tầng mấy trong hệ thống?",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "phòng giám đốc"
+      "location_id": "phòng giám đốc"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1195,7 +1195,7 @@
     "input": "vi tri va thong tin phong hanh chinh la gi",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "phòng hành chính"
+      "location_id": "phòng hành chính"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1209,7 +1209,7 @@
     "input": "Chi tiết vị trí khu vực sản xuất tầng 1",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "khu vực sản xuất tầng 1"
+      "location_id": "khu vực sản xuất tầng 1"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1223,7 +1223,7 @@
     "input": "Thông tin về chi nhánh Hà Nội trong hệ thống",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "chi nhánh Hà Nội"
+      "location_id": "chi nhánh Hà Nội"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1237,7 +1237,7 @@
     "input": "xem chi tiet vi tri phong nhan su tang 4",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "phòng nhân sự tầng 4"
+      "location_id": "phòng nhân sự tầng 4"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1251,7 +1251,7 @@
     "input": "Kho vật tư số 2 thuộc quản lý của đơn vị nào?",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "kho vật tư số 2"
+      "location_id": "kho vật tư số 2"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1265,7 +1265,7 @@
     "input": "Phòng bảo vệ ở tầng trệt, chi tiết vị trí đó là gì?",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "phòng bảo vệ tầng trệt"
+      "location_id": "phòng bảo vệ tầng trệt"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
@@ -1279,7 +1279,7 @@
     "input": "Xem thông tin vị trí trung tâm dữ liệu",
     "expected_tool": "get_location",
     "expected_params": {
-      "location_ref": "trung tâm dữ liệu"
+      "location_id": "trung tâm dữ liệu"
     },
     "expected_permission": "allowed",
     "expected_tool_alternates": [],
