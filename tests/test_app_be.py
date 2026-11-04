@@ -148,9 +148,13 @@ class TestBackendAuthAndChat(unittest.TestCase):
         self.assertEqual(resp.status_code, 401)
         self.assertIn("Invalid credentials", resp.json()["detail"])
 
+    @patch("tools.sgod.tool_executor.SGODToolExecutor.execute")
+    @patch("app.be.gemini_client.GeminiClient.chat_completion")
     @patch("app.be.routes.get_me_proxy")
-    def test_tc07_chat_endpoint_with_tool_loop(self, mock_get_me):
+    def test_tc07_chat_endpoint_with_tool_loop(self, mock_get_me, mock_chat, mock_executor):
         """TC-07: POST /api/chat executes tool-calling loop and returns response."""
+        from tools.sgod.tool_executor import ToolExecutionResult
+
         mock_get_me.return_value = schemas.MeResponse(
             success=True,
             user_context=schemas.UserContext(
@@ -162,7 +166,41 @@ class TestBackendAuthAndChat(unittest.TestCase):
             ),
         )
 
-        # Chat asking about assets (triggering the tool simulator)
+        # Mock Gemini first returning a tool_call, then returning final answer
+        mock_chat.side_effect = [
+            (
+                {
+                    "role": "assistant",
+                    "content": None,
+                    "tool_calls": [
+                        {
+                            "id": "call_mock_1",
+                            "type": "function",
+                            "function": {
+                                "name": "list_my_assets",
+                                "arguments": json.dumps({"limit": 5}),
+                            },
+                        }
+                    ],
+                },
+                None,
+            ),
+            (
+                {
+                    "role": "assistant",
+                    "content": "Dưới đây là danh sách tài sản của bạn từ hệ thống SGOD.",
+                },
+                None,
+            ),
+        ]
+
+        # Mock executor returning success
+        mock_executor.return_value = ToolExecutionResult(
+            success=True,
+            status_code=200,
+            data={"items": [{"id": "ast-1", "name": "Màn hình Dell"}]},
+        )
+
         resp = self.client.post(
             "/api/chat",
             headers={"Authorization": "Bearer fake-token-123"},
@@ -171,7 +209,9 @@ class TestBackendAuthAndChat(unittest.TestCase):
         self.assertEqual(resp.status_code, 200)
         data = resp.json()
         self.assertTrue(data["success"])
-        self.assertTrue(len(data["reply"]) > 0)
+        self.assertEqual(len(data["tools_executed"]), 1)
+        self.assertEqual(data["tools_executed"][0]["tool_name"], "list_my_assets")
+        self.assertIn("danh sách tài sản", data["reply"])
 
 
 if __name__ == "__main__":
