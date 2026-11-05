@@ -15,9 +15,20 @@ import {
   PanelLeftOpen,
   Bot,
   User as UserIcon,
+  ChevronDown,
+  ChevronUp,
+  Clock,
+  Zap,
+  Cpu,
+  FileText,
 } from "lucide-react"
 import { useAuth } from "../context/AuthContext"
-import { ChatMessage, ToolExecutionRecord, sendChatApi } from "../services/client"
+import {
+  ChatMessage,
+  TokenUsage,
+  ToolExecutionRecord,
+  sendChatApiStream,
+} from "../services/client"
 import { Hero } from "@/components/ui/hero"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -28,6 +39,12 @@ export interface MessageItem {
   text: string
   tools?: ToolExecutionRecord[]
   timestamp: string
+  responseTimeMs?: number
+  outputTokens?: number
+  tokensPerSec?: number
+  tokenUsage?: TokenUsage
+  isStreaming?: boolean
+  statusMessage?: string
 }
 
 export interface ChatSession {
@@ -89,6 +106,58 @@ export const ChatWidget: React.FC = () => {
   const [messages, setMessages] = React.useState<MessageItem[]>([])
   const [input, setInput] = React.useState("")
   const [sending, setSending] = React.useState(false)
+  const [expandedTools, setExpandedTools] = React.useState<Record<string, boolean>>({})
+
+  const toggleToolExpand = (key: string) => {
+    setExpandedTools((prev) => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  // Typewriter buffer refs for buttery smooth streaming
+  const textBufferRef = React.useRef<string>("")
+  const displayedLengthRef = React.useRef<number>(0)
+  const isStreamActiveRef = React.useRef<boolean>(false)
+  const typingIntervalRef = React.useRef<any>(null)
+
+  const stopTypewriter = () => {
+    if (typingIntervalRef.current) {
+      clearInterval(typingIntervalRef.current)
+      typingIntervalRef.current = null
+    }
+  }
+
+  const startTypewriter = (botId: string) => {
+    stopTypewriter()
+    typingIntervalRef.current = setInterval(() => {
+      const buffer = textBufferRef.current
+      const currentLen = displayedLengthRef.current
+      const remaining = buffer.length - currentLen
+
+      if (remaining > 0) {
+        // Tốc độ thích ứng: nhả từ 1-3 ký tự mỗi nhịp (20ms) để tốc độ đều và mượt như gõ phím.
+        // Nếu buffer bị dồn nhiều do mạng (remaining > 35), tăng tốc dần để theo kịp
+        const step = Math.max(1, Math.min(Math.ceil(remaining / 6), 14))
+        const nextLen = Math.min(currentLen + step, buffer.length)
+        displayedLengthRef.current = nextLen
+        const textToDisplay = buffer.slice(0, nextLen)
+
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === botId
+              ? { ...m, text: textToDisplay, statusMessage: undefined }
+              : m
+          )
+        )
+      } else if (!isStreamActiveRef.current && remaining === 0) {
+        stopTypewriter()
+      }
+    }, 20)
+  }
+
+  React.useEffect(() => {
+    return () => {
+      stopTypewriter()
+    }
+  }, [])
 
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
@@ -204,53 +273,179 @@ export const ChatWidget: React.FC = () => {
       }))
 
     const updatedWithUser = [...messages, userMsg]
-    setMessages(updatedWithUser)
+    const botMsgId = String(Date.now() + 1)
+    const initialBotMsg: MessageItem = {
+      id: botMsgId,
+      sender: "assistant",
+      text: "",
+      tools: [],
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      isStreaming: true,
+      statusMessage: "Đang phân tích yêu cầu...",
+    }
+
+    const currentTurnMessages = [...updatedWithUser, initialBotMsg]
+    setMessages(currentTurnMessages)
     syncSessionMessages(updatedWithUser, textToSend)
 
     if (!customText) setInput("")
     setSending(true)
 
+    // Khởi tạo bộ đệm nhả chữ mượt mà & bấm giờ client
+    const reqStartTime = performance.now()
+    textBufferRef.current = ""
+    displayedLengthRef.current = 0
+    isStreamActiveRef.current = true
+    startTypewriter(botMsgId)
+
     try {
-      const res = await sendChatApi(
+      await sendChatApiStream(
         textToSend,
         token,
         historyPayload,
         refreshToken || undefined,
+        {
+          onStatus: (statusText) => {
+            setMessages((prev) =>
+              prev.map((m) =>
+                m.id === botMsgId
+                  ? { ...m, statusMessage: statusText }
+                  : m
+              )
+            )
+          },
+          onToolStart: (toolName, args) => {
+            setMessages((prev) =>
+              prev.map((m) => {
+                if (m.id !== botMsgId) return m
+                const existing = m.tools || []
+                const newRecord: ToolExecutionRecord = {
+                  tool_name: toolName,
+                  arguments: args,
+                  result: null,
+                  success: false,
+                  is_running: true,
+                }
+                return {
+                  ...m,
+                  tools: [...existing, newRecord],
+                  statusMessage: `Đang thực thi công cụ SGOD: ${toolName}...`,
+                }
+              })
+            )
+          },
+          onToolResult: (record) => {
+            setMessages((prev) =>
+              prev.map((m) => {
+                if (m.id !== botMsgId) return m
+                const existing = m.tools || []
+                const updated = existing.map((t) =>
+                  t.tool_name === record.tool_name && t.is_running
+                    ? { ...record, is_running: false }
+                    : t
+                )
+                if (!updated.some((t) => t.tool_name === record.tool_name)) {
+                  updated.push({ ...record, is_running: false })
+                }
+                return {
+                  ...m,
+                  tools: updated,
+                  statusMessage: `Đã hoàn thành ${record.tool_name}`,
+                }
+              })
+            )
+          },
+          onDelta: (chunk) => {
+            // Đẩy vào hàng đợi đệm để nhả chữ mượt mà
+            textBufferRef.current += chunk
+          },
+          onDone: (res) => {
+            isStreamActiveRef.current = false
+            const reqEndTime = performance.now()
+            // Thời gian Client hoàn tất toàn bộ request với Backend
+            const clientResponseTimeMs = Math.round(reqEndTime - reqStartTime)
+
+            if (res.reply && res.reply.length > textBufferRef.current.length) {
+              textBufferRef.current = res.reply
+            }
+            const finalFullText = textBufferRef.current || res.reply || ""
+
+            // Đếm số lượng từ / token thực tế xuất hiện trong câu trả lời
+            const tokenCount = finalFullText.trim() ? finalFullText.trim().split(/\s+/).length : 0
+            const durationSec = Math.max(clientResponseTimeMs / 1000, 0.05)
+            // Tốc độ nhả chữ: token (từ) trên giây
+            const tokPerSec = Number((tokenCount / durationSec).toFixed(1))
+
+            // Xả hết nội dung còn lại trong buffer lập tức
+            stopTypewriter()
+            displayedLengthRef.current = finalFullText.length
+
+            setMessages((prev) => {
+              const updated = prev.map((m) =>
+                m.id === botMsgId
+                  ? {
+                      ...m,
+                      text: finalFullText,
+                      tools: res.tools_executed || m.tools,
+                      responseTimeMs: clientResponseTimeMs,
+                      outputTokens: tokenCount,
+                      tokensPerSec: tokPerSec,
+                      tokenUsage: res.token_usage,
+                      isStreaming: false,
+                      statusMessage: undefined,
+                    }
+                  : m
+              )
+              syncSessionMessages(updated, textToSend)
+              return updated
+            })
+            if (res.new_access_token) {
+              updateAccessToken(res.new_access_token)
+            }
+          },
+          onError: (errMsg) => {
+            isStreamActiveRef.current = false
+            stopTypewriter()
+            setMessages((prev) => {
+              const updated = prev.map((m) =>
+                m.id === botMsgId
+                  ? {
+                      ...m,
+                      text: m.text ? `${m.text}\n\n⚠️ Lỗi: ${errMsg}` : `⚠️ Lỗi: ${errMsg}`,
+                      isStreaming: false,
+                      statusMessage: undefined,
+                    }
+                  : m
+              )
+              syncSessionMessages(updated, textToSend)
+              return updated
+            })
+            if (
+              errMsg.toLowerCase().includes("hết hạn") ||
+              errMsg.toLowerCase().includes("expired") ||
+              errMsg.includes("401")
+            ) {
+              setTimeout(() => {
+                logout()
+              }, 2500)
+            }
+          },
+        },
         updateAccessToken
       )
-      if (res.new_access_token) {
-        updateAccessToken(res.new_access_token)
-      }
-
-      const botMsg: MessageItem = {
-        id: String(Date.now() + 1),
-        sender: "assistant",
-        text: res.reply || "Đã xử lý xong yêu cầu.",
-        tools: res.tools_executed,
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      }
-
-      const finalMessages = [...updatedWithUser, botMsg]
-      setMessages(finalMessages)
-      syncSessionMessages(finalMessages, textToSend)
     } catch (err: any) {
+      isStreamActiveRef.current = false
+      stopTypewriter()
       const errMsg = err.message || "Không thể nhận phản hồi từ máy chủ"
-      const errorMsg: MessageItem = {
-        id: String(Date.now() + 1),
-        sender: "assistant",
-        text: `⚠️ Lỗi: ${errMsg}`,
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      }
-      const finalMessages = [...updatedWithUser, errorMsg]
-      setMessages(finalMessages)
-      syncSessionMessages(finalMessages, textToSend)
-
-      // Nếu lỗi phiên đăng nhập không thể refresh -> Tự động logout về trang login
-      if (errMsg.toLowerCase().includes("hết hạn") || errMsg.toLowerCase().includes("expired") || errMsg.includes("401")) {
-        setTimeout(() => {
-          logout()
-        }, 2500)
-      }
+      setMessages((prev) => {
+        const updated = prev.map((m) =>
+          m.id === botMsgId
+            ? { ...m, text: `⚠️ Lỗi: ${errMsg}`, isStreaming: false, statusMessage: undefined }
+            : m
+        )
+        syncSessionMessages(updated, textToSend)
+        return updated
+      })
     } finally {
       setSending(false)
     }
@@ -543,45 +738,154 @@ export const ChatWidget: React.FC = () => {
                           : "bg-card text-card-foreground border border-border rounded-bl-xs",
                       )}
                     >
+                      {/* Tool Execution Cards */}
                       {m.tools && m.tools.length > 0 && (
-                        <div className="mb-2.5 flex flex-col gap-1.5">
-                          {m.tools.map((t, idx) => (
-                            <div
-                              key={idx}
-                              className="flex flex-wrap items-center gap-1.5 rounded-lg border border-border bg-muted/60 px-2.5 py-1 text-xs text-foreground"
-                            >
-                              <Wrench className="h-3.5 w-3.5 text-muted-foreground" />
-                              <span>
-                                Đã gọi API SGOD: <strong>{t.tool_name}</strong>
-                              </span>
-                              <span
-                                className={cn(
-                                  "inline-flex items-center gap-1 font-semibold ml-1",
-                                  t.success ? "text-emerald-500" : "text-rose-500",
-                                )}
+                        <div className="mb-3 flex flex-col gap-2">
+                          {m.tools.map((t, idx) => {
+                            const toolKey = `${m.id}_tool_${idx}`
+                            const isExpanded = !!expandedTools[toolKey]
+                            return (
+                              <div
+                                key={idx}
+                                className="rounded-xl border border-border bg-muted/40 dark:bg-secondary/40 text-xs overflow-hidden transition-all shadow-xs"
                               >
-                                {t.success ? (
-                                  <>
-                                    <CheckCircle2 className="h-3.5 w-3.5" />
-                                    <span>Thành công</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <XCircle className="h-3.5 w-3.5" />
-                                    <span>Thất bại</span>
-                                  </>
+                                <div
+                                  className="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-muted/70 transition-colors select-none"
+                                  onClick={() => toggleToolExpand(toolKey)}
+                                >
+                                  <div className="flex items-center gap-2 min-w-0">
+                                    <div className="p-1 rounded-md bg-primary/10 text-primary">
+                                      <Wrench className="h-3.5 w-3.5" />
+                                    </div>
+                                    <span className="font-medium text-foreground truncate">
+                                      {t.tool_name}
+                                    </span>
+                                    {t.is_running ? (
+                                      <span className="inline-flex items-center gap-1 text-amber-500 font-medium">
+                                        <Clock className="h-3 w-3 animate-spin" />
+                                        <span>Đang thực thi...</span>
+                                      </span>
+                                    ) : t.success ? (
+                                      <span className="inline-flex items-center gap-1 text-emerald-500 font-semibold">
+                                        <CheckCircle2 className="h-3 w-3" />
+                                        <span>Thành công</span>
+                                      </span>
+                                    ) : (
+                                      <span className="inline-flex items-center gap-1 text-rose-500 font-semibold">
+                                        <XCircle className="h-3 w-3" />
+                                        <span>Thất bại</span>
+                                      </span>
+                                    )}
+                                  </div>
+                                  <div className="flex items-center gap-2 shrink-0 text-muted-foreground ml-2">
+                                    {typeof t.duration_ms === "number" && (
+                                      <span className="inline-flex items-center gap-0.5 rounded-md bg-background px-1.5 py-0.5 text-[10px] font-mono border border-border">
+                                        <Zap className="h-2.5 w-2.5 text-amber-500" />
+                                        {t.duration_ms}ms
+                                      </span>
+                                    )}
+                                    {isExpanded ? (
+                                      <ChevronUp className="h-3.5 w-3.5" />
+                                    ) : (
+                                      <ChevronDown className="h-3.5 w-3.5" />
+                                    )}
+                                  </div>
+                                </div>
+
+                                {isExpanded && (
+                                  <div className="border-t border-border px-3 py-2.5 bg-background/50 space-y-2 text-[11px] font-mono">
+                                    <div>
+                                      <div className="text-muted-foreground font-semibold mb-1">
+                                        Tham số (Arguments):
+                                      </div>
+                                      <pre className="p-2 rounded-lg bg-muted text-foreground overflow-x-auto max-h-36 whitespace-pre-wrap break-all">
+                                        {JSON.stringify(t.arguments, null, 2)}
+                                      </pre>
+                                    </div>
+                                    {t.result !== undefined && t.result !== null && (
+                                      <div>
+                                        <div className="text-muted-foreground font-semibold mb-1">
+                                          Kết quả SGOD (Result):
+                                        </div>
+                                        <pre className="p-2 rounded-lg bg-muted text-foreground overflow-x-auto max-h-48 whitespace-pre-wrap break-all">
+                                          {typeof t.result === "string"
+                                            ? t.result
+                                            : JSON.stringify(t.result, null, 2)}
+                                        </pre>
+                                      </div>
+                                    )}
+                                    {t.error && (
+                                      <div className="text-rose-500">
+                                        <strong>Lỗi:</strong> {t.error}
+                                      </div>
+                                    )}
+                                  </div>
                                 )}
-                              </span>
-                            </div>
-                          ))}
+                              </div>
+                            )
+                          })}
                         </div>
                       )}
 
-                      <div className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap">
-                        {m.text}
-                      </div>
-                      <div className="mt-1.5 text-[11px] opacity-65 text-right">
-                        {m.timestamp}
+                      {/* Status badge when streaming and no text yet */}
+                      {m.isStreaming && m.statusMessage && !m.text && (
+                        <div className="flex items-center gap-2 py-1 text-xs text-muted-foreground animate-pulse">
+                          <Sparkles className="h-3.5 w-3.5 text-primary" />
+                          <span>{m.statusMessage}</span>
+                        </div>
+                      )}
+
+                      {/* Text content with blinking cursor while streaming */}
+                      {m.text && (
+                        <div className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap">
+                          {m.text}
+                          {m.isStreaming && (
+                            <span className="inline-block w-1.5 h-4 ml-1 bg-primary animate-pulse align-middle" />
+                          )}
+                        </div>
+                      )}
+
+                      {/* Footer: Response Time, Word Count (Token nhả), Speed (Token/s), Timestamp */}
+                      <div className="mt-2.5 pt-1.5 border-t border-border/40 flex flex-wrap items-center justify-between gap-2 text-[10px] text-muted-foreground">
+                        <div className="flex flex-wrap items-center gap-2">
+                          {typeof m.responseTimeMs === "number" && (
+                            <span
+                              className="inline-flex items-center gap-1 font-mono font-medium rounded-md bg-muted/60 px-1.5 py-0.5"
+                              title="Thời gian từ lúc client gửi request đến khi nhận xong toàn bộ phản hồi"
+                            >
+                              <Clock className="h-3 w-3 text-amber-500" />
+                              {(m.responseTimeMs / 1000).toFixed(2)}s
+                            </span>
+                          )}
+                          {typeof m.outputTokens === "number" && (
+                            <span
+                              className="inline-flex items-center gap-1 font-mono rounded-md bg-muted/60 px-1.5 py-0.5"
+                              title="Số lượng từ được sinh ra trong câu trả lời"
+                            >
+                              <FileText className="h-3 w-3 text-sky-500" />
+                              {m.outputTokens} từ
+                            </span>
+                          )}
+                          {typeof m.tokensPerSec === "number" && (
+                            <span
+                              className="inline-flex items-center gap-1 font-mono rounded-md bg-muted/60 px-1.5 py-0.5"
+                              title="Tốc độ sinh chữ trung bình (từ / giây)"
+                            >
+                              <Zap className="h-3 w-3 text-emerald-500" />
+                              {m.tokensPerSec} từ/s
+                            </span>
+                          )}
+                          {m.tokenUsage && (
+                            <span
+                              className="inline-flex items-center gap-1 font-mono text-[9px] opacity-70 rounded-md bg-muted/40 px-1 py-0.5"
+                              title={`Gemini API Tokens - Prompt: ${m.tokenUsage.prompt_tokens} • Completion: ${m.tokenUsage.completion_tokens}`}
+                            >
+                              <Cpu className="h-2.5 w-2.5" />
+                              {m.tokenUsage.total_tokens} gemini tk
+                            </span>
+                          )}
+                        </div>
+                        <span className="opacity-75">{m.timestamp}</span>
                       </div>
                     </div>
 
@@ -593,7 +897,7 @@ export const ChatWidget: React.FC = () => {
                   </div>
                 ))}
 
-                {sending && (
+                {sending && !messages.some((m) => m.isStreaming) && (
                   <div className="flex items-start gap-3 justify-start">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5">
                       <Bot className="h-4 w-4" />

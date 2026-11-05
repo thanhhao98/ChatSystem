@@ -5,7 +5,8 @@ tool policy filtering, Gemini interaction, and SGOD tool execution.
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, List, Optional, Tuple
+import time
+from typing import Any, Dict, Generator, List, Optional, Tuple
 
 from app.be import config
 from app.be.gemini_client import GeminiClient
@@ -102,6 +103,7 @@ class ChatEngine:
         max_turns: int = 3,
     ) -> ChatResponse:
         """Run complete Agentic Tool-calling loop."""
+        start_time = time.time()
         # 1. Filter tools and render system prompt
         allowed_tools = filter_tools_for_role(user_ctx.role)
         preamble = render_preamble(user_ctx)
@@ -142,6 +144,7 @@ class ChatEngine:
                     success=False,
                     reply=f"Xin lỗi, đã xảy ra lỗi khi kết nối với mô hình AI: {err}",
                     tools_executed=executed_records,
+                    response_time_ms=int((time.time() - start_time) * 1000),
                 )
 
             if not assistant_msg:
@@ -167,6 +170,7 @@ class ChatEngine:
                     args_dict = {}
 
                 # Execute against live SGOD Gateway
+                t0 = time.time()
                 result = self.executor.execute(
                     tool_name=t_name,
                     arguments=args_dict,
@@ -174,6 +178,7 @@ class ChatEngine:
                     access_token=cur_token,
                     refresh_token=refresh_token,
                 )
+                dur_ms = int((time.time() - t0) * 1000)
 
                 if result.token_refreshed:
                     token_refreshed = True
@@ -187,6 +192,7 @@ class ChatEngine:
                         result=result.data if result.success else None,
                         success=result.success,
                         error=result.error or result.message,
+                        duration_ms=dur_ms,
                     )
                 )
 
@@ -204,10 +210,144 @@ class ChatEngine:
             success_count = sum(1 for r in executed_records if r.success)
             final_reply = f"Đã hoàn thành gọi {len(executed_records)} công cụ ({success_count} thành công)."
 
+        total_ms = int((time.time() - start_time) * 1000)
         return ChatResponse(
             success=True,
             reply=final_reply,
             tools_executed=executed_records,
             token_refreshed=token_refreshed,
             new_access_token=new_access,
+            response_time_ms=total_ms,
         )
+
+    def process_chat_stream(
+        self,
+        message: str,
+        user_ctx: UserContext,
+        access_token: Optional[str] = None,
+        refresh_token: Optional[str] = None,
+        history: Optional[List[ChatMessage]] = None,
+        max_turns: int = 3,
+    ) -> Generator[str, None, None]:
+        """Run complete Agentic Tool-calling loop with Server-Sent Events (SSE) streaming."""
+        start_time = time.time()
+        allowed_tools = filter_tools_for_role(user_ctx.role)
+        preamble = render_preamble(user_ctx)
+
+        messages: List[Dict[str, Any]] = [
+            {"role": "system", "content": preamble}
+        ]
+
+        if history:
+            for h in history:
+                m: Dict[str, Any] = {"role": h.role, "content": h.content or ""}
+                if h.name:
+                    m["name"] = h.name
+                if h.tool_call_id:
+                    m["tool_call_id"] = h.tool_call_id
+                messages.append(m)
+
+        messages.append({"role": "user", "content": message})
+
+        executed_records: List[ToolExecutionRecord] = []
+        token_refreshed = False
+        new_access = None
+        cur_token = access_token
+        total_tokens = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+        final_reply = ""
+
+        yield f"event: status\ndata: {json.dumps({'message': 'Đang phân tích yêu cầu...'}, ensure_ascii=False)}\n\n"
+
+        for turn in range(max_turns):
+            tool_calls = None
+            stream_error = None
+            turn_reply = ""
+
+            for ev_type, data in self.gemini.chat_completion_stream(
+                messages=messages,
+                tools=allowed_tools if allowed_tools else None,
+                temperature=0.0,
+            ):
+                if ev_type == "error":
+                    stream_error = data
+                    break
+                elif ev_type == "usage":
+                    total_tokens["prompt_tokens"] += data.get("prompt_tokens", 0)
+                    total_tokens["completion_tokens"] += data.get("completion_tokens", 0)
+                    total_tokens["total_tokens"] += data.get("total_tokens", 0)
+                elif ev_type == "tool_calls":
+                    tool_calls = data
+                elif ev_type == "delta":
+                    turn_reply += data
+                    final_reply += data
+                    yield f"event: delta\ndata: {json.dumps({'content': data}, ensure_ascii=False)}\n\n"
+
+            if stream_error:
+                yield f"event: error\ndata: {json.dumps({'error': stream_error}, ensure_ascii=False)}\n\n"
+                return
+
+            if not tool_calls:
+                break
+
+            assistant_msg: Dict[str, Any] = {
+                "role": "assistant",
+                "content": turn_reply or None,
+                "tool_calls": tool_calls,
+            }
+            for tc in tool_calls:
+                if tc.get("extra_content"):
+                    assistant_msg["extra_content"] = tc["extra_content"]
+                    break
+            messages.append(assistant_msg)
+
+            for tc in tool_calls:
+                fn = tc.get("function") or {}
+                t_name = fn.get("name")
+                raw_args = fn.get("arguments") or "{}"
+                try:
+                    args_dict = json.loads(raw_args) if isinstance(raw_args, str) else raw_args
+                except Exception:
+                    args_dict = {}
+
+                yield f"event: tool_start\ndata: {json.dumps({'tool_name': t_name, 'arguments': args_dict}, ensure_ascii=False)}\n\n"
+
+                t0 = time.time()
+                result = self.executor.execute(
+                    tool_name=t_name,
+                    arguments=args_dict,
+                    user_role=user_ctx.role,
+                    access_token=cur_token,
+                    refresh_token=refresh_token,
+                )
+                dur_ms = int((time.time() - t0) * 1000)
+
+                if result.token_refreshed:
+                    token_refreshed = True
+                    new_access = result.new_access_token
+                    cur_token = result.new_access_token
+
+                record = ToolExecutionRecord(
+                    tool_name=t_name,
+                    arguments=args_dict,
+                    result=result.data if result.success else None,
+                    success=result.success,
+                    error=result.error or result.message,
+                    duration_ms=dur_ms,
+                )
+                executed_records.append(record)
+
+                yield f"event: tool_result\ndata: {json.dumps(record.dict(), ensure_ascii=False)}\n\n"
+
+                tool_output_str = json.dumps(result.to_dict(), ensure_ascii=False)
+                messages.append({
+                    "role": "tool",
+                    "name": t_name,
+                    "tool_call_id": tc.get("id") or f"call_{t_name}",
+                    "content": tool_output_str,
+                })
+
+            yield f"event: status\ndata: {json.dumps({'message': 'Đang tổng hợp câu trả lời từ dữ liệu SGOD...'}, ensure_ascii=False)}\n\n"
+
+        total_duration_ms = int((time.time() - start_time) * 1000)
+
+        yield f"event: done\ndata: {json.dumps({'reply': final_reply, 'tools_executed': [r.dict() for r in executed_records], 'response_time_ms': total_duration_ms, 'token_usage': total_tokens, 'token_refreshed': token_refreshed, 'new_access_token': new_access}, ensure_ascii=False)}\n\n"

@@ -74,6 +74,7 @@ class ToolExecutionRecord(BaseModel):
     result: Any
     success: bool
     error: Optional[str] = None
+    duration_ms: Optional[int] = None
 
 
 class ChatResponse(BaseModel):
@@ -83,6 +84,8 @@ class ChatResponse(BaseModel):
     token_refreshed: bool = False
     new_access_token: Optional[str] = None
     message: Optional[str] = None
+    response_time_ms: Optional[int] = None
+    token_usage: Optional[Dict[str, int]] = None
 
 
 class HealthResponse(BaseModel):

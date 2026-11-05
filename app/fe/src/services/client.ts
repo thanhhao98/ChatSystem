@@ -1,6 +1,7 @@
 /**
  * API Client giao tiếp trực tiếp với Backend Chat (app/be/).
- * Hỗ trợ tự động refresh JWT token khi gặp HTTP 401, gửi kèm lịch sử chat và xử lý lỗi chuẩn.
+ * Hỗ trợ tự động refresh JWT token khi gặp HTTP 401, gửi kèm lịch sử chat,
+ * xử lý lỗi chuẩn và giao tiếp dạng Server-Sent Events (SSE) streaming.
  */
 
 export interface UserContext {
@@ -39,6 +40,14 @@ export interface ToolExecutionRecord {
   result: any;
   success: boolean;
   error?: string;
+  duration_ms?: number;
+  is_running?: boolean;
+}
+
+export interface TokenUsage {
+  prompt_tokens: number;
+  completion_tokens: number;
+  total_tokens: number;
 }
 
 export interface ChatMessage {
@@ -55,6 +64,17 @@ export interface ChatResponse {
   token_refreshed?: boolean;
   new_access_token?: string;
   message?: string;
+  response_time_ms?: number;
+  token_usage?: TokenUsage;
+}
+
+export interface StreamCallbacks {
+  onStatus?: (statusText: string) => void;
+  onToolStart?: (toolName: string, args: Record<string, any>) => void;
+  onToolResult?: (record: ToolExecutionRecord) => void;
+  onDelta?: (chunk: string) => void;
+  onDone?: (res: ChatResponse) => void;
+  onError?: (errMessage: string) => void;
 }
 
 const BASE_URL = ""; // Đường dẫn tương đối qua Vite Proxy /api -> http://localhost:8000
@@ -145,9 +165,125 @@ export async function getMeApi(accessToken: string): Promise<MeResponse> {
 }
 
 /**
- * Gửi tin nhắn chat đến backend kèm hỗ trợ:
- * 1. Gửi kèm history ngữ cảnh hội thoại.
- * 2. Tự động thử refresh token khi gặp HTTP 401 và retry 1 lần.
+ * Gửi tin nhắn chat đến backend dạng Server-Sent Events (SSE) Streaming.
+ */
+export async function sendChatApiStream(
+  message: string,
+  accessToken: string,
+  history: ChatMessage[] = [],
+  refreshToken?: string,
+  callbacks: StreamCallbacks = {},
+  onTokenRefreshed?: (newToken: string) => void
+): Promise<void> {
+  let currentToken = accessToken || localStorage.getItem("sgod_access_token") || "";
+  const currentRefresh = refreshToken || localStorage.getItem("sgod_refresh_token") || "";
+
+  const doStreamRequest = async (tokenToUse: string): Promise<Response> => {
+    return await fetch(`${BASE_URL}/api/chat/stream`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenToUse}`,
+      },
+      body: JSON.stringify({
+        message,
+        history,
+        refresh_token: currentRefresh || undefined,
+      }),
+    });
+  };
+
+  let res = await doStreamRequest(currentToken);
+
+  // Nếu gặp 401 Unauthorized -> Tự động refresh token và thử lại
+  if (res.status === 401 && currentRefresh) {
+    try {
+      const refRes = await refreshApi(currentRefresh);
+      if (refRes.success && refRes.access_token) {
+        currentToken = refRes.access_token;
+        notifyTokenRefreshed(refRes.access_token, refRes.refresh_token);
+        if (onTokenRefreshed) {
+          onTokenRefreshed(refRes.access_token);
+        }
+        res = await doStreamRequest(currentToken);
+      } else {
+        notifyLogout();
+        callbacks.onError?.("Phiên đăng nhập đã hết hạn");
+        return;
+      }
+    } catch {
+      notifyLogout();
+      callbacks.onError?.("Làm mới phiên làm việc thất bại");
+      return;
+    }
+  }
+
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    const errText = extractErrorMessage(errData, res.status);
+    callbacks.onError?.(errText);
+    throw new Error(errText);
+  }
+
+  if (!res.body) {
+    callbacks.onError?.("Trình duyệt không hỗ trợ đọc dữ liệu stream");
+    return;
+  }
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder("utf-8");
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop() || "";
+
+    let currentEvent = "";
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) {
+        currentEvent = "";
+        continue;
+      }
+      if (trimmed.startsWith("event: ")) {
+        currentEvent = trimmed.slice(7).trim();
+      } else if (trimmed.startsWith("data: ")) {
+        const rawJson = trimmed.slice(6).trim();
+        try {
+          const payload = JSON.parse(rawJson);
+          if (currentEvent === "status") {
+            callbacks.onStatus?.(payload.message || "");
+          } else if (currentEvent === "tool_start") {
+            callbacks.onToolStart?.(payload.tool_name, payload.arguments || {});
+          } else if (currentEvent === "tool_result") {
+            callbacks.onToolResult?.(payload);
+          } else if (currentEvent === "delta") {
+            callbacks.onDelta?.(payload.content || "");
+          } else if (currentEvent === "done") {
+            if (payload.token_refreshed && payload.new_access_token) {
+              notifyTokenRefreshed(payload.new_access_token);
+              if (onTokenRefreshed) {
+                onTokenRefreshed(payload.new_access_token);
+              }
+            }
+            callbacks.onDone?.(payload);
+          } else if (currentEvent === "error") {
+            callbacks.onError?.(payload.error || "Lỗi xử lý mô hình AI");
+          }
+        } catch {
+          // ignore malformed JSON chunk
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Gửi tin nhắn chat đến backend (chế độ blocking HTTP).
  */
 export async function sendChatApi(
   message: string,
@@ -176,7 +312,6 @@ export async function sendChatApi(
 
   let res = await doRequest(currentToken);
 
-  // Nếu gặp 401 Unauthorized và có Refresh Token -> Tự động refresh và thử lại (Retry)
   if (res.status === 401 && currentRefresh) {
     try {
       const refRes = await refreshApi(currentRefresh);
@@ -186,7 +321,6 @@ export async function sendChatApi(
         if (onTokenRefreshed) {
           onTokenRefreshed(refRes.access_token);
         }
-        // Gửi lại request với access token mới
         res = await doRequest(currentToken);
       } else {
         notifyLogout();

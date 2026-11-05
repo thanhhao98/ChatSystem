@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 from fastapi import APIRouter, Depends, Header, HTTPException, status
+from fastapi.responses import StreamingResponse
 
 from app.be.auth import get_me_proxy, login_proxy, refresh_proxy
 from app.be.chat_engine import ChatEngine, filter_tools_for_role
@@ -102,6 +103,31 @@ def chat_endpoint(
         history=payload.history,
     )
     return res
+
+
+@chat_router.post("/stream", summary="Gửi tin nhắn hội thoại dạng Server-Sent Events (SSE) streaming")
+def chat_stream_endpoint(
+    payload: ChatRequest,
+    auth_data: tuple[UserContext, str] = Depends(get_current_user_and_token),
+):
+    """Xử lý hội thoại qua Google Gemini AI dạng stream SSE kèm tool execution và token usage."""
+    user_ctx, access_token = auth_data
+    generator = _chat_engine.process_chat_stream(
+        message=payload.message,
+        user_ctx=user_ctx,
+        access_token=access_token,
+        refresh_token=payload.refresh_token,
+        history=payload.history,
+    )
+    return StreamingResponse(
+        generator,
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
 
 
 # ── Tools Discovery ──────────────────────────────────────────────────────────
