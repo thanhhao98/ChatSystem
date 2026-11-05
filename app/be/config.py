@@ -23,10 +23,10 @@ if ENV_PATH.is_file():
                 os.environ[k] = v
 
 # SGOD Gateway configuration
-SGOD_BASE_URL: str = os.environ.get("SGOD_BASE_URL", "http://10.10.0.2:5000").rstrip("/")
-SGOD_AUTH_API_KEY: str = os.environ.get("SGOD_AUTH_API_KEY", "SmartGenerationofDigital_Sgod2025auth").strip()
-SGOD_ASSET_API_KEY: str = os.environ.get("SGOD_ASSET_API_KEY", "SmartGenerationofDigital_Sgod2025asset").strip()
-SGOD_CHAT_API_KEY: str = os.environ.get("SGOD_CHAT_API_KEY", "SmartGenerationofDigital_Sgod2025chat").strip()
+SGOD_BASE_URL: str = os.environ.get("SGOD_BASE_URL", "").rstrip("/")
+SGOD_AUTH_API_KEY: str = os.environ.get("SGOD_AUTH_API_KEY", "").strip()
+SGOD_ASSET_API_KEY: str = os.environ.get("SGOD_ASSET_API_KEY", "").strip()
+SGOD_CHAT_API_KEY: str = os.environ.get("SGOD_CHAT_API_KEY", "").strip()
 
 # Google Gemini configuration (via OpenAI-compatible endpoint)
 GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "").strip()
