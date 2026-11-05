@@ -37,7 +37,7 @@ export interface ToolExecutionRecord {
   tool_name: string;
   arguments: Record<string, any>;
   result: any;
-  success: bool;
+  success: boolean;
   error?: string;
 }
 
