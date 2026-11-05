@@ -7,6 +7,10 @@ venv/
 .mypy_cache/
 .ipynb_checkpoints/
 
+# --- Frontend (Node / Vite) ---
+node_modules/
+dist/
+
 # --- Secrets: never commit ---
 .env
 .env.*
