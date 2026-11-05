@@ -127,35 +127,42 @@ def login_proxy(credential: str, password: str, tier: Optional[str] = None) -> L
             continue
         path = f"/sgod-auth/v1/{current_tier}/sessions"
 
-        # Try with credential field first (standard SGOD schema)
-        for payload in [
-            {"credential": credential, "password": password},
-            {"email": credential, "password": password},
-        ]:
-            status, res_json, err = _send_sgod_request("POST", path, body=payload)
-            if err:
-                last_error = f"Lỗi kết nối tới SGOD Gateway: {err}"
-                continue
+        # Send standard SGOD LoginRequestDto payload ({credential, password})
+        payload = {"credential": credential.strip(), "password": password}
+        status, res_json, err = _send_sgod_request("POST", path, body=payload)
+        if err:
+            last_error = f"Lỗi kết nối tới SGOD Gateway: {err}"
+            continue
 
-            if isinstance(res_json, dict) and res_json.get("success") is True:
-                data = res_json.get("data") or {}
-                access_token = data.get("accessToken")
-                refresh_token = data.get("refreshToken")
-                user_data = data.get("user") or {}
+        if isinstance(res_json, dict) and res_json.get("success") is True:
+            data = res_json.get("data") or {}
+            access_token = data.get("accessToken")
+            refresh_token = data.get("refreshToken")
+            user_data = data.get("user") if isinstance(data.get("user"), dict) else {}
 
-                user_ctx = build_user_context(user_data, current_tier)
-                return LoginResponse(
-                    success=True,
-                    access_token=access_token,
-                    refresh_token=refresh_token,
-                    user_context=user_ctx,
-                    message="Đăng nhập thành công",
+            # Prefer data.user if present; otherwise fetch profile from /users/myself
+            if not user_data and access_token:
+                _, me_json, me_err = _send_sgod_request(
+                    "GET", "/sgod-auth/v1/users/myself", token=access_token
                 )
+                if not me_err and isinstance(me_json, dict) and me_json.get("success") is True:
+                    me_data = me_json.get("data")
+                    if isinstance(me_data, dict):
+                        user_data = me_data
 
-            if isinstance(res_json, dict):
-                msg = res_json.get("message")
-                if msg:
-                    last_error = msg
+            user_ctx = build_user_context(user_data, current_tier)
+            return LoginResponse(
+                success=True,
+                access_token=access_token,
+                refresh_token=refresh_token,
+                user_context=user_ctx,
+                message="Đăng nhập thành công",
+            )
+
+        if isinstance(res_json, dict):
+            msg = res_json.get("message")
+            if msg:
+                last_error = msg if isinstance(msg, str) else "; ".join(str(x) for x in msg)
 
     return LoginResponse(success=False, message=last_error)
 
