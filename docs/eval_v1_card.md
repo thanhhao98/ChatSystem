@@ -1,7 +1,7 @@
 # DATASET CARD: SGOD EVAL_V1 BENCHMARK
 
 > **Phiên bản:** 1.0 (Frozen SSOT)
-> **SHA256 (Git-stream LF):** `f4533b347f256e71b445bbd4e4063dfbe6352f51ec41d44023ec6e0ff982cb7a`
+> **SHA256 (Git-stream LF):** `04aec49d857248e7421bb3919b7e5ab8988ea1a15f2443e30f6e7d2b0a9eaf52`
 > **Ngày đóng băng:** 2026-11-05
 > **Chủ sở hữu:** Nhóm D — Data (Thehy-IT, BaoMyTH, Hồ Văn Dinh)
 > **Quy chuẩn đối soát:** Hợp đồng 2, Hợp đồng 3 §6, `tool_policy.json`

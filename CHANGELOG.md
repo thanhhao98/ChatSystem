@@ -4,7 +4,7 @@
   - Tuân thủ Hợp đồng 3 §6 & `tool_policy.json`: 66 câu `permission_denial` (13.2% >= sàn 10%, giữ nguyên tên tool bị chặn khi `employee` gọi 5 tools admin), 66 câu `out_of_scope` (13.2% >= sàn 10%, gán `expected_tool: null` cho yêu cầu tạo/sửa/xóa, chitchat, thủ tục), 344 câu `single_tool`, 24 câu `multi_constraint`, 0 câu `dependent` (tuân thủ 100% single-turn).
   - Độ phủ công cụ: 22/22 tools SGOD đều đạt sàn tối thiểu >= 15 records/tool (min = 15, max = 29).
   - Kiểm toán OpenAPI schema: vượt qua `datagen/audit_test_cases.py --dry-run` với 0/500 schema issues (100% pass).
-  - Đóng băng bộ dữ liệu: mã băm SHA256 chuẩn Git Object Stream (LF) `f4533b347f256e71b445bbd4e4063dfbe6352f51ec41d44023ec6e0ff982cb7a` lưu tại `data/sgod/eval_v1.sha256`.
+  - Đóng băng bộ dữ liệu: mã băm SHA256 chuẩn Git Object Stream (LF) `04aec49d857248e7421bb3919b7e5ab8988ea1a15f2443e30f6e7d2b0a9eaf52` lưu tại `data/sgod/eval_v1.sha256`.
   - Quy trình dán nhãn đôi (Double-labeling): BaoMyTH và Hồ Văn Dinh dán nhãn độc lập 100 câu ngẫu nhiên đạt tỷ lệ đồng thuận thô $P_o = 97.0\%$, hệ số Cohen's Kappa $\kappa = 0.9681$ (Almost Perfect); Lead Thehy-IT phân xử 3 ca biên tương đương ngữ nghĩa bổ sung `expected_tool_alternates` tại `data/sgod/double_labeling/labeled_gold_100.json`.
   - Bàn giao Nhóm F (F-V3): tệp diễn tập `data/sgod/pilot_eval.json` (40 records, phủ 100% 22/22 tools SGOD, 21 single, 6 multi, 7 denied, 6 out_of_scope, 0 rò rỉ core).
   - Thẻ dữ liệu minh bạch: tạo `docs/eval_v1_card.md` ghi nhận toàn bộ thông số kỹ thuật, ma trận độ phủ, chỉ số Kappa và nguồn gốc dữ liệu.
