@@ -1,0 +1,802 @@
+[
+  {
+    "id": "dl-001",
+    "user_role": "company_admin",
+    "input": "Sửa tên tài sản laptop đang được lưu trong hệ thống.",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-002",
+    "user_role": "employee",
+    "input": "Hiển thị 5 danh mục tài sản đầu tiên trong hệ thống",
+    "expected_tool": "list_categories",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-003",
+    "user_role": "company_admin",
+    "input": "Liệt kê tài sản của tôi có từ khóa 'bàn ghế'",
+    "expected_tool": "list_my_assets",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-004",
+    "user_role": "employee",
+    "input": "Lấy ra 5 lịch bảo trì đang có hiệu lực active giúp tôi.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_permission": "allowed",
+    "category": "multi_constraint"
+  },
+  {
+    "id": "dl-005",
+    "user_role": "company_admin",
+    "input": "Thêm địa điểm mới vào danh sách vị trí tài sản",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-006",
+    "user_role": "company_admin",
+    "input": "bao cao tong quan so luong tai san trong cong ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-007",
+    "user_role": "employee",
+    "input": "Hiển thị 5 vị trí đầu tiên trong hệ thống",
+    "expected_tool": "list_locations",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-008",
+    "user_role": "company_admin",
+    "input": "Tài sản mã PD-2021-007 đã điều chuyển đến đâu?",
+    "expected_tool": "get_asset_histories",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-009",
+    "user_role": "employee",
+    "input": "lay 5 yeu cau nhan vien cho toi",
+    "expected_tool": "list_staff_requests",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-010",
+    "user_role": "employee",
+    "input": "xem lich su may tinh ban KT-099 tu truoc den nay",
+    "expected_tool": "get_asset_histories",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-011",
+    "user_role": "company_admin",
+    "input": "Mục tin nhắn hiện còn bao nhiêu lượt chưa đọc?",
+    "expected_tool": "get_unread_counts",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-012",
+    "user_role": "employee",
+    "input": "Kiểm tra giúp mình danh sách quyền hạn được cấp cho tài khoản này.",
+    "expected_tool": "get_my_permissions",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-013",
+    "user_role": "company_admin",
+    "input": "Tìm kiếm tài sản 'camera' trong danh sách của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-014",
+    "user_role": "company_admin",
+    "input": "lay danh sach tai san gan cho tai khoan cua toi",
+    "expected_tool": "list_my_assets",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-015",
+    "user_role": "company_admin",
+    "input": "Tài sản xe nâng kho A từng được sử dụng bởi những ai?",
+    "expected_tool": "get_asset_histories",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-016",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem bảng thống kê tổng quan về tài sản doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-017",
+    "user_role": "employee",
+    "input": "Thêm thiết bị mới vào danh sách tài sản công ty",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-018",
+    "user_role": "employee",
+    "input": "Mã điều chuyển 6ac9c52451e750872e755fad, tôi muốn kiểm tra chi tiết hồ sơ.",
+    "expected_tool": "get_asset_transfer",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-019",
+    "user_role": "employee",
+    "input": "Hiển thị 5 tài khoản nhân sự của doanh nghiệp.",
+    "expected_tool": "list_enterprise_users",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-020",
+    "user_role": "company_admin",
+    "input": "Tìm 20 tài sản có tên chứa 'máy in' trong danh mục của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_permission": "allowed",
+    "category": "multi_constraint"
+  },
+  {
+    "id": "dl-021",
+    "user_role": "company_admin",
+    "input": "Hiển thị báo cáo chung của các yêu cầu nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-022",
+    "user_role": "company_admin",
+    "input": "Xem hồ sơ công ty và thông tin liên hệ chính thức",
+    "expected_tool": "get_enterprise_profile",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-023",
+    "user_role": "employee",
+    "input": "Tôi muốn kiểm tra một thông tin trong hệ thống nhưng chưa rõ là mục nào.",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-024",
+    "user_role": "employee",
+    "input": "Tôi có quyền duyệt các phiếu chuyển giao hay yêu cầu tài sản không?",
+    "expected_tool": "get_my_permissions",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-025",
+    "user_role": "company_admin",
+    "input": "Tình trạng tài sản toàn công ty hiện như thế nào?",
+    "expected_tool": "get_asset_statistics",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-026",
+    "user_role": "employee",
+    "input": "danh sach email toan bo dong nghiep trong cong ty",
+    "expected_tool": "list_enterprise_users",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-027",
+    "user_role": "company_admin",
+    "input": "kiem tra so luong chua doc trong chat",
+    "expected_tool": "get_unread_counts",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-028",
+    "user_role": "employee",
+    "input": "lay giup 5 lich bt completed",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_permission": "allowed",
+    "category": "multi_constraint"
+  },
+  {
+    "id": "dl-029",
+    "user_role": "employee",
+    "input": "Tôi đang giữ những tài sản gì của công ty?",
+    "expected_tool": "list_my_assets",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-030",
+    "user_role": "employee",
+    "input": "Phòng kế toán ở vị trí nào trong tòa nhà?",
+    "expected_tool": "get_location",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-031",
+    "user_role": "employee",
+    "input": "Hôm nay bạn có khỏe không?",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-032",
+    "user_role": "employee",
+    "input": "Liệt kê các đợt bảo trì thiết bị đã được ghi nhận vào nhật ký.",
+    "expected_tool": "list_maintenance_records",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-033",
+    "user_role": "employee",
+    "input": "Cho tôi xem số tin nhắn chưa đọc.",
+    "expected_tool": "get_unread_counts",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-034",
+    "user_role": "company_admin",
+    "input": "xem tat ca cac vi tri phong ban dang co trong he thong",
+    "expected_tool": "list_locations",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-035",
+    "user_role": "company_admin",
+    "input": "thong ke tai san toan bo cong ty hien tai",
+    "expected_tool": "get_asset_statistics",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-036",
+    "user_role": "company_admin",
+    "input": "Hiển thị 3 bản ghi bảo dưỡng gần nhất để mình rà soát chi phí.",
+    "expected_tool": "list_maintenance_records",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-037",
+    "user_role": "company_admin",
+    "input": "Bạn có thể xem tình hình chung giúp tôi mà không cần chọn phần nào trước không?",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-038",
+    "user_role": "company_admin",
+    "input": "cap nhat trang thai phieu ban giao giup toi",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-039",
+    "user_role": "employee",
+    "input": "Tra cứu các công việc cần tiến hành cho lịch 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-040",
+    "user_role": "company_admin",
+    "input": "lich su su dung may lanh tang 2",
+    "expected_tool": "get_asset_histories",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-041",
+    "user_role": "employee",
+    "input": "Task của lịch 6ad615353b0f8e12e2f190e4.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-042",
+    "user_role": "employee",
+    "input": "Cho em xem lại danh sách nhật ký bảo trì máy tính văn phòng ạ.",
+    "expected_tool": "list_maintenance_records",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-043",
+    "user_role": "company_admin",
+    "input": "Liệt kê danh sách toàn bộ lịch bảo trì thiết bị của công ty.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-044",
+    "user_role": "employee",
+    "input": "Chi tiết tài sản mã ASSET-005 là gì?",
+    "expected_tool": "get_asset",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-045",
+    "user_role": "employee",
+    "input": "Cho tôi tra cứu danh sách nhân sự quản lý các bộ phận trong doanh nghiệp.",
+    "expected_tool": "list_enterprise_users",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-046",
+    "user_role": "company_admin",
+    "input": "Tôi muốn xem tối đa 10 bản ghi yêu cầu nhân viên.",
+    "expected_tool": "list_staff_requests",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-047",
+    "user_role": "company_admin",
+    "input": "Công ty đang có bao nhiêu loại tài sản khác nhau?",
+    "expected_tool": "list_categories",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-048",
+    "user_role": "company_admin",
+    "input": "Xem 10 công việc bảo dưỡng của lịch 6ad615353b0f8e12e2f190e4 để phân bổ thợ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_permission": "allowed",
+    "category": "multi_constraint"
+  },
+  {
+    "id": "dl-049",
+    "user_role": "employee",
+    "input": "lich su dieu chuyen cua man hinh samsung 24 inch",
+    "expected_tool": "get_asset_histories",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-050",
+    "user_role": "company_admin",
+    "input": "Cho xem phần tổng quan về các yêu cầu của nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-051",
+    "user_role": "employee",
+    "input": "Chi tiết lịch bảo trì mã 6ad615353b0f8e12e2f1910d xem thế nào em.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-052",
+    "user_role": "company_admin",
+    "input": "xem cv cua lich bt 6ad615353b0f8e12e2f190e4",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-053",
+    "user_role": "company_admin",
+    "input": "liet ke 4 cuoc hoi thoai trong tai khoan",
+    "expected_tool": "list_my_conversations",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-054",
+    "user_role": "company_admin",
+    "input": "Hồ sơ và địa chỉ pháp lý của doanh nghiệp tôi là gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-055",
+    "user_role": "company_admin",
+    "input": "Thông tin tài sản bàn làm việc văn phòng tầng 3",
+    "expected_tool": "get_asset",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-056",
+    "user_role": "employee",
+    "input": "Tra cứu tài sản điều hòa phòng giám đốc",
+    "expected_tool": "get_asset",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-057",
+    "user_role": "employee",
+    "input": "Tổng số tài sản trong công ty là bao nhiêu cái?",
+    "expected_tool": "get_asset_statistics",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-058",
+    "user_role": "employee",
+    "input": "Hiển thị tối đa 6 lịch bảo trì thiết bị phòng ban.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-059",
+    "user_role": "employee",
+    "input": "Kiểm tra giúp tôi số lượng chưa đọc ở phần hội thoại.",
+    "expected_tool": "get_unread_counts",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-060",
+    "user_role": "company_admin",
+    "input": "Đánh dấu tất cả cuộc hội thoại là đã đọc.",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-061",
+    "user_role": "company_admin",
+    "input": "Kiểm tra xem tài sản bàn họp phòng 3A đã qua tay mấy người",
+    "expected_tool": "get_asset_histories",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-062",
+    "user_role": "employee",
+    "input": "Lọc các tài khoản nhân viên bị Blocked giúp tôi.",
+    "expected_tool": "list_enterprise_users",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-063",
+    "user_role": "employee",
+    "input": "xem so lieu tai san toan cong ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-064",
+    "user_role": "employee",
+    "input": "Lấy danh sách nhân viên toàn bộ các phòng ban.",
+    "expected_tool": "list_enterprise_users",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-065",
+    "user_role": "employee",
+    "input": "Cho em xem danh sách đầu việc bảo trì của lịch 6ad615353b0f8e12e2f1910d ạ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-066",
+    "user_role": "employee",
+    "input": "Chi tiết khu vực kho B ở đâu và thuộc bộ phận nào?",
+    "expected_tool": "get_location",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-067",
+    "user_role": "company_admin",
+    "input": "lay 3 task dau tien cua lich 6ad615353b0f8e12e2f190e4",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_permission": "allowed",
+    "category": "multi_constraint"
+  },
+  {
+    "id": "dl-068",
+    "user_role": "employee",
+    "input": "cac cong viec cua lich mtri 6ad615353b0f8e12e2f190e4 la gi",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-069",
+    "user_role": "company_admin",
+    "input": "Thống kê tổng quan tài sản của toàn công ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-070",
+    "user_role": "employee",
+    "input": "Có những lịch bảo trì nào đã completed rồi?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-071",
+    "user_role": "company_admin",
+    "input": "Xem chi tiết tài sản mã HR-2023-045",
+    "expected_tool": "get_asset",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-072",
+    "user_role": "employee",
+    "input": "Phòng giám đốc ở tầng mấy trong hệ thống?",
+    "expected_tool": "get_location",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-073",
+    "user_role": "employee",
+    "input": "Mở mục các yêu cầu của nhân viên giúp tôi.",
+    "expected_tool": "list_staff_requests",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-074",
+    "user_role": "employee",
+    "input": "Quy trình xin cấp tài sản làm việc mới có những bước nào?",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-075",
+    "user_role": "company_admin",
+    "input": "Bao quát tình hình yêu cầu nhân viên trên hệ thống giúp tôi.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-076",
+    "user_role": "employee",
+    "input": "Xem danh bạ email toàn thể nhân sự.",
+    "expected_tool": "list_enterprise_users",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-077",
+    "user_role": "company_admin",
+    "input": "Cho tôi cái nhìn khái quát về mục yêu cầu nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-078",
+    "user_role": "company_admin",
+    "input": "Lấy 10 lịch bảo dưỡng mới nhất trên phần mềm.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-079",
+    "user_role": "employee",
+    "input": "Tôi cần số liệu chưa đọc trong mục chat.",
+    "expected_tool": "get_unread_counts",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-080",
+    "user_role": "employee",
+    "input": "danh sach nhat ky bao tri thiet bi cty",
+    "expected_tool": "list_maintenance_records",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-081",
+    "user_role": "employee",
+    "input": "Máy scan văn phòng hiện trạng như thế nào?",
+    "expected_tool": "get_asset",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-082",
+    "user_role": "employee",
+    "input": "bao cao thong ke tai san toan cong ty co bao nhieu",
+    "expected_tool": "get_asset_statistics",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-083",
+    "user_role": "company_admin",
+    "input": "Cảm ơn bạn đã hỗ trợ nhé!",
+    "expected_tool": null,
+    "expected_permission": "allowed",
+    "category": "out_of_scope"
+  },
+  {
+    "id": "dl-084",
+    "user_role": "company_admin",
+    "input": "Xem nội dung lịch bảo trì máy in mã 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-085",
+    "user_role": "employee",
+    "input": "Cho tôi xem lại hồ sơ người dùng đang đăng nhập.",
+    "expected_tool": "get_my_profile",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-086",
+    "user_role": "employee",
+    "input": "Hiển thị danh sách lịch bảo dưỡng máy móc.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-087",
+    "user_role": "company_admin",
+    "input": "Tìm kiếm tài sản máy lạnh trong hệ thống",
+    "expected_tool": "list_my_assets",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-088",
+    "user_role": "company_admin",
+    "input": "Báo cáo tổng hợp tình trạng tài sản toàn doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-089",
+    "user_role": "company_admin",
+    "input": "Tổng hợp điều chuyển trên hệ thống hiện như thế nào?",
+    "expected_tool": "get_transfer_summary",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-090",
+    "user_role": "company_admin",
+    "input": "Tôi muốn xem phần tổng quan điều chuyển thiết bị.",
+    "expected_tool": "get_transfer_summary",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-091",
+    "user_role": "company_admin",
+    "input": "Tra giúp tôi thông tin một lượt bàn giao, mã phiếu 6ac9bece27541dacd0a78006.",
+    "expected_tool": "get_asset_transfer",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-092",
+    "user_role": "employee",
+    "input": "Kiểm tra thông tin profile của tôi.",
+    "expected_tool": "get_my_profile",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-093",
+    "user_role": "employee",
+    "input": "cho em xin danh sach tai khoan nhan vien cty",
+    "expected_tool": "list_enterprise_users",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-094",
+    "user_role": "employee",
+    "input": "Kho và các phòng ban nào đang được quản lý?",
+    "expected_tool": "list_locations",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-095",
+    "user_role": "employee",
+    "input": "Tìm nhân viên có tên Minh trong danh sách doanh nghiệp.",
+    "expected_tool": "list_enterprise_users",
+    "expected_permission": "denied",
+    "category": "permission_denial"
+  },
+  {
+    "id": "dl-096",
+    "user_role": "company_admin",
+    "input": "Tôi đang quản lý chat, cần rà soát các hội thoại thuộc tài khoản doanh nghiệp.",
+    "expected_tool": "list_my_conversations",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-097",
+    "user_role": "company_admin",
+    "input": "Hiển thị thống kê chưa đọc trong các cuộc hội thoại của tôi.",
+    "expected_tool": "get_unread_counts",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  },
+  {
+    "id": "dl-098",
+    "user_role": "employee",
+    "input": "Cho xem tối đa 4 công việc cần làm trong lịch bảo dưỡng 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_permission": "allowed",
+    "category": "multi_constraint"
+  },
+  {
+    "id": "dl-099",
+    "user_role": "company_admin",
+    "input": "Lấy 10 lịch mtri đang chạy active để tôi rà soát.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_permission": "allowed",
+    "category": "multi_constraint"
+  },
+  {
+    "id": "dl-100",
+    "user_role": "company_admin",
+    "input": "Cho tôi một cái nhìn tổng thể về hoạt động bàn giao, điều chuyển.",
+    "expected_tool": "get_transfer_summary",
+    "expected_permission": "allowed",
+    "category": "single_tool"
+  }
+]

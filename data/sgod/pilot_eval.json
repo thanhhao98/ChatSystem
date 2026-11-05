@@ -1,0 +1,514 @@
+[
+  {
+    "id": "pilot-001",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Thông tin chi tiết tài sản laptop Dell XPS 15 của tôi",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "laptop Dell XPS 15"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-002",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lịch sử sử dụng tài sản laptop Dell Inspiron 15",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "laptop Dell Inspiron 15"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-003",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thống kê tổng quan tài sản của toàn công ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-004",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem chi tiết phiếu điều chuyển mã 6ac9c52451e750872e755fad.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9c52451e750872e755fad"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-005",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin doanh nghiệp của chúng tôi là gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-006",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Phòng kế toán ở vị trí nào trong tòa nhà?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "phòng kế toán"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-007",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Chi tiết lịch bảo trì mã 6ad615353b0f8e12e2f1910d xem thế nào em.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-008",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài khoản của tôi hiện tại có những quyền hạn gì trên hệ thống?",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-009",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho em xem thông tin hồ sơ tài khoản cá nhân của em với ạ.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-010",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi cần bảng tổng hợp yêu cầu nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-011",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem tổng hợp tình hình điều chuyển tài sản.",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-012",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi có bao nhiêu nội dung chưa đọc ở mục hội thoại?",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-013",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách các phiếu điều chuyển tài sản.",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-014",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hệ thống phân loại tài sản gồm những danh mục nào?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-015",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Dạ em xin danh sách số điện thoại và email của tất cả nhân viên công ty được không ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-016",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Công ty có những vị trí nào trong hệ thống quản lý?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-017",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách các bản ghi bảo trì tài sản đã thực hiện.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-018",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kiểm tra xem hiện có những lịch bảo trì nào đang active vậy?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-019",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem danh sách các công việc trong lịch bảo trì 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-020",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách tài sản tôi đang quản lý",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-021",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem danh sách cuộc trò chuyện trong tài khoản.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-022",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách yêu cầu nhân viên.",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-023",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Tìm 5 tài sản có tên chứa 'máy tính' trong danh sách của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy tính",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-024",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Hiện 10 thiết bị đầu tiên liên quan đến 'màn hình' mà tôi đang giữ",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "màn hình",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-025",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Tìm 20 tài sản có tên chứa 'máy in' trong danh mục của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy in",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-026",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Lấy ra 5 lịch bảo trì đang có hiệu lực active giúp tôi.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-027",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Cho xem 3 lịch bảo trì đã hoàn thành completed.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed",
+      "limit": 3
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-028",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "lay giup 5 lich bt completed",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-029",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "cho em xem danh sach tat ca nhan su trong cong ty voi a",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-030",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho mình xin danh bạ liên lạc của toàn bộ nhân viên các phòng ban nhé.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-031",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "e xin sđt mấy anh chị cùng cty dc ko ạ",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-032",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "danh sach email toan bo dong nghiep trong cong ty",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-033",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Em muốn tra cứu danh sách những tài khoản nhân viên đang bị khóa trong cty ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-034",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách toàn bộ người dùng doanh nghiệp trên hệ thống.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-035",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tạo mới cho tôi một tài sản là máy chiếu phòng họp.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-036",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Sửa tên tài sản laptop đang được lưu trong hệ thống.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-037",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi muốn xóa các phiếu điều chuyển cũ khỏi hệ thống.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-038",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Phê duyệt ngay yêu cầu điều chuyển của nhân viên.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-039",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Đăng ký thêm một lịch bảo trì thiết bị mới.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  },
+  {
+    "id": "pilot-040",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Hủy hồ sơ bảo trì đã được ghi nhận trong hệ thống.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "pilot_subset"
+  }
+]

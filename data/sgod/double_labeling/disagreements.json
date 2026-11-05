@@ -1,0 +1,56 @@
+[
+  {
+    "id": "dl-008",
+    "input": "Tài sản mã PD-2021-007 đã điều chuyển đến đâu?",
+    "user_role": "company_admin",
+    "differences": [
+      "expected_tool"
+    ],
+    "baomy": {
+      "tool": "get_asset_histories",
+      "perm": "allowed",
+      "cat": "single_tool"
+    },
+    "dinh": {
+      "tool": "list_asset_transfers",
+      "perm": "allowed",
+      "cat": "single_tool"
+    }
+  },
+  {
+    "id": "dl-030",
+    "input": "Phòng kế toán ở vị trí nào trong tòa nhà?",
+    "user_role": "employee",
+    "differences": [
+      "expected_tool"
+    ],
+    "baomy": {
+      "tool": "get_location",
+      "perm": "allowed",
+      "cat": "single_tool"
+    },
+    "dinh": {
+      "tool": "list_locations",
+      "perm": "allowed",
+      "cat": "single_tool"
+    }
+  },
+  {
+    "id": "dl-049",
+    "input": "lich su dieu chuyen cua man hinh samsung 24 inch",
+    "user_role": "employee",
+    "differences": [
+      "expected_tool"
+    ],
+    "baomy": {
+      "tool": "get_asset_histories",
+      "perm": "allowed",
+      "cat": "single_tool"
+    },
+    "dinh": {
+      "tool": "list_asset_transfers",
+      "perm": "allowed",
+      "cat": "single_tool"
+    }
+  }
+]
