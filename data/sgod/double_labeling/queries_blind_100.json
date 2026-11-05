@@ -1,0 +1,502 @@
+[
+  {
+    "id": "dl-001",
+    "user_role": "company_admin",
+    "input": "Sửa tên tài sản laptop đang được lưu trong hệ thống."
+  },
+  {
+    "id": "dl-002",
+    "user_role": "employee",
+    "input": "Hiển thị 5 danh mục tài sản đầu tiên trong hệ thống"
+  },
+  {
+    "id": "dl-003",
+    "user_role": "company_admin",
+    "input": "Liệt kê tài sản của tôi có từ khóa 'bàn ghế'"
+  },
+  {
+    "id": "dl-004",
+    "user_role": "employee",
+    "input": "Lấy ra 5 lịch bảo trì đang có hiệu lực active giúp tôi."
+  },
+  {
+    "id": "dl-005",
+    "user_role": "company_admin",
+    "input": "Thêm địa điểm mới vào danh sách vị trí tài sản"
+  },
+  {
+    "id": "dl-006",
+    "user_role": "company_admin",
+    "input": "bao cao tong quan so luong tai san trong cong ty"
+  },
+  {
+    "id": "dl-007",
+    "user_role": "employee",
+    "input": "Hiển thị 5 vị trí đầu tiên trong hệ thống"
+  },
+  {
+    "id": "dl-008",
+    "user_role": "company_admin",
+    "input": "Tài sản mã PD-2021-007 đã điều chuyển đến đâu?"
+  },
+  {
+    "id": "dl-009",
+    "user_role": "employee",
+    "input": "lay 5 yeu cau nhan vien cho toi"
+  },
+  {
+    "id": "dl-010",
+    "user_role": "employee",
+    "input": "xem lich su may tinh ban KT-099 tu truoc den nay"
+  },
+  {
+    "id": "dl-011",
+    "user_role": "company_admin",
+    "input": "Mục tin nhắn hiện còn bao nhiêu lượt chưa đọc?"
+  },
+  {
+    "id": "dl-012",
+    "user_role": "employee",
+    "input": "Kiểm tra giúp mình danh sách quyền hạn được cấp cho tài khoản này."
+  },
+  {
+    "id": "dl-013",
+    "user_role": "company_admin",
+    "input": "Tìm kiếm tài sản 'camera' trong danh sách của tôi"
+  },
+  {
+    "id": "dl-014",
+    "user_role": "company_admin",
+    "input": "lay danh sach tai san gan cho tai khoan cua toi"
+  },
+  {
+    "id": "dl-015",
+    "user_role": "company_admin",
+    "input": "Tài sản xe nâng kho A từng được sử dụng bởi những ai?"
+  },
+  {
+    "id": "dl-016",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem bảng thống kê tổng quan về tài sản doanh nghiệp"
+  },
+  {
+    "id": "dl-017",
+    "user_role": "employee",
+    "input": "Thêm thiết bị mới vào danh sách tài sản công ty"
+  },
+  {
+    "id": "dl-018",
+    "user_role": "employee",
+    "input": "Mã điều chuyển 6ac9c52451e750872e755fad, tôi muốn kiểm tra chi tiết hồ sơ."
+  },
+  {
+    "id": "dl-019",
+    "user_role": "employee",
+    "input": "Hiển thị 5 tài khoản nhân sự của doanh nghiệp."
+  },
+  {
+    "id": "dl-020",
+    "user_role": "company_admin",
+    "input": "Tìm 20 tài sản có tên chứa 'máy in' trong danh mục của tôi"
+  },
+  {
+    "id": "dl-021",
+    "user_role": "company_admin",
+    "input": "Hiển thị báo cáo chung của các yêu cầu nhân viên."
+  },
+  {
+    "id": "dl-022",
+    "user_role": "company_admin",
+    "input": "Xem hồ sơ công ty và thông tin liên hệ chính thức"
+  },
+  {
+    "id": "dl-023",
+    "user_role": "employee",
+    "input": "Tôi muốn kiểm tra một thông tin trong hệ thống nhưng chưa rõ là mục nào."
+  },
+  {
+    "id": "dl-024",
+    "user_role": "employee",
+    "input": "Tôi có quyền duyệt các phiếu chuyển giao hay yêu cầu tài sản không?"
+  },
+  {
+    "id": "dl-025",
+    "user_role": "company_admin",
+    "input": "Tình trạng tài sản toàn công ty hiện như thế nào?"
+  },
+  {
+    "id": "dl-026",
+    "user_role": "employee",
+    "input": "danh sach email toan bo dong nghiep trong cong ty"
+  },
+  {
+    "id": "dl-027",
+    "user_role": "company_admin",
+    "input": "kiem tra so luong chua doc trong chat"
+  },
+  {
+    "id": "dl-028",
+    "user_role": "employee",
+    "input": "lay giup 5 lich bt completed"
+  },
+  {
+    "id": "dl-029",
+    "user_role": "employee",
+    "input": "Tôi đang giữ những tài sản gì của công ty?"
+  },
+  {
+    "id": "dl-030",
+    "user_role": "employee",
+    "input": "Phòng kế toán ở vị trí nào trong tòa nhà?"
+  },
+  {
+    "id": "dl-031",
+    "user_role": "employee",
+    "input": "Hôm nay bạn có khỏe không?"
+  },
+  {
+    "id": "dl-032",
+    "user_role": "employee",
+    "input": "Liệt kê các đợt bảo trì thiết bị đã được ghi nhận vào nhật ký."
+  },
+  {
+    "id": "dl-033",
+    "user_role": "employee",
+    "input": "Cho tôi xem số tin nhắn chưa đọc."
+  },
+  {
+    "id": "dl-034",
+    "user_role": "company_admin",
+    "input": "xem tat ca cac vi tri phong ban dang co trong he thong"
+  },
+  {
+    "id": "dl-035",
+    "user_role": "company_admin",
+    "input": "thong ke tai san toan bo cong ty hien tai"
+  },
+  {
+    "id": "dl-036",
+    "user_role": "company_admin",
+    "input": "Hiển thị 3 bản ghi bảo dưỡng gần nhất để mình rà soát chi phí."
+  },
+  {
+    "id": "dl-037",
+    "user_role": "company_admin",
+    "input": "Bạn có thể xem tình hình chung giúp tôi mà không cần chọn phần nào trước không?"
+  },
+  {
+    "id": "dl-038",
+    "user_role": "company_admin",
+    "input": "cap nhat trang thai phieu ban giao giup toi"
+  },
+  {
+    "id": "dl-039",
+    "user_role": "employee",
+    "input": "Tra cứu các công việc cần tiến hành cho lịch 6ad615353b0f8e12e2f1910d."
+  },
+  {
+    "id": "dl-040",
+    "user_role": "company_admin",
+    "input": "lich su su dung may lanh tang 2"
+  },
+  {
+    "id": "dl-041",
+    "user_role": "employee",
+    "input": "Task của lịch 6ad615353b0f8e12e2f190e4."
+  },
+  {
+    "id": "dl-042",
+    "user_role": "employee",
+    "input": "Cho em xem lại danh sách nhật ký bảo trì máy tính văn phòng ạ."
+  },
+  {
+    "id": "dl-043",
+    "user_role": "company_admin",
+    "input": "Liệt kê danh sách toàn bộ lịch bảo trì thiết bị của công ty."
+  },
+  {
+    "id": "dl-044",
+    "user_role": "employee",
+    "input": "Chi tiết tài sản mã ASSET-005 là gì?"
+  },
+  {
+    "id": "dl-045",
+    "user_role": "employee",
+    "input": "Cho tôi tra cứu danh sách nhân sự quản lý các bộ phận trong doanh nghiệp."
+  },
+  {
+    "id": "dl-046",
+    "user_role": "company_admin",
+    "input": "Tôi muốn xem tối đa 10 bản ghi yêu cầu nhân viên."
+  },
+  {
+    "id": "dl-047",
+    "user_role": "company_admin",
+    "input": "Công ty đang có bao nhiêu loại tài sản khác nhau?"
+  },
+  {
+    "id": "dl-048",
+    "user_role": "company_admin",
+    "input": "Xem 10 công việc bảo dưỡng của lịch 6ad615353b0f8e12e2f190e4 để phân bổ thợ."
+  },
+  {
+    "id": "dl-049",
+    "user_role": "employee",
+    "input": "lich su dieu chuyen cua man hinh samsung 24 inch"
+  },
+  {
+    "id": "dl-050",
+    "user_role": "company_admin",
+    "input": "Cho xem phần tổng quan về các yêu cầu của nhân viên."
+  },
+  {
+    "id": "dl-051",
+    "user_role": "employee",
+    "input": "Chi tiết lịch bảo trì mã 6ad615353b0f8e12e2f1910d xem thế nào em."
+  },
+  {
+    "id": "dl-052",
+    "user_role": "company_admin",
+    "input": "xem cv cua lich bt 6ad615353b0f8e12e2f190e4"
+  },
+  {
+    "id": "dl-053",
+    "user_role": "company_admin",
+    "input": "liet ke 4 cuoc hoi thoai trong tai khoan"
+  },
+  {
+    "id": "dl-054",
+    "user_role": "company_admin",
+    "input": "Hồ sơ và địa chỉ pháp lý của doanh nghiệp tôi là gì?"
+  },
+  {
+    "id": "dl-055",
+    "user_role": "company_admin",
+    "input": "Thông tin tài sản bàn làm việc văn phòng tầng 3"
+  },
+  {
+    "id": "dl-056",
+    "user_role": "employee",
+    "input": "Tra cứu tài sản điều hòa phòng giám đốc"
+  },
+  {
+    "id": "dl-057",
+    "user_role": "employee",
+    "input": "Tổng số tài sản trong công ty là bao nhiêu cái?"
+  },
+  {
+    "id": "dl-058",
+    "user_role": "employee",
+    "input": "Hiển thị tối đa 6 lịch bảo trì thiết bị phòng ban."
+  },
+  {
+    "id": "dl-059",
+    "user_role": "employee",
+    "input": "Kiểm tra giúp tôi số lượng chưa đọc ở phần hội thoại."
+  },
+  {
+    "id": "dl-060",
+    "user_role": "company_admin",
+    "input": "Đánh dấu tất cả cuộc hội thoại là đã đọc."
+  },
+  {
+    "id": "dl-061",
+    "user_role": "company_admin",
+    "input": "Kiểm tra xem tài sản bàn họp phòng 3A đã qua tay mấy người"
+  },
+  {
+    "id": "dl-062",
+    "user_role": "employee",
+    "input": "Lọc các tài khoản nhân viên bị Blocked giúp tôi."
+  },
+  {
+    "id": "dl-063",
+    "user_role": "employee",
+    "input": "xem so lieu tai san toan cong ty"
+  },
+  {
+    "id": "dl-064",
+    "user_role": "employee",
+    "input": "Lấy danh sách nhân viên toàn bộ các phòng ban."
+  },
+  {
+    "id": "dl-065",
+    "user_role": "employee",
+    "input": "Cho em xem danh sách đầu việc bảo trì của lịch 6ad615353b0f8e12e2f1910d ạ."
+  },
+  {
+    "id": "dl-066",
+    "user_role": "employee",
+    "input": "Chi tiết khu vực kho B ở đâu và thuộc bộ phận nào?"
+  },
+  {
+    "id": "dl-067",
+    "user_role": "company_admin",
+    "input": "lay 3 task dau tien cua lich 6ad615353b0f8e12e2f190e4"
+  },
+  {
+    "id": "dl-068",
+    "user_role": "employee",
+    "input": "cac cong viec cua lich mtri 6ad615353b0f8e12e2f190e4 la gi"
+  },
+  {
+    "id": "dl-069",
+    "user_role": "company_admin",
+    "input": "Thống kê tổng quan tài sản của toàn công ty"
+  },
+  {
+    "id": "dl-070",
+    "user_role": "employee",
+    "input": "Có những lịch bảo trì nào đã completed rồi?"
+  },
+  {
+    "id": "dl-071",
+    "user_role": "company_admin",
+    "input": "Xem chi tiết tài sản mã HR-2023-045"
+  },
+  {
+    "id": "dl-072",
+    "user_role": "employee",
+    "input": "Phòng giám đốc ở tầng mấy trong hệ thống?"
+  },
+  {
+    "id": "dl-073",
+    "user_role": "employee",
+    "input": "Mở mục các yêu cầu của nhân viên giúp tôi."
+  },
+  {
+    "id": "dl-074",
+    "user_role": "employee",
+    "input": "Quy trình xin cấp tài sản làm việc mới có những bước nào?"
+  },
+  {
+    "id": "dl-075",
+    "user_role": "company_admin",
+    "input": "Bao quát tình hình yêu cầu nhân viên trên hệ thống giúp tôi."
+  },
+  {
+    "id": "dl-076",
+    "user_role": "employee",
+    "input": "Xem danh bạ email toàn thể nhân sự."
+  },
+  {
+    "id": "dl-077",
+    "user_role": "company_admin",
+    "input": "Cho tôi cái nhìn khái quát về mục yêu cầu nhân viên."
+  },
+  {
+    "id": "dl-078",
+    "user_role": "company_admin",
+    "input": "Lấy 10 lịch bảo dưỡng mới nhất trên phần mềm."
+  },
+  {
+    "id": "dl-079",
+    "user_role": "employee",
+    "input": "Tôi cần số liệu chưa đọc trong mục chat."
+  },
+  {
+    "id": "dl-080",
+    "user_role": "employee",
+    "input": "danh sach nhat ky bao tri thiet bi cty"
+  },
+  {
+    "id": "dl-081",
+    "user_role": "employee",
+    "input": "Máy scan văn phòng hiện trạng như thế nào?"
+  },
+  {
+    "id": "dl-082",
+    "user_role": "employee",
+    "input": "bao cao thong ke tai san toan cong ty co bao nhieu"
+  },
+  {
+    "id": "dl-083",
+    "user_role": "company_admin",
+    "input": "Cảm ơn bạn đã hỗ trợ nhé!"
+  },
+  {
+    "id": "dl-084",
+    "user_role": "company_admin",
+    "input": "Xem nội dung lịch bảo trì máy in mã 6ad615353b0f8e12e2f1910d."
+  },
+  {
+    "id": "dl-085",
+    "user_role": "employee",
+    "input": "Cho tôi xem lại hồ sơ người dùng đang đăng nhập."
+  },
+  {
+    "id": "dl-086",
+    "user_role": "employee",
+    "input": "Hiển thị danh sách lịch bảo dưỡng máy móc."
+  },
+  {
+    "id": "dl-087",
+    "user_role": "company_admin",
+    "input": "Tìm kiếm tài sản máy lạnh trong hệ thống"
+  },
+  {
+    "id": "dl-088",
+    "user_role": "company_admin",
+    "input": "Báo cáo tổng hợp tình trạng tài sản toàn doanh nghiệp"
+  },
+  {
+    "id": "dl-089",
+    "user_role": "company_admin",
+    "input": "Tổng hợp điều chuyển trên hệ thống hiện như thế nào?"
+  },
+  {
+    "id": "dl-090",
+    "user_role": "company_admin",
+    "input": "Tôi muốn xem phần tổng quan điều chuyển thiết bị."
+  },
+  {
+    "id": "dl-091",
+    "user_role": "company_admin",
+    "input": "Tra giúp tôi thông tin một lượt bàn giao, mã phiếu 6ac9bece27541dacd0a78006."
+  },
+  {
+    "id": "dl-092",
+    "user_role": "employee",
+    "input": "Kiểm tra thông tin profile của tôi."
+  },
+  {
+    "id": "dl-093",
+    "user_role": "employee",
+    "input": "cho em xin danh sach tai khoan nhan vien cty"
+  },
+  {
+    "id": "dl-094",
+    "user_role": "employee",
+    "input": "Kho và các phòng ban nào đang được quản lý?"
+  },
+  {
+    "id": "dl-095",
+    "user_role": "employee",
+    "input": "Tìm nhân viên có tên Minh trong danh sách doanh nghiệp."
+  },
+  {
+    "id": "dl-096",
+    "user_role": "company_admin",
+    "input": "Tôi đang quản lý chat, cần rà soát các hội thoại thuộc tài khoản doanh nghiệp."
+  },
+  {
+    "id": "dl-097",
+    "user_role": "company_admin",
+    "input": "Hiển thị thống kê chưa đọc trong các cuộc hội thoại của tôi."
+  },
+  {
+    "id": "dl-098",
+    "user_role": "employee",
+    "input": "Cho xem tối đa 4 công việc cần làm trong lịch bảo dưỡng 6ad615353b0f8e12e2f1910d."
+  },
+  {
+    "id": "dl-099",
+    "user_role": "company_admin",
+    "input": "Lấy 10 lịch mtri đang chạy active để tôi rà soát."
+  },
+  {
+    "id": "dl-100",
+    "user_role": "company_admin",
+    "input": "Cho tôi một cái nhìn tổng thể về hoạt động bàn giao, điều chuyển."
+  }
+]
