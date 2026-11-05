@@ -65,6 +65,7 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, description="Nội dung câu hỏi của người dùng")
     history: Optional[List[ChatMessage]] = Field(default_factory=list, description="Lịch sử hội thoại trước đó (nếu có)")
+    refresh_token: Optional[str] = Field(None, description="Refresh token dự phòng khi thực thi công cụ SGOD")
 
 
 class ToolExecutionRecord(BaseModel):

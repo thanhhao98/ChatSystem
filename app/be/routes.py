@@ -98,6 +98,7 @@ def chat_endpoint(
         message=payload.message,
         user_ctx=user_ctx,
         access_token=access_token,
+        refresh_token=payload.refresh_token,
         history=payload.history,
     )
     return res

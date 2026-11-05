@@ -41,13 +41,45 @@ class GeminiClient:
         tools: Optional[List[Dict[str, Any]]] = None,
         temperature: float = 0.0,
     ) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
-        """Send chat completion request to Gemini.
+        """Send chat completion request to Gemini with automatic model fallback for 503/404/Timeout.
         Returns: (choice_message_dict, error_text)
         """
         if not self.is_configured:
             # Fallback simulator when GEMINI_API_KEY is not yet supplied in .env
             return self._simulate_response(messages, tools)
 
+        # Candidate models to try in order
+        candidates = [self.model]
+        for fb in ["gemini-3.5-flash", "gemini-3.5-flash-lite"]:
+            if fb not in candidates:
+                candidates.append(fb)
+
+        last_err = None
+        for current_model in candidates:
+            msg, err, can_fallback = self._dispatch_request(
+                model_name=current_model,
+                messages=messages,
+                tools=tools,
+                temperature=temperature,
+            )
+            if msg is not None:
+                return msg, None
+            last_err = err
+            if not can_fallback:
+                break
+
+        return None, last_err
+
+    def _dispatch_request(
+        self,
+        model_name: str,
+        messages: List[Dict[str, Any]],
+        tools: Optional[List[Dict[str, Any]]],
+        temperature: float,
+    ) -> Tuple[Optional[Dict[str, Any]], Optional[str], bool]:
+        """Dispatch a single request to Gemini endpoint.
+        Returns: (choice_message, error_string, can_fallback_to_next_model)
+        """
         endpoint = f"{self.base_url}/chat/completions"
         headers = {
             "Content-Type": "application/json",
@@ -55,7 +87,7 @@ class GeminiClient:
         }
 
         payload: Dict[str, Any] = {
-            "model": self.model,
+            "model": model_name,
             "messages": messages,
             "temperature": temperature,
         }
@@ -68,23 +100,27 @@ class GeminiClient:
 
         try:
             with urllib.request.urlopen(req, timeout=self.timeout) as resp:
-                status = resp.status
                 raw = resp.read()
         except urllib.error.HTTPError as e:
             err_msg = e.read().decode("utf-8", errors="replace")
-            return None, f"Gemini API error (HTTP {e.code}): {err_msg[:200]}"
+            # 503 (high demand) or 404 (model retired/unavailable) can fallback
+            can_fallback = e.code in (404, 503, 429)
+            return None, f"Gemini API error (HTTP {e.code}): {err_msg[:200]}", can_fallback
+        except (TimeoutError, urllib.error.URLError) as e:
+            # Network timeout can fallback to lighter model
+            return None, f"Gemini network error: {type(e).__name__}", True
         except Exception as e:
-            return None, f"Gemini network error: {type(e).__name__}"
+            return None, f"Gemini network error: {type(e).__name__}", False
 
         try:
             res_json = json.loads(raw.decode("utf-8"))
             choices = res_json.get("choices") or []
             if not choices:
-                return None, "Gemini returned empty choices"
+                return None, "Gemini returned empty choices", False
             msg = choices[0].get("message")
-            return msg, None
+            return msg, None, False
         except Exception as e:
-            return None, f"Failed to parse Gemini response: {e}"
+            return None, f"Failed to parse Gemini response: {e}", False
 
     def _simulate_response(
         self,

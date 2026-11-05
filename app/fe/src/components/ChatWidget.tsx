@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { ToolExecutionRecord, sendChatApi } from "../services/client";
+import { ChatMessage, ToolExecutionRecord, sendChatApi } from "../services/client";
 
 interface MessageItem {
   id: string;
@@ -11,7 +11,7 @@ interface MessageItem {
 }
 
 export const ChatWidget: React.FC = () => {
-  const { user, token, logout, updateAccessToken } = useAuth();
+  const { user, token, refreshToken, logout, updateAccessToken } = useAuth();
   const [messages, setMessages] = useState<MessageItem[]>([
     {
       id: "welcome",
@@ -39,12 +39,27 @@ export const ChatWidget: React.FC = () => {
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     };
 
+    // Chuẩn bị 8 tin nhắn gần nhất làm lịch sử ngữ cảnh
+    const historyPayload: ChatMessage[] = messages
+      .filter((m) => m.id !== "welcome" && !m.text.startsWith("⚠️"))
+      .slice(-8)
+      .map((m) => ({
+        role: m.sender === "user" ? "user" : "assistant",
+        content: m.text,
+      }));
+
     setMessages((prev) => [...prev, userMsg]);
     if (!customText) setInput("");
     setSending(true);
 
     try {
-      const res = await sendChatApi(textToSend.trim(), token);
+      const res = await sendChatApi(
+        textToSend.trim(),
+        token,
+        historyPayload,
+        refreshToken || undefined,
+        updateAccessToken
+      );
       if (res.new_access_token) {
         updateAccessToken(res.new_access_token);
       }
@@ -58,13 +73,21 @@ export const ChatWidget: React.FC = () => {
       };
       setMessages((prev) => [...prev, botMsg]);
     } catch (err: any) {
+      const errMsg = err.message || "Không thể nhận phản hồi từ máy chủ";
       const errorMsg: MessageItem = {
         id: String(Date.now() + 1),
         sender: "assistant",
-        text: `⚠️ Lỗi: ${err.message || "Không thể nhận phản hồi từ máy chủ"}`,
+        text: `⚠️ Lỗi: ${errMsg}`,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, errorMsg]);
+
+      // Nếu lỗi phiên đăng nhập không thể refresh -> Tự động logout về trang login
+      if (errMsg.toLowerCase().includes("hết hạn") || errMsg.toLowerCase().includes("expired") || errMsg.includes("401")) {
+        setTimeout(() => {
+          logout();
+        }, 2500);
+      }
     } finally {
       setSending(false);
     }
