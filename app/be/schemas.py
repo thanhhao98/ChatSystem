@@ -73,6 +73,7 @@ class ToolExecutionRecord(BaseModel):
     arguments: Dict[str, Any]
     result: Any
     success: bool
+    status_code: Optional[int] = Field(None, description="Mã phản hồi HTTP từ SGOD Gateway")
     error: Optional[str] = None
     duration_ms: Optional[int] = None
 

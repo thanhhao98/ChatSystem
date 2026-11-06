@@ -39,6 +39,7 @@ export interface ToolExecutionRecord {
   arguments: Record<string, any>;
   result: any;
   success: boolean;
+  status_code?: number;
   error?: string;
   duration_ms?: number;
   is_running?: boolean;

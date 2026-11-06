@@ -63,7 +63,7 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(
         ref={ref}
         data-lamp-state={active ? "focused" : "idle"}
         className={cn(
-          "relative z-0 flex min-h-[80vh] w-full flex-col items-center justify-center overflow-hidden rounded-md bg-white dark:bg-background text-foreground transition-colors duration-300",
+          "relative z-0 flex min-h-[80vh] w-full flex-col items-center justify-center overflow-hidden rounded-md bg-transparent text-foreground transition-colors duration-300",
           className,
         )}
         {...props}
