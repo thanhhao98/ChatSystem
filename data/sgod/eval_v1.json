@@ -1,0 +1,6307 @@
+[
+  {
+    "id": "sgod-0001",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Liệt kê các tài sản mà tôi đang quản lý",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0002",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tìm giúp tôi tài sản có tên QA Test Laptop",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "QA Test Laptop"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0003",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho xem 5 tài sản đầu tiên trong danh mục công ty",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0004",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tra cứu trong ds tài sản xem có mã 000000003 không",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "000000003"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0005",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Lấy tiếp 10 tài sản từ con trỏ cur_ast_01",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "limit": 10,
+      "cursor": "cur_ast_01"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0006",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem chi tiết tài sản QA Test Laptop giùm em",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "QA Test Laptop"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0007",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Mã tài sản 000000001 thông tin cụ thể ra sao?",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "000000001"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0008",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi cần xem thông số kỹ thuật của tài sản mã 000000003",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "000000003"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0009",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Check giùm cái máy tính QA Test Laptop đang ở trạng thái nào",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "QA Test Laptop"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0010",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi biết chi tiết tài sản ZZTEST-2610100426 x4",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "ZZTEST-2610100426 x4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0011",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lịch sử thay đổi của tài sản QA Test Laptop là gì?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "QA Test Laptop"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0012",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem quá trình chỉnh sửa cập nhật của tài sản mã 000000003",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "000000003"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0013",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tài sản ZZTEST-2610100426 x4 đã có những lần sửa đổi nào?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "ZZTEST-2610100426 x4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0014",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Ai đã cập nhật thông tin của tài sản mã 000000001, cho tôi xem log lịch sử",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "000000001"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0015",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tra lại toàn bộ vết thay đổi của tài sản QA Test Laptop từ lúc tạo",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "QA Test Laptop"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0016",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Công ty mình hiện có những loại danh mục tài sản nào?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0017",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Báo cáo cho tôi danh mục phân loại tài sản toàn doanh nghiệp",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0018",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho xem 10 danh mục tài sản đầu tiên nhé",
+    "expected_tool": "list_categories",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0019",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lấy danh mục tài sản trang tiếp theo với con trỏ cur_cat_05",
+    "expected_tool": "list_categories",
+    "expected_params": {
+      "cursor": "cur_cat_05"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0020",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách các vị trí và kho lưu trữ tài sản",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0021",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê toàn bộ địa điểm, kho bãi đang quản lý tài sản",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0022",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lấy 5 vị trí lưu trữ tài sản đầu tiên thôi",
+    "expected_tool": "list_locations",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0023",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Lấy tiếp 5 vị trí kho tiếp theo từ con trỏ cur_loc_99",
+    "expected_tool": "list_locations",
+    "expected_params": {
+      "limit": 5,
+      "cursor": "cur_loc_99"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0024",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem thông tin chi tiết vị trí kho có id 6ac9bec727541dacd0a77f80",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "6ac9bec727541dacd0a77f80"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0025",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Chi tiết địa điểm lưu trữ mã 6aa2c144da46d70ee2f491c0 là gì?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "6aa2c144da46d70ee2f491c0"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0026",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi biết địa chỉ và thông tin của kho mã 6ac9be9627541dacd0a77e89",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "6ac9be9627541dacd0a77e89"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0027",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem chi tiết vị trí lưu trữ có id 6ac9bec627541dacd0a77f7e",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "6ac9bec627541dacd0a77f7e"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0028",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kiểm tra thông tin vị trí kho id 6ac9be0d27541dacd0a77d69",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "6ac9be0d27541dacd0a77d69"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0029",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem hồ sơ thông tin doanh nghiệp của tôi",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0030",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi biết tên công ty và số điện thoại đăng ký của doanh nghiệp mình",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0031",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin tài khoản Doanh nghiệp Demo 01 trên hệ thống ra sao?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0032",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi là admin, cho tôi xem profile chi tiết của doanh nghiệp",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0033",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho em xem thông tin hồ sơ doanh nghiệp mình với ạ",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0034",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Xem tên chủ sở hữu doanh nghiệp và số điện thoại công ty",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0035",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi muốn xem email đăng ký tài khoản doanh nghiệp",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0036",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Xuất toàn bộ profile của Doanh nghiệp Demo 01",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0037",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Check giúp thông tin pháp nhân và hồ sơ công ty trên hệ thống",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0038",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách các vai trò và quyền hạn cấp doanh nghiệp",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0039",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Chủ tài khoản doanh nghiệp hiện tại là ai, cho xem thông tin chi tiết",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0040",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Xem trạng thái kích hoạt tài khoản của doanh nghiệp mình",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0041",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Thời tiết hôm nay ở cơ sở 1 thế nào em ơi?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0042",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Duyệt cho tôi đơn xin nghỉ phép ngày mai",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0043",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Xóa vĩnh viễn tài sản mã 000000001 khỏi hệ thống",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0044",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Thêm một máy in Canon 2900 mới vào Kho B giúp tôi",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0045",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tính bảng lương và tiền phụ cấp tháng này của tôi",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0046",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Viết hộ tôi một bài thơ chúc mừng ngày thành lập công ty",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0047",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hướng dẫn tôi cách sửa lỗi máy in Canon bị kẹt giấy",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0048",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Đổi mật khẩu tài khoản đăng nhập hệ thống giúp tôi",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0049",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Chuyển vị trí máy tính QA Test Laptop sang chi nhánh Quận 1 ngay",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0050",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Đặt cho phòng kế toán 3 hộp mực in giao trong chiều nay",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0051",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Đợt này phòng mình có kế hoạch bảo dưỡng máy móc nào đang chạy không em?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0052",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem giúp tôi các đợt kiểm tra kỹ thuật định kỳ đã làm xong xuôi trong quý.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0053",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lấy 5 đợt bảo dưỡng thiết bị gần nhất của công ty để anh đối chiếu.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0054",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kiểm tra toàn bộ lịch sửa chữa máy móc đang lên kế hoạch trên hệ thống.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0055",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Mở kế hoạch kiểm tra máy móc sch-2026-001 xem hạn chót là ngày nào.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "sch-2026-001"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0056",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem thông tin chi tiết đợt bảo dưỡng mã 6aa2c177da46d70ee2f491c2 giúp tôi.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6aa2c177da46d70ee2f491c2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0057",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kế hoạch sửa chữa định kỳ sch-2026-009 có ghi chú phân công đơn vị nào phụ trách không?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "sch-2026-009"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0058",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tra cứu nội dung hạng mục bảo trì có ID sch-2026-088.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "sch-2026-088"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0059",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho mình xem lại mấy biên bản nghiệm thu sửa chữa tb vừa rồi của phòng.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0060",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lấy 10 biên lai ghi nhận chi phí sửa chữa máy móc mới nhất của cty.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0061",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem giúp em 3 phiếu kết quả kiểm tra kỹ thuật sau sửa chữa gần nhất nha.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {
+      "limit": 3
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0062",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tổng hợp danh sách các biên bản hoàn tất bảo dưỡng thiết bị đợt này.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0063",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kiểm tra xem lịch bảo trì sch-2026-001 đang có những đầu việc nào cần làm?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "sch-2026-001"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0064",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách các task công việc thuộc đợt bảo dưỡng mã 6aa2c177da46d70ee2f491c2.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6aa2c177da46d70ee2f491c2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0065",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Lấy 10 công việc đầu tiên trong kế hoạch bảo dưỡng sch-2026-088.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "sch-2026-088",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0066",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem chi tiết các task thực hiện của lịch kiểm tra kỹ thuật sch-2026-005.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "sch-2026-005"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0067",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho em xem lại thông tin tài khoản cá nhân, phòng ban với chức vụ của em.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0068",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kiểm tra lại số điện thoại và email đăng ký trên tài khoản của tôi.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0069",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hồ sơ của mình trên hệ thống SGOD đang lưu mã nhân viên là bao nhiêu vậy?",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0070",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin người dùng hiện tại đang đăng nhập là ai?",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0071",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài khoản hiện tại của mình có những quyền hạn và vai trò gì trong hệ thống thế?",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0072",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Trong phiên làm việc này tôi đang có những quyền thao tác nào trên SGOD?",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0073",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Anh muốn kiểm tra xem quyền hạn tài khoản của mình có được duyệt phiếu điều chuyển không.",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0074",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Quyền quản trị của tôi trên hệ thống hiện có bao gồm quản lý chat không?",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0075",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem danh sách các cuộc trò chuyện đang có trên hệ thống chat SGOD.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0076",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lấy 10 hội thoại trao đổi gần đây nhất của tôi trên kênh trao đổi cty.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0077",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị các nhóm chat mà tôi đang tham gia thảo luận công việc.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0078",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kéo 5 cuộc hội thoại chat mới nhất để tôi kiểm tra tiến độ trao đổi.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0079",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kiểm tra xem hộp thư chat của tôi hiện có bao nhiêu tin nhắn chưa đọc.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0080",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Có tin nhắn mới nào gửi tới các kênh chat của tôi mà chưa xem không em?",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0081",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tổng hợp số thông báo mới chưa mở xem trên các kênh chat của cty giúp tôi.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0082",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem số lượng tin nhắn mới chưa đọc trên hệ thống chat của tôi.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0083",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Liệt kê tất cả các cuộc trò chuyện trên hệ thống chat của tổng công ty giúp anh.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0084",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Em muốn xem danh sách các phòng chat nội bộ của ban giám đốc công ty.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0085",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Lấy cho tôi 10 cuộc trò chuyện bảo mật của cấp quản trị trên SGOD chat.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0086",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Mở danh sách các hội thoại điều hành doanh nghiệp ra cho tôi kiểm tra.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0087",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Kiểm tra xem toàn doanh nghiệp hiện có bao nhiêu tin nhắn chưa đọc của ban quản trị.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0088",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Đếm tổng số tin nhắn chưa xem của sếp tổng trên hệ thống chat cty giùm em.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0089",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Thống kê tin nhắn chưa đọc của tất cả tài khoản admin trong hệ thống.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0090",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Xem số lượng thông báo chat chưa đọc của hộp thư ban giám đốc.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0091",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Thời tiết hôm nay ở khu vực quận 1 thành phố Hồ Chí Minh có mưa không em?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0092",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Gợi ý cho anh vài quán cơm trưa văn phòng ngon gần đường Nguyễn Huệ với.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0093",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Tra cứu giúp tôi giá vàng SJC và vàng nhẫn 9999 hôm nay bao nhiêu một lượng.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0094",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chỉ đường từ bến xe Miền Đông sang sân bay Tân Sơn Nhất đi tuyến nào nhanh nhất?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0095",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Dịch câu này sang tiếng Anh giúp tôi: 'Chúng tôi mong muốn hợp tác lâu dài cùng quý công ty'.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0096",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chỉ mình công thức và cách làm món lẩu gà lá é chuẩn vị Đà Lạt.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0097",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Cho tôi biết tỷ số trận bóng đá giữa Real Madrid và Barcelona đêm qua.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0098",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Viết giúp mình một đoạn thơ 4 câu chúc mừng sinh nhật đồng nghiệp cùng phòng.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0099",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tư vấn cho anh bài tập thể dục đơn giản giảm đau lưng khi ngồi văn phòng lâu.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0100",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Tính giúp tôi căn bậc hai của 144 và lũy thừa 2 mũ 10 bằng bao nhiêu.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0101",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách các phiếu chuyển giao",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0102",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi muốn xem các phiếu chuyển giao của mình",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "onlyMine": true
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0103",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị 22 phiếu chuyển giao tài sản của doanh nghiệp",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "limit": 22
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0104",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem tiếp danh sách phiếu chuyển giao từ con trỏ cur_trans_02",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "cursor": "cur_trans_02"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0105",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Cho tôi xem 15 phiếu chuyển giao của riêng tôi",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "onlyMine": true,
+      "limit": 15
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0106",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Mở giúp tôi phiếu chuyển giao số 6ac9c52451e750872e755fad",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9c52451e750872e755fad"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0107",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Phiếu 6ac9bece27541dacd0a78006 đang ghi nhận những thông tin gì?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9bece27541dacd0a78006"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0108",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kiểm tra giúp tôi chi tiết phiếu chuyển giao 6ac9c52451e750872e755fad",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9c52451e750872e755fad"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0109",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Phiếu 6ac9bece27541dacd0a78006 hiện đang ở trạng thái nào?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9bece27541dacd0a78006"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0110",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi cần xem đầy đủ thông tin của phiếu chuyển giao 6ac9c52451e750872e755fad",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9c52451e750872e755fad"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0111",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiện có bao nhiêu phiếu chuyển giao?",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0112",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem số lượng phiếu đã gửi, chờ nhận và chờ xác thực",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0113",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi muốn biết mình đang có bao nhiêu phiếu chờ nhận",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0114",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Thống kê số lượng phiếu đã gửi của tôi",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0115",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho mình xem danh sách yêu cầu của nhân viên",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0116",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị 10 yêu cầu của nhân viên",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0117",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem tiếp các yêu cầu từ con trỏ cur_req_02",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {
+      "cursor": "cur_req_02"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0118",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Từ con trỏ cur_req_05, lấy thêm 25 yêu cầu của nhân viên",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {
+      "cursor": "cur_req_05",
+      "limit": 25
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0119",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem các yêu cầu nhân viên liên quan đến tài sản",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0120",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi muốn xem có tất cả bao nhiêu yêu cầu từ nhân viên",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0121",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị số yêu cầu đã gửi",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0122",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiện có bao nhiêu yêu cầu đang chờ duyệt tiếp nhận?",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0123",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiện có bao nhiêu yêu cầu của nhân viên đang chờ tiếp nhận?",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0124",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiện tại tổng số tài sản doanh nghiệp sở hữu là bao nhiêu?",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0125",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Doanh nghiệp hiện có bao nhiêu tài sản quan trọng?",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0126",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị số tài sản được gắn mã QR",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0127",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Số phiên trạng thái đang mở hiện tại là bao nhiêu?",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0128",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thống kê, báo cáo tổng hợp tài sản của doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0129",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem danh sách nhân viên trong doanh nghiệp",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0130",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tìm giúp tôi nhân viên có email user02@example.com",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "user02@example.com"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0131",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lọc giúp tôi các nhân viên đang chờ kích hoạt tài khoản",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0132",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Hiển thị 50 nhân viên đang hoạt động trong doanh nghiệp",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Active",
+      "limit": 50
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0133",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Thống kê và đưa ra tổng số tài sản của doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0134",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi muốn biết công ty hiện có bao nhiêu tài sản quan trọng",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0135",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cung cấp số lượng tài sản được trang bị mã QR",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0136",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Hiển thị báo cáo tổng quan tài sản của công ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0137",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách nhân viên của toàn công ty",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0138",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tìm giúp tôi nhân viên có email user04@example.com",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "user04@example.com"
+    },
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0139",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Lọc giúp tôi những nhân viên đang chờ kích hoạt tài khoản",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending"
+    },
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0140",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Hiển thị 5 tài khoản nhân viên đang bị khóa",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Blocked",
+      "limit": 5
+    },
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0141",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bạn nghĩ sao về việc nhân viên bị sếp dí deadline?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0142",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Thứ 7 này tôi bận rồi, tôi muốn xin nghỉ phép thì làm thế nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0143",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Doanh nghiệp của mình tính lương như nào, có phụ cấp không, thưởng thêm như nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0144",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hiển thị thuế thu nhập cá nhân của mình",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0145",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Hey AI, hãy mở ứng dụng giao đồ ăn và đặt cho tôi một phần cơm tấm sườn trứng không hành",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0146",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Nhìn trời hôm nay hơi buồn, không biết hôm nay có mưa không nhỉ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0147",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Bạn viết giúp tôi chương 1 tổng quan đề tài cho bài Mạng máy tính này với",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0148",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Cái đồng hồ treo tường bị đứng rồi, chắc nó hết pin, bạn mua giúp được không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0149",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Đổi tên tài sản máy in ở phòng kế toán thành Máy in Kế toán 01 giúp tôi",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0150",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Sáng nay tôi đi làm mà bị kẹt xe nên tới muộn, tôi khổ quá",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "source": "human"
+  },
+  {
+    "id": "sgod-0151",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách tài sản tôi đang quản lý",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0152",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "tai san cua toi dang co nhung gi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0153",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Liệt kê tất cả thiết bị đang được giao cho tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0154",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi đang giữ những tài sản gì của công ty?",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0155",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tìm tài sản máy in trong danh sách của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy in"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0156",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "xem cac thiet bi laptop toi dang dung",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "laptop"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0157",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Tìm 5 tài sản có tên chứa 'máy tính' trong danh sách của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy tính",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0158",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Hiện 10 thiết bị đầu tiên liên quan đến 'màn hình' mà tôi đang giữ",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "màn hình",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0159",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Những thiết bị nào đang thuộc về tôi trong hệ thống?",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0160",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cho xem danh sach tai san toi quan ly nhe",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0161",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi muốn kiểm tra xem mình đang cầm tài sản gì",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0162",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem toàn bộ tài sản được gán cho tài khoản tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0163",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê tài sản của tôi có từ khóa 'bàn ghế'",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "bàn ghế"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0164",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Tìm 20 tài sản có tên chứa 'máy in' trong danh mục của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy in",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0165",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Các tài sản tôi đang phụ trách gồm những gì?",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0166",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "lay danh sach tai san gan cho tai khoan cua toi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0167",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tìm kiếm tài sản 'camera' trong danh sách của tôi",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "camera"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0168",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tài sản nào đang được gán dưới tên tôi?",
+    "expected_tool": "list_my_assets",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0169",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Thông tin chi tiết tài sản laptop Dell XPS 15 của tôi",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "laptop Dell XPS 15"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0170",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem chi tiết tài sản mã TB-0023",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "TB-0023"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0171",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "xem thong tin may in HP LaserJet",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "máy in HP LaserJet"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0172",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài sản 'Máy chiếu phòng họp A' là thiết bị gì?",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "Máy chiếu phòng họp A"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0173",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Chi tiết tài sản mã ASSET-005 là gì?",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "ASSET-005"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0174",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tra cứu tài sản điều hòa phòng giám đốc",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "điều hòa phòng giám đốc"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0175",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "tim kiem thong tin ve man hinh samsung 24 inch",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "màn hình samsung 24 inch"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0176",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tìm tài sản 'bàn làm việc' trong hệ thống",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "bàn làm việc"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "list_my_assets"
+    ],
+    "expected_params_alternates": {
+      "list_my_assets": {
+        "search": "bàn làm việc"
+      }
+    },
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0177",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tìm những thiết bị nào là máy tính trong hệ thống",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "máy tính"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "get_asset"
+    ],
+    "expected_params_alternates": {
+      "get_asset": {
+        "asset_ref": "máy tính"
+      }
+    },
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0178",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem thông tin tài sản mã số KT-088",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "KT-088"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0179",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Máy scan văn phòng hiện trạng như thế nào?",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "máy scan văn phòng"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0180",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem thông tin chi tiết tài sản 'Xe nâng kho B'",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "Xe nâng kho B"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0181",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Chi tiết tài sản mã IT-2024-001",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "IT-2024-001"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0182",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "thong tin tai san may phat dien du phong",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "máy phát điện dự phòng"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0183",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tài sản 'Router wifi tầng 2' hiện đang ở trạng thái gì?",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "Router wifi tầng 2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0184",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tìm kiếm tài sản máy lạnh trong hệ thống",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "máy lạnh"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "list_my_assets"
+    ],
+    "expected_params_alternates": {
+      "list_my_assets": {
+        "search": "máy lạnh"
+      }
+    },
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0185",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tìm thiết bị nào là UPS trong kho",
+    "expected_tool": "list_my_assets",
+    "expected_params": {
+      "search": "UPS"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "get_asset"
+    ],
+    "expected_params_alternates": {
+      "get_asset": {
+        "asset_ref": "UPS"
+      }
+    },
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0186",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin tài sản bàn làm việc văn phòng tầng 3",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "bàn làm việc văn phòng tầng 3"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0187",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem chi tiết tài sản mã HR-2023-045",
+    "expected_tool": "get_asset",
+    "expected_params": {
+      "asset_ref": "HR-2023-045"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0188",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lịch sử sử dụng tài sản laptop Dell Inspiron 15",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "laptop Dell Inspiron 15"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0189",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài sản TB-0023 trước đây ở đâu?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "TB-0023"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0190",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Máy in phòng kế toán đã được điều chuyển mấy lần rồi?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "máy in phòng kế toán"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0191",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "lich su dieu chuyen cua man hinh samsung 24 inch",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "màn hình samsung 24 inch"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0192",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Ai đã từng sử dụng tài sản mã ASSET-010 trước đây?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "ASSET-010"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0193",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài sản máy chiếu IT-007 từng ở những phòng nào?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "IT-007"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0194",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lịch sử tài sản điều hòa phòng giám đốc",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "điều hòa phòng giám đốc"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0195",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "xem lich su may tinh ban KT-099 tu truoc den nay",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "KT-099"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0196",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Thiết bị router wifi này trước đây giao cho ai?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "router wifi"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0197",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lịch sử điều chuyển tài sản mã VT-2022-001",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "VT-2022-001"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0198",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tài sản xe nâng kho A từng được sử dụng bởi những ai?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "xe nâng kho A"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0199",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lịch sử bảo trì và sử dụng máy phát điện dự phòng",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "máy phát điện dự phòng"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0200",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "lich su su dung may lanh tang 2",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "máy lạnh tầng 2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0201",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thiết bị 'Máy scan HR-100' trước đây ở bộ phận nào?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "Máy scan HR-100"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0202",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kiểm tra xem tài sản bàn họp phòng 3A đã qua tay mấy người",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "bàn họp phòng 3A"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0203",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tài sản mã PD-2021-007 đã điều chuyển đến đâu?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {
+      "asset_ref": "PD-2021-007"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0204",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hệ thống phân loại tài sản gồm những danh mục nào?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0205",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cac loai tai san trong he thong la gi",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0206",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Danh mục thiết bị IT gồm những loại gì?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0207",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem tất cả danh mục tài sản hiện có",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0208",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị 5 danh mục tài sản đầu tiên trong hệ thống",
+    "expected_tool": "list_categories",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0209",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Phân loại tài sản trong công ty gồm bao nhiêu nhóm?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0210",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cho xem danh sach cac phan loai thiet bi trong he thong",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0211",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Thiết bị văn phòng được phân vào danh mục nào?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0212",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem toàn bộ danh mục tài sản đang có trong hệ thống",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0213",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê 10 danh mục tài sản trong hệ thống",
+    "expected_tool": "list_categories",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0214",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Công ty đang có bao nhiêu loại tài sản khác nhau?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0215",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Danh mục phân loại thiết bị văn phòng hiện có những gì?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0216",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "lay danh sach tat ca phan loai tai san cua cong ty",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0217",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Các nhóm tài sản chính trong hệ thống quản lý là gì?",
+    "expected_tool": "list_categories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0218",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Công ty có những vị trí nào trong hệ thống quản lý?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0219",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Liệt kê tất cả các khu vực lưu trữ tài sản",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0220",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cong ty co bao nhieu phong ban va vi tri luu tai san",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0221",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tòa nhà có bao nhiêu tầng được ghi nhận trong hệ thống?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0222",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị 5 vị trí đầu tiên trong hệ thống",
+    "expected_tool": "list_locations",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0223",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem danh sách phòng ban hiện có trong hệ thống",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0224",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kho và các phòng ban nào đang được quản lý?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0225",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "lay danh sach vi tri luu tru tai san trong he thong",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0226",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tất cả vị trí trong hệ thống gồm những đâu?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0227",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem danh sách tất cả khu vực lưu trữ tài sản của công ty",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0228",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê 15 địa điểm đầu tiên trong toàn bộ hệ thống",
+    "expected_tool": "list_locations",
+    "expected_params": {
+      "limit": 15
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0229",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Danh sách chi nhánh và phòng ban đang hoạt động trong hệ thống?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0230",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "xem tat ca cac vi tri phong ban dang co trong he thong",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0231",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hệ thống đang quản lý những tầng và phòng ban nào?",
+    "expected_tool": "list_locations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0232",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Phòng kế toán ở vị trí nào trong tòa nhà?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "phòng kế toán"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0233",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tầng 3 của công ty có những gì?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "Tầng 3"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0234",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Chi tiết khu vực kho B ở đâu và thuộc bộ phận nào?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "kho B"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0235",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "phong hop chinh o tang may vay",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "phòng họp chính"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0236",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem thông tin vị trí phòng IT tầng 2",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "phòng IT tầng 2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0237",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi biết thông tin chi tiết về khu vực kho hàng chính",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "kho hàng chính"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0238",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Phòng giám đốc ở tầng mấy trong hệ thống?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "phòng giám đốc"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0239",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "vi tri va thong tin phong hanh chinh la gi",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "phòng hành chính"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0240",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Chi tiết vị trí khu vực sản xuất tầng 1",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "khu vực sản xuất tầng 1"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0241",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin về chi nhánh Hà Nội trong hệ thống",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "chi nhánh Hà Nội"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0242",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "xem chi tiet vi tri phong nhan su tang 4",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "phòng nhân sự tầng 4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0243",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kho vật tư số 2 thuộc quản lý của đơn vị nào?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "kho vật tư số 2"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0244",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Phòng bảo vệ ở tầng trệt, chi tiết vị trí đó là gì?",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "phòng bảo vệ tầng trệt"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0245",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem thông tin vị trí trung tâm dữ liệu",
+    "expected_tool": "get_location",
+    "expected_params": {
+      "location_id": "trung tâm dữ liệu"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0246",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin doanh nghiệp của chúng tôi là gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0247",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem hồ sơ doanh nghiệp của công ty",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0248",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "thong tin cong ty dang ki la gi",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0249",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hồ sơ và địa chỉ pháp lý của doanh nghiệp tôi là gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0250",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem thông tin của tôi với tư cách quản trị viên doanh nghiệp",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "get_my_profile"
+    ],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0251",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thông tin của tôi và công ty là gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [
+      "get_my_profile"
+    ],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0252",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem hồ sơ công ty và thông tin liên hệ chính thức",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0253",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "lay thong tin doanh nghiep trong he thong",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0254",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem thông tin doanh nghiệp của công ty",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0255",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "xem ho so cong ty toi dang lam viec",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0256",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi muốn xem thông tin đăng ký doanh nghiệp",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0257",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Hồ sơ pháp lý của doanh nghiệp nơi tôi làm việc có gì?",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0258",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Thống kê tổng quan tài sản của toàn công ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0259",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Báo cáo tổng hợp tình trạng tài sản toàn doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0260",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tổng số thiết bị hiện có trong công ty là bao nhiêu?",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0261",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "thong ke tai san toan bo cong ty hien tai",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0262",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem bảng thống kê tổng quan về tài sản doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0263",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tình trạng tài sản toàn công ty hiện như thế nào?",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0264",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem số liệu thống kê tài sản toàn doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0265",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "bao cao tong quan so luong tai san trong cong ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0266",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem thống kê toàn bộ tài sản công ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0267",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tổng số tài sản trong công ty là bao nhiêu cái?",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0268",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "bao cao thong ke tai san toan cong ty co bao nhieu",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0269",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi muốn xem báo cáo tổng hợp tài sản toàn doanh nghiệp",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0270",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Thêm thiết bị mới vào danh sách tài sản công ty",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0271",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Xóa tài sản cũ khỏi danh sách quản lý",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0272",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Sửa thông tin tài sản laptop của tôi",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0273",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tải xuống báo cáo tài sản dạng file PDF",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0274",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Doanh thu quý này của công ty là bao nhiêu?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0275",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "tao moi mot tai san vao he thong quan ly",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0276",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Thêm địa điểm mới vào danh sách vị trí tài sản",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0277",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Cập nhật thông tin danh mục tài sản trong hệ thống",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0278",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Xuất file Excel danh sách toàn bộ tài sản",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0279",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Đặt lịch bảo trì định kỳ cho tài sản máy in",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0280",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "xoa bo phan cu ra khoi he thong quan ly vi tri",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0281",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kiểm tra xem hiện có những lịch bảo trì nào đang active vậy?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0282",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem danh sách các đợt bảo dưỡng thiết bị đã hoàn thành trong hệ thống.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0283",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "danh sach lich bao tri dang hieu luc",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0284",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem giúp tôi 5 lịch bảo trì gần nhất.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0285",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "kiem tra lich mtri thiet bi sap toi",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0286",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê danh sách toàn bộ lịch bảo trì thiết bị của công ty.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0287",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Có những lịch bảo trì nào đã completed rồi?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0288",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị danh sách lịch bảo dưỡng máy móc.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0289",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lấy 10 lịch bảo dưỡng mới nhất trên phần mềm.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0290",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem các lịch bảo trì đang chạy phục vụ ca bảo dưỡng tuần này.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0291",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Lấy ra 5 lịch bảo trì đang có hiệu lực active giúp tôi.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0292",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Cho xem 3 lịch bảo trì đã hoàn thành completed.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed",
+      "limit": 3
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0293",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "lay giup 5 lich bt completed",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0294",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Lấy 10 lịch mtri đang chạy active để tôi rà soát.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0295",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Xem 4 lịch bảo trì active gần nhất.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active",
+      "limit": 4
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0296",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho em kiểm tra các lịch bảo dưỡng đang active ạ.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0297",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lọc danh sách các kế hoạch bảo trì thiết bị đã hoàn tất.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0298",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Lấy 8 lịch bảo dưỡng active của đơn vị.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active",
+      "limit": 8
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0299",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị tối đa 6 lịch bảo trì thiết bị phòng ban.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "limit": 6
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0300",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Xuất danh sách 15 lịch bảo dưỡng có trạng thái completed.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed",
+      "limit": 15
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0301",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Chi tiết lịch bảo trì mã 6ad615353b0f8e12e2f1910d xem thế nào em.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0302",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "xem thong tin lich mtri 6ad615353b0f8e12e2f190e4",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0303",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem thông tin chi tiết lịch bảo dưỡng định kỳ 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0304",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho em xem nội dung lịch bảo trì thiết bị 6ad615353b0f8e12e2f190e4 với ạ.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0305",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Chi tiết lịch bt mã 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0306",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kiểm tra cụ thể kế hoạch bảo trì 6ad615353b0f8e12e2f190e4 trên hệ thống.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0307",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Mở thông tin chi tiết lịch bảo dưỡng 6ad615353b0f8e12e2f1910d giúp mình.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0308",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "tra cuu lich bao tri 6ad615353b0f8e12e2f190e4",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0309",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tra cứu thông tin chi tiết đợt bảo dưỡng mã 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0310",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lịch bảo trì 6ad615353b0f8e12e2f190e4 gồm những thông số thời gian nào vậy?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0311",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem chi tiết lịch bảo dưỡng 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0312",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem nội dung lịch bảo trì máy in mã 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0313",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi thông tin đầy đủ về lịch sửa chữa 6ad615353b0f8e12e2f190e4.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0314",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kỹ thuật viên muốn xem chi tiết lịch mtri 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0315",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kiểm tra nội dung đợt bảo dưỡng máy móc 6ad615353b0f8e12e2f190e4.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {
+      "schedule_id": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0316",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách các bản ghi bảo trì tài sản đã thực hiện.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0317",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "danh sach nhat ky bao tri thiet bi cty",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0318",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Kiểm tra biên bản bảo dưỡng thiết bị gần đây xem có những lần nào.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0319",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lấy ra 5 bản ghi bảo trì mới nhất trên hệ thống.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0320",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho xem 10 biên bản bảo trì gần đây nhất.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0321",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Các lần bảo trì, sửa chữa thiết bị trước đây có ghi nhận biên bản nào không?",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0322",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "xem lich su bao tri sc may moc",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0323",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị 3 bản ghi bảo dưỡng gần nhất để mình rà soát chi phí.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {
+      "limit": 3
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0324",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem 5 nhật ký bảo dưỡng gần nhất.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0325",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Liệt kê các đợt bảo trì thiết bị đã được ghi nhận vào nhật ký.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0326",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lấy 8 bản ghi bảo dưỡng tài sản gần nhất của doanh nghiệp.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {
+      "limit": 8
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0327",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho em xem lại danh sách nhật ký bảo trì máy tính văn phòng ạ.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0328",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Lấy 4 biên bản bảo trì mới cập nhật để đối chiếu vật tư.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {
+      "limit": 4
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0329",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem nhật ký các lần bảo dưỡng máy móc nhà xưởng.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0330",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị 12 bản ghi bảo trì gần đây nhất.",
+    "expected_tool": "list_maintenance_records",
+    "expected_params": {
+      "limit": 12
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0331",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem danh sách các công việc trong lịch bảo trì 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0332",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cac cong viec cua lich mtri 6ad615353b0f8e12e2f190e4 la gi",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0333",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lịch bảo trì 6ad615353b0f8e12e2f1910d hiện có những task nào cần thực hiện vậy?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0334",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Task của lịch 6ad615353b0f8e12e2f190e4.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0335",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kiểm tra các hạng mục bảo dưỡng thuộc lịch 6ad615353b0f8e12e2f1910d giúp mình.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0336",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "xem cv cua lich bt 6ad615353b0f8e12e2f190e4",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0337",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho em xem danh sách đầu việc bảo trì của lịch 6ad615353b0f8e12e2f1910d ạ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0338",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê tất cả các task bảo dưỡng của lịch 6ad615353b0f8e12e2f190e4.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f190e4"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0339",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Liệt kê 5 công việc đầu tiên của lịch bảo trì 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0340",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "lay 3 task dau tien cua lich 6ad615353b0f8e12e2f190e4",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f190e4",
+      "limit": 3
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0341",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Cho xem tối đa 4 công việc cần làm trong lịch bảo dưỡng 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d",
+      "limit": 4
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0342",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Xem 5 cv của lịch mtri 6ad615353b0f8e12e2f190e4.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f190e4",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0343",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Lấy 6 đầu việc thuộc lịch bảo dưỡng định kỳ 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d",
+      "limit": 6
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0344",
+    "category": "multi_constraint",
+    "user_role": "company_admin",
+    "input": "Xem 10 công việc bảo dưỡng của lịch 6ad615353b0f8e12e2f190e4 để phân bổ thợ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f190e4",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0345",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tra cứu các công việc cần tiến hành cho lịch 6ad615353b0f8e12e2f1910d.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "maintenanceScheduleId": "6ad615353b0f8e12e2f1910d"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0346",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho em xem thông tin hồ sơ tài khoản cá nhân của em với ạ.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0347",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "thong tin tai khoan cua toi",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0348",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi đang đăng nhập với thông tin họ tên, email gì trên hệ thống vậy?",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0349",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem hồ sơ cá nhân của em.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0350",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài khoản của tôi hiện đang lưu số điện thoại nào thế?",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0351",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cho em hoi thong tin user cua em a",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0352",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi muốn xem lại thông tin cá nhân và chức danh của mình trên hệ thống.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0353",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kiểm tra thông tin profile của tôi.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0354",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hồ sơ của em đang để email liên hệ là gì ạ?",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0355",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "xem thong tin acc cua toi",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0356",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem lại hồ sơ người dùng đang đăng nhập.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0357",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi tên gì và thuộc đơn vị nào trên hệ thống phần mềm?",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0358",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kiểm tra xem thông tin tài khoản của mình đã cập nhật đủ chưa.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0359",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem profile tài khoản của tôi trên app.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0360",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hiển thị thông tin cá nhân và phòng ban của tôi.",
+    "expected_tool": "get_my_profile",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0361",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài khoản của tôi hiện tại có những quyền hạn gì trên hệ thống?",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0362",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "tai khoan cua em co nhung quyen gi the a",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0363",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho em kiểm tra xem vai trò và danh sách quyền của em gồm những gì với ạ.",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0364",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem quyền hạn của tôi trên hệ thống.",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0365",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi có quyền duyệt các phiếu chuyển giao hay yêu cầu tài sản không?",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0366",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "vai tro va quyen truy cap cua tai khoan nay la gi",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0367",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kiểm tra giúp mình danh sách quyền hạn được cấp cho tài khoản này.",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0368",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Em có quyền thao tác gì trên phần mềm vậy ạ.",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0369",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho xem quyền truy cập và phân quyền của tài khoản hiện tại.",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0370",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "kiem tra quyen han he thong cua toi",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0371",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tài khoản của tôi có được thao tác điều chuyển thiết bị không?",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0372",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xem danh sách các tính năng tôi được phép truy cập trong phần mềm.",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0373",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi được cấp những quyền thao tác nào trên hệ thống SGOD?",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0374",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Kỹ thuật viên bảo trì như tôi có những quyền gì trên ứng dụng?",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0375",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem toàn bộ quyền hạn được phân bổ cho user này.",
+    "expected_tool": "get_my_permissions",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0376",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Dạ em xin danh sách số điện thoại và email của tất cả nhân viên công ty được không ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0377",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "cho em xem danh sach tat ca nhan su trong cong ty voi a",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0378",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho mình xin danh bạ liên lạc của toàn bộ nhân viên các phòng ban nhé.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0379",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "e xin sđt mấy anh chị cùng cty dc ko ạ",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0380",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "danh sach email toan bo dong nghiep trong cong ty",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0381",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Em muốn tra cứu danh sách những tài khoản nhân viên đang bị khóa trong cty ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0382",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách toàn bộ người dùng doanh nghiệp trên hệ thống.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0383",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Lấy danh sách nhân viên toàn bộ các phòng ban.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0384",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Em muốn xem danh sách nhân sự mới kích hoạt tài khoản gần đây.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0385",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "cho em xin danh sach tai khoan nhan vien cty",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0386",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi tra cứu danh sách nhân sự quản lý các bộ phận trong doanh nghiệp.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0387",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Xem danh bạ email toàn thể nhân sự.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0388",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Liệt kê danh sách tất cả người dùng và email của họ trên hệ thống.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0389",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Em là nhân viên kho, cho em xin danh sách tài khoản của các kỹ thuật viên khác ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0390",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "cho toi xem danh sach nhan su toan cong ty kem sdt",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0391",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách các phiếu điều chuyển tài sản.",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0392",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Liệt kê 5 lượt điều chuyển thiết bị để tôi kiểm tra.",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0393",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Tôi muốn xem riêng các phiếu điều chuyển của mình.",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "onlyMine": true
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0394",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Lấy giúp tôi 4 phiếu điều chuyển thuộc phần mình.",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "onlyMine": true,
+      "limit": 4
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0395",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "liet ke 6 phieu dieu chuyen tai san",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "limit": 6
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0396",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi cần mở danh sách điều chuyển để đối chiếu sổ theo dõi.",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0397",
+    "category": "multi_constraint",
+    "user_role": "employee",
+    "input": "Cho xem 3 lượt điều chuyển liên quan đến tôi.",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "onlyMine": true,
+      "limit": 3
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0398",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị tối đa 8 phiếu điều chuyển tài sản.",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "limit": 8
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0399",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "cho minh xem cac phieu dieu chuyen cua minh",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {
+      "onlyMine": true
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0400",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Hệ thống đang có những lần điều chuyển nào, cho tôi xem với.",
+    "expected_tool": "list_asset_transfers",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0401",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem chi tiết phiếu điều chuyển mã 6ac9c52451e750872e755fad.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9c52451e750872e755fad"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0402",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Phiếu điều chuyển 6ac9bece27541dacd0a78006 có những thông tin gì?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9bece27541dacd0a78006"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0403",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "kiem tra phieu dieu chuyen 6ac9c52451e750872e755fad giup toi",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9c52451e750872e755fad"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0404",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi cần kiểm tra hồ sơ của giao dịch điều chuyển số 6ac9bece27541dacd0a78006.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9bece27541dacd0a78006"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0405",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Mở phiếu mang mã 6ac9c52451e750872e755fad trong mục điều chuyển tài sản.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9c52451e750872e755fad"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0406",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tra giúp tôi thông tin một lượt bàn giao, mã phiếu 6ac9bece27541dacd0a78006.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9bece27541dacd0a78006"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0407",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "chi tiet dieu chuyen co ma 6ac9c52451e750872e755fad la gi",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9c52451e750872e755fad"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0408",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Có thể lấy dữ liệu của phiếu điều chuyển 6ac9bece27541dacd0a78006 không?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9bece27541dacd0a78006"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0409",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Mã điều chuyển 6ac9c52451e750872e755fad, tôi muốn kiểm tra chi tiết hồ sơ.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9c52451e750872e755fad"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0410",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Riêng phiếu 6ac9bece27541dacd0a78006 trong phần điều chuyển, xem đầy đủ giúp tôi.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {
+      "transfer_id": "6ac9bece27541dacd0a78006"
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0411",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem tổng hợp tình hình điều chuyển tài sản.",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0412",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cần báo cáo chung về các phiếu điều chuyển trong hệ thống.",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0413",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi muốn xem phần tổng quan điều chuyển thiết bị.",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0414",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "mo thong tin tong hop dieu chuyen tai san",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0415",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi một cái nhìn tổng thể về hoạt động bàn giao, điều chuyển.",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0416",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Phần thống kê chung của điều chuyển tài sản nằm ở đâu, xem giúp tôi.",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0417",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tổng hợp điều chuyển trên hệ thống hiện như thế nào?",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0418",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Xem mục thống kê điều chuyển tài sản của doanh nghiệp.",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0419",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "cho toi xem tong quan cac luot chuyen giao thiet bi",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0420",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi cần số liệu tổng hợp về hoạt động điều chuyển.",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0421",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị thông tin tổng kết điều chuyển tài sản giúp tôi.",
+    "expected_tool": "get_transfer_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0422",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách yêu cầu nhân viên.",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0423",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị 6 yêu cầu nhân viên trong hệ thống.",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {
+      "limit": 6
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0424",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Mở mục các yêu cầu của nhân viên giúp tôi.",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0425",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi muốn xem tối đa 10 bản ghi yêu cầu nhân viên.",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0426",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Xin mở danh sách yêu cầu nhân viên để tôi theo dõi.",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0427",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lấy ra 3 yêu cầu nhân viên để rà soát.",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {
+      "limit": 3
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0428",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "Có những yêu cầu nhân viên nào trong danh sách?",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0429",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Giúp tôi liệt kê các yêu cầu đã ghi nhận trong mục nhân viên.",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0430",
+    "category": "single_tool",
+    "user_role": "employee",
+    "input": "lay 5 yeu cau nhan vien cho toi",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0431",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Mở danh mục yêu cầu nhân viên để tôi đối chiếu.",
+    "expected_tool": "list_staff_requests",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0432",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi cần bảng tổng hợp yêu cầu nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0433",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho xem phần tổng quan về các yêu cầu của nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0434",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lấy thông tin tổng hợp của mục yêu cầu nhân sự.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0435",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Bao quát tình hình yêu cầu nhân viên trên hệ thống giúp tôi.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0436",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "xem tong hop yeu cau cua nhan vien",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0437",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi muốn kiểm tra số liệu tổng quan về yêu cầu nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0438",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị báo cáo chung của các yêu cầu nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0439",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi cái nhìn khái quát về mục yêu cầu nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0440",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "tong quan muc yeu cau nhan vien hien ra sao",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0441",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Mở trang thông tin tổng hợp yêu cầu nội bộ.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0442",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi cần xem phần thống kê tổng thể các yêu cầu nhân viên.",
+    "expected_tool": "get_staff_request_summary",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0443",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem danh sách cuộc trò chuyện trong tài khoản.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0444",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị 5 cuộc hội thoại trong mục chat.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0445",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Mở danh sách các đoạn trao đổi của tôi.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0446",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "liet ke 4 cuoc hoi thoai trong tai khoan",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {
+      "limit": 4
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0447",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi cần xem mục các cuộc trò chuyện đang có.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0448",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi đang quản lý chat, cần rà soát các hội thoại thuộc tài khoản doanh nghiệp.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {
+      "limit": 8
+    },
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0449",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Có những cuộc chat nào trong tài khoản của tôi?",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0450",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Tôi có bao nhiêu nội dung chưa đọc ở mục hội thoại?",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0451",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Cho tôi xem số lượng chưa đọc của phần trò chuyện.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0452",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "kiem tra so luong chua doc trong chat",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0453",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Mục tin nhắn hiện còn bao nhiêu lượt chưa đọc?",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0454",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Hiển thị thống kê chưa đọc trong các cuộc hội thoại của tôi.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0455",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "Lấy giúp tôi tổng số chưa đọc ở phần chat.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0456",
+    "category": "single_tool",
+    "user_role": "company_admin",
+    "input": "cho xem dem tin nhan chua doc",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0457",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem danh sách tất cả nhân viên của công ty.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0458",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tìm nhân viên có tên Minh trong danh sách doanh nghiệp.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "Minh"
+    },
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0459",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Hiển thị 5 tài khoản nhân sự của doanh nghiệp.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0460",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "cho xem danh sach nguoi dung doanh nghiep",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0461",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Nhân sự nào đang có trạng thái Active trong danh sách công ty?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Active"
+    },
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0462",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Lọc các tài khoản nhân viên bị Blocked giúp tôi.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Blocked"
+    },
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0463",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi muốn xem đầy đủ hồ sơ doanh nghiệp đang quản lý.",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0464",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi kiểm tra thông tin hồ sơ công ty.",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0465",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cần tra cứu phần hồ sơ doanh nghiệp của tài khoản này.",
+    "expected_tool": "get_enterprise_profile",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0466",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem bảng thống kê tài sản toàn doanh nghiệp.",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0467",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi muốn xem tổng quan số liệu tài sản của cả công ty.",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0468",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "xem so lieu tai san toan cong ty",
+    "expected_tool": "get_asset_statistics",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0469",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem các cuộc hội thoại trong dịch vụ chat.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0470",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Hiển thị 5 cuộc trò chuyện từ tài khoản này.",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {
+      "limit": 5
+    },
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0471",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "mo danh sach hoi thoai giup toi",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0472",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Có thể mở danh sách các cuộc chat không?",
+    "expected_tool": "list_my_conversations",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0473",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cho tôi xem số tin nhắn chưa đọc.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0474",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Kiểm tra giúp tôi số lượng chưa đọc ở phần hội thoại.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0475",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Trong mục Chat, còn bao nhiêu nội dung chưa đọc cần kiểm tra?",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0476",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi cần số liệu chưa đọc trong mục chat.",
+    "expected_tool": "get_unread_counts",
+    "expected_params": {},
+    "expected_permission": "denied",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0477",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tạo mới cho tôi một tài sản là máy chiếu phòng họp.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0478",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Sửa tên tài sản laptop đang được lưu trong hệ thống.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0479",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi muốn xóa các phiếu điều chuyển cũ khỏi hệ thống.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0480",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Phê duyệt ngay yêu cầu điều chuyển của nhân viên.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0481",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Đăng ký thêm một lịch bảo trì thiết bị mới.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0482",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Hủy hồ sơ bảo trì đã được ghi nhận trong hệ thống.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0483",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "gui giup toi mot tin nhan moi trong chat",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0484",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Đánh dấu tất cả cuộc hội thoại là đã đọc.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0485",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tạo giúp tôi một yêu cầu cấp thiết bị làm việc.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0486",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "cap nhat trang thai phieu ban giao giup toi",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0487",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Xin chào, chúc bạn một ngày làm việc vui vẻ.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0488",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Cảm ơn bạn đã hỗ trợ nhé!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0489",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hôm nay bạn có khỏe không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0490",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Bạn trả lời rất dễ hiểu, cảm ơn nhiều.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0491",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "chao buoi sang nhe",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0492",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi muốn kiểm tra một thông tin trong hệ thống nhưng chưa rõ là mục nào.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0493",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Bạn có thể xem tình hình chung giúp tôi mà không cần chọn phần nào trước không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0494",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Toi can tim mot muc trong he thong nhung khong nho la muc gi.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0495",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Có chỗ nào để xem thông tin không? Tôi chưa xác định được loại thông tin.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0496",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Quy trình xin cấp tài sản làm việc mới có những bước nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0497",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Công ty áp dụng thủ tục phê duyệt điều chuyển thiết bị như thế nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0498",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "huong dan quy trinh bao hong may in o cong ty",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0499",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Chính sách bàn giao tài sản cho nhân viên được quy định ra sao?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  },
+  {
+    "id": "sgod-0500",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Khi muốn gửi đề nghị sửa chữa thiết bị, tôi phải làm theo quy trình nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "expected_tool_alternates": [],
+    "expected_params_alternates": {},
+    "source": "gpt_aug"
+  }
+]
