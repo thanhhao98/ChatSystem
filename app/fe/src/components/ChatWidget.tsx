@@ -1,6 +1,5 @@
 import * as React from "react"
 import {
-  Send,
   Sun,
   Moon,
   Plus,
@@ -21,6 +20,7 @@ import {
   Zap,
   Cpu,
   FileText,
+  Paperclip,
 } from "lucide-react"
 import { useAuth } from "../context/AuthContext"
 import {
@@ -31,12 +31,20 @@ import {
 } from "../services/client"
 import { Hero } from "@/components/ui/hero"
 import { Button } from "@/components/ui/button"
+import PromptComposer from "@/components/ui/prompt-composer"
 import { cn } from "@/lib/utils"
+
+export interface MessageAttachmentMeta {
+  name: string
+  size: number
+  type: string
+}
 
 export interface MessageItem {
   id: string
   sender: "user" | "assistant"
   text: string
+  attachments?: MessageAttachmentMeta[]
   tools?: ToolExecutionRecord[]
   timestamp: string
   responseTimeMs?: number
@@ -89,7 +97,7 @@ export const ChatWidget: React.FC = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"))
   }
 
-  // Interactive Lamp focus state
+  // Interactive Lamp focus state (for Welcome Screen)
   const [isChatFocused, setIsChatFocused] = React.useState(false)
 
   // Sidebar & Chat History state
@@ -104,7 +112,6 @@ export const ChatWidget: React.FC = () => {
   })
   const [activeSessionId, setActiveSessionId] = React.useState<string | null>(null)
   const [messages, setMessages] = React.useState<MessageItem[]>([])
-  const [input, setInput] = React.useState("")
   const [sending, setSending] = React.useState(false)
   const [expandedTools, setExpandedTools] = React.useState<Record<string, boolean>>({})
 
@@ -160,7 +167,6 @@ export const ChatWidget: React.FC = () => {
   }, [])
 
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null)
 
   // Load sessions when user changes
   React.useEffect(() => {
@@ -190,29 +196,9 @@ export const ChatWidget: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages, sending])
 
-  // Auto-resize textarea height
-  React.useEffect(() => {
-    const el = textareaRef.current
-    if (!el) return
-    el.style.height = "auto"
-    el.style.height = `${Math.min(el.scrollHeight, 160)}px`
-  }, [input, messages.length])
-
-  // Focus management on composer container to prevent flicker between textarea & send button
-  const handleComposerFocusCapture = () => {
-    setIsChatFocused(true)
-  }
-
-  const handleComposerBlurCapture = (e: React.FocusEvent<HTMLFormElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
-      setIsChatFocused(false)
-    }
-  }
-
   const handleNewChat = () => {
     setActiveSessionId(null)
     setMessages([])
-    setInput("")
   }
 
   const handleSelectSession = (session: ChatSession) => {
@@ -252,14 +238,60 @@ export const ChatWidget: React.FC = () => {
     }
   }
 
-  const handleSend = async (customText?: string) => {
-    const textToSend = (customText ?? input).trim()
-    if (!textToSend || sending || !token) return
+  const buildPromptWithFiles = async (text: string, files: File[]): Promise<string> => {
+    if (!files || files.length === 0) return text
+
+    const fileSections: string[] = []
+    for (const file of files) {
+      const isTextFile =
+        file.type.startsWith("text/") ||
+        /\.(txt|csv|json|md|log|xml|ya?ml|ts|tsx|js|jsx|py)$/i.test(file.name)
+
+      if (isTextFile) {
+        try {
+          const content = await file.text()
+          const truncated =
+            content.length > 8000 ? `${content.slice(0, 8000)}\n...[đã cắt bớt]` : content
+          fileSections.push(
+            `[File đính kèm: ${file.name} (${(file.size / 1024).toFixed(1)} KB)]\n\`\`\`\n${truncated}\n\`\`\``,
+          )
+        } catch {
+          fileSections.push(
+            `[File đính kèm: ${file.name} (${(file.size / 1024).toFixed(1)} KB, ${file.type || "unknown"})]`,
+          )
+        }
+      } else {
+        fileSections.push(
+          `[File đính kèm: ${file.name} (${(file.size / 1024).toFixed(1)} KB, ${file.type || "binary"})]`,
+        )
+      }
+    }
+
+    return text ? `${text}\n\n${fileSections.join("\n\n")}` : fileSections.join("\n\n")
+  }
+
+  const handleSend = async (rawText: string, files: File[] = []) => {
+    const textToSend = rawText.trim()
+    if ((!textToSend && files.length === 0) || sending) return
+    if (!token) {
+      throw new Error("Phiên đăng nhập không hợp lệ. Vui lòng đăng nhập lại.")
+    }
+
+    const attachmentsMeta: MessageAttachmentMeta[] = files.map((f) => ({
+      name: f.name,
+      size: f.size,
+      type: f.type,
+    }))
+
+    const displayUserText =
+      textToSend || `Đã đính kèm ${files.map((f) => f.name).join(", ")}`
+    const apiMessagePayload = await buildPromptWithFiles(textToSend, files)
 
     const userMsg: MessageItem = {
       id: String(Date.now()),
       sender: "user",
-      text: textToSend,
+      text: displayUserText,
+      attachments: attachmentsMeta.length > 0 ? attachmentsMeta : undefined,
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     }
 
@@ -286,9 +318,8 @@ export const ChatWidget: React.FC = () => {
 
     const currentTurnMessages = [...updatedWithUser, initialBotMsg]
     setMessages(currentTurnMessages)
-    syncSessionMessages(updatedWithUser, textToSend)
+    syncSessionMessages(updatedWithUser, displayUserText)
 
-    if (!customText) setInput("")
     setSending(true)
 
     // Khởi tạo bộ đệm nhả chữ mượt mà & bấm giờ client
@@ -300,7 +331,7 @@ export const ChatWidget: React.FC = () => {
 
     try {
       await sendChatApiStream(
-        textToSend,
+        apiMessagePayload,
         token,
         historyPayload,
         refreshToken || undefined,
@@ -396,7 +427,7 @@ export const ChatWidget: React.FC = () => {
                     }
                   : m
               )
-              syncSessionMessages(updated, textToSend)
+              syncSessionMessages(updated, displayUserText)
               return updated
             })
             if (res.new_access_token) {
@@ -417,7 +448,7 @@ export const ChatWidget: React.FC = () => {
                     }
                   : m
               )
-              syncSessionMessages(updated, textToSend)
+              syncSessionMessages(updated, displayUserText)
               return updated
             })
             if (
@@ -443,7 +474,7 @@ export const ChatWidget: React.FC = () => {
             ? { ...m, text: `⚠️ Lỗi: ${errMsg}`, isStreaming: false, statusMessage: undefined }
             : m
         )
-        syncSessionMessages(updated, textToSend)
+        syncSessionMessages(updated, displayUserText)
         return updated
       })
     } finally {
@@ -451,95 +482,42 @@ export const ChatWidget: React.FC = () => {
     }
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      handleSend()
-    }
-  }
-
   const hasConversation = messages.length > 0
 
-  const renderComposer = (variant: "welcome" | "bottom") => (
-    <form
-      onFocusCapture={handleComposerFocusCapture}
-      onBlurCapture={handleComposerBlurCapture}
-      onSubmit={(e) => {
-        e.preventDefault()
-        handleSend()
-      }}
-      className={cn(
-        "relative z-30 w-full transition-all duration-300",
-        variant === "welcome" ? "max-w-2xl mx-auto" : "max-w-4xl mx-auto",
-      )}
-    >
-      <div
-        className={cn(
-          "flex items-end gap-2 rounded-2xl border px-4 py-3 transition-all duration-300",
-          "bg-white dark:bg-card/90 backdrop-blur-md",
-          isChatFocused
-            ? "border-[#D4A13B] dark:border-primary/60 ring-2 ring-[#F2C65D]/35 dark:ring-primary/20 shadow-[0_0_30px_-5px_rgba(242,198,93,0.4)] dark:shadow-[0_0_35px_-5px_hsl(var(--primary)/0.25)]"
-            : "border-border shadow-md",
-        )}
-      >
-        <textarea
-          ref={textareaRef}
-          rows={1}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Nhập câu hỏi tra cứu tài sản (ví dụ: 'Tìm tài sản Màn hình Dell')..."
-          disabled={sending}
-          aria-label="Nhập câu hỏi tra cứu tài sản"
-          className="max-h-40 min-h-[28px] flex-1 resize-none bg-transparent text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none disabled:opacity-50"
-        />
-        <Button
-          type="submit"
-          size="sm"
-          disabled={sending || !input.trim()}
-          className="h-9 rounded-xl px-4 font-semibold shrink-0 transition-transform active:scale-95"
-        >
-          <Send className="h-4 w-4 mr-1.5" />
-          <span>Gửi</span>
-        </Button>
-      </div>
-    </form>
-  )
+  const handleAppPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
+    e.currentTarget.style.setProperty("--app-mouse-x", `${x}%`)
+    e.currentTarget.style.setProperty("--app-mouse-y", `${y}%`)
+  }
 
-  const renderSuggestions = (variant: "welcome" | "bottom") => (
-    <div
-      className={cn(
-        "relative z-30 flex flex-wrap gap-2",
-        variant === "welcome"
-          ? "justify-center max-w-2xl mx-auto mt-4"
-          : "justify-start max-w-4xl mx-auto mb-3 overflow-x-auto pb-1",
-      )}
-    >
-      {SUGGESTIONS.map((s, idx) => (
-        <button
-          key={idx}
-          type="button"
-          disabled={sending}
-          onClick={() => handleSend(s)}
-          className={cn(
-            "inline-flex items-center gap-1.5 rounded-full border border-border bg-[#FAFAFA] dark:bg-secondary/60 px-3.5 py-1.5 text-xs sm:text-sm text-secondary-foreground transition-all",
-            "hover:bg-accent hover:border-[#D4A13B]/50 dark:hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50",
-          )}
-        >
-          <Sparkles className="h-3.5 w-3.5 text-[#D4A13B] dark:text-muted-foreground shrink-0" />
-          <span>{s}</span>
-        </button>
-      ))}
-    </div>
+  const renderLiquidComposer = (variant: "welcome" | "bottom") => (
+    <PromptComposer
+      isLoading={sending}
+      prompts={SUGGESTIONS}
+      placeholder="Nhập câu hỏi tra cứu tài sản (ví dụ: 'Tìm tài sản Màn hình Dell')..."
+      onFocusChange={setIsChatFocused}
+      onSuggestionClick={(prompt) => {
+        void handleSend(prompt, [])
+      }}
+      onSubmit={async (message, files) => {
+        await handleSend(message, files)
+      }}
+      className={variant === "welcome" ? "mt-2" : ""}
+    />
   )
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-white dark:bg-background text-foreground">
+    <div
+      onPointerMove={handleAppPointerMove}
+      className="sgod-liquid-app flex h-screen w-full overflow-hidden text-foreground"
+    >
       {/* Sidebar History */}
       <aside
         aria-label="Lịch sử trò chuyện"
         className={cn(
-          "z-40 flex flex-col border-r border-border bg-[#FAFAFA] dark:bg-card/60 backdrop-blur-sm transition-all duration-300 shrink-0",
+          "sgod-liquid-sidebar z-40 flex flex-col transition-all duration-300 shrink-0",
           sidebarOpen ? "w-64 sm:w-72" : "w-0 overflow-hidden border-r-0",
         )}
       >
@@ -628,7 +606,7 @@ export const ChatWidget: React.FC = () => {
       {/* Main Chat Area */}
       <div className="relative flex flex-1 flex-col min-w-0 overflow-hidden">
         {/* Top Header */}
-        <header className="relative z-40 flex items-center justify-between border-b border-border bg-white/95 dark:bg-background/80 backdrop-blur-md px-4 sm:px-6 py-3">
+        <header className="sgod-liquid-header relative z-40 flex items-center justify-between px-4 sm:px-6 py-3">
           <div className="flex items-center gap-3 min-w-0">
             {!sidebarOpen && (
               <Button
@@ -693,7 +671,7 @@ export const ChatWidget: React.FC = () => {
           </div>
         </header>
 
-        {/* Body: Welcome Screen with Interactive Lamp OR Active Conversation */}
+        {/* Body: Welcome Screen WITH Interactive Lamp OR Active Conversation WITHOUT Lamp */}
         {!hasConversation ? (
           <div className="relative flex-1 flex flex-col overflow-y-auto overflow-x-hidden">
             <Hero
@@ -705,16 +683,15 @@ export const ChatWidget: React.FC = () => {
               subtitleClassName="text-sm sm:text-base md:text-lg max-w-2xl"
               contentClassName="w-full max-w-4xl mx-auto pt-32 pb-12"
             >
-              <div className="w-full mt-2 space-y-4">
-                {renderComposer("welcome")}
-                {renderSuggestions("welcome")}
+              <div className="w-full mt-2">
+                {renderLiquidComposer("welcome")}
               </div>
             </Hero>
           </div>
         ) : (
-          <>
-            {/* Active Conversation Area (Lamp minimized/hidden for readability) */}
-            <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-4 bg-background">
+          <div className="relative flex-1 flex flex-col min-h-0 overflow-hidden">
+            {/* Active Conversation Area (No Lamp, Full Liquid Glass Background) */}
+            <div className="relative z-20 flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-4 bg-transparent">
               <div className="max-w-4xl mx-auto space-y-5">
                 {messages.map((m) => (
                   <div
@@ -725,19 +702,34 @@ export const ChatWidget: React.FC = () => {
                     )}
                   >
                     {m.sender === "assistant" && (
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5 backdrop-blur-md border border-white/10">
                         <Bot className="h-4 w-4" />
                       </div>
                     )}
 
                     <div
                       className={cn(
-                        "max-w-[82%] sm:max-w-[75%] rounded-2xl px-4 py-3 shadow-sm",
+                        "max-w-[82%] sm:max-w-[75%] rounded-2xl px-4 py-3",
                         m.sender === "user"
-                          ? "bg-primary text-primary-foreground rounded-br-xs"
-                          : "bg-card text-card-foreground border border-border rounded-bl-xs",
+                          ? "bg-primary text-primary-foreground rounded-br-xs shadow-md"
+                          : "sgod-liquid-bubble-bot text-card-foreground rounded-bl-xs",
                       )}
                     >
+                      {/* Attached Files on User Message */}
+                      {m.attachments && m.attachments.length > 0 && (
+                        <div className="mb-2 flex flex-wrap gap-1.5">
+                          {m.attachments.map((att, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-flex items-center gap-1 rounded-lg bg-black/15 dark:bg-white/15 px-2 py-0.5 text-[11px] font-medium"
+                            >
+                              <Paperclip className="h-3 w-3 shrink-0" />
+                              <span className="truncate max-w-[180px]">{att.name}</span>
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
                       {/* Tool Execution Cards */}
                       {m.tools && m.tools.length > 0 && (
                         <div className="mb-3 flex flex-col gap-2">
@@ -918,11 +910,10 @@ export const ChatWidget: React.FC = () => {
             </div>
 
             {/* Bottom Composer Bar when conversation is active */}
-            <div className="border-t border-border bg-background/90 backdrop-blur-md px-4 sm:px-6 py-3">
-              {renderSuggestions("bottom")}
-              {renderComposer("bottom")}
+            <div className="relative z-30 bg-transparent px-4 sm:px-6 pt-2 pb-4">
+              {renderLiquidComposer("bottom")}
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
