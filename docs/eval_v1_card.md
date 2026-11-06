@@ -97,12 +97,29 @@ Dán nhãn kép độc lập bởi **BaoMyTH** và **Hồ Văn Dinh** trên 100 
 
 ## V. DỮ LIỆU BÀN GIAO NHÓM F (F-V3 HANDOFF)
 
+> [!IMPORTANT]
+> **Tính bất biến benchmark (`eval_v1.sha256`):** Mọi câu trong `pilot_eval.json` và `pilot_train.jsonl` phải **hoàn toàn tách biệt** với toàn bộ 500 câu của `eval_v1.json` — không phân biệt nguồn gốc (human hay gpt_aug). Vi phạm quy tắc này gây nhiễm benchmark (data leakage).
+
+### V.1 Tập đánh giá diễn tập — `pilot_eval.json`
+
 | Mục | Chi tiết |
 | :--- | :--- |
-| **Tập diễn tập** | `data/sgod/pilot_eval.json` (40 records) |
+| **Số records** | 40 records (nguồn: `pilot_isolated`) |
 | **Độ phủ tool** | 22/22 tools SGOD (100% catalogue) |
-| **Cơ cấu** | 21 single_tool, 6 multi_constraint, 7 permission_denial, 6 out_of_scope |
-| **Data Leakage** | 0 câu trùng lặp với `eval_human_core.jsonl` ✅ |
+| **Cơ cấu** | 22 single_tool, 6 multi_constraint, 6 permission_denial, 6 out_of_scope |
+| **Data Leakage vs `eval_v1`** | **0 câu trùng lặp** (kiểm tra giao tập toàn bộ 500 records) ✅ |
+| **Quy chuẩn RBAC** | 100% bản ghi denied/allowed tuân thủ `tool_policy.json` ✅ |
+
+### V.2 Tập huấn luyện diễn tập — `pilot_train.jsonl`
+
+| Mục | Chi tiết |
+| :--- | :--- |
+| **Số rows** | 50 parity rows (format `<tool_call>`, preamble v1) |
+| **Nguồn** | 40 records `pilot_eval.json` + 10 records `pilot_train_extra` (tất cả độc lập với `eval_v1`) |
+| **Phân bổ targets** | 35 tool_call, 8 deflect (out_of_scope), 7 refusal (denied) |
+| **Phân bổ roles** | 39 employee, 11 company_admin |
+| **Validation** | `python training/validate_dataset.py ... --preamble prompts/system_preamble_v1.txt` → **exit 0, 0 errors** ✅ |
+| **Data Leakage vs `eval_v1`** | **0 câu trùng lặp** ✅ |
 
 ---
 
