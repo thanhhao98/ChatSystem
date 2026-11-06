@@ -191,7 +191,8 @@ class ChatEngine:
                         arguments=args_dict,
                         result=result.data if result.success else None,
                         success=result.success,
-                        error=result.error or result.message,
+                        status_code=result.status_code,
+                        error=(result.error or result.message) if not result.success else None,
                         duration_ms=dur_ms,
                     )
                 )
@@ -331,7 +332,8 @@ class ChatEngine:
                     arguments=args_dict,
                     result=result.data if result.success else None,
                     success=result.success,
-                    error=result.error or result.message,
+                    status_code=result.status_code,
+                    error=(result.error or result.message) if not result.success else None,
                     duration_ms=dur_ms,
                 )
                 executed_records.append(record)
