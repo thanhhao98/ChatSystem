@@ -160,15 +160,49 @@ export const ChatWidget: React.FC = () => {
 
   // Sidebar & Chat History state
   const [sidebarOpen, setSidebarOpen] = React.useState<boolean>(true)
+
+  const normalizeSessions = React.useCallback((rawList: unknown): ChatSession[] => {
+    if (!Array.isArray(rawList)) return []
+    return rawList
+      .filter((item): item is ChatSession => Boolean(item && typeof item === "object" && "id" in item))
+      .map((s) => {
+        const validMessages = Array.isArray(s.messages) ? s.messages : []
+        if (validMessages.length === 0 && s.title) {
+          const fallbackTime =
+            s.updatedAt || new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+          return {
+            ...s,
+            messages: [
+              {
+                id: `user_${s.id}`,
+                sender: "user" as const,
+                text: s.title,
+                timestamp: fallbackTime,
+              },
+            ],
+          }
+        }
+        return {
+          ...s,
+          messages: validMessages,
+        }
+      })
+  }, [])
+
   const [sessions, setSessions] = React.useState<ChatSession[]>(() => {
     try {
       const raw = localStorage.getItem(`sgod_chat_history_${user?.user_id || "guest"}`)
-      return raw ? JSON.parse(raw) : []
+      return raw ? normalizeSessions(JSON.parse(raw)) : []
     } catch {
       return []
     }
   })
   const [activeSessionId, setActiveSessionId] = React.useState<string | null>(null)
+  const activeSessionIdRef = React.useRef<string | null>(null)
+  React.useEffect(() => {
+    activeSessionIdRef.current = activeSessionId
+  }, [activeSessionId])
+
   const [messages, setMessages] = React.useState<MessageItem[]>([])
   const [input, setInput] = React.useState("")
   const [sending, setSending] = React.useState(false)
@@ -239,22 +273,70 @@ export const ChatWidget: React.FC = () => {
   React.useEffect(() => {
     try {
       const raw = localStorage.getItem(storageKey)
-      const parsed: ChatSession[] = raw ? JSON.parse(raw) : []
+      const parsed = raw ? normalizeSessions(JSON.parse(raw)) : []
       setSessions(parsed)
+      localStorage.setItem(storageKey, JSON.stringify(parsed))
     } catch {
       setSessions([])
     }
-  }, [storageKey])
+  }, [storageKey, normalizeSessions])
+
+  // If a session is currently active but messages state is empty (e.g. after HMR or repaired session), sync its messages
+  React.useEffect(() => {
+    if (!activeSessionId || messages.length > 0) return
+    const current = sessions.find((s) => s.id === activeSessionId)
+    if (current && current.messages && current.messages.length > 0) {
+      setMessages(current.messages)
+    }
+  }, [activeSessionId, messages.length, sessions])
 
   // Persist sessions to localStorage
   const saveSessions = React.useCallback(
     (updated: ChatSession[]) => {
-      setSessions(updated)
+      const normalized = normalizeSessions(updated)
+      setSessions(normalized)
       try {
-        localStorage.setItem(storageKey, JSON.stringify(updated))
+        localStorage.setItem(storageKey, JSON.stringify(normalized))
       } catch {
         // Ignore quota errors
       }
+    },
+    [storageKey, normalizeSessions],
+  )
+
+  const upsertSession = React.useCallback(
+    (sessionId: string, nextMessages: MessageItem[], titleFallback?: string) => {
+      const nowStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      setSessions((prevSessions) => {
+        const exists = prevSessions.some((s) => s.id === sessionId)
+        let updated: ChatSession[]
+        if (exists) {
+          updated = prevSessions.map((s) =>
+            s.id === sessionId
+              ? {
+                  ...s,
+                  title: s.title || (titleFallback || "Cuộc trò chuyện mới").slice(0, 48),
+                  messages: nextMessages,
+                  updatedAt: nowStr,
+                }
+              : s,
+          )
+        } else {
+          const newSession: ChatSession = {
+            id: sessionId,
+            title: (titleFallback || nextMessages[0]?.text || "Cuộc trò chuyện mới").slice(0, 48),
+            messages: nextMessages,
+            updatedAt: nowStr,
+          }
+          updated = [newSession, ...prevSessions]
+        }
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(updated))
+        } catch {
+          // Ignore quota errors
+        }
+        return updated
+      })
     },
     [storageKey],
   )
@@ -283,14 +365,32 @@ export const ChatWidget: React.FC = () => {
   }
 
   const handleNewChat = () => {
+    stopTypewriter()
+    activeSessionIdRef.current = null
     setActiveSessionId(null)
     setMessages([])
     setInput("")
   }
 
   const handleSelectSession = (session: ChatSession) => {
-    setActiveSessionId(session.id)
-    setMessages(session.messages)
+    stopTypewriter()
+    const latestSession = sessions.find((s) => s.id === session.id) || session
+    const sessionMessages =
+      Array.isArray(latestSession.messages) && latestSession.messages.length > 0
+        ? latestSession.messages
+        : [
+            {
+              id: `user_${latestSession.id}`,
+              sender: "user" as const,
+              text: latestSession.title || "Cuộc trò chuyện",
+              timestamp:
+                latestSession.updatedAt ||
+                new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            },
+          ]
+    activeSessionIdRef.current = latestSession.id
+    setActiveSessionId(latestSession.id)
+    setMessages(sessionMessages)
   }
 
   const handleDeleteSession = (e: React.MouseEvent, sessionId: string) => {
@@ -298,30 +398,10 @@ export const ChatWidget: React.FC = () => {
     const filtered = sessions.filter((s) => s.id !== sessionId)
     saveSessions(filtered)
     if (activeSessionId === sessionId) {
+      stopTypewriter()
+      activeSessionIdRef.current = null
       setActiveSessionId(null)
       setMessages([])
-    }
-  }
-
-  const syncSessionMessages = (nextMessages: MessageItem[], firstUserText?: string) => {
-    const nowStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-    if (!activeSessionId) {
-      const newId = `session_${Date.now()}`
-      const newSession: ChatSession = {
-        id: newId,
-        title: (firstUserText || "Cuộc trò chuyện mới").slice(0, 48),
-        messages: nextMessages,
-        updatedAt: nowStr,
-      }
-      setActiveSessionId(newId)
-      saveSessions([newSession, ...sessions])
-    } else {
-      const updated = sessions.map((s) =>
-        s.id === activeSessionId
-          ? { ...s, messages: nextMessages, updatedAt: nowStr }
-          : s,
-      )
-      saveSessions(updated)
     }
   }
 
@@ -338,6 +418,12 @@ export const ChatWidget: React.FC = () => {
     const now = new Date()
     const timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
 
+    const targetSessionId = activeSessionIdRef.current || `session_${Date.now()}`
+    if (!activeSessionIdRef.current) {
+      activeSessionIdRef.current = targetSessionId
+      setActiveSessionId(targetSessionId)
+    }
+
     const userMsg: MessageItem = {
       id: `user_${Date.now()}`,
       sender: "user",
@@ -345,7 +431,7 @@ export const ChatWidget: React.FC = () => {
       timestamp: timeStr,
     }
 
-    const botMsgId = `assistant_${Date.now()}`
+    const botMsgId = `assistant_${Date.now() + 1}`
     const botMsg: MessageItem = {
       id: botMsgId,
       sender: "assistant",
@@ -355,8 +441,9 @@ export const ChatWidget: React.FC = () => {
       statusMessage: "Đang kết nối trí tuệ nhân tạo Gemini...",
     }
 
-    const nextMessages = [...messages, userMsg, botMsg]
-    setMessages(nextMessages)
+    let turnMessages: MessageItem[] = [...messages, userMsg, botMsg]
+    setMessages(turnMessages)
+    upsertSession(targetSessionId, turnMessages, textToSend)
     setInput("")
     setSending(true)
 
@@ -380,54 +467,57 @@ export const ChatWidget: React.FC = () => {
         refreshToken || undefined,
         {
           onStatus: (statusText) => {
-            setMessages((prev) =>
-              prev.map((m) =>
-                m.id === botMsgId
-                  ? { ...m, statusMessage: statusText }
-                  : m
-              )
+            turnMessages = turnMessages.map((m) =>
+              m.id === botMsgId ? { ...m, statusMessage: statusText } : m,
             )
+            if (activeSessionIdRef.current === targetSessionId) {
+              setMessages(turnMessages)
+            }
           },
           onToolStart: (toolName, args) => {
-            setMessages((prev) =>
-              prev.map((m) => {
-                if (m.id !== botMsgId) return m
-                const existing = m.tools || []
-                const newRecord: ToolExecutionRecord = {
-                  tool_name: toolName,
-                  arguments: args,
-                  result: null,
-                  success: false,
-                  is_running: true,
-                }
-                return {
-                  ...m,
-                  tools: [...existing, newRecord],
-                  statusMessage: `Đang thực thi công cụ SGOD: ${toolName}...`,
-                }
-              })
-            )
+            turnMessages = turnMessages.map((m) => {
+              if (m.id !== botMsgId) return m
+              const existing = m.tools || []
+              const newRecord: ToolExecutionRecord = {
+                tool_name: toolName,
+                arguments: args,
+                result: null,
+                success: false,
+                is_running: true,
+              }
+              return {
+                ...m,
+                tools: [...existing, newRecord],
+                statusMessage: `Đang thực thi công cụ SGOD: ${toolName}...`,
+              }
+            })
+            upsertSession(targetSessionId, turnMessages, textToSend)
+            if (activeSessionIdRef.current === targetSessionId) {
+              setMessages(turnMessages)
+            }
           },
           onToolResult: (record) => {
-            setMessages((prev) =>
-              prev.map((m) => {
-                if (m.id !== botMsgId) return m
-                const existing = m.tools || []
-                const updated = existing.map((t) =>
-                  t.tool_name === record.tool_name && t.is_running
-                    ? { ...record, is_running: false }
-                    : t
-                )
-                if (!updated.some((t) => t.tool_name === record.tool_name)) {
-                  updated.push({ ...record, is_running: false })
-                }
-                return {
-                  ...m,
-                  tools: updated,
-                  statusMessage: `Đã hoàn thành ${record.tool_name}`,
-                }
-              })
-            )
+            turnMessages = turnMessages.map((m) => {
+              if (m.id !== botMsgId) return m
+              const existing = m.tools || []
+              const updated = existing.map((t) =>
+                t.tool_name === record.tool_name && t.is_running
+                  ? { ...record, is_running: false }
+                  : t,
+              )
+              if (!updated.some((t) => t.tool_name === record.tool_name)) {
+                updated.push({ ...record, is_running: false })
+              }
+              return {
+                ...m,
+                tools: updated,
+                statusMessage: `Đã hoàn thành ${record.tool_name}`,
+              }
+            })
+            upsertSession(targetSessionId, turnMessages, textToSend)
+            if (activeSessionIdRef.current === targetSessionId) {
+              setMessages(turnMessages)
+            }
           },
           onDelta: (chunk) => {
             textBufferRef.current += chunk
@@ -449,25 +539,25 @@ export const ChatWidget: React.FC = () => {
             stopTypewriter()
             displayedLengthRef.current = finalFullText.length
 
-            setMessages((prev) => {
-              const updated = prev.map((m) =>
-                m.id === botMsgId
-                  ? {
-                      ...m,
-                      text: finalFullText,
-                      tools: res.tools_executed || m.tools,
-                      responseTimeMs: clientResponseTimeMs,
-                      outputTokens: tokenCount,
-                      tokensPerSec: tokPerSec,
-                      tokenUsage: res.token_usage,
-                      isStreaming: false,
-                      statusMessage: undefined,
-                    }
-                  : m
-              )
-              syncSessionMessages(updated, textToSend)
-              return updated
-            })
+            turnMessages = turnMessages.map((m) =>
+              m.id === botMsgId
+                ? {
+                    ...m,
+                    text: finalFullText,
+                    tools: res.tools_executed || m.tools,
+                    responseTimeMs: clientResponseTimeMs,
+                    outputTokens: tokenCount,
+                    tokensPerSec: tokPerSec,
+                    tokenUsage: res.token_usage,
+                    isStreaming: false,
+                    statusMessage: undefined,
+                  }
+                : m,
+            )
+            upsertSession(targetSessionId, turnMessages, textToSend)
+            if (activeSessionIdRef.current === targetSessionId) {
+              setMessages(turnMessages)
+            }
             if (res.new_access_token) {
               updateAccessToken(res.new_access_token)
             }
@@ -475,20 +565,20 @@ export const ChatWidget: React.FC = () => {
           onError: (errMsg) => {
             isStreamActiveRef.current = false
             stopTypewriter()
-            setMessages((prev) => {
-              const updated = prev.map((m) =>
-                m.id === botMsgId
-                  ? {
-                      ...m,
-                      text: m.text ? `${m.text}\n\n⚠️ Lỗi: ${errMsg}` : `⚠️ Lỗi: ${errMsg}`,
-                      isStreaming: false,
-                      statusMessage: undefined,
-                    }
-                  : m
-              )
-              syncSessionMessages(updated, textToSend)
-              return updated
-            })
+            turnMessages = turnMessages.map((m) =>
+              m.id === botMsgId
+                ? {
+                    ...m,
+                    text: m.text ? `${m.text}\n\n⚠️ Lỗi: ${errMsg}` : `⚠️ Lỗi: ${errMsg}`,
+                    isStreaming: false,
+                    statusMessage: undefined,
+                  }
+                : m,
+            )
+            upsertSession(targetSessionId, turnMessages, textToSend)
+            if (activeSessionIdRef.current === targetSessionId) {
+              setMessages(turnMessages)
+            }
             if (
               errMsg.toLowerCase().includes("hết hạn") ||
               errMsg.toLowerCase().includes("expired") ||
@@ -500,21 +590,21 @@ export const ChatWidget: React.FC = () => {
             }
           },
         },
-        updateAccessToken
+        updateAccessToken,
       )
     } catch (err: any) {
       isStreamActiveRef.current = false
       stopTypewriter()
       const errMsg = err.message || "Không thể nhận phản hồi từ máy chủ"
-      setMessages((prev) => {
-        const updated = prev.map((m) =>
-          m.id === botMsgId
-            ? { ...m, text: `⚠️ Lỗi: ${errMsg}`, isStreaming: false, statusMessage: undefined }
-            : m
-        )
-        syncSessionMessages(updated, textToSend)
-        return updated
-      })
+      turnMessages = turnMessages.map((m) =>
+        m.id === botMsgId
+          ? { ...m, text: `⚠️ Lỗi: ${errMsg}`, isStreaming: false, statusMessage: undefined }
+          : m,
+      )
+      upsertSession(targetSessionId, turnMessages, textToSend)
+      if (activeSessionIdRef.current === targetSessionId) {
+        setMessages(turnMessages)
+      }
     } finally {
       setSending(false)
     }
