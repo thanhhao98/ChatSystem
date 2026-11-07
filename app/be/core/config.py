@@ -1,6 +1,4 @@
-"""Configuration module for ChatSystem Backend.
-Loads variables from .env and exposes strongly typed paths and settings.
-"""
+"""Core configuration and settings for ChatSystem Backend."""
 
 from __future__ import annotations
 
@@ -8,8 +6,9 @@ import os
 from pathlib import Path
 from typing import Dict
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-ENV_PATH = REPO_ROOT / ".env"
+# Repository root directory
+REPO_ROOT: Path = Path(__file__).resolve().parents[3]
+ENV_PATH: Path = REPO_ROOT / ".env"
 
 # Auto-load .env into os.environ if present
 if ENV_PATH.is_file():
