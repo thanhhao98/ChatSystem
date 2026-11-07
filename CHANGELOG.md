@@ -1,4 +1,9 @@
 # CHANGELOG
+- 2026-11-06 — [D-V4 Hotfix] `data/sgod/pilot_eval.json` & `data/sgod/pilot_train.jsonl`: khắc phục triệt để lỗi rò rỉ dữ liệu (data leakage) phát hiện qua Checkpoint Task 4:
+  - **Vấn đề:** 40/40 câu `pilot_eval.json` cũ được trích xuất trực tiếp từ phần `gpt_aug` của `eval_v1.json` (nhãn `source: "pilot_subset"`), vi phạm nguyên tắc `Input(eval_v1) ∩ Input(pilot_eval) = ∅`.
+  - **Khắc phục (Cách 1):** Tạo lại toàn bộ 40 câu `pilot_eval.json` hoàn toàn mới (`source: "pilot_isolated"`), bảo toàn 100% `eval_v1.json` và mã băm SHA256 không thay đổi.
+  - **Kết quả kiểm chứng độc lập:** Giao tập `eval_v1 ∩ pilot_eval = 0` câu; phủ 22/22 tools SGOD; 100% RBAC & Hợp đồng 3 §6 (22 single_tool, 6 multi_constraint, 6 permission_denial, 6 out_of_scope).
+  - **Sinh `pilot_train.jsonl` (Bước 6):** Tạo 50 parity rows qua `build_parity_trainset.py` từ `pilot_eval.json` + 10 records bổ sung `pilot_train_extra`; `validate_dataset.py --preamble prompts/system_preamble_v1.txt → exit 0, 0 errors`; 0 câu trùng với `eval_v1`.
 - 2026-11-06 — [F-V2] chấm baseline GPT `gemini-3.5-flash-lite` trên bộ đánh giá SGOD `eval_v1.json` (500 records) đã đóng băng:
   - Tỷ lệ hoàn thành dự đoán: 500/500 câu không lỗi kỹ thuật (100% completion rate), vượt qua bài kiểm tra nghiệm thu S Task 8 (`check_s8.py` PASS, sha256 eval `04aec49d…`, tools `cc3cb61b…`, preamble `f5da2272…`).
   - Kết quả chấm điểm (`eval_toolcall.py`): độ chính xác khắt khe (strict accuracy) đạt 93.2% [91.0, 95.4] (466/500 records passed); tool_name_acc đạt 91.58%; param_acc đạt 99.4%; params_exact đạt 95.21%; json_valid_rate đạt 75.6%; độ trễ trung vị p50 = 1156 ms, p95 = 2154 ms.

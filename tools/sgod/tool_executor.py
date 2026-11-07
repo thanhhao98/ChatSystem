@@ -439,28 +439,41 @@ class SGODToolExecutor:
                 new_refresh_token=new_refresh,
             )
 
-        is_success = body.get("success") is True
+        raw_success = body.get("success")
         sc = body.get("statusCode") or status
-        data = body.get("data")
+        data = body.get("data") if "data" in body else body
         msg = body.get("message")
+
+        # Phân biệt rõ status code:
+        # 1. Nếu body có trường success rõ ràng (True/False): tôn trọng body["success"]
+        # 2. Nếu không có trường success: dựa trên HTTP status code (200-299 là success)
+        if raw_success is True:
+            is_success = True
+        elif raw_success is False:
+            is_success = False
+        else:
+            is_success = bool(sc and 200 <= sc < 300)
 
         if is_success:
             return ToolExecutionResult(
                 success=True,
                 data=data,
-                message=msg or "Success",
-                status_code=sc,
+                error=None,  # Tuyệt đối không đưa message 'OK' vào error khi thành công
+                message=msg or "OK",
+                status_code=sc or 200,
                 token_refreshed=token_refreshed,
                 new_access_token=new_access,
                 new_refresh_token=new_refresh,
             )
 
-        # Handle body.success == False
+        # Handle failure (sc != 2xx hoặc success == False)
         err_type = "error"
         if sc == 404:
             err_type = "not_found"
         elif sc == 403:
             err_type = "forbidden"
+        elif sc == 401:
+            err_type = "unauthorized"
         elif sc == 400:
             err_type = "bad_request"
         elif sc and sc >= 500:
@@ -471,7 +484,7 @@ class SGODToolExecutor:
             data=data,
             error=err_type,
             message=msg or f"SGOD API trả về lỗi {sc}",
-            status_code=sc,
+            status_code=sc or 500,
             token_refreshed=token_refreshed,
             new_access_token=new_access,
             new_refresh_token=new_refresh,
