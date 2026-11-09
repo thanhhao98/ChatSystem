@@ -28,7 +28,7 @@ def main():
         print("data/sgod/verified.json not found.")
         return
 
-    my_raw = [r for r in raw if r.get('expected_tool') in my_tools]
+    my_raw = [r for r in raw if r.get('seed_tool') in my_tools]
     my_verified = [v for v in verified if v.get('expected_tool') in my_tools]
 
     yield_rate = len(my_verified) / len(my_raw) if len(my_raw) > 0 else 0
