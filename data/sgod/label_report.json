@@ -1,0 +1,6398 @@
+[
+  {
+    "id": "SN0000000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000014",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000015",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000016",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0000017",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "tool: null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0010011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0020013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_histories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_histories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0030009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0040009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0050000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0050001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0050002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0050003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0050004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0050005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0050006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0050007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0060000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0060001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0060002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0060003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0060004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0060005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0060006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0060007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0070000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0070001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0070002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0070003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0070004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0070005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0070006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_categories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_categories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0070007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_locations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_locations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0080009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_locations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_locations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_locations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_locations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0090009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0100000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0100001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_locations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_locations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0100002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_locations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_locations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0100003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0100004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0100005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0100006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0100007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0110000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0110001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0110002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0110003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0110004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0110005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0110006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_locations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_locations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0110007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0120009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0130000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0130001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0130002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0130003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0130004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0130005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0140011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0150000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0150001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0150002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_histories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_histories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0150003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0150004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0150005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0150006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0150007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160014",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0160015",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0170011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0180011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0190000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0190001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0190002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0190003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0190004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0190005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0190006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0190007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0200011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0210000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0210001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0210002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0210003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0210004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0210005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0210006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0210007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_tasks"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_tasks",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_tasks"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_tasks",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_histories"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_histories",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_records",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_tasks"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_tasks",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0220013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_maintenance_records"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_maintenance_schedule"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_maintenance_schedule",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0230009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_maintenance_schedules"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_maintenance_schedules",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_profile",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_profile",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_profile",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_profile",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_profile",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_profile",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_profile",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_profile",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_profile",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0240013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_enterprise_profile"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_enterprise_profile",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0250000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0250001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0250002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0250003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_location"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_location",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0250004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0250005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0260013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0270000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0270001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0270002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0270003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0270004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0270005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0280011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0290000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0290001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0290002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0290003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0290004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0290005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0290006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0290007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_enterprise_users"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_enterprise_users",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300014",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300015",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300016",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0300017",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0310009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_transfer_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_transfer_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_transfer_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_transfer_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0320011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0330000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0330001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0330002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0330003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0330004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0330005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0330006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0330007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0340013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0350000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0350001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0350002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_transfer"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_transfer",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0350003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0350004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0350005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0360013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0370000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0370001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0370002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0370003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0370004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0370005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0370006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0370007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0380011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0390000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0390001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0390002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0390003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0390004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0390005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0390006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_staff_request_summary"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_staff_request_summary",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0390007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_staff_requests"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_staff_requests",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0400013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0410000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0410001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0410002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0410003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0410004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0410005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0410006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0410007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420010",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420011",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420012",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0420013",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0430000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0430001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_conversations"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_conversations",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0430002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        null
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0430003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0430004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0430005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0430006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0430007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_unread_counts"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_unread_counts",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset_statistics"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset_statistics",
+    "permission": "denied",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440008",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_asset"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_asset",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0440009",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0450000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0450001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0450002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0450003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0450004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_asset_transfers"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_asset_transfers",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0450005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0450006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0450007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "list_my_assets"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "list_my_assets",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0460000",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0460001",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0460002",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0460003",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0460004",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0460005",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "get_my_permissions"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": "get_my_permissions",
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0460006",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  },
+  {
+    "id": "SN0460007",
+    "proposals": [
+      [
+        "Qwen2.5-3B-Instruct",
+        "null"
+      ]
+    ],
+    "agree": true,
+    "expected_tool": null,
+    "permission": "allowed",
+    "dropped_params": []
+  }
+]

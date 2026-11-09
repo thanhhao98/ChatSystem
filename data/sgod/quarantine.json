@@ -1,0 +1,44 @@
+[
+  {
+    "id": "SN0220004",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào, em xin được request list các task bảo trì của lịch nay là 6ad615353b0f8e12e2f190e4, hẵn ko thieu thuc thien ạ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220005",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào, em cần list tất cả task bt liên quan đến lịch nay 6ad615353b0f8e12e2f190e4, coi 10 cv ạ?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220012",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Chuc nang ql cv va tb, thuong em tra loi roi. Cho em den danh sach cac task dang da phat sinh va dang da hoan thanh voi lech cap nhat 6ad615353b0f8e12e2f190e4, dc ko? Co the khong?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  }
+]
