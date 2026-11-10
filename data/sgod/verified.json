@@ -4088,16 +4088,6 @@
     "_seed_tool": "get_staff_request_summary"
   },
   {
-    "id": "SN0380008",
-    "category": "staff_request",
-    "user_role": "employee",
-    "input": "Tôi muốn có danh sách đầy đủ các yêu cầu từ nhân viên để xem xét.",
-    "expected_tool": "list_staff_requests",
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_seed_tool": "get_staff_request_summary"
-  },
-  {
     "id": "SN0380009",
     "category": "staff_request",
     "user_role": "employee",
