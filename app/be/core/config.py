@@ -1,6 +1,4 @@
-"""Configuration module for ChatSystem Backend.
-Loads variables from .env and exposes strongly typed paths and settings.
-"""
+"""Core configuration and settings for ChatSystem Backend."""
 
 from __future__ import annotations
 
@@ -8,8 +6,9 @@ import os
 from pathlib import Path
 from typing import Dict
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-ENV_PATH = REPO_ROOT / ".env"
+# Repository root directory
+REPO_ROOT: Path = Path(__file__).resolve().parents[3]
+ENV_PATH: Path = REPO_ROOT / ".env"
 
 # Auto-load .env into os.environ if present
 if ENV_PATH.is_file():
@@ -23,10 +22,10 @@ if ENV_PATH.is_file():
                 os.environ[k] = v
 
 # SGOD Gateway configuration
-SGOD_BASE_URL: str = os.environ.get("SGOD_BASE_URL", "http://10.10.0.2:5000").rstrip("/")
-SGOD_AUTH_API_KEY: str = os.environ.get("SGOD_AUTH_API_KEY", "SmartGenerationofDigital_Sgod2025auth").strip()
-SGOD_ASSET_API_KEY: str = os.environ.get("SGOD_ASSET_API_KEY", "SmartGenerationofDigital_Sgod2025asset").strip()
-SGOD_CHAT_API_KEY: str = os.environ.get("SGOD_CHAT_API_KEY", "SmartGenerationofDigital_Sgod2025chat").strip()
+SGOD_BASE_URL: str = os.environ.get("SGOD_BASE_URL", "").rstrip("/")
+SGOD_AUTH_API_KEY: str = os.environ.get("SGOD_AUTH_API_KEY", "").strip()
+SGOD_ASSET_API_KEY: str = os.environ.get("SGOD_ASSET_API_KEY", "").strip()
+SGOD_CHAT_API_KEY: str = os.environ.get("SGOD_CHAT_API_KEY", "").strip()
 
 # Google Gemini configuration (via OpenAI-compatible endpoint)
 GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "").strip()

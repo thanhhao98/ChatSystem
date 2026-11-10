@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { UserContext, getMeApi, loginApi } from "../services/client";
+import { UserContext, getMeApi, loginApi, refreshApi } from "../services/client";
 
 interface AuthContextType {
   token: string | null;
@@ -9,7 +9,7 @@ interface AuthContextType {
   loading: boolean;
   login: (credential: string, pass: string, tier?: string) => Promise<boolean>;
   logout: () => void;
-  updateAccessToken: (newToken: string) => void;
+  updateAccessToken: (newToken: string, newRefresh?: string) => void;
   error: string | null;
 }
 
@@ -25,19 +25,81 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Kiểm tra phiên làm việc khi người dùng mở lại trang web
+  const logout = () => {
+    setToken(null);
+    setRefreshToken(null);
+    setUser(null);
+    localStorage.removeItem("sgod_access_token");
+    localStorage.removeItem("sgod_refresh_token");
+    localStorage.removeItem("sgod_user_context");
+  };
+
+  const updateAccessToken = (newToken: string, newRefresh?: string) => {
+    setToken(newToken);
+    localStorage.setItem("sgod_access_token", newToken);
+    if (newRefresh) {
+      setRefreshToken(newRefresh);
+      localStorage.setItem("sgod_refresh_token", newRefresh);
+    }
+  };
+
+  // Đồng bộ sự kiện tự động refresh token hoặc logout từ client service
+  useEffect(() => {
+    const handleRefreshed = (e: any) => {
+      if (e.detail?.accessToken) {
+        setToken(e.detail.accessToken);
+      }
+      if (e.detail?.refreshToken) {
+        setRefreshToken(e.detail.refreshToken);
+      }
+    };
+
+    const handleLogout = () => {
+      logout();
+    };
+
+    window.addEventListener("sgod:token_refreshed", handleRefreshed);
+    window.addEventListener("sgod:logout", handleLogout);
+    return () => {
+      window.removeEventListener("sgod:token_refreshed", handleRefreshed);
+      window.removeEventListener("sgod:logout", handleLogout);
+    };
+  }, []);
+
+  // Kiểm tra phiên làm việc khi người dùng mở lại trang web, tự động refresh nếu hết hạn
   useEffect(() => {
     const verifySession = async () => {
-      if (token) {
+      const curToken = token || localStorage.getItem("sgod_access_token");
+      const curRefresh = refreshToken || localStorage.getItem("sgod_refresh_token");
+
+      if (curToken) {
         try {
-          const res = await getMeApi(token);
+          const res = await getMeApi(curToken);
           if (res.success && res.user_context) {
             setUser(res.user_context);
             localStorage.setItem("sgod_user_context", JSON.stringify(res.user_context));
-          } else {
-            logout();
+            setLoading(false);
+            return;
           }
         } catch {
+          // Token có thể đã hết hạn, thử refresh bằng refresh_token
+          if (curRefresh) {
+            try {
+              const refRes = await refreshApi(curRefresh);
+              if (refRes.success && refRes.access_token) {
+                updateAccessToken(refRes.access_token, refRes.refresh_token);
+                const meRes = await getMeApi(refRes.access_token);
+                if (meRes.success && meRes.user_context) {
+                  setUser(meRes.user_context);
+                  localStorage.setItem("sgod_user_context", JSON.stringify(meRes.user_context));
+                  setLoading(false);
+                  return;
+                }
+              }
+            } catch {
+              // Refresh không thành công
+            }
+          }
           logout();
         }
       }
@@ -69,20 +131,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setError(err.message || "Lỗi kết nối tới máy chủ.");
       return false;
     }
-  };
-
-  const logout = () => {
-    setToken(null);
-    setRefreshToken(null);
-    setUser(null);
-    localStorage.removeItem("sgod_access_token");
-    localStorage.removeItem("sgod_refresh_token");
-    localStorage.removeItem("sgod_user_context");
-  };
-
-  const updateAccessToken = (newToken: string) => {
-    setToken(newToken);
-    localStorage.setItem("sgod_access_token", newToken);
   };
 
   return (

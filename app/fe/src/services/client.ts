@@ -1,6 +1,7 @@
 /**
  * API Client giao tiếp trực tiếp với Backend Chat (app/be/).
- * Mọi request đều gọi qua proxy /api để tránh vấn đề CORS và giấu kín API key.
+ * Hỗ trợ tự động refresh JWT token khi gặp HTTP 401, gửi kèm lịch sử chat,
+ * xử lý lỗi chuẩn và giao tiếp dạng Server-Sent Events (SSE) streaming.
  */
 
 export interface UserContext {
@@ -37,8 +38,24 @@ export interface ToolExecutionRecord {
   tool_name: string;
   arguments: Record<string, any>;
   result: any;
-  success: bool;
+  success: boolean;
+  status_code?: number;
   error?: string;
+  duration_ms?: number;
+  is_running?: boolean;
+}
+
+export interface TokenUsage {
+  prompt_tokens: number;
+  completion_tokens: number;
+  total_tokens: number;
+}
+
+export interface ChatMessage {
+  role: "user" | "assistant" | "system" | "tool";
+  content?: string;
+  name?: string;
+  tool_call_id?: string;
 }
 
 export interface ChatResponse {
@@ -48,9 +65,54 @@ export interface ChatResponse {
   token_refreshed?: boolean;
   new_access_token?: string;
   message?: string;
+  response_time_ms?: number;
+  token_usage?: TokenUsage;
 }
 
-const BASE_URL = ""; // Sử dụng đường dẫn tương đối để tận dụng Vite Proxy /api -> http://localhost:8000
+export interface StreamCallbacks {
+  onStatus?: (statusText: string) => void;
+  onToolStart?: (toolName: string, args: Record<string, any>) => void;
+  onToolResult?: (record: ToolExecutionRecord) => void;
+  onDelta?: (chunk: string) => void;
+  onDone?: (res: ChatResponse) => void;
+  onError?: (errMessage: string) => void;
+}
+
+const BASE_URL = ""; // Đường dẫn tương đối qua Vite Proxy /api -> http://localhost:8000
+
+export function extractErrorMessage(errData: any, status: number): string {
+  if (typeof errData?.detail === "string") {
+    return errData.detail;
+  }
+  if (Array.isArray(errData?.detail)) {
+    return errData.detail
+      .map((e: any) => `${e.loc ? e.loc.slice(-1)[0] + ": " : ""}${e.msg || JSON.stringify(e)}`)
+      .join("; ");
+  }
+  return errData?.message || `Yêu cầu thất bại (HTTP ${status})`;
+}
+
+/**
+ * Dispatch các sự kiện toàn cục để đồng bộ session giữa API Client và React AuthContext.
+ */
+function notifyTokenRefreshed(newAccess: string, newRefresh?: string) {
+  localStorage.setItem("sgod_access_token", newAccess);
+  if (newRefresh) {
+    localStorage.setItem("sgod_refresh_token", newRefresh);
+  }
+  window.dispatchEvent(
+    new CustomEvent("sgod:token_refreshed", {
+      detail: { accessToken: newAccess, refreshToken: newRefresh },
+    })
+  );
+}
+
+function notifyLogout() {
+  localStorage.removeItem("sgod_access_token");
+  localStorage.removeItem("sgod_refresh_token");
+  localStorage.removeItem("sgod_user_context");
+  window.dispatchEvent(new CustomEvent("sgod:logout"));
+}
 
 export async function loginApi(
   credential: string,
@@ -65,7 +127,7 @@ export async function loginApi(
 
   if (!res.ok) {
     const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.detail || errData.message || `Đăng nhập thất bại (HTTP ${res.status})`);
+    throw new Error(extractErrorMessage(errData, res.status));
   }
 
   return await res.json();
@@ -79,7 +141,8 @@ export async function refreshApi(refreshToken: string): Promise<RefreshResponse>
   });
 
   if (!res.ok) {
-    throw new Error("Làm mới token thất bại");
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(extractErrorMessage(errData, res.status));
   }
 
   return await res.json();
@@ -95,40 +158,159 @@ export async function getMeApi(accessToken: string): Promise<MeResponse> {
   });
 
   if (!res.ok) {
-    throw new Error("Phiên làm việc hết hạn hoặc không hợp lệ");
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(extractErrorMessage(errData, res.status));
   }
 
   return await res.json();
 }
 
-export async function sendChatApi(
+/**
+ * Gửi tin nhắn chat đến backend dạng Server-Sent Events (SSE) Streaming.
+ */
+export async function sendChatApiStream(
   message: string,
-  accessToken: string
-): Promise<ChatResponse> {
-  const res = await fetch(`${BASE_URL}/api/chat/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify({ message }),
-  });
+  accessToken: string,
+  history: ChatMessage[] = [],
+  refreshToken?: string,
+  callbacks: StreamCallbacks = {},
+  onTokenRefreshed?: (newToken: string) => void
+): Promise<void> {
+  let currentToken = accessToken || localStorage.getItem("sgod_access_token") || "";
+  const currentRefresh = refreshToken || localStorage.getItem("sgod_refresh_token") || "";
+
+  const doStreamRequest = async (tokenToUse: string): Promise<Response> => {
+    return await fetch(`${BASE_URL}/api/chat/stream`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenToUse}`,
+      },
+      body: JSON.stringify({
+        message,
+        history,
+        refresh_token: currentRefresh || undefined,
+      }),
+    });
+  };
+
+  let res = await doStreamRequest(currentToken);
+
+  // Nếu gặp 401 Unauthorized -> Tự động refresh token và thử lại
+  if (res.status === 401 && currentRefresh) {
+    try {
+      const refRes = await refreshApi(currentRefresh);
+      if (refRes.success && refRes.access_token) {
+        currentToken = refRes.access_token;
+        notifyTokenRefreshed(refRes.access_token, refRes.refresh_token);
+        if (onTokenRefreshed) {
+          onTokenRefreshed(refRes.access_token);
+        }
+        res = await doStreamRequest(currentToken);
+      } else {
+        notifyLogout();
+        callbacks.onError?.("Phiên đăng nhập đã hết hạn");
+        return;
+      }
+    } catch {
+      notifyLogout();
+      callbacks.onError?.("Làm mới phiên làm việc thất bại");
+      return;
+    }
+  }
 
   if (!res.ok) {
     const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.detail || errData.message || `Gửi tin nhắn thất bại (HTTP ${res.status})`);
+    const errText = extractErrorMessage(errData, res.status);
+    callbacks.onError?.(errText);
+    throw new Error(errText);
   }
 
-  return await res.json();
+  if (!res.body) {
+    callbacks.onError?.("Trình duyệt không hỗ trợ đọc dữ liệu stream");
+    return;
+  }
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder("utf-8");
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop() || "";
+
+    let currentEvent = "";
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) {
+        currentEvent = "";
+        continue;
+      }
+      if (trimmed.startsWith("event: ")) {
+        currentEvent = trimmed.slice(7).trim();
+      } else if (trimmed.startsWith("data: ")) {
+        const rawJson = trimmed.slice(6).trim();
+        try {
+          const payload = JSON.parse(rawJson);
+          if (currentEvent === "status") {
+            callbacks.onStatus?.(payload.message || "");
+          } else if (currentEvent === "tool_start") {
+            callbacks.onToolStart?.(payload.tool_name, payload.arguments || {});
+          } else if (currentEvent === "tool_result") {
+            callbacks.onToolResult?.(payload);
+          } else if (currentEvent === "delta") {
+            callbacks.onDelta?.(payload.content || "");
+          } else if (currentEvent === "done") {
+            if (payload.token_refreshed && payload.new_access_token) {
+              notifyTokenRefreshed(payload.new_access_token);
+              if (onTokenRefreshed) {
+                onTokenRefreshed(payload.new_access_token);
+              }
+            }
+            callbacks.onDone?.(payload);
+          } else if (currentEvent === "error") {
+            callbacks.onError?.(payload.error || "Lỗi xử lý mô hình AI");
+          }
+        } catch {
+          // ignore malformed JSON chunk
+        }
+      }
+    }
+  }
 }
 
 export async function getToolsApi(accessToken: string): Promise<{ role: string; count: number; tools: any[] }> {
-  const res = await fetch(`${BASE_URL}/api/tools/`, {
+  let currentToken = accessToken || localStorage.getItem("sgod_access_token") || "";
+  let res = await fetch(`${BASE_URL}/api/tools/`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${currentToken}`,
     },
   });
+
+  if (res.status === 401) {
+    const currentRefresh = localStorage.getItem("sgod_refresh_token");
+    if (currentRefresh) {
+      try {
+        const refRes = await refreshApi(currentRefresh);
+        if (refRes.success && refRes.access_token) {
+          notifyTokenRefreshed(refRes.access_token, refRes.refresh_token);
+          res = await fetch(`${BASE_URL}/api/tools/`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${refRes.access_token}`,
+            },
+          });
+        }
+      } catch {
+        notifyLogout();
+      }
+    }
+  }
 
   if (!res.ok) {
     throw new Error("Không thể tải danh mục công cụ");

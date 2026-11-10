@@ -24,8 +24,13 @@ from fastapi.testclient import TestClient
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
-from app.be import auth, chat_engine, schemas
+from app.be import schemas
 from app.be.main import app
+from app.be.services import (
+    build_user_context,
+    filter_tools_for_role,
+    render_preamble,
+)
 
 
 class TestBackendAuthAndChat(unittest.TestCase):
@@ -42,7 +47,7 @@ class TestBackendAuthAndChat(unittest.TestCase):
             "userType": "enterprise",
             "enterpriseName": "Acme Corp",
         }
-        ctx = auth.build_user_context(user_raw, tier="enterprises")
+        ctx = build_user_context(user_raw, tier="enterprises")
         self.assertEqual(ctx.user_id, "user-123")
         self.assertEqual(ctx.full_name, "Thuong Admin")
         self.assertEqual(ctx.role, "company_admin")
@@ -56,15 +61,15 @@ class TestBackendAuthAndChat(unittest.TestCase):
             "fullName": "Nguyen Van A",
             "userType": "enterprise_user",
         }
-        ctx_emp = auth.build_user_context(emp_raw, tier="enterprise-users")
+        ctx_emp = build_user_context(emp_raw, tier="enterprise-users")
         self.assertEqual(ctx_emp.role, "employee")
         self.assertEqual(ctx_emp.role_vi, "Nhân viên")
         self.assertEqual(ctx_emp.full_name, "Nguyen Van A")
 
     def test_tc02_filter_tools_for_role(self):
         """TC-02: Role-based filtering ensures employee cannot call admin-only tools."""
-        emp_tools = chat_engine.filter_tools_for_role("employee")
-        admin_tools = chat_engine.filter_tools_for_role("company_admin")
+        emp_tools = filter_tools_for_role("employee")
+        admin_tools = filter_tools_for_role("company_admin")
 
         emp_names = {t["function"]["name"] for t in emp_tools}
         admin_names = {t["function"]["name"] for t in admin_tools}
@@ -87,7 +92,7 @@ class TestBackendAuthAndChat(unittest.TestCase):
             tier="enterprise-users",
             role_vi="Nhân viên",
         )
-        rendered = chat_engine.render_preamble(ctx)
+        rendered = render_preamble(ctx)
         self.assertIn("Le Van Test", rendered)
         self.assertIn("Nhân viên", rendered)
         self.assertNotIn("{full_name}", rendered)
@@ -101,7 +106,7 @@ class TestBackendAuthAndChat(unittest.TestCase):
         self.assertEqual(data["status"], "ok")
         self.assertIn("sgod_gateway", data)
 
-    @patch("app.be.auth._send_sgod_request")
+    @patch("app.be.services.auth_service.send_sgod_request")
     def test_tc05_login_endpoint_success(self, mock_send):
         """TC-05: POST /api/auth/login proxies successfully to SGOD and returns tokens."""
         mock_send.return_value = (
@@ -132,7 +137,7 @@ class TestBackendAuthAndChat(unittest.TestCase):
         self.assertEqual(data["access_token"], "mock-access-token-xyz")
         self.assertEqual(data["user_context"]["role"], "company_admin")
 
-    @patch("app.be.auth._send_sgod_request")
+    @patch("app.be.services.auth_service.send_sgod_request")
     def test_tc06_login_endpoint_failure(self, mock_send):
         """TC-06: POST /api/auth/login returns 401 on bad credentials."""
         mock_send.return_value = (
@@ -149,10 +154,17 @@ class TestBackendAuthAndChat(unittest.TestCase):
         self.assertIn("Invalid credentials", resp.json()["detail"])
 
     @patch("tools.sgod.tool_executor.SGODToolExecutor.execute")
+<<<<<<< HEAD
     @patch("app.be.gemini_client.GeminiClient.chat_completion")
     @patch("app.be.routes.get_me_proxy")
     def test_tc07_chat_endpoint_with_tool_loop(self, mock_get_me, mock_chat, mock_executor):
         """TC-07: POST /api/chat executes tool-calling loop and returns response."""
+=======
+    @patch("app.be.clients.gemini_client.GeminiClient.chat_completion_stream")
+    @patch("app.be.services.auth_service.AuthService.get_me")
+    def test_tc07_chat_stream_endpoint_with_tool_loop(self, mock_get_me, mock_chat_stream, mock_executor):
+        """TC-07: POST /api/chat/stream executes tool-calling streaming loop and returns SSE events."""
+>>>>>>> 499781f2e8f16911e949268264bfd77f9a98fd4f
         from tools.sgod.tool_executor import ToolExecutionResult
 
         mock_get_me.return_value = schemas.MeResponse(
@@ -166,6 +178,7 @@ class TestBackendAuthAndChat(unittest.TestCase):
             ),
         )
 
+<<<<<<< HEAD
         # Mock Gemini first returning a tool_call, then returning final answer
         mock_chat.side_effect = [
             (
@@ -173,6 +186,14 @@ class TestBackendAuthAndChat(unittest.TestCase):
                     "role": "assistant",
                     "content": None,
                     "tool_calls": [
+=======
+        # Mock Gemini stream: 1st turn emits tool call, 2nd turn emits delta and usage
+        mock_chat_stream.side_effect = [
+            iter([
+                (
+                    "tool_calls",
+                    [
+>>>>>>> 499781f2e8f16911e949268264bfd77f9a98fd4f
                         {
                             "id": "call_mock_1",
                             "type": "function",
@@ -182,6 +203,7 @@ class TestBackendAuthAndChat(unittest.TestCase):
                             },
                         }
                     ],
+<<<<<<< HEAD
                 },
                 None,
             ),
@@ -192,6 +214,14 @@ class TestBackendAuthAndChat(unittest.TestCase):
                 },
                 None,
             ),
+=======
+                )
+            ]),
+            iter([
+                ("delta", "Dưới đây là danh sách tài sản của bạn từ hệ thống SGOD."),
+                ("usage", {"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30}),
+            ]),
+>>>>>>> 499781f2e8f16911e949268264bfd77f9a98fd4f
         ]
 
         # Mock executor returning success
@@ -202,16 +232,26 @@ class TestBackendAuthAndChat(unittest.TestCase):
         )
 
         resp = self.client.post(
-            "/api/chat",
+            "/api/chat/stream",
             headers={"Authorization": "Bearer fake-token-123"},
             json={"message": "Cho tôi xem danh sách tài sản của tôi"},
         )
         self.assertEqual(resp.status_code, 200)
+<<<<<<< HEAD
         data = resp.json()
         self.assertTrue(data["success"])
         self.assertEqual(len(data["tools_executed"]), 1)
         self.assertEqual(data["tools_executed"][0]["tool_name"], "list_my_assets")
         self.assertIn("danh sách tài sản", data["reply"])
+=======
+        self.assertIn("text/event-stream", resp.headers["content-type"])
+        body_text = resp.text
+        self.assertIn("tool_start", body_text)
+        self.assertIn("list_my_assets", body_text)
+        self.assertIn("tool_result", body_text)
+        self.assertIn("done", body_text)
+        self.assertIn("danh sách tài sản", body_text)
+>>>>>>> 499781f2e8f16911e949268264bfd77f9a98fd4f
 
 
 if __name__ == "__main__":

@@ -1,0 +1,3446 @@
+[
+  {
+    "id": "SC0000000",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Em cần ds ts đc trao tay *ts*, từ *ts* ạ?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000001",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Cho em hỏi *ts* tìm từ khoá Daikin *ts*, ntn *ts*?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000002",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Em tìm *ts* theo tên, số lượng 5 đi, từ Daikin *ts* nhá?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000003",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Mình có *ts* màn hình LG *ts*, limit 20 không ạ?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000004",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Có thể *ts* tìm *ts* theo mã máy, từ khóa ZZTEST *ts*, ơi?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000005",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Mình đang theo dõi *ts* theo từ Dell Latitude, số lượng 20 *ts*?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000006",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Em muốn *ts* tìm kiếm từ khoá Dell *ts*, limit 5 *ts*",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000007",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Nếu có *ts* máy lạnh Daikin *ts*, cho em biết số lượng nhé?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000008",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Em cần *ts* tìm kiếm theo tên máy, từ khoá ZZTEST *ts*, ntn *ts*",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000009",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Cho em hỏi *ts* có *ts* laptop Dell Latitude *ts* ko ạ?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000010",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Mình muốn *ts* tìm kiếm theo từ khoá máy lạnh, limit 20 *ts*",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000011",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Có thể *ts* tìm kiếm theo mã máy, ZZTEST *ts*, từ khóa Laptop *ts* ko ạ?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000012",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "000000006 nó ở đâu mà em thấy nó chưa được chuyển đi dc?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000013",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Em muốn hỏi về số lượng máy mực HP 76A nhá, em biết là còn ít lắm nhỉ?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000014",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Nhớ kiểm tra lại máy lạnh Daikin FTKB50 2HP, số lượng còn lại của nó à?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000015",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Máy lạnh Daikin FTKB50 2HP còn lại mấy cái, 000000006 nó thì sao ạ?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000016",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Cho em hỏi ds *ts* tôi đã nhận giao từ dc?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0000017",
+    "category": "my_assets",
+    "user_role": "employee",
+    "input": "Mình nhớ có mấy máy mực in HP mà, có máy gì giống '[SEED]' ko nhỉ?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010000",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "Nhớ tra cho e danh sách máy HP LaserJet đang ở dc không?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010001",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "E muốn biết danh sách các laptop Dell Latitude hiện tại, nhá?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010002",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "Tra cho em danh sách tất cả các máy in, sl cần hiển thị nhé.",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010003",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "Máy in HP LaserJet đang ở đâu nhá, e muốn tra lại.",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010004",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "E vừa chuyển một máy in về kho mới, tra lại máy in HP LaserJet đi.",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010005",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "E thấy máy in HP LaserJet bị hỏng rồi, tra lại ngay cho em, số lượng lớn nhé.",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010006",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "Tra cho em danh sách các máy in, limit 5 cái nhé.",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010007",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "Máy in Dell đang ở đâu? e muốn tra lại, nhá?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010008",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "E cần tìm máy in của cty, nhá? Số lượng nhiều quá.",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010009",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "Tra lại máy in HP LaserJet, sl cần hiển thị nhé.",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010010",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "E thấy máy in HP LaserJet không hoạt động, tra lại máy in HP LaserJet đi nhá.",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0010011",
+    "category": "my_assets",
+    "user_role": "admin",
+    "input": "Dạo này có tài sản nào tôi giao chưa ạ? Nói thẳng đi, không hiểu tôi nghe chưa nhỉ?",
+    "seed_tool": "list_my_assets"
+  },
+  {
+    "id": "SC0020000",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Đây là thông tin chi tiết về *mực in HP 76A*, đúng không ạ? *Ts* này đang ở đâu ạ?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020001",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "{TS} có thông tin về *zztest-2610100426 x4* ko nhể?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020002",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Màn hình LG 27up850* còn nguyên vẹn chứ? *Ts* nó đang ở đâu?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020003",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Mã 000000003* là gì vậy anh?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020004",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Cấu hình chi tiết của màn hình LG 27UP850* là sao vậy ạ?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020005",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Thiết bị có mã 000000006* đang có lỗi gì vậy?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020006",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Tên thiết bị *000000008* đã được bàn giao chưa vậy?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020007",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Tên *000000001* là cái gì ạ?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020008",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Thông số kỹ thuật của máy lạnh Daikin FTKB50 2HP* thế nào ạ?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020009",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Mã tài sản 000000007* hiện tại có cần bảo trì hay không?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020010",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Tên *000000005* là cái gì vậy?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020011",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "*Cụ thể về tài sản *000000008* thì sao ạ?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020012",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Mày kiểm tra thông tin chi tiết của máy lạnh Daikin FTKB50 2HP, nhớ nói rõ cấu hình và trạng thái hiện tại nhá.",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0020013",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Cho tớ biết về máy lạnh Daikin FTKB50 2HP này, tớ muốn hiểu rõ hơn về lịch sử biến động của nó.",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030000",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Đọc kỹ thông tin chi tiết tài sản: máy chủ 000000007, ạ?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030001",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Admin ơi, tôi muốn biết thông tin chi tiết về máy in HP LaserJet Pro M404dn, cho tôi xem?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030002",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Làm ơn đưa ra danh sách cấu hình chi tiết cho màn hình 000000003 và màn hình 000000004, nhé.",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030003",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Tôi cần báo cáo thống kê tình trạng hiện tại của laptop Dell Latitude 5440, anh có thể gửi cho tôi không?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030004",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Máy chủ ZZTEST-2610100426 x4 hoạt động thế nào? Tôi cần biết chi tiết",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030005",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Anh có thể cho tôi biết tình trạng hiện tại của thiết bị máy in HP LaserJet Pro M404dn, nhỉ?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030006",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Tôi muốn nắm bắt tình hình tài sản của toàn công ty về máy lạnh Daikin FTKB50 2HP, giúp tôi với.",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030007",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Tôi cần thống kê tổng quan về trạng thái sử dụng máy lạnh Daikin FTKB50 2HP trong toàn bộ công ty, anh",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030008",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Tên tài sản ZZTEST-2610100426 x4 có trạng thái gì? Vui lòng đưa ra thông tin chi tiết",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0030009",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Tình trạng máy lạnh Daikin FTKB50 2HP tại tất cả các kho có gì không? Tôi muốn biết rõ",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0040000",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Xin chào, muốn biết chi tiết về thiết bị 000000006, ạ.",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0040001",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Có thể đưa ra báo cáo tổng quan về tất cả các thiết bị mà chúng ta đang quản lý, không?",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0040002",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Điều này, với thiết bị có mã là 000000004, có thể gửi lại cho tôi thông tin chi tiết không?",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0040003",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Với thiết bị có mã là 000000007, cần tôi cung cấp thêm thông tin chi tiết không?",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0040004",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Tôi cần thông tin chi tiết về thiết bị 000000007, có thể?",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0040005",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Thiết bị có tên là ZZTEST-2610100426 x4, có thể tôi cần thông tin về cấu hình và trạng thái không?",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0040006",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Tên thiết bị là QA Test Laptop, tôi muốn biết chi tiết về nó, ạ.",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0040007",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Tôi muốn biết về màn hình LG 27UP850, có thể cung cấp thêm thông tin chi tiết không?",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0040008",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Thiết bị có mã là 000000003, có thể cung cấp thông tin về cấu hình và tình trạng hiện tại không?",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0040009",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Tên thiết bị là Mực in HP 76A, tôi cần thông tin chi tiết về nó, ạ.",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0050000",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Admin ơi, với cái laptop QA Test Laptop này, em cần số liệu về cấu hình hiện tại nhá.",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0050001",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Thế còn cái máy lạnh Daikin ở Tầng 3 - Phòng Kế toán, tình hình nó ổn không ạ?",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0050002",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Với cái màn hình LG mà em đang có, nó đã được chuyển giao sang phòng kỹ thuật chưa ạ? Nên em muốn kiểm tra lịch bảo trì gần đây của nó.",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0050003",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Còn cái máy lạnh FTKB50 2HP ở Tầng 1 - Lễ tân, tình hình sử dụng thế nào rồi, anh kiểm tra giúp đi.",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0050004",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Vậy với máy lạnh FTKB50 2HP ở Tầng 1 - Lễ tân, anh hãy cho e biết nó còn bảo hành nữa không ạ?",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0050005",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Admin ơi, tình hình màn hình LG 27UP850 ở Tòa nhà kho B thế nào vậy, anh kiểm tra giúp e đi.",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0050006",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Nhân viên ơi, với cái laptop QA Test Laptop, em cần tổng hợp số liệu về tình hình hoạt động từ năm 2020 trở về trước.",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0050007",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Với máy lạnh FTKB50 2HP ở Tầng 1 - Lễ tân, anh hãy đưa cho e biết lịch bảo trì gần nhất từ tháng 6 năm ngoái đến nay nhá.",
+    "seed_tool": "get_asset_histories"
+  },
+  {
+    "id": "SC0060000",
+    "category": "category",
+    "user_role": "employee",
+    "input": "Bạn có thể liệt kê tất cả các danh mục tài sản hiện có với số lượng máy tính, màn hình và máy lạnh không nhá?",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0060001",
+    "category": "category",
+    "user_role": "employee",
+    "input": "{\"type\": \"multi_constraint\", \"category\": \"employee\", \"constraints\": [{\"field\": \"assetType\", \"value\": \"计算机\", \"operator\": \"EQ\"}, {\"field\": \"count\", \"value\": \"5\", \"operator\": \"GT\"}], \"count\": 5}",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0060002",
+    "category": "category",
+    "user_role": "employee",
+    "input": "Xin hãy cho em danh sách các danh mục tài sản có ít nhất 10 máy tính, màn hình và máy lạnh đi ạ.",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0060003",
+    "category": "category",
+    "user_role": "employee",
+    "input": "Rồi nữa, cho em biết danh mục tài sản với ít nhất 10 máy lạnh không ạ?",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0060004",
+    "category": "category",
+    "user_role": "employee",
+    "input": "Rất cần gấp, danh sách các danh mục có số lượng màn hình nhiều hơn 5 máy, nhỉ?",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0060005",
+    "category": "category",
+    "user_role": "employee",
+    "input": "Xin chào, hãy chỉ ra cho tôi danh sách tất cả các danh mục tài sản theo dõi số lượng máy tính và máy lạnh, với số lượng ít nhất 10 máy ạ?",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0060006",
+    "category": "category",
+    "user_role": "employee",
+    "input": "Xin chào, có thể giúp em liệt kê danh mục tài sản với ít nhất 20 màn hình và máy lạnh không nhá?",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0060007",
+    "category": "category",
+    "user_role": "employee",
+    "input": "Danh mục tài sản có mấy loại nhỉ nv? Số lượng các loại nhóm tài sản nhé.",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0070000",
+    "category": "category",
+    "user_role": "admin",
+    "input": "Xin chào, tôi muốn biết có bao nhiêu danh mục tài sản hiện tại?",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0070001",
+    "category": "category",
+    "user_role": "admin",
+    "input": "Ban lãnh đạo ơi, tôi cần tổng hợp số nhóm tài sản và lưu lượng thiết bị trong mỗi danh mục, được không?",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0070002",
+    "category": "category",
+    "user_role": "admin",
+    "input": "Tôi cần thống kê cụ thể, có mấy nhóm tài sản mà chúng ta đang sử dụng không? {}",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0070003",
+    "category": "category",
+    "user_role": "admin",
+    "input": "Có thể tôi muốn biết thêm số lượng thiết bị trong từng danh mục. Tôi muốn biết có mấy nhóm tài sản mà chúng ta quản lý.",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0070004",
+    "category": "category",
+    "user_role": "admin",
+    "input": "Dựa trên dữ liệu mà chúng ta đang có, có bao nhiêu danh mục tài sản cơ bản đang tồn tại không?",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0070005",
+    "category": "category",
+    "user_role": "admin",
+    "input": "Xin chào admin, hãy liệt kê danh mục tài sản, với tối đa 20 dòng nhé nhá.",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0070006",
+    "category": "category",
+    "user_role": "admin",
+    "input": "{nv}, có thể kiểm tra lại danh mục thiết bị có đúng không ạ? Số lượng dòng kết quả mong đợi là 5.",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0070007",
+    "category": "category",
+    "user_role": "admin",
+    "input": "Với số lượng tài sản trong mỗi danh mục, hãy tổng hợp danh sách, từ đó báo cáo số nhóm tài sản có 3 nhé.",
+    "seed_tool": "list_categories"
+  },
+  {
+    "id": "SC0080000",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Cho em xem thông tin về vị trí này, boss?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0080001",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Có thể anh giúp em biết số lượng tài sản ở kho dc6ad615353b0f8e12e2f190be được không?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0080002",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Em đang cần biết tổng cộng có bao nhiêu tài sản ở kho B, nhá?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0080003",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Đây là mã ID vị trí của kho, cho em xem thông tin, được không? 6ac9bec627541dacd0a77f7e",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0080004",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Boss, em cần số lượng cụ thể của tài sản tại kho này, được không? 6ac9c52451e750872e755fad",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0080005",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Có thể em nhờ boss tra số lượng tài sản tại kho tổng không, dc6ad615353b0f8e12e2f190be?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0080006",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Em cần biết tổng số tài sản ở kho này, ạ, 000000005?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0080007",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Cho em xem danh sách các kho hiện có, boss, nhá?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0080008",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Có thể anh chỉ điểm cho em về thông tin cụ thể của một kho cụ thể, ạ? 6ac9bece27541dacd0a78006",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0080009",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Dạ, cho em hỏi về vị trí kho bãi số ID 6ac9bec727541dacd0a77f80, anh có thể biết thêm thông tin gì không nhể?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090000",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Làm ơn cho em biết danh sách các kho tại chỗ với nhá?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090001",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Tại sao số lượng thiết bị tại Kho B là bao nhiêu ạ?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090002",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Nếu dán mã ID vị trí là 6ac9bec727541dacd0a77f80, em muốn biết thông tin cụ thể của vị trí đó nhé.",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090003",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Cho hỏi tại sao số lượng máy lạnh tại kho tổng là 10 cái ạ?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090004",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Em muốn biết tổng số thiết bị lưu trữ tại Kho B có bao nhiêu ạ?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090005",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Tại sao số lượng thiết bị lưu trữ tại vị trí mã ID 6ac9bec727541dacd0a77f80 là 5 cái nhá?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090006",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Dùng mã ID vị trí là 6ac9bec627541dacd0a77f7e, cho mình tra cứu thêm số lượng thiết bị lưu trữ nhé.",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090007",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Làm ơn cho biết tổng số lượng thiết bị tại Kho tổng là bao nhiêu ạ?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090008",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Em muốn biết số lượng thiết bị tại vị trí mã ID 6ac9bece27541dacd0a78006 có bao nhiêu ạ?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0090009",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Tại sao số lượng thiết bị tại vị trí mã ID 6ac9be1627541dacd0a77df0 là 20 cái ạ?",
+    "seed_tool": "list_locations"
+  },
+  {
+    "id": "SC0100000",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Cho em hỏi vị trí có mã ObjectId là 6ad615353b0f8e12e2f190bc chứa thông tin gì ạ?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0100001",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Dù sao cũng cho em hỏi tình hình ở kho có id là 6ac9bec627541dacd0a77f7f này thế nào?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0100002",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Làm ơn kiểm tra xem kho 6ac9bec627541dacd0a77f7f có đủ chỗ để thêm thêm tài sản nữa không nhá?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0100003",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Nhân viên kinh doanh có thể tra được thông tin về kho 6aa2c144da46d70ee2f491c0 được không ạ?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0100004",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Vị trí với mã id là 6ac9bec627541dacd0a77f7f đang giữ bao nhiêu loại tài sản ạ?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0100005",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Đồng chí trưởng phòng có thể chỉ điểm vị trí 6ac9bec727541dacd0a77f80 có thông tin chi tiết không?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0100006",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Công việc hôm nay là đi tra xem tài sản tồn tại ở vị trí 6ac9bec627541dacd0a77f7f thế nào?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0100007",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Cho em hỏi về vị trí này, có thể biết thông tin gì không? Mã id vị trí là 6ac9bec727541dacd0a77f80.",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0110000",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Có thể bạn đã quên mã vị trí, admin. Nhưng tôi nhớ có một vị trí mã id 6ad615353b0f8e12e2f190be có nhiều tài sản. Tôi muốn tra cứu thêm thông tin về vị trí này.",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0110001",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Tôi có một yêu cầu nguy cấp, admin. Cần tra cứu thông tin về vị trí mã id 6ad615353b0f8e12e2f190be. Tôi cần nó lập tức.",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0110002",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Cho tôi biết thông tin về vị trí mã id 6ac9be9627541dacd0a77e89 này, admin. Có bao nhiêu tài sản được lưu trữ tại đây?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0110003",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Admin ơi, tôi nhớ là có một vị trí mã id 6ad615353b0f8e12e2f190be lưu trữ nhiều máy lạnh, cần tra cứu lại thông tin cụ thể.",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0110004",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Nhớ có vị trí mã id 6ad615353b0f8e12e2f190ba lưu trữ rất nhiều tài sản, admin. Tôi cần tra cứu thêm thông tin về vị trí này.",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0110005",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Cho em xem thông tin về kho bãi này ạ, location_id là 6ac9be9627541dacd0a77e8a.",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0110006",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Thư ký ơi, tại vị trí nào này có lưu trữ máy lạnh và màn hình ko?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0110007",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Mình cần tra số lượng *ts* ở vị trí 6ad615353b0f8e12e2f190bc, có ai biết không ạ?",
+    "seed_tool": "get_location"
+  },
+  {
+    "id": "SC0120000",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách nhân viên bị khóa cty, nháy vào",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0120001",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nhấn 10 nv đc tạo hôm nay",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0120002",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Tài khoản đc verify mới đây, cho mình 1 ds",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0120003",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản active ở phòng kd",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0120004",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Làm ơn xem ds tài khoản dang dc review",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0120005",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nhấn danh sách nhân viên đã block dc",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0120006",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản chưa kích hoạt, ạ",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0120007",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nhấn 20 tài khoản mới dc create",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0120008",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt từ hôm qua.",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0120009",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 5 người hiện tại đang active.",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0130000",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Xem danh sách nhân viên đang bị khóa, cho em 5 kết quả",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0130001",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Danh sách tài khoản mới kích hoạt, 10 kết quả đi nhá",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0130002",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Lấy 10 người đang active, dc nhá",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0130003",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Xin danh sách nhân viên phòng kế toán, cho mình biết nhá",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0130004",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Xem nhân viên đang bị khóa, có đc 10 kết quả ko dc",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0130005",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Nhân viên ơi, xin lỗi em, mình lấy 10 người đang active nhá!",
+    "seed_tool": "get_enterprise_profile"
+  },
+  {
+    "id": "SC0140000",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Xin admin, tôi muốn biết chi tiết về thiết bị 000000001, cụ thể là cấu hình và trạng thái hiện tại.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140001",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Tôi cần ngay thông tin cấu hình, tình trạng vận hành, lịch bảo dưỡng gần nhất của thiết bị QA Test Laptop.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140002",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Cần có thông tin về màn hình LG 27UP850, đặc biệt là số lượng và trạng thái đang tồn kho tại vị trí nào?",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140003",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Đề nghị admin kiểm tra kỹ tình hình bàn giao mới của máy lạnh Daikin FTKB50 2HP, còn tồn khóa tại vị trí nào?",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140004",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Trình bày cụ thể thông tin về máy lạnh Daikin FTKB50 2HP, bao gồm số lượng và địa điểm tồn kho.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140005",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Cần nắm rõ số lượng và địa điểm tồn kho của máy lạnh Daikin FTKB50 2HP và lịch bảo trì gần đây nhất.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140006",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Admin, gửi danh sách toàn bộ thiết bị có tên QA Test Laptop với đầy đủ thông tin cấu hình, tình trạng.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140007",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Tôi cần thông tin tổng quát về máy lạnh Daikin FTKB50 2HP, bao gồm số lượng, trạng thái tồn kho và lịch bảo dưỡng gần đây.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140008",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Cần xác minh về tình hình tồn kho của màn hình LG 27UP850 và lịch bảo trì gần nhất. Hãy gửi thông tin.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140009",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Đề nghị admin cung cấp thông tin về máy lạnh Daikin FTKB50 2HP, bao gồm số lượng và địa điểm tồn kho hiện tại.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140010",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Tôi cần biết tổng số máy lạnh Daikin FTKB50 2HP hiện có cùng thông tin về vị trí và lịch bảo dưỡng gần nhất.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0140011",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Admin, hãy cung cấp chi tiết về tình hình tồn kho của màn hình LG 27UP850 và lịch bảo trì gần nhất.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0150000",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Đưa ra thông tin chi tiết và lịch sử vận hành của màn hình LG 27UP850, ạ.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0150001",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "{\"asset_ref\": \"Màn hình LG 27UP850\"}",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0150002",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Cho tôi biết tình trạng hiện tại cũng như tất cả các thay đổi trong quá khứ của máy lạnh Daikin FTKB50 2HP, nhá.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0150003",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "{\"asset_ref\": \"Máy lạnh Daikin FTKB50 2HP\"}",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0150004",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Có thể bạn chưa biết, nhưng tôi muốn hỏi về cấu hình và tình trạng sử dụng của laptop Dell Latitude 5440 trong phòng kinh doanh, nhá. Hãy cung cấp mọi thông tin cần thiết.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0150005",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "{\"asset_ref\": \"Laptop Dell Latitude 5440\", \"vt\": \"Phòng Kinh doanh\"}",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0150006",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Xin hãy tổng hợp lại danh sách tất cả máy in HP LaserJet Pro M404dn được chuyển giao vào năm 2023, ạ.",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0150007",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "{\"asset_ref\": \"Máy in HP LaserJet Pro M404dn\", \"status\": \"chuyển giao\", \"year\": \"2023\"}",
+    "seed_tool": "get_asset_statistics"
+  },
+  {
+    "id": "SC0160000",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Xin boss, hôm nay ta cần tra một danh sách lịch bảo dưỡng đã hoàn thành, có thể là 5-10 item ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160001",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "NV ơi, cho e tra một chút lịch bảo trì công ty mà còn hiệu lực ạ, tầm 5-10 item nhỉ?",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160002",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Trưởng phòng, cần 5 lịch bảo trì trong tuần này chưa được bảo trì, có thể là trong trạng thái 'hoàn thành' ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160003",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Mgr ơi, có thể có lịch bảo trì đã hoàn thành ở trạng thái 'hoàn thành', e mong là 5 item ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160004",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Mgr, e muốn biết lịch bảo trì đã hoàn thành ở trạng thái 'hoàn thành', mong là từ 5 đến 10 item ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160005",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Mgr ơi, cần 5 lịch bảo dưỡng đang hoạt động, có thể 5-10 item cũng được ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160006",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Mgr, muốn tìm lịch bảo trì đã hoàn thành, khoảng 5-10 item ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160007",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nv, e cần lịch bảo trì công ty đã hoàn thành trong tuần này, mong là ít nhất 5 item ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160008",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Mgr ơi, muốn xem lịch bảo dưỡng còn hiệu lực, mong là 5-10 item ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160009",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nv, e cần lịch bảo trì công ty vừa mới hoàn thành, có thể 3-5 item cũng được ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160010",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Cho nv hỏi về danh sách bt trong ds bt active, hãy limit thành 20 ts nhá.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160011",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Mình cần xem ct dt bh ds tb co status completed thi nhung ko tra 20 ts dc, ok k a?",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160012",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nhắn cho ql dc rằng m muốn dk ds bt active lai thi nhieu hon va nhieu bs khac nhau.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160013",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Tụi nv pm cho anh nhom dt cty da ket hop 20 ds ds bt active va 10 ds ds bt da thanh hoacon dc nhá.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160014",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Thắc mắc về tb, hỏi nhieu trum 20 ct tb active de lam bt nhá.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0160015",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Ky thuật, m muon dm cho ban phong danh sach 20 ct tb da den 20 thoi dang completed nhá.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170000",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Đăng nhập và tra cứu lịch bảo trì máy móc đang hoàn thành, tối đa 5 mục, nv nhì?",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170001",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Chào boss, tôi muốn xem lịch bảo dưỡng đang hoạt động ở các bộ phận công ty, cho em hỏi có lịch nào trong tháng này ko nhỉ?",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170002",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Trưởng phòng, tôi cần danh sách tất cả các lịch bảo trì đã hoàn thành từ hôm qua, số lượng không nhiều quá 3 item ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170003",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Mình cần biết có lịch bảo trì nào chưa từng hoàn thành trong tuần này, có thể cho mình xem những bộ phận đã qua bảo dưỡng chưa?",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170004",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Nhân viên văn phòng, xem lại lịch bảo dưỡng từ ngày trước đến hôm nay, hãy lấy số lượng 20 lịch mà còn đang hiệu lực ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170005",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Công ty đã hoàn thiện lịch bảo trì nào hôm nay và hôm qua, hãy lấy 3 đơn vị mà chưa được kiểm tra kỹ càng ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170006",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Thủ trưởng, tôi cần tra cứu toàn bộ lịch bảo trì mà đã được hoàn thành, trong số đó hãy chọn ra ít nhất 5 bộ phận nhé.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170007",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Chị ơi, có thể cho em xem lịch bảo trì của ngày mai được không? Và nhớ chỉ lấy lịch đã hoàn thành, tối đa 3 mục ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170008",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Dịch vụ bảo hành, xin lỗi nếu trùng công việc, có lịch nào trong tuần tới mà đã hoàn thành chưa? Hãy đưa cho tôi biết số lượng 20 lịch mà còn đang hiệu lực ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170009",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Kỹ sư, có lịch bảo dưỡng nào đang được thực hiện chưa? Hãy liệt kê ra số lượng 3 lịch mà đang hiệu lực trong hôm nay nhé.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170010",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Trưởng phòng, xin hãy tra cứu lại lịch bảo dưỡng đã hoàn thành và hiện đang hiệu lực, cho tôi xem tất cả số lượng 20 lịch ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0170011",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Chào anh, tôi cần xem toàn bộ lịch bảo trì mà đang được hoàn thành, trong số đó hãy chỉ ra 5 bộ phận đã bảo dưỡng xong trong vài ngày qua ạ.",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0180000",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Dì ơi, dò xem lịch bt đợt vừa qua của tb 1306 này nhá, chỉ cần có ds active thôi ạ.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180001",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Với nv 301, check lại lịch bt sắp tới đã hoàn thành mà còn đc hạn chế ở sl 3 nè.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180002",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Có thể nv P3 gọi lại với nhau, dặn dò lịch bt sắp diễn ra tại vị trí vt 6ac9bec727541dacd0a77f80, cần phải xem ds completed, limit = 5?",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180003",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Mình cần thằng kia dò lịch bt gần nhất mà còn trống, hãy lấy sl = 2 nhé.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180004",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nếu nv văn phòng muốn check lại lịch bảo trì đợt trước tại ctty, hãy liệt kê ds active và limit = 2.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180005",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Trong nhóm tb, mình cần tra cứu lịch bt đợt mới nhất tại vị trí vt 6ac9bec627541dacd0a77f7e, chỉ cần có active và sl = 1.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180006",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nếu nv P4 muốn check lịch bt sắp diễn ra tại vị trí vt 6ac9bec627541dacd0a77f7e, cần phải xem ds active và limit = 3.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180007",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Với nv P4, hãy lấy ds bt đợt mới nhất tại vị trí vt 6ac9bec627541dacd0a77f7e, chỉ cần active và limit = 1.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180008",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nếu nv P4 muốn tra cứu lịch bt sắp diễn ra tại vị trí vt 6ac9bec727541dacd0a77f80, hãy limit = 3 và chỉ xem ds active.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180009",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Mình cần nv văn phòng xem lại lịch bt đợt gần nhất tại vị trí vt 6ac9bec627541dacd0a77f7e, chỉ cần active và sl = 2.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180010",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Trong nhóm P4, mình cần check lại lịch bt đợt mới nhất tại vị trí vt 6ac9bec727541dacd0a77f80, chỉ cần active và sl = 3.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0180011",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nếu nv P4 muốn xem lại lịch bt đợt gần nhất tại vị trí vt 6ac9bec727541dacd0a77f80, chỉ cần có active và sl = 2.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0190000",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Kính nhờ anh kiểm tra lịch bảo trì máy móc hiện tại, có thể lọc theo trạng thái đang hiệu lực không nhỉ?",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0190001",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Em thấy lịch bảo trì thứ ba hôm nay cần được chú ý hơn, bác check giúp mình với nhá!",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0190002",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Dạo này bảo trì nhiều quá, cho mình biết lịch bảo dưỡng vừa mới hoàn tất trong tuần nay đã bảo hành chưa?",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0190003",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "{nv} ơi, hãy tra cứu lại cho mình lịch bảo trì máy lạnh FTKB50 2HP gần đây, nhớ kết hợp trạng thái đang hiệu lực và đã hoàn thành nhé.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0190004",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Anh cần xem lại lịch bảo trì máy lạnh FTKB50 2HP gần nhất trong tháng, cả hai trạng thái hiệu lực và hoàn thành, anh nhỉ?",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0190005",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Mình muốn biết lịch bảo trì máy lạnh gần đây nhất, nhưng phải là trạng thái đang hiệu lực, bạn tìm giúp mình đi!",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0190006",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "{nv} ạ, lịch bảo dưỡng máy lạnh gần nhất mà anh cần là đã hoàn thành, hãy tra cứu giúp mình.",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0190007",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Đợt bảo dưỡng máy lạnh gần đây nhất, anh có thấy nó đang hiệu lực hay đã hoàn thành không?",
+    "seed_tool": "get_maintenance_schedule"
+  },
+  {
+    "id": "SC0200000",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Nên tra list maintenance records gần đây, bb có thể dc xem trong 10 ds nhieu ko? Anh cần coi bb dc daca den den.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200001",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Nếu nv có bb nghiệm thu xong dc xem lai, dc dc ntn? Dc coi 10 ds nhe.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200002",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Tra lich s giam doc cho ba mon may bat nhieu, bt dc ko, 10 ds dc ko nhieu? Anh chia buoc da roi?",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200003",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Ky thuat van phong, moi dc tra list maintenance records den nhat ke, 10 ds dc ko? Dung ve ban ghi bt xac thuc.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200004",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Nhu ca nhom ky thuat van phong dc tra danh sach 10 ds maintenance records den nhat ke ko? 10 ds dc ko?",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200005",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Tra lich s bt lai cho ba mon, ba ds dc ko? Ba ds, bb lai.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200006",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Tra list maintenance records den nhat ke, ba ds dc ko? Anh nhieu no dc? Chua co ma nhieu.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200007",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Tra danh sach maintenance records den nhat ke, nhieu dc ko? 10 ds, ba ds dc ko? Dc xem.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200008",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Ba ngay lai, tra list maintenance records cho ba ds, dc ko? Dc xem.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200009",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Ky thuat van phong, moi dc tra list maintenance records den nhat ke, nhieu dc ko? Nhat ke den ngay hien tai, 20 ds dc ko?",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200010",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Dang nhap, mo page, tra list maintenance records den ngay hien tai, nhieu dc ko? Dc xem, 5 ds dc ko?",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0200011",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Nếu có thể, anh em dò xét bb gần đây, bt ds *sl* 10 thưa chị ạ.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0210000",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Nhìn lại bb bt vừa mới xong thưa anh!",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0210001",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Em muốn xem tb bt ko? Nguồn từ nv P5 à?",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0210002",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Chào qúy tham mưu, tôi cần xem bt hoàn thiện gần đây nhá.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0210003",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Tìm lại bb bt ạ, nhớ là có số lượng 5 nhỉ?",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0210004",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Kính nhờ anh qúy chủ tịch, tôi muốn tra cứu bb bt 10 tháº¥u nhau?",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0210005",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Xin qúy đồng chí giúp, tra cứu dt bt trong đợt gần đây",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0210006",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "{nv} có btt tháº¥u 10 ko? Nhìn lại đê, nhá.",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0210007",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Nhớ tra cứu bt xong trong tháng này nhá, em muốn tham khảo 5 tháº¡u",
+    "seed_tool": "list_maintenance_records"
+  },
+  {
+    "id": "SC0220000",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Ái ới, thím ơi, list mệt bt cua lịch nay giùm ạ? Là 6ad615353b0f8e12e2f190e4, coi coi 5 cv đi nhá.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220001",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào, em muốn check tat ca tb cua lt nay, e dang ky la 6ad615353b0f8e12e2f190e4, ko dc thieu thuc thiet nhieu ve thoi gian hay trang thai, a?",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220002",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Em dang can danh sach tb, la 6ad615353b0f8e12e2f190e4, mong la co 10 cv cho em, a!",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220003",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào, cần list tb cua lịch nay la 6ad61353b0f8e12e2f190e4, nhanh chóng nhé, ok k ạ?",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220004",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào, em xin được request list các task bảo trì của lịch nay là 6ad615353b0f8e12e2f190e4, hẵn ko thieu thuc thien ạ.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220005",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào, em cần list tất cả task bt liên quan đến lịch nay 6ad615353b0f8e12e2f190e4, coi 10 cv ạ?",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220006",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào, em cần list tb của lịch nay là 6ad615353b0f8e12e2f190e4, 20 cv coi coi ạ.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220007",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Dạ thưa, cần list tb cua lịch bt 6ad615353b0f8e12e2f190e4, mong là ko quá nhiều detail a.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220008",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin boss, kiểm tra bt liên quan đến lịch bảo trì này, nhá, 6ad615353b0f8e12e2f190e4, cho em hỏi. Tao muốn biết cv và ds tình trạng.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220009",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Anh ơi, cho em xem cv và bt dang dang thi cong viec lien quan den lech cap nhat nay, dc ko? Ma lech la 6ad615353b0f8e12e2f1910d.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220010",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Ky thuat a, cho em den danh sach cong viec dang da thuc hien va dang phan hanh voi lech cap nhat nay, co the khong? Ma lech la 6ad615353b0f8e12e2f190e4.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220011",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nhu ve lech la 6ad615353b0f8e12e2f190e4, ma mong tao ke thua ds cong viec dang da hoan thanh va dang da den don hanh, thay. Co the ko?",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220012",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Chuc nang ql cv va tb, thuong em tra loi roi. Cho em den danh sach cac task dang da phat sinh va dang da hoan thanh voi lech cap nhat 6ad615353b0f8e12e2f190e4, dc ko? Co the khong?",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0220013",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Ky thuat, ma anh cho e den danh sach cong viec dang da thuc hien va dang da da den don hanh voi lech cap nhat 6ad615353b0f8e12e2f1910d, thay. Anh co the cho em xem ko?",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230000",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Nè, tui cần tham khảo cv cho bs lai nay nhieu nhat. Maintenance Schedule Id co the la 6ad615353b0f8e12e2f1910d, nhung tui bi mat. Tao den dc ve trang cong viec. Tao dang di. Mong dc dc. Đc ko?",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230001",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Xin lỗi, tui nhớ tinh thần, mong tao dc xem cv ve dang nhap. Co thoi gian dc k, maintenance schedule la 6ad615353b0f8e12e2f1910d?",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230002",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Này, tui muốn tk cv ve cong viec, maintenance schedule co the la 6ad615353b0f8e12e2f1910d. Tao khong thay dc nua. Mong dc xem.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230003",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Tui hieu tham gia thi tui thoi, mong dc tham gia ve cong viec. Maintenance schedule la 6ad615353b0f8e12e2f1910d, tui ko co duoc. Mong dc xem nha.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230004",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Này, tui chua dc xem cv thoi. Maintenance schedule la 6ad615353b0f8e12e2f1910d, mong dc xem.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230005",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Thôi, tui hien tai bi trum thoi. Tui mong dc tham gia ve cong viec, maintenance schedule la 6ad615353b0f8e12e2f1910d. Tao dang di lam. Mong dc dc.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230006",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Này, tui chua dc xem cv, mong tao dc xem tham gia ve cong viec, maintenance schedule la 6ad615353b0f8e12e2f1910d.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230007",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Này, tui bi ma thoi, mong tao dc xem cv, maintenance schedule la 6ad615353b0f8e12e2f1910d. Tao khong co thoi gian dc. Mong dc dc.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230008",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Tui bi mat cv, mong tao dc xem tham gia ve cong viec, maintenance schedule la 6ad615353b0f8e12e2f1910d. Tao dang lam mot chuc nang moi. Mong dc dc.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0230009",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Xin lỗi, tui bi ma thoi, mong tao dc xem cv tham gia ve cong viec, maintenance schedule la 6ad615353b0f8e12e2f1910d. Tao hieu dang lam. Mong dc dc.",
+    "seed_tool": "list_maintenance_tasks"
+  },
+  {
+    "id": "SC0240000",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "tt em cần xem lại p. nv tt cua minh?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240001",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "tôi nhớ email sđt tt mình đk rùi, cho em xem lại?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240002",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "nv tui dc cho nhap email, sđt tui dc k?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240003",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "hồ sơ tt cua tui dc bao gio? cho em xem email tui da dc bao gio?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240004",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "sđt nv tui la gi tui mn? nhung nay lai la email tui!",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240005",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "cho e xem lại tttt tui nhe, em hoi lai email, sđt tui dc khong?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240006",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "tôi muốn xem lại email và sđt mình đăng ký, mn cho biết được k?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240007",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "tt cua tui dc k, tui mn dang nhap rùi?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240008",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "nhung nv tui co email va sđt khong, em cho e xem?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240009",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "tui mn dc dc sđt email tt rùi, nhưng mn ko cho e xem, mn cho em xem dc k?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240010",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "sđt va email tt cua tui rùi, mn cho e xem dc k?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240011",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "tt tôi tao muốn xem lẹ hồ sô tao cị",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240012",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "em p. nào tao dang ky dc tìm lây?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0240013",
+    "category": "user_profile",
+    "user_role": "employee",
+    "input": "sđt dang ky cua minh dc k?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0250000",
+    "category": "user_profile",
+    "user_role": "admin",
+    "input": "tt của nv em? p.",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0250001",
+    "category": "user_profile",
+    "user_role": "admin",
+    "input": "sđt nv p. có đúng ko?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0250002",
+    "category": "user_profile",
+    "user_role": "admin",
+    "input": "xem lại nv và tt p. ạ.",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0250003",
+    "category": "user_profile",
+    "user_role": "admin",
+    "input": "em muốn biết p. đang ở đâu?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0250004",
+    "category": "user_profile",
+    "user_role": "admin",
+    "input": "họ tên nv p. như thế nào?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0250005",
+    "category": "user_profile",
+    "user_role": "admin",
+    "input": "sđt và mail nv p. được đăng ký như thế nào?",
+    "seed_tool": "get_my_profile"
+  },
+  {
+    "id": "SC0260000",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "ql nv em có quyền duyệt phiếu nhá?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260001",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "check quyền thao tac tren SGOD dc ma?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260002",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "nhung vai tro cua tai khoan hieu gi nhiep?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260003",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "anh dc quyen tu van nhiep?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260004",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "tk em co quyen su dung bao hanh khong?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260005",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "tb thao tac nua voi cac ds luong nua?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260006",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "ql cong viec hien tai cua tai khoan dc?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260007",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "nhieu vai tro cua tai khoan thi con gi nhieu?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260008",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "quyen luat da cap den tai khoan nay?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260009",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "check nhung quyen da cap den tai khoan dc khong?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260010",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "tb dang nhap cua ta co quyen thuc hien luon?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260011",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "anh co quyen dat bao hanh cho ts nao nhiep?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260012",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "Chỗ anh có quyền duyệt phiếu không nhỉ?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0260013",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "Anh/chị check quyền thao tác trên SGOD được không?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0270000",
+    "category": "user_permission",
+    "user_role": "admin",
+    "input": "anh co quyen duoc di vu phiếu khong?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0270001",
+    "category": "user_permission",
+    "user_role": "admin",
+    "input": "check qua trien luan lenh tren SGOD dc ko?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0270002",
+    "category": "user_permission",
+    "user_role": "admin",
+    "input": "quyen luon chuc nang cong viec nhung?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0270003",
+    "category": "user_permission",
+    "user_role": "admin",
+    "input": "taikhoan em co the thuc hien cac chuc nang cao khong?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0270004",
+    "category": "user_permission",
+    "user_role": "admin",
+    "input": "chuc nang tu phan quyen cua SGOD nhu the nao?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0270005",
+    "category": "user_permission",
+    "user_role": "admin",
+    "input": "tài khoản em có quyền gì nhá?",
+    "seed_tool": "get_my_permissions"
+  },
+  {
+    "id": "SC0280000",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt, dc nhá?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280001",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 10 người đang active, ctty?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280002",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem nhân viên phòng kế toán, số lượng đủ à nhá?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280003",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xin sđt mấy anh chị trong phòng kinh doanh, nhá?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280004",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản Pending, số lượng ít thì dc",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280005",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 3 người tài khoản Blocked, ok ko?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280006",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản Active, số lượng nhiều tí cho mình với",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280007",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Số điện thoại mấy đồng nghiệp phòng IT, em cần nó mà",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280008",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản Block, số lượng ít ớt nhá",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280009",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách nhân viên đang bị khóa, admin ơi!",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280010",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Với tư cách là admin, xin phép kiểm tra danh sách tài khoản mới kích hoạt, nhá.",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0280011",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Cho em xem 20 người đã kích hoạt, ạ. Cảm ơn.",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0290000",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Em xin phép boss, boss xem hộ mình danh sách nhân viên đang bị khóa ạ.",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0290001",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Mình có thể nhờ công ty lấy 10 người đã kích hoạt tài khoản mới được không?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0290002",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Xin hỏi mình số điện thoại của anh Văn trong phòng kinh doanh, nhớ nhầm là em nhớ có typo nhỉ?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0290003",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Lỗi nhỏ, mình chỉ cần danh sách những người đã được cấp quyền admin thôi, boss giúp mình với!",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0290004",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Em thấy hôm nay nhân viên phòng kinh doanh có nhiều người đi muộn quá, mình xin hỏi boss có thể xem danh sách họ được không?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0290005",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Dạ, em muốn xem số lượng tài khoản mới kích hoạt là bao nhiêu, boss cho em biết với?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0290006",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Mình chỉ cần biết có mấy nhân viên đang ở trạng thái Active, nếu được thì số lượng ít nhất cũng đủ rồi, boss cho biết vậy?",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0290007",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Xin hỏi boss có thể lấy danh sách người dùng mới kích hoạt gần đây với, chỉ cần vài tên thôi ạ.",
+    "seed_tool": "list_enterprise_users"
+  },
+  {
+    "id": "SC0300000",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Xin chào, boss, liệu có phiếu chuyển giao nào cho máy lạnh này ko?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300001",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Để tôi xem số lượng phiếu chuyển giao từ phòng Kế toán nhá?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300002",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Mình nhớ đã có một vài phiếu chuyển giao nào từ Kho B mà nhỉ?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300003",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Xin chào, kiểm tra xem có phiếu nào đang chờ nhận ở phòng Kỹ thuật ko?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300004",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Em cần biết có bao nhiêu phiếu chuyển giao đang chờ xác thực ở [SEED] 6ac9bece27541dacd0a78006.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300005",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Nhắn em nếu có phiếu chuyển giao từ kho tổng tới phòng Kinh doanh, ok?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300006",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Thế này nhỉ, kiểm tra số phiếu chuyển giao đã gửi từ [SEED] 6ad615353b0f8e12e2f190be đi.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300007",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Xin lỗi vì đã làm phiền trước, có phiếu nào chuyển từ [SEED] 6ac9be9f27541dacd0a77f0d đến Khu vực chính không?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300008",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Em muốn biết số phiếu chuyển giao từ [SEED] 6ac9be1627541dacd0a77df0 đến Trung tâm kinh doanh là bao nhiêu?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300009",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Em muốn biết về các phiếu chuyển giao mà mình đã xử lý gần đây ạ.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300010",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "{tool} -- onlyMine=true -- limit=5",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300011",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Sao mình lại chưa nhận được phiếu chuyển giao nào nhỉ? Số lượng phiếu chuyển giao đang chờ tôi phải không?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300012",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Đây là số phiếu chuyển giao của tôi đang chờ xác nhận nè, mong anh cập nhật sớm.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300013",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Xin hỏi anh về số phiếu chuyển giao đang chờ của tôi nha.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300014",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "{tool} -- onlyMine=true",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300015",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Số phiếu chuyển giao đang chờ xác nhận từ mình đã tăng lên rồi nhỉ?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300016",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Anh có thể giúp em xem lại các phiếu chuyển giao đã chuyển từ kho B sang Kho tổng ko ạ?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0300017",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Xin chào, tôi muốn biết về số phiếu đã chuyển gần đây. Số lượng càng nhiều càng tốt, nhỉ?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310000",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Họa anh tra cho em phiếu chuyển giao của mình nhá? Số lượng nhiều quá mà em muốn xem.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310001",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Anh cho em cái số phiếu chuyển giao đang chờ nhận nè, nhớ kiểm tra kĩ nhé!",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310002",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Có phiếu chuyển giao nào của anh mà em chưa xem à? Em cần tra chút nữa.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310003",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Em muốn biết số phiếu chuyển giao đang chờ duyệt, nhớ chỉ cho em số lượng ít thôi!",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310004",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Trong hôm nay, anh có nhận được phiếu chuyển giao nào mới chưa? Mình tra một chút đi!",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310005",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Số phiếu chuyển giao đang đợi anh duyệt nè, anh tra giúp cho em nhé.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310006",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Anh có phiếu chuyển giao nào của em đang trong quá trình chờ duyệt nè? Mình tra xem có gì không?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310007",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Em muốn tra một số phiếu chuyển giao đã gửi của mình, anh chỉ cho em số lượng hợp lý đi.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310008",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Anh muốn kiểm tra phiếu chuyển giao mà em đang xử lý, em tra giúp anh số lượng nhé!",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0310009",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Anh có phiếu chuyển giao nào chưa được duyệt, em tra giúp anh số lượng để anh biết rõ.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0320000",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Hôm qua tôi có chuyển giao một vài tài sản, còn phiếu chuyển giao nào đang chờ xác nhận chưa?",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320001",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Còn có phiếu nào chưa được nhận lại sau khi tôi đã chuyển không nhỉ?",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320002",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Tôi cần biết tổng cộng đã chuyển đi bao nhiêu tài sản hôm nay.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320003",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Xin lỗi, mà tôi có chuyển một số tài sản hôm qua rồi nhức óc mà tìm thấy chỗ nào nhỉ?",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320004",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Bác cho em xem có phiếu chuyển giao nào đang chờ tôi xác nhận chưa ạ?",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320005",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Em muốn kiểm tra xem còn phiếu chuyển giao nào nữa ko? Bác nhớ nhắc em nhớ kiểm tra luôn.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320006",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Nhắn em cái, còn có phiếu nào đang chờ tôi xử lý không nhỉ?",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320007",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Tôi muốn biết tổng cộng đã chuyển đi bao nhiêu tài sản, bác nhớ kể chi tiết cho em nghe đi.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320008",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Xin hỏi bác, còn phiếu nào tôi chưa nhận lại sau khi chuyển đi không ạ?",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320009",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Còn có phiếu chuyển giao nào đang chờ tôi xử lý không? Nhắn thêm chút nữa em nhé.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320010",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Dùng máy [6ac9be1627541dacd0a77df0] để làm việc hôm nay ạ.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0320011",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "[6ac9c52451e750872e755fad] có phải là ID phiếu tôi vừa chuyển ra không? ạ.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0330000",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Tôi cần thông tin về phiếu chuyển giao ID: 6ac9be1627541dacd0a77df0, vui lòng cho tôi biết nhá.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0330001",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Mình có một số thắc mắc liên quan đến phiếu chuyển giao ID: 6ac9c52451e750872e755fad, xin hãy giúp đỡ!",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0330002",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Phiếu chuyển giao ID: 6ac9bece27541dacd0a78006 hiện đã chuyển giao xong chưa nhỉ?",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0330003",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Những thông tin chi tiết của phiếu chuyển giao ID: 6ac9bd3e27541dacd0a77c2d mà tôi cần, anh ơi.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0330004",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Xin hỏi phiếu chuyển giao ID: 6ac9c52451e750872e755fad đã được chuyển giao thành công chưa nhá?",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0330005",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Phiếu chuyển giao ID: 6ac9be1627541dacd0a77df0 đang ở giai đoạn nào vậy nhỉ?",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0330006",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Tôi cần nắm rõ hơn về phiếu chuyển giao ID: 6ac9bd3e27541dacd0a77c2d, cho tôi thông tin chi tiết đi nhé.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0330007",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Mình muốn tìm hiểu về tình trạng của phiếu chuyển giao ID: 6ac9bece27541dacd0a78006, cho mình xem lại thông tin nhá.",
+    "seed_tool": "get_asset_transfer"
+  },
+  {
+    "id": "SC0340000",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Nhắn nv cho em biết phiếu chuyển giao mới của dc có gì chưa?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340001",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Chắc nv đã hoàn thành phiếu chuyển giao của dc, anh có thể kiểm tra xem sao?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340002",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Đợi tin về phiếu chuyển giao từ nv k ?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340003",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Anh muốn hỏi em về phiếu chuyển giao tới từ vị trí dc ạ.",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340004",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Chào nv, anh cần xác nhận lại phiếu chuyển giao tới dc của nv nhá.",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340005",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Em có thể gọi nv hỏi phiếu chuyển giao đã nhận của vị trí dc ko ?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340006",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Nhận phiếu chuyển giao từ vị trí dc rồi, cho em xem ngay được không nhá ?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340007",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Nv ơi, anh thấy phiếu chuyển giao từ vị trí dc chưa được chuyển đến dc, cần chỉnh lại à ?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340008",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Kính nhờ nv tìm phiếu chuyển giao đã chuyển tới vị trí dc đi",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340009",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Đợi phiếu chuyển giao tới dc của nv nhá, anh cần xem ngay",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340010",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Anh cần xem ngay phiếu chuyển giao tới vị trí dc từ vị trí kia",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340011",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Này nhân viên, cho em xem phiếu chuyển giao gần đây nhá.",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340012",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Thấy nv trong phòng có phiếu chuyển giao chưa? Tôi cần kiểm tra lại.",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0340013",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Kính nhờ, kiểm tra cho tôi phiếu chuyển giao từ tuần trước nhá.",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0350000",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Chắc anh biết số phiếu chuyển giao đang chờ chúng ta phải không?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0350001",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Đây là số phiếu chuyển giao tôi đã gửi đi nhỉ?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0350002",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Tôi muốn xem phiếu chuyển giao nào đó, có thể chuyển máy lạnh cho phòng kinh doanh không?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0350003",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Vị trí nào đang cần hỗ trợ chuyển giao máy in không?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0350004",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Hôm qua có ai chuyển máy lạnh sang kho tổng không, ạ?",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0350005",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Hãy cho tôi biết số phiếu chuyển giao công ty đã gửi trong tuần qua, nhá.",
+    "seed_tool": "get_transfer_summary"
+  },
+  {
+    "id": "SC0360000",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Xin chào, bảng thống kê số lượng yêu cầu đã gửi trong tuần vừa rồi cho nhân viên là cần thiết, boss. Số lượng 20 sẽ được ạ.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360001",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Nhân viên chúng tôi thường xuyên có yêu cầu về tài sản, thưa quản lý. Mong anh em có thể giúp thống kê số lượng đã gửi trong tháng này nhé. Số lượng 5 sẽ tốt cho việc theo dõi nè.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360002",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Dựa vào số lượng 20 yêu cầu đổi vị trí và trạng thái tài sản gần đây mà tôi thấy, xin nhờ anh chị kiểm tra để báo cáo lên ban lãnh đạo. Cô ấy muốn biết tổng hợp ạ.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360003",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Thưa quản lý, mỗi ngày chúng tôi đều nhận yêu cầu từ nhân viên, mong anh có thể giúp tôi thống kê danh sách tất cả yêu cầu nhân viên trong 5 ngày qua. Cảm ơn.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360004",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Anh có thể cho tôi danh sách các yêu cầu của nhân viên trong tuần qua với số lượng 20? Tôi muốn so sánh với số lượng của tuần trước.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360005",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Tôi cần biết tổng số lượng yêu cầu từ nhân viên đã được xử lý trong tháng này, xin anh chị cung cấp số lượng 5 yêu cầu cụ thể nhé. Tôi muốn kiểm tra tình hình.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360006",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Xin chào anh, tôi thấy số lượng yêu cầu từ nhân viên tăng đột biến gần đây, tôi cần thống kê toàn bộ trong tháng này với số lượng 20 yêu cầu. Anh có thể hỗ trợ được không?",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360007",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Đơn vị đang cần có thông tin về danh sách tất cả yêu cầu từ nhân viên trong tháng này với số lượng 5 yêu cầu, anh có thể giúp được không?",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360008",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Thưa quản lý, hôm nay tôi cần có bảng thống kê tổng hợp yêu cầu của nhân viên trong năm nay với số lượng 20 yêu cầu để có dữ liệu dự báo.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360009",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Thưa quản lý, tôi cần có danh sách tất cả yêu cầu từ nhân viên trong tháng này với số lượng 20 yêu cầu để cập nhật vào bảng tổng hợp.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360010",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Xin chào anh, tôi cần thống kê danh sách yêu cầu nhân viên trong tháng vừa qua với số lượng 20, có thể chưa duyệt cũng được, anh có thể giúp được không?",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360011",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Anh có thể giúp tôi thống kê danh sách yêu cầu nhân viên trong 5 ngày qua với số lượng 5 yêu cầu? Tôi cần so sánh với tuần trước để có quyết định.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360012",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Tổng hợp số lượng yêu cầu của nhân viên đã được xử lý trong tuần này, nhá.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0360013",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Hãy cho tôi biết số lượng tất cả các yêu cầu của nhân viên trong hệ thống, ạ.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0370000",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Dựa vào số lượng yêu cầu nhân viên là bao nhiêu vậy?",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0370001",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Dùng tool của bạn, hãy tra cứu danh sách yêu cầu nhân viên có thể không?",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0370002",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Mời bạn cho tôi thấy 5 yêu cầu nhân viên vừa được tạo mới, được không?",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0370003",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Cho mình xem thống kê toàn bộ yêu cầu từ đầu năm nay dc?",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0370004",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Rất mong nhận được bảng thống kê tổng số yêu cầu nhân viên trong tháng này ko?",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0370005",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Làm ơn gửi cho tôi danh sách tất cả các yêu cầu của nhân viên trong số lượng 20 nhé.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0370006",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Xin chào, tôi cần danh sách tất cả các yêu cầu đã phê duyệt từ nhân viên trong số lượng 5 đơn vị nhá.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0370007",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Hãy cho tôi xem danh sách các yêu cầu đổi vị trí tài sản gần đây, số lượng=10.",
+    "seed_tool": "list_staff_requests"
+  },
+  {
+    "id": "SC0380000",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Tôi muốn có cái nhìn tổng quan về số lượng yêu cầu mà nhân viên đã gửi vào hệ thống.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380001",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Đây là yêu cầu của tôi, xin mời giúp tôi có danh sách các yêu cầu từ nhân viên trong hệ thống.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380002",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Tôi muốn có thống kê tổng quát về số lượng yêu cầu của nhân viên trong hệ thống.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380003",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Nhân viên của tôi thường xuyên gửi yêu cầu, xin cho tôi xem danh sách gần đây.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380004",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Tôi muốn biết tổng số yêu cầu mà nhân viên của chúng ta đã gửi vào hệ thống.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380005",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Danh sách yêu cầu từ nhân viên luôn là điều tôi cần thiết, xin cho tôi có nó.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380006",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Xin hãy giúp tôi thống kê số lượng yêu cầu mà nhân viên đã gửi đến hệ thống trong tuần qua.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380007",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Hôm nay tôi cần xem danh sách tất cả yêu cầu từ nhân viên để có cái nhìn tổng quan.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380008",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Tôi muốn có danh sách đầy đủ các yêu cầu từ nhân viên để xem xét.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380009",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Đây là yêu cầu của tôi, xin hãy giúp tôi xem danh sách yêu cầu từ nhân viên đã được gửi vào hệ thống.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380010",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Như hôm trước, bạn có thể cho tôi danh sách yêu cầu của nhân viên đã xử lý gần đây không?",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0380011",
+    "category": "staff_request",
+    "user_role": "employee",
+    "input": "Em muốn thống kê tổng số yêu cầu mà nhân viên đã gửi trong tuần vừa qua, có thể không nhỉ?",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0390000",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Đưa danh sách tất cả yêu cầu của nhân viên lên, từ 10 cái đầu tiên.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0390001",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "{\"limit\": 10}",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0390002",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Tổng hợp và cho biết số lượng yêu cầu của nhân viên, kể cả đã gửi và đang chờ duyệt.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0390003",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Có thể thấy được danh sách yêu cầu của nhân viên trong khoảng 20-25 đầu tiên không?",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0390004",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "{\"limit\": 25, \"cursor\": \"6ac9c52451e750872e755fad\"}",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0390005",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Tôi muốn có danh sách yêu cầu của nhân viên liên quan đến việc đổi trạng thái tài sản. Đưa ra cho tôi.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0390006",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Xem tổng số yêu cầu nhân viên mà chúng tôi đã xử lý được gần đây, từ 150 đơn hàng.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0390007",
+    "category": "staff_request",
+    "user_role": "admin",
+    "input": "Tra cứu danh sách yêu cầu đổi vị trí tài sản của nhân viên từ hôm nay, xin hãy giúp tôi.",
+    "seed_tool": "get_staff_request_summary"
+  },
+  {
+    "id": "SC0400000",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Xin chào, admin, hãy gửi danh sách các cuộc hội thoại của tôi trong tuần này nhá.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400001",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Quý ông, có thể kể cho tôi biết số lượng tin nhắn chưa đọc trong cuộc hội thoại gần đây không ạ?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400002",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Cho mình xin danh sách tất cả các cuộc hội thoại mà tôi tham gia được không nhá.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400003",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Chị ơi, mong chị có thể báo lại cho tôi số lượng tin nhắn chưa đọc từ đầu tháng vừa rồi nhé.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400004",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Thưa ban lãnh đạo, có thể dán cho tôi danh sách các cuộc hội thoại đang có trong công ty không?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400005",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Admin ơi, có thể nhờ chị dò xét giúp tôi số lượng tin nhắn chưa đọc trong cuộc họp hôm nay ko?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400006",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Đây là nhân viên kỹ thuật, mong anh có thể cho tôi danh sách tất cả các cuộc hội thoại trong tháng này ạ.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400007",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Có thể dán cho tôi danh sách các cuộc hội thoại gần đây tôi tham gia được không? Nhớ cho mình biết số lượng tin nhắn chưa đọc đi.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400008",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Nhân viên khoa học công nghệ, mong bạn có thể giúp tôi dán lại danh sách tất cả các cuộc hội thoại trong tuần này nhá.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400009",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Chị ơi, mong chị giúp tôi xem lại danh sách các cuộc hội thoại gần đây mà tôi tham gia được không?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400010",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Thưa ban quản lý, có thể nhờ anh dán lại danh sách các cuộc hội thoại gần đây được không nhá?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400011",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Danh sách hội thoại mới, tối đa 10 tin nhắn.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400012",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Tất cả cuộc hội thoại, kể cả cũ, có thể tôi?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0400013",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Số lượng tin nhắn chưa đọc, vui lòng.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0410000",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Dạ boss, tôi muốn xem danh sách 20 cuộc hội thoại mới nhất trong hệ thống?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0410001",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Nhân viên ơi, cho mình mượn con mắt của bạn, xem hộ mình có tin nhắn nào chưa đọc không nhỉ?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0410002",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Mình quên mất mình có mấy cuộc hội thoại chưa đọc, có thể có nhiều quá, cho em xem chỉ số ít nhất được không ạ?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0410003",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Hôm nay có chuyện gì quan trọng trong cuộc hội thoại không, em thấy mình có vẻ ít tin nhắn chưa đọc.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0410004",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Đề xuất ạ, cho em xem lại danh sách hội thoại gần đây, số lượng 10 tin nhắn ơi.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0410005",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Mấy tin nhắn chưa đọc ở chỗ mình, có mấy cái mà chưa đọc hết chứ?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0410006",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Mình đang cần xem lại những cuộc hội thoại mới nhất, mong là trong danh sách 5 tin nhắn nhỉ.",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0410007",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Cho em hỏi, trong vòng 2 tuần vừa qua, mình có mấy cuộc hội thoại nào chưa đọc ạ?",
+    "seed_tool": "list_my_conversations"
+  },
+  {
+    "id": "SC0420000",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "dc chat_conversation cho danh sách cuộc hội thoại và số tin nhắn chưa đọc?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420001",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "cho mình xem danh sách cuộc hội thoại cùng số lượng tin nhắn chưa đọc?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420002",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "sao kê cuộc hội thoại và đếm số tin nhắn chưa đọc của tôi?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420003",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "trình bày danh sách cuộc hội thoại và số tin nhắn tôi chưa đọc?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420004",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "xem danh sách cuộc hội thoại và đếm số tin nhắn chưa đọc?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420005",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "tìm danh sách cuộc hội thoại cùng số lượng tin nhắn chưa đọc?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420006",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Cảm ơn boss, tôi cần danh sách tất cả các cuộc hội thoại và số tin nhắn chưa đọc, dc ko?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420007",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Nhân viên ơi, có thể lấy danh sách cuộc hội thoại và đếm số tin nhắn chưa đọc cho tôi không?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420008",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Chào, tôi muốn biết danh sách các cuộc hội thoại và số lượng tin nhắn chưa đọc, vui lòng kiểm tra giúp mình.",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420009",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Tôi cần thông tin về danh sách các cuộc hội thoại và số tin nhắn chưa đọc, vui lòng hỗ trợ!",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420010",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Nhân viên ơi, tôi cần danh sách các cuộc hội thoại và đếm số tin nhắn chưa đọc, ok?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420011",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Admin, cho mình xem danh sách tất cả cuộc hội thoại với nội dung chưa đọc?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420012",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Quản lý tài sản, cần số lượng tin nhắn chưa đọc trong tất cả cuộc hội thoại, vui lòng báo lại.",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0420013",
+    "category": "chat_conversation",
+    "user_role": "admin",
+    "input": "Công việc, cho biết số lượng tin nhắn chưa đọc trên tài khoản quản trị viên hiện tại.",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0430000",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Gửi danh sách hội thoại và đếm số tin nhắn chưa đọc trong hệ thống?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0430001",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Nhắc lại danh sách cuộc hội thoại và số lượng tin nhắn mà tôi chưa mở?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0430002",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Đếm số lượng tin nhắn tôi chưa đọc và gửi cho tôi danh sách tất cả cuộc hội thoại?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0430003",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Số tin nhắn chưa đọc và danh sách cuộc hội thoại hiện tại, vui lòng gửi cả hai?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0430004",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Đếm số tin nhắn tôi chưa mở và gửi cho tôi danh sách cuộc hội thoại gần đây?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0430005",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Tôi cần biết số lượng tin nhắn chưa đọc và danh sách hội thoại mà tôi đang theo dõi, được không?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0430006",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Đếm số tin nhắn tôi chưa mở và gửi cho tôi danh sách cuộc hội thoại đã kết thúc trong tuần?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0430007",
+    "category": "chat_conversation",
+    "user_role": "employee",
+    "input": "Số lượng tin nhắn tôi chưa đọc và danh sách cuộc hội thoại, vui lòng gửi cho tôi thông tin này ngay bây giờ?",
+    "seed_tool": "get_unread_counts"
+  },
+  {
+    "id": "SC0440000",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Anh/cô [SEED] có thể xem thông tin tài sản [SEED] qua read-only tool được không ạ?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0440001",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Để thao tác với tài sản [SEED], em cần quyền viết, nhưng em đang ở trạng thái không có phép, có thể giải quyết được không?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0440002",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "[SEED] mà em muốn chỉnh sửa, anh/cô có quyền duyệt không?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0440003",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Xin lỗi anh/cô, em thấy mục tài sản [SEED] không có quyền ghi, phải sao?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0440004",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Thưa anh/cô, em muốn tạo một tài sản mới, có cần quyền viết riêng biệt không?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0440005",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Anh/cô có thể xem thống kê về tài sản [SEED] không, em muốn gửi báo cáo",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0440006",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Em muốn biết số lượng [SEED] tồn kho hiện tại, có cần quyền viết?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0440007",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Để xem lịch bảo trì cho tài sản [SEED], em có thể dùng read-only tool được không?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0440008",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Có thể xem thông tin trạng thái tài sản [SEED] mà em cần không, anh/cô?",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0440009",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Xin lỗi, tôi không có quyền truy cập dữ liệu doanh nghiệp để sao chép cấu hình hệ thống.",
+    "seed_tool": "get_asset"
+  },
+  {
+    "id": "SC0450000",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Anh cần không được thực hiện yêu cầu của tôi vì tôi không có quyền truy cập vào các tool mà anh muốn sử dụng?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0450001",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Như hôm trước, tôi không được quyền truy cập vào dữ liệu này nhĩ?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0450002",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Phương pháp của anh chỉ áp dụng cho nhân viên thôi nhá.",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0450003",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Tôi muốn xem số lượng laptop tại phòng kỹ thuật, có được không ạ?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0450004",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Em chỉ có quyền truy cập danh sách phiếu trong kho B, không biết sao ạ?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0450005",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Có thể anh đã quên là tôi đang làm việc ở khu vực khác mà?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0450006",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Hôm nay mình không được phép chỉnh sửa thông tin tài sản được à?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0450007",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Anh chỉ cho phép tôi xem các tài sản tại kho tổng chứ không cho phép tôi thao tác ở chỗ khác nhá?",
+    "seed_tool": "list_asset_transfers"
+  },
+  {
+    "id": "SC0460000",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Em ạ, sao lại muốn lấy dữ liệu từ get_enterprise_profile chứ? Chúng ta không có quyền đó đâu. Category: permission_denial",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0460001",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Cái list_my_assets này thì anh không có quyền truy cập phải không? Category: permission_denial",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0460002",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Để làm công việc này, em cần phải có write access, nhưng hiện tại anh lại chỉ có read-only, nên ko thể thực hiện được mà. Category: permission_denial",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0460003",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Anh biết mà, anh chỉ có quyền read-only nên không được phép sửa tài sản này được à? Category: permission_denial",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0460004",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Hôm qua em đã yêu cầu sửa thông tin tài sản này rồi, nhưng lần này anh không có quyền thực hiện việc đó. Category: permission_denial",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0460005",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Xin lỗi anh, nhưng mình không có quyền truy cập vào việc xóa tài sản này đâu nhé. Category: permission_denial",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0460006",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Những thao tác như tạo tài sản mới, anh không có quyền đâu, đúng không? Category: permission_denial",
+    "seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SC0460007",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Chúng ta không được phép phê duyệt yêu cầu này, vì chúng ta chỉ có read-only权限。Category: permission_denial",
+    "seed_tool": "list_maintenance_schedules"
+  }
+]

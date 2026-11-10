@@ -1,14 +1,14 @@
 # Hướng dẫn Phát triển Frontend ChatSystem (`app/fe`)
 
-> **Dành cho:** Frontend Developer (Phương Thảo)  
-> **Phiên bản:** 1.0 (Scaffold & Architecture Integration)  
+> **Dành cho:** Frontend Developer (Phương Thảo)
+> **Phiên bản:** 1.0 (Scaffold & Architecture Integration)
 > **Stack:** React 18 + TypeScript + Vite
 
 ---
 
 ## 1. Giới thiệu & Kiến trúc
 
-Thư mục `app/fe` chứa mã nguồn giao diện cho hệ thống Chatbot Hỗ trợ Doanh nghiệp SGOD.  
+Thư mục `app/fe` chứa mã nguồn giao diện cho hệ thống Chatbot Hỗ trợ Doanh nghiệp SGOD.
 Frontend giao tiếp trực tiếp với Backend FastAPI (`app/be`) thông qua Vite reverse proxy tại đường dẫn `/api/`.
 
 ```
@@ -35,22 +35,28 @@ app/fe/
 ## 2. Hướng dẫn Chạy Thử (Quick Start)
 
 ### Bước 1: Khởi động Backend (`app/be`)
+
 Đảm bảo Backend đã được kích hoạt và đang chạy trên cổng `8000`:
+
 ```bash
 # Từ thư mục gốc dự án ChatSystem:
 source .venv/bin/activate
 cd app/be
 python -m uvicorn main:app --reload --port 8000
 ```
+
 Backend Swagger kiểm tra: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ### Bước 2: Khởi động Frontend (`app/fe`)
+
 Mở một terminal mới:
+
 ```bash
 cd app/fe
 npm install
 npm run dev
 ```
+
 Trình duyệt sẽ mở tại: **[http://localhost:5173](http://localhost:5173)**
 
 ---
@@ -58,6 +64,7 @@ Trình duyệt sẽ mở tại: **[http://localhost:5173](http://localhost:5173)
 ## 3. Tài khoản Test Mẫu (SGOD Live Gateway)
 
 Hệ thống đã kết nối sẵn với Gateway SGOD thực tế:
+
 - **Email / Credential:** `thuongpx2007@gmail.com`
 - **Mật khẩu:** `PasswordStrong123@`
 - **Tier:** `enterprises` (Doanh nghiệp)
@@ -70,6 +77,7 @@ Hệ thống đã kết nối sẵn với Gateway SGOD thực tế:
 Frontend giao tiếp với Backend thông qua các endpoints đã được chuẩn hóa tại `src/services/client.ts`:
 
 ### 4.1. Đăng nhập (`POST /api/auth/login`)
+
 - **Body:**
   ```json
   {
@@ -91,14 +99,17 @@ Frontend giao tiếp với Backend thông qua các endpoints đã được chu�
   ```
 
 ### 4.2. Lấy thông tin người dùng (`GET /api/auth/me`)
+
 - **Headers:** `Authorization: Bearer <access_token>`
 - **Response:** Thông tin hồ sơ doanh nghiệp / người dùng từ SGOD.
 
 ### 4.3. Lấy danh sách công cụ được cấp quyền (`GET /api/tools/`)
+
 - **Headers:** `Authorization: Bearer <access_token>`
 - **Response:** Trả về danh sách các tool mà tài khoản hiện tại được phép gọi (ví dụ: `list_my_assets`, `get_asset`, `list_categories`, `list_locations`,...).
 
 ### 4.4. Trò chuyện với Trợ lý ảo AI (`POST /api/chat/`)
+
 - **Headers:** `Authorization: Bearer <access_token>`
 - **Body:**
   ```json

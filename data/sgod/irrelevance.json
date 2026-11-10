@@ -1,0 +1,3002 @@
+[
+  {
+    "id": "IRR-out-0000",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Mình thích nghe nhạc acoustic nhẹ nhàng vào buổi tối.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0001",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Nhà hàng nào ở trung tâm thành phố phục vụ đồ ăn vặt ngon?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0002",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hôm nay trời nắng đẹp nên mình muốn đi shopping ở phố sách.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0003",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Lịch thi đấu bóng đá đêm nay có trận nào hay không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0004",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chuyện gì đang nổi tiếng trên mạng xã hội gần đây?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0005",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Sự khác biệt giữa máy tính và điện thoại di động là gì?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0006",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bạn có biết quán cà phê nào mát mẻ và lãng mạn không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0007",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Người nổi tiếng Hàn Quốc được yêu thích nhất hiện nay là ai?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0008",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Phần mềm học tiếng Anh nào hay ho và tiện lợi?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0009",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Cuộc đời của nhà thơ Quang Phúc như thế nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0010",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Có lịch dự án sắp tới cho tuần này không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0011",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Mình muốn mua một cuốn sách về triết học cổ đại. Bạn giúp mình tìm không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0012",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bí quyết để nấu cơm giòn rụm?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0013",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Nên đọc sách về công nghệ nào khi mới bắt đầu?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0014",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chợ đêm ở đâu đông người nhất ở Hà Nội?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0015",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn thích đọc sách hay xem phim hơn?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0016",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Giờ tối em muốn ăn gì ăn sáng vậy?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0017",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Trên đường đi làm hôm nay có nắng không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0018",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em nên mua áo len màu gì mùa này?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0019",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn có biết đâu là địa điểm check-in đẹp ở TP.HCM không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0020",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em muốn mua máy ảnh chụp ảnh đẹp nên chọn hãng nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0021",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bánh bao chiên ở quán bao nhiêu tiền vậy?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0022",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Ngày mai em muốn xem gì trên mạng xã hội?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0023",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn biết đâu là quán cà phê view đẹp ở Hà Nội không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0024",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em muốn học ngôn ngữ Anh theo kiểu nào hiệu quả?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0025",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Quán cafe gần đây bán đồ ăn gì ngon?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0026",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hôm nay trời lạnh quá, có muốn đi dạo cùng anh không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0027",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Món ăn nào ngon nhất của Việt Nam mà em chưa thử?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0028",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Những bài hát yêu thích của anh ấy là gì?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0029",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em muốn mua túi xách nào đi làm hôm nay?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0030",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Ngày mai em có dự định đi đâu?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0031",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em thích món gì để nấu cơm tối nay?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0032",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hôm qua em xem bộ phim gì trên Netflix?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0033",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em có kế hoạch đi du lịch vào cuối tuần không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0034",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em đang tìm hiểu về nền văn hóa mới ở nước nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0035",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Trong sách tôi thấy bài toán khó này, em có giúp tôi giải không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0036",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Nhà em sắp sửa thay đồ nội thất, em cần tư vấn gì?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0037",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Thế giới ảo và thế giới thực liệu pháp nào tốt hơn?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0038",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em nghe nói về một ứng dụng mới giúp quản lý tài chính, em tìm hiểu thông tin được không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0039",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em đang đọc cuốn sách về kỹ năng giao tiếp, có kinh nghiệm gì để chia sẻ không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0040",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Thủ đô Hà Nội có những điểm du lịch nổi tiếng không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0041",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Lý thuyết phân loại học là gì, em chưa hiểu lắm.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0042",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em đang xem video dạy làm bánh mì, nhưng không hiểu vì sao bánh luôn bị nứt cạnh.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0043",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bếp nhà em mới tân trang lại, em cần mua loại đá ốp nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0044",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Nhà hàng nào ngon gần chỗ em đang sống không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0045",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em thấy chương trình giáo dục nào hay và thú vị không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0046",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bên em sắp xếp lịch cho buổi dã ngoại với bạn bè tuần sau thế nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0047",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em thấy hôm nay trời đẹp quá, nên mình đi câu cá ở hồ gần nhà không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0048",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Sáng mai mình có dự định nấu món gì mới ngon cho bữa cơm gia đình không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0049",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Trên tivi có chương trình gì hấp dẫn vào tối nay không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0050",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Mẹ ơi, em muốn học thêm một kỹ năng mới như làm bánh kẹo gì đó, mẹ cho em mượn cuốn sách chưa?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0051",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hôm qua em mua một cây đàn ukulele trên mạng, giờ nên học chơi theo hướng nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0052",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Ngày mai em muốn đi du lịch, nhưng chưa biết nên chọn nơi đâu?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0053",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em thấy sách về kỹ năng lãnh đạo bán chạy lắm, mẹ có biết nên mua cuốn nào không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0054",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Mấy hôm nay em bị stress vì không tìm được bài giảng về công nghệ mới, mẹ có giúp em không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0055",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Mình có dự định đi chơi ở một địa điểm nào nổi tiếng ở Hà Nội không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0056",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em vừa đọc cuốn sách về y học dân gian, muốn tìm hiểu thêm về một phương thuốc nào đó.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0057",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Thằng bạn của em nói rằng nó vừa đọc được một bài báo về công nghệ đột phá, muốn tìm lại.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0058",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em muốn biết thêm về cách chăm sóc cây cảnh trong nhà.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0059",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Nhóm em định tổ chức một đêm hội bạn bè vào cuối tuần này, muốn biết cách tổ chức.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0060",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Mới học về các ứng dụng giáo dục mới, muốn tìm hiểu sâu hơn.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0061",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi vừa đọc xong cuốn sách về nấu ăn truyền thống, bạn thấy thế nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0062",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Ngày mai em muốn đi chợ rinh vài món ẩm thực về làm bữa cơm tối nha.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0063",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hôm qua có trận bóng đá siêu kịch tính, em thấy đội nhà thua thiệt nhỉ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0064",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em định đặt vé máy bay để du lịch sang Bali trong tháng tới.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0065",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Cuối tuần tới chắc sẽ mưa tầm tã, nên mình chuẩn bị đồ chống nước đi dạo?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0066",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Thiên An sắp có bài luận văn cuối kì về khoa học công nghệ, anh em nên cùng nhau hỗ trợ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0067",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bữa tối hôm nay muốn thử món gì mới lạ, mọi người có góp ý gì không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0068",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Nghe nói hôm nọ có người mất mát tiền trên xe bus, ai biết cách liên lạc với cơ quan bảo hiểm?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0069",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em đang thắc mắc không biết nên học khóa học nào về Photoshop hay AutoCAD tốt nhất?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0070",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Nghe nói công ty sắp mở thêm phòng đào tạo, anh chị em có quan tâm không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0071",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Có ai biết ngày kỷ niệm sinh nhật chú mèo cưng của mình chưa?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0072",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chủ nhật nay dự định đi xem phim gì, có recommendations nào hay không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0073",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Mình đang lo lắng không biết cách sử dụng camera DSLR đúng đắn, có tài liệu nào giúp đỡ không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0074",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Trưa nay có kế hoạch nấu món cá lóc rang muối, bạn có bí quyết gì không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0075",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Dự định cuối tuần sẽ đi chơi ở đâu, ai đã có kế hoạch rồi?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0076",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bài báo về môi trường mới vừa phát hành, em muốn tìm hiểu thêm về vấn đề ô nhiễm khói bụi",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0077",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi đang tìm một cuốn sách hay về khoa học xã hội cho em trai.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0078",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Lần sau rảnh rỗi, bạn muốn đi du lịch ở đâu thế?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0079",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em muốn làm một món ăn châu Á ngon nha, bạn có thể gợi ý không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0080",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Ngày mai em muốn tập luyện gì nhỉ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0081",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em thích đi bộ dưới những hàng cây xanh mướt mùa hè.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0082",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Trước khi đi ngủ, em muốn đọc sách gì nhỉ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0083",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn có muốn học về một chủ đề nào đó không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0084",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em đang phân vân nên xem bộ phim nào bây giờ...",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0085",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn có thấy mùa hoa樱花盛开时节有趣吗？",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0086",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chúng ta nên tổ chức một bữa tiệc sinh nhật cho anh trai vào cuối tuần này không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0087",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Lý do bạn lại không thích nấu cơm?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0088",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Mùa này tôi thường hay làm bánh kem với bạn bè.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0089",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hôm nay tôi cảm thấy mệt mỏi nên muốn nghỉ ngơi.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0090",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi rất thích đọc sách về nghệ thuật cổ điển.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0091",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Chúng ta nên lên kế hoạch du lịch nước ngoài vào cuối tháng này không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0092",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi muốn tìm hiểu về lịch sử văn minh Ai Cập.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0093",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Thôi đi, hôm nay trời nắng đẹp nên mình ra sân garden chơi bowling nhá.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0094",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bạn nghĩ sao về những bộ phim về cuộc sống của người Nhật truyền cảm hứng?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0095",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Đây món gà kho tộ này nhà em vừa nấu xong, ăn thử xem ngon không nhỉ.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0096",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bên kia đường có tiệm bánh kem nào đang mở cửa không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0097",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hôm nay mẹ chuẩn bị gì ăn cho bữa cơm chiều vậy?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0098",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Nghe đâu hôm nay có suất phim chiếu mới ở rạp, ai rảnh cùng đi xem không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0099",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Thư viện mới mở cửa tuần sau, có thể tham gia khóa học ngôn ngữ nước ngoài không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0100",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chỗ đó có phòng tập yoga nào mở cửa buổi tối không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0101",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn đã từng thử làm bánh tarts chưa? Kiểu nào mà ngon như vậy cơ chứ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0102",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Lâu lắm rồi mới được đi du lịch, nên mình đang tìm hiểu về các điểm đến mới ở Hà Nội.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0103",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bữa tối nay mình định thưởng thức đặc sản miền Trung, ai có kinh nghiệm về ẩm thực này không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0104",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Đã lâu không đọc sách, nên muốn tìm cuốn sách hay để trang bị thêm kiến thức.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0105",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Học online giờ rất tiện lợi, ai biết trang web dạy tiếng Anh chất lượng tốt không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0106",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Dạo này hơi bận nên không có thời gian đi dạo phố, nhưng sau khi nghỉ ngơi sẽ tìm hiểu về các quán cà phê độc lạ.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0107",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Mẹ ơi, con muốn mua một cây đàn guitar nhưng chưa biết nên chọn loại nào. Mẹ có kinh nghiệm gì không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0108",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bạn thích ăn bánh mì kẹp thịt ngon ở đâu?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0109",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hôm nay em muốn học bài toán nào cho vui?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0110",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bạn nghĩ nên chọn sách nào để đọc vào cuối tuần này?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0111",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Làm sao để chuẩn bị đồ cho chuyến đi du lịch sắp tới?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0112",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bạn biết bài thơ nổi tiếng nào về mùa xuân không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0113",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Điểm tâm sáng nay em nên ăn gì?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0114",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em thích thể loại phim nào nhất?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0115",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Có lịch trình nào tốt cho buổi chiều không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0116",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bạn thường xuyên theo dõi các tin tức thế giới chưa?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0117",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Thực đơn bữa tối hôm nay mẹ nấu gì cho em?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0118",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Lịch trình công việc sắp tới của em thế nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0119",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Vậy bạn có biết hôm nay trời sẽ mưa không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-chi-0000",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chào buổi sáng, mọi người! Rất vui được gặp lại.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0001",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi cũng mong có một ngày làm việc tốt!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0002",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Dạo này em thấy chị khỏe hơn hẳn, cảm ơn chị nhiều.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0003",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Từ hôm nay trở đi, chúng ta hãy cùng cố gắng làm việc tốt hơn nhé.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0004",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Anh có thời gian rảnh không? Tôi cần tìm người giúp đỡ với dự án này.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0005",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hôm qua em xem bộ phim hay lắm, bạn đã xem chưa?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0006",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi nghĩ chúng ta nên dành thời gian nghỉ ngơi một chút trong tuần này.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0007",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Rất vui khi nghe anh đang chăm chỉ học thêm ngoại ngữ.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0008",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chị đã thử món mới của quán cà phê đó chưa, rất ngon đấy!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0009",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Em thấy anh hôm nay hơi mệt mỏi, chắc nên nghỉ sớm một tí.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0010",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Một ngày mới bắt đầu, hy vọng mọi thứ thuận lợi cho chúng ta.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0011",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Anh ấy đã gửi thư xin nghỉ phép tới chị chưa?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0012",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Em thích cách anh sắp xếp thời gian giữa công việc và cuộc sống cá nhân.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0013",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Sắp tới, em sẽ học thêm một khóa học nâng cao về kỹ năng lãnh đạo.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0014",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chào bạn, có cần tôi giúp gì không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0015",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Rất vui khi gặp lại bạn hôm nay!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0016",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Kính chào, mong mọi việc của bạn thuận lợi.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0017",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Thưa chị/chị, có vấn đề gì cần tôi hỗ trợ không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0018",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Xin chào, em thấy hôm nay bạn tươi tỉnh hơn rất nhiều.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0019",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Chào buổi sáng, hy vọng bạn đã có năng suất tốt.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0020",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Xin lỗi vì đã gây phiền phức, bạn cần giúp đỡ gì?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0021",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Xin chào! Bạn có muốn trò chuyện thêm không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0022",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Rất vui khi có cơ hội trò chuyện cùng bạn.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0023",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn đã đến nơi rồi à? Hãy đi tiếp đi!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0024",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Xin chào, em thấy bạn bận rộn lắm.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0025",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Xin lỗi nếu làm phiền, có thể giúp gì cho bạn?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0026",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hãy nhớ uống nước nhé, buổi làm việc đã tới giờ nghỉ.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0027",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Rất tiếc vì đã làm phiền, mong bạn có một ngày tốt lành!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0028",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hy vọng bạn đã có thời gian tận hưởng cuộc sống sau giờ làm việc.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0029",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Chào buổi sáng, mọi người. Mong mọi người đều có một ngày làm việc hiệu quả.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0030",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Cảm ơn anh/chị đã giúp đỡ hôm qua. Hôm nay chắc chắn sẽ tốt hơn!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0031",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Rất vui được làm việc cùng mọi người, mọi người thân mến.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0032",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hôm nay trời đẹp thế, ai cũng thấy tinh thần phấn khởi.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0033",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Xin lỗi nếu làm phiền anh/chị. Tôi sẽ cố gắng tốt hơn.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0034",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Cám ơn cô/chú đã cho tôi cơ hội học hỏi thêm.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0035",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Chắc chắn chúng ta sẽ tìm ra giải pháp hiệu quả cho vấn đề này.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0036",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Lý do bạn đưa ra rất logic, tôi thấy rất thuyết phục.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0037",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Xin lỗi vì sự chậm trễ. Tôi đang cố gắng giải quyết sớm nhất có thể.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0038",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi rất biết ơn sự phối hợp nhịp nhàng giữa mọi người.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0039",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi mong chúng ta sẽ có thêm nhiều dự án thú vị trong tương lai.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0040",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Cảm ơn tất cả vì sự nỗ lực và hỗ trợ của mỗi người.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0041",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi đã sẵn sàng lắng nghe ý kiến của mọi người vào giờ làm việc chiều.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0042",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chào buổi sáng! Bạn đang ở phòng họp à?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0043",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hôm nay đi làm vui vẻ không anh?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0044",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Rất vui khi gặp lại bạn sau thời gian dài không liên lạc!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0045",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Mấy hôm nay em thấy bạn khá vui huhu?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0046",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Anh định đi đâu rồi đấy? Đi chơi với gia đình ạ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0047",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn mới về nhà chưa? Mẹ nấu cơm chưa?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0048",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Chào anh, anh có gì vui không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0049",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bữa trưa em ăn ở đây, anh muốn ăn cùng không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0050",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tới giờ nghỉ trưa mà anh vẫn ngồi làm việc à?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0051",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn vừa có kết quả gì đáng mừng chưa?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0052",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Những ngày này công việc bận rộn quá nhỉ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0053",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn muốn mua vé máy bay chưa, sắp có chuyến đi đâu đó không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0054",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Anh đang làm gì đây? Có cần giúp đỡ gì không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0055",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Sắp tới là Tết rồi, em có dự định gì không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0056",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Điểm danh cuối tuần nha, ai đi chơi cùng nhóm hôm nay?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0057",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Chào buổi sáng! Làm việc hôm nay như thế nào rồi?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0058",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Cám ơn đã giúp đỡ hôm qua, mọi thứ ổn đâu.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0059",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Vui vẻ cả tuần nè, bạn nhé!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-amb-0000",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi nhớ đã có một phiếu làm việc cần tra cứu, nhưng quên ID rồi. Ai có thể giúp tôi tìm lại?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0001",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Bây giờ không có dữ liệu nào trong hệ thống mà tôi quan tâm. Bạn nghĩ cách nào để biết thêm thông tin?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0002",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi thấy có một thiết bị cần bảo trì, nhưng chưa biết nên liên hệ ai trong nhóm?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0003",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Một ngày trước, tôi có đăng một yêu cầu sửa chữa, nhưng không rõ nó ở đâu trong hệ thống.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0004",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Ngày hôm qua, tôi đã yêu cầu kiểm tra năng suất một máy chủ, nhưng chưa có phản hồi. Bạn thấy sao?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0005",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Tôi đang tìm một tài liệu về cấu hình thiết bị, nhưng không nhớ tên nó nữa.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0006",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi không biết làm sao để tra cứu thông tin về số hóa đơn vừa mới được in.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0007",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Tôi cần kiểm tra tình trạng một thiết bị cụ thể mà tôi không nhớ tên nó.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0008",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Bây giờ tôi nhớ là đã có một cuộc họp với quản lý tài sản SGOD, nhưng không biết nó diễn ra khi nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0009",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Đơn nào mà tôi có thể tìm thấy thông tin về dự án A đã được phê duyệt gần đây?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0010",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Trong số những thiết bị đang hoạt động, có máy nào cần được thay thế sớm không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0011",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Tôi đang muốn biết thông tin tổng kết về dự án B, nhưng không tìm thấy nút tra cứu tương ứng.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0012",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Có thể có thông báo mới nào liên quan đến quản lý tài sản SGOD mà tôi chưa nhận được?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0013",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Máy chủ A tôi đã sử dụng lâu năm, nhưng chưa biết nó đã chạy ổn định chưa?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0014",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi cần tìm hiểu về tình hình của thiết bị này. Bạn có thể giúp tôi tra cứu không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0015",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Một chiếc máy tính nào đó không hoạt động. Làm ơn kiểm tra xem sao rồi thông báo lại.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0016",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Những báo cáo cập nhật gần đây về tài sản của phòng ban chúng tôi thế nào rồi?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0017",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Đồng hồ thời gian thực của máy in ở tầng 5 có vấn đề gì không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0018",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Xin hỏi về tình hình bảo dưỡng của chiếc máy fax ở tầng 3?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0019",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Tôi muốn tìm thấy thông tin liên quan đến phiếu xuất kho số 001.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0020",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Có thể tôi nhầm lẫn về thông tin của máy tính trong khu hành chính?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0021",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Một máy in ở phòng kế toán không hoạt động. Tôi nên làm gì bây giờ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0022",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi muốn xem tình trạng bảo trì của một thiết bị nào đó không biết tên",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0023",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Nhân viên nào trong phòng kinh doanh có trách nhiệm kiểm tra máy in ở tầng 2?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0024",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Xin lỗi nếu làm phiền, tôi cần biết tình hình sửa chữa của máy tính ở văn phòng?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0025",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Có ai nhận được yêu cầu bảo dưỡng thiết bị nào đó trong hôm qua không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0026",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi có thể tìm thấy thông tin về thiết bị nào đó ở phòng công nghệ thông tin không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0027",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Nhận diện một máy tính không hoạt động mà tôi chưa rõ thuộc phân nhóm nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0028",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi không nhớ tôi đã tra cứu thông tin gì gần đây, có thể giúp tôi tìm lại được không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0029",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Có thể bạn đã ghi lại một số thông tin mà tôi không còn nhớ, có cách nào để tra cứu nó không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0030",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Đã lâu rồi tôi không xem báo cáo tài chính, cần xem lại báo cáo gần nhất đã?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0031",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Tôi không chắc là cái gì tôi đã phê duyệt lần cuối cùng, có thể tra cứu lại cho tôi?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0032",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Hôm nay tôi cần một danh sách tất cả các nhân viên trong nhóm, có thể tạo cho tôi không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0033",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Một thiết bị nào đó trong phòng đã hết pin, có thể báo cáo lỗi không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0034",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi thấy một email chưa đọc, có thể tìm lại địa chỉ email người gửi không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0035",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Một hợp đồng nào đó đã kết thúc, cần xem lại thông tin chi tiết không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0036",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi có thể xem lịch công việc trong tuần này không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0037",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Hôm qua tôi đã thảo luận với một nhân viên nào đó, cần tìm lại tên nhân viên đó không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0038",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Trong khi xem bản đồ khu vực tài sản, tôi gặp lỗi, cần hỗ trợ khắc phục không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0039",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Đã lâu rồi tôi không tra cứu danh sách các dự án hiện tại, có thể tra cứu lại không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0040",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Có thể tìm lại thông tin tài khoản ngân hàng tôi đã đăng ký trước đó không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0041",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Một email nào đó tôi cần tìm lại, có thể hỗ trợ tìm lại không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0042",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi nhớ đã có một cái gì đó liên quan đến nhân viên tên Nguyễn Văn A, có cách tốt nhất để tra cứu thông tin đó không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0043",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Có cách nào để xem lại danh sách tất cả máy chủ hoạt động không? Tôi muốn kiểm tra một chút.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0044",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Nhân viên tên Trương Thị B làm việc ở đâu hiện tại? Tôi không nhớ rõ.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0045",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Tôi vừa mới nhận được báo cáo về một vấn đề với dịch vụ mạng, tôi muốn tra cứu nó theo ID, nhưng tôi quên ID rồi.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0046",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Đã có báo cáo về một sự cố với hệ thống bảo vệ máy chủ, tôi muốn xem nó đã được giải quyết chưa.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0047",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Tôi đang cần một danh sách tất cả các thiết bị đã được bảo trì gần đây, ai có thể giúp tôi với điều này?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0048",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi muốn kiểm tra lịch bảo trì dự kiến cho máy tính này, ai có thể giúp tôi xem?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0049",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Một máy chủ có dấu hiệu yếu đi, tôi cần tìm hiểu thêm về tình trạng của nó.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0050",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi có thể xem lại danh sách tất cả các yêu cầu hỗ trợ kỹ thuật trong tuần này không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0051",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Người quản lý nào sẽ chịu trách nhiệm khi có vấn đề xảy ra với hệ thống?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0052",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi muốn tra cứu thông tin về một thiết bị cụ thể nhưng không nhớ ID, có cách nào không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0053",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Một số thiết bị đã bị hỏng, tôi cần xem danh sách cụ thể những thiết bị đó.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0054",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi cần tra cứu chi tiết về một sự cố đã xảy ra, nhưng tôi không nhớ ID sự cố.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0055",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Dựa trên lịch bảo trì, có máy nào sắp được bảo dưỡng vào ngày mai không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0056",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Tôi cần xem lại danh sách tất cả các báo cáo lỗi trong thời gian qua, ai có thể giúp tôi?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0057",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Có thể có gì báo cáo về phiếu mua hàng vừa rồi? Tôi không nhớ nó có phải ở đâu.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0058",
+    "category": "edge_case",
+    "user_role": "employee",
+    "input": "Một số thông tin về nhân viên 3025 hôm nay, có thể bạn biết điều gì đó?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-amb-0059",
+    "category": "edge_case",
+    "user_role": "admin",
+    "input": "Tôi muốn tra cứu thông tin về đơn hàng gần nhất, có thể cho tôi biết nó đang ở đâu?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "ambiguous"
+  },
+  {
+    "id": "IRR-pro-0000",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bạn có thể hướng dẫn tôi cách tra cứu danh sách tài sản bằng phương pháp này không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0001",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi cần hỗ trợ hướng dẫn cách sử dụng chức năng kiểm tra trạng thái tài sản trong hệ thống.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0002",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Có thể bạn đã quên rằng tôi muốn tìm hiểu quy trình để thay đổi trạng thái của một tài sản.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0003",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi đang cần giúp đỡ hướng dẫn cách sử dụng chức năng theo dõi tiến trình phiếu điều chuyển.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0004",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bằng cách nào tôi có thể gửi yêu cầu bảo trì cho tài sản này?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0005",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Có ai đã từng sử dụng chức năng ghi nhật ký lịch sử bảo trì chưa? Bạn có thể chia sẻ quy trình đó không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0006",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Để kiểm tra phiếu điều chuyển một tài sản, tôi nên thực hiện bước nào sau đây?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0007",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Cách thực hiện quy trình xem xét và phê duyệt yêu cầu của một tài sản mới?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0008",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Có thể bạn đã quên rằng tôi muốn học cách sử dụng chức năng tra cứu thông tin tài sản?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0009",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Cách tôi nên sử dụng chức năng báo hỏng nếu tài sản của mình gặp vấn đề?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0010",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Trước khi gửi yêu cầu điều chuyển tài sản, tôi cần nắm vững quy trình nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0011",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn có thể hướng dẫn tôi cách tìm kiếm thông tin về một tài sản cụ thể trong hệ thống SGOD không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0012",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi muốn biết quy trình cụ thể để gửi một phiếu yêu cầu sửa chữa cho một thiết bị SGOD. Bạn có thể hướng dẫn tôi không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0013",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi cần kiểm tra xem trạng thái của một đơn yêu cầu nào đó đang ở giai đoạn nào. Có thể chỉ cho tôi cách làm không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0014",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Khi tôi muốn theo dõi trạng thái của một phiếu điều chuyển tài sản, có quy trình nào cụ thể để làm không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0015",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Mình muốn học cách sử dụng tính năng xem lịch sử bảo dưỡng của hệ thống SGOD. Bạn có thể hướng dẫn tôi không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0016",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi muốn tạo một báo cáo tổng quan về tài sản SGOD trong một thời điểm nhất định. Làm sao để làm được vậy?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0017",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Khi tôi cần xem thông tin chi tiết về tài sản trong một nhóm cụ thể, tôi phải làm gì?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0018",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Để theo dõi tiến trình một đơn điều chuyển, tôi nên làm gì?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0019",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bạn có thể chỉ tôi quy trình để cập nhật trạng thái của một tài sản đã hư hỏng không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0020",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Khi cần tạo một hồ sơ bảo dưỡng mới, quy trình cụ thể là như thế nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0021",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Có quy trình nào cụ thể để theo dõi quá trình xử lý một yêu cầu thay đổi vị trí của tài sản không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0022",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi muốn xem cách sử dụng chức năng tạo và phê duyệt một đơn phiếu điều chuyển trong hệ thống SGOD.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0023",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Bảo vệ tài sản SGOD đòi hỏi một quy trình cụ thể. Bạn có thể chỉ tôi quy trình cần thiết không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0024",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi đang tìm hiểu về cách sử dụng SGOD để tra cứu thông tin tài sản. Bạn có thể hướng dẫn tôi rõ hơn không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0025",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Có cách nào đơn giản hơn để kiểm tra trạng thái của một tài sản cụ thể trong hệ thống không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0026",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi cần biết về quy trình tạo một yêu cầu bảo trì mới. Hãy mô tả cho tôi nhé.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0027",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Làm thế nào để xem lịch sử bảo trì một tài sản cụ thể mà tôi quản lý?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0028",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi đang không biết phải bắt đầu từ đâu khi muốn gửi một yêu cầu phê duyệt thay đổi vị trí tài sản.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0029",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Một quy trình như thế nào để xử lý một yêu cầu phê duyệt sửa chữa tài sản?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0030",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bạn có thể hướng dẫn tôi cách sử dụng chức năng xem hồ sơ chi tiết của một tài sản?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0031",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi muốn biết cách kiểm tra trạng thái tổng quát của tất cả tài sản trong hệ thống.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0032",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Có quy trình cụ thể nào để báo hỏng một tài sản không? Tôi muốn học cách làm.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0033",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hướng dẫn cách sử dụng công cụ báo lỗi khi gặp vấn đề với tài sản.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0034",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Tôi cần biết rõ cách thực hiện quy trình phê duyệt một yêu cầu thay đổi thông tin tài sản.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0035",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Làm thế nào để tra cứu và theo dõi trạng thái của một yêu cầu đã gửi về SGOD?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0036",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Có cách nào để biết về quy trình làm mới một tài sản mới mà không cần truy xuất thông tin cụ thể?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0037",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Tôi muốn hỏi cách tạo một hồ sơ bảo dưỡng mới, bạn giúp tôi được không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0038",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hãy hướng dẫn tôi cách theo dõi trạng thái của một phiếu điều chuyển đã được gửi?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0039",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Xin chào, muốn biết quy trình phê duyệt một yêu cầu bảo dưỡng cụ thể trong SGOD?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0040",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Cách tôi có thể biết được quy trình tạo và gửi một yêu cầu thay đổi tài sản?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0041",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hãy mô tả quy trình để thay đổi trạng thái của một tài sản mà không cần thực hiện thao tác ngay?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0042",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Cần làm gì trước khi gửi một yêu cầu bảo trì mới thông qua SGOD?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0043",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "Hãy hướng dẫn tôi quy trình xem hồ sơ bảo dưỡng của một tài sản cụ thể?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0044",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Có thể bạn đã từng hỏi về quy trình tạo một phiếu điều chuyển, vậy hãy giúp tôi hiểu rõ hơn về quy trình này?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0045",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "BẠN CÓ THỂ GIÚP MI NHỚ LẠI CÁCH THỨC DỰA TÀI SẢN TRONG SGOD KHÔNG?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0046",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "KHÔNG HẠNH PHUC KHI MỚI BẮT ĐẦU DUNG NGHIỆP VỤ TRONG SGOD? CÓ THỂ CHỈ MỘT SỐ BƯỚC ĐƠN GIẢN KHÔNG?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0047",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "MỞ BẢO MẬT SAU KHI ĐĂNG NHẬP, ĐIỀU CHỦ TUYẾN CÓ PHẢI LÀ ĐỘNG LƯỢNG CÔNG CHỨC KHÔNG?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0048",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "SAO MÌNH CHƯA HIỂU THẾ? CÓ BÍ QUYẾT DUYÊN NHƯ NÀO KHÔNG?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0049",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "BẠN ĐANG SỢ HÀNH, CHỈ THỰC HIỆN MỘT SỐ BƯỚC BẮT ĐẦU ĐỂ KHỎE MIND NỮA?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0050",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "KHÔNG BIẾT CÁCH LÀM SAO KHI BỊ GẤP TRONG CUỘC HOẠT ĐỘNG, BẠN CÓ KHẢO THÍN MỘT SỐ BƯỚC KỸ THUẬT KHÔNG?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0051",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "THAM GIA SGOD RẤT SẢN PHẨM, TỔNG HỢP DỮ LIỆU TỪ TOÀN DIOC, TẠI SAO KHÔNG HỌC CÁCH DÙNG BẠN?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0052",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "TINH THẦN DỰA CÔNG CỤ CỦA SGOD, ĐƯỢC MÌNH BẮT ĐẦU, MÀ SAO KHÔNG HIỂU NHÉ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0053",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "DƯỚI NÀO CÓ CÁCH DƯỚI MÀ CHÚ Ý ĐỂ DỰA CÁC BÀN BÈ?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0054",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "BẠN ĐANG BỎ QUÁNG VÀ HỒNG HỚI VỚI ĐƯỜNG DẪN CỦA DỮ LIỆU TRONG SGOD, ĐỂ TẶNG MÌNH BƯỚC ĐỂ ĐIỀU CHỈNH?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0055",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "SAO CHÉP HÀNH DÂN, CHUYỂN THÀNH HỌC LÝ, MỞ BẢO MẬT TRONG BƯỚC ĐẦU?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0056",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "SAU KHI ĐĂNG NHẬP, CÓ CÁCH ĐƠN GIẢN KHIẾN CÔNG CỤ HỖ TRỢ TRỌN BỘ MÌNH KHÔNG?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0057",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "TỔNG HỢP DỮ LIỆU VÀ QUẢN LÝ CÁC VỤ ÁN TRONG SGOD, BẠN CÓ BIẾT CÁCH TỔNG HỢP KHÔNG?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0058",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "KHÔNG BÌNH THƯỜNG ĐẾN SGOD ĐỂ TÌM HIỂU CÁCH HỌC DỰA DỮ LIỆU, CÓ BÍ QUYẾT ĐỂ ĐẾN ĐƯỢC KHÔNG?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0059",
+    "category": "out_of_scope",
+    "user_role": "admin",
+    "input": "HƯỚNG DẪN THÔNG MINH CÁCH CHỌN THÀNH VIÊN GÓP Ý TRONG SGOD, BẠN CÓ BIẾT?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  }
+]

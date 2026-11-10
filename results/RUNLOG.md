@@ -21,3 +21,4 @@ không sửa dòng cũ. `data@sha8` = 8 hex đầu của sha256 tệp dữ liệ
 | 2026-10-02 | pthao3113 | F | 933c4ecd | recipe_arm_r32 — RTX PRO 6000, bf16 | 42 | strict 94.5% [91.5, 97.5] | results/public/recipe_grid_bf16/recipe_arm_r32_results.json |
 | 2026-10-14 | thanhhao98 | F | 6d8c803e | bootstrap_ci: anchor vs 5 arm, lưới bf16 (6 tệp kết quả ở trên) | 20260625 | xem R037–R046 | results/public/recipe_grid_bf16/bootstrap.md |
 | 2026-10-14 | thanhhao98 | F | 6d8c803e | bootstrap_ci: T4 fp16 vs bf16 cùng recipe (anchor, r8, lr2e4, comp0) | 20260625 | xem R047–R054 | results/public/recipe_grid_bf16/cross_t4_bf16.md |
+| 2026-11-06 | vanquyen | F | 04aec49d | GPT baseline gemini-3.5-flash-lite (predict_toolcall --backend openai, temperature 0, preamble v1, tools-v1) | 20260625 | strict 93.2% [91.0, 95.4] | results/sgod_eval_v1/gemini-3.5-flash-lite_2026-11-06.results.json |
