@@ -432,60 +432,80 @@ def sample_param_hint(tool, rng):
 #    Phủ đủ 22/22 tools SGOD + 5 refusal rows cho tools admin + hàng ghi permission_denial.
 # ───────────────────────────────────────────────────────────────────────────
 TRACKB_BUCKET_PLAN = [
-    # ── Nhóm Tài sản & Doanh nghiệp (Thehy-IT: 8 tools, 16 hàng) ──
-    ("list_my_assets", "my_assets", "employee", 18),
-    ("list_my_assets", "my_assets", "admin", 12),
-    ("get_asset", "asset_detail", "employee", 14),
-    ("get_asset", "asset_detail", "admin", 10),
-    ("get_asset_histories", "asset_detail", "employee", 10),
-    ("get_asset_histories", "asset_detail", "admin", 8),
-    ("list_categories", "category", "employee", 8),
-    ("list_categories", "category", "admin", 8),
-    ("list_locations", "location", "employee", 10),
-    ("list_locations", "location", "admin", 10),
-    ("get_location", "location", "employee", 8),
-    ("get_location", "location", "admin", 8),
-    ("get_enterprise_profile", "user_management", "admin", 10),
-    ("get_enterprise_profile", "user_management", "employee", 6),  # Refusal row
-    ("get_asset_statistics", "asset_detail", "admin", 12),
-    ("get_asset_statistics", "asset_detail", "employee", 8),       # Refusal row
+    # ── PHÂN HẠNG 1 (TIER 1 — TRỌNG ĐIỂM CẤP BÁCH: 10 tools lỗi cao nhất theo báo cáo F) ──
+    # 1. get_maintenance_schedule (F đề xuất: 260 mẫu)
+    ("get_maintenance_schedule", "maintenance_schedule", "employee", 22),
+    ("get_maintenance_schedule", "maintenance_schedule", "admin", 16),
+    # 2. get_asset_histories (F đề xuất: 260 mẫu)
+    ("get_asset_histories", "asset_detail", "employee", 22),
+    ("get_asset_histories", "asset_detail", "admin", 16),
+    # 3. get_location (F đề xuất: 250 mẫu)
+    ("get_location", "location", "employee", 20),
+    ("get_location", "location", "admin", 16),
+    # 4. get_asset_transfer (F đề xuất: 220 mẫu)
+    ("get_asset_transfer", "asset_transfer", "employee", 18),
+    ("get_asset_transfer", "asset_transfer", "admin", 14),
+    # 5. get_transfer_summary (F đề xuất: 210 mẫu)
+    ("get_transfer_summary", "asset_transfer", "employee", 18),
+    ("get_transfer_summary", "asset_transfer", "admin", 14),
+    # 6. get_staff_request_summary (F đề xuất: 200 mẫu)
+    ("get_staff_request_summary", "staff_request", "employee", 18),
+    ("get_staff_request_summary", "staff_request", "admin", 12),
+    # 7. get_my_permissions (F đề xuất: 200 mẫu)
+    ("get_my_permissions", "user_permission", "employee", 20),
+    ("get_my_permissions", "user_permission", "admin", 10),
+    # 8. list_my_conversations (Admin, F đề xuất: 200 mẫu)
+    ("list_my_conversations", "chat_conversation", "admin", 28),
+    # 9. list_maintenance_records (F đề xuất: 200 mẫu)
+    ("list_maintenance_records", "maintenance_record", "employee", 18),
+    ("list_maintenance_records", "maintenance_record", "admin", 12),
+    # 10. list_maintenance_tasks (F đề xuất: 200 mẫu)
+    ("list_maintenance_tasks", "maintenance_task", "employee", 18),
+    ("list_maintenance_tasks", "maintenance_task", "admin", 12),
 
-    # ── Nhóm Bảo trì & Hồ sơ (BaoMyTH: 7 tools, 14 hàng) ──
-    ("list_maintenance_schedules", "maintenance_schedule", "employee", 16),
-    ("list_maintenance_schedules", "maintenance_schedule", "admin", 12),
-    ("get_maintenance_schedule", "maintenance_schedule", "employee", 12),
-    ("get_maintenance_schedule", "maintenance_schedule", "admin", 8),
-    ("list_maintenance_records", "maintenance_record", "employee", 12),
-    ("list_maintenance_records", "maintenance_record", "admin", 8),
-    ("list_maintenance_tasks", "maintenance_task", "employee", 14),
-    ("list_maintenance_tasks", "maintenance_task", "admin", 10),
+    # ── PHÂN HẠNG 2 (TIER 2 — CỦNG CỐ ĐỘ VỮNG CHẮC: 6 tools lỗi trung bình) ──
+    # 11. get_enterprise_profile (Admin, F đề xuất: 150 mẫu)
+    ("get_enterprise_profile", "user_management", "admin", 22),
+    # 12. list_enterprise_users (Admin, F đề xuất: 150 mẫu)
+    ("list_enterprise_users", "user_management", "admin", 22),
+    # 13. get_my_profile (F đề xuất: 150 mẫu)
     ("get_my_profile", "user_profile", "employee", 14),
-    ("get_my_profile", "user_profile", "admin", 6),
-    ("get_my_permissions", "user_permission", "employee", 14),
-    ("get_my_permissions", "user_permission", "admin", 6),
-    ("list_enterprise_users", "user_management", "admin", 12),
-    ("list_enterprise_users", "user_management", "employee", 8),  # Refusal row
+    ("get_my_profile", "user_profile", "admin", 8),
+    # 14. get_asset (F đề xuất: 150 mẫu)
+    ("get_asset", "asset_detail", "employee", 14),
+    ("get_asset", "asset_detail", "admin", 8),
+    # 15. list_locations (F đề xuất: 130 mẫu)
+    ("list_locations", "location", "employee", 10),
+    ("list_locations", "location", "admin", 8),
+    # 16. list_categories (F đề xuất: 130 mẫu)
+    ("list_categories", "category", "employee", 10),
+    ("list_categories", "category", "admin", 8),
 
-    # ── Nhóm Điều chuyển, Yêu cầu & Chat (Hồ Văn Dinh: 7 tools, 14 hàng) ──
-    ("list_asset_transfers", "asset_transfer", "employee", 18),
-    ("list_asset_transfers", "asset_transfer", "admin", 10),
-    ("get_asset_transfer", "asset_transfer", "employee", 12),
-    ("get_asset_transfer", "asset_transfer", "admin", 8),
-    ("get_transfer_summary", "asset_transfer", "employee", 14),
-    ("get_transfer_summary", "asset_transfer", "admin", 6),
-    ("list_staff_requests", "staff_request", "employee", 14),
-    ("list_staff_requests", "staff_request", "admin", 8),
-    ("get_staff_request_summary", "staff_request", "employee", 12),
-    ("get_staff_request_summary", "staff_request", "admin", 8),
-    ("list_my_conversations", "chat_conversation", "admin", 14),
-    ("list_my_conversations", "chat_conversation", "employee", 8),  # Refusal row
-    ("get_unread_counts", "chat_conversation", "admin", 14),
-    ("get_unread_counts", "chat_conversation", "employee", 8),       # Refusal row
+    # ── PHÂN HẠNG 3 (TIER 3 — DUY TRÌ, TRÁNH OVER-BIAS: 6 tools đã đạt 90-100%) ──
+    # Mỗi công cụ giữ mức thấp (90 mẫu) để tránh mô hình thiên vị gọi hàm list_*
+    ("list_my_assets", "my_assets", "employee", 8),
+    ("list_my_assets", "my_assets", "admin", 5),
+    ("list_maintenance_schedules", "maintenance_schedule", "employee", 8),
+    ("list_maintenance_schedules", "maintenance_schedule", "admin", 5),
+    ("list_asset_transfers", "asset_transfer", "employee", 8),
+    ("list_asset_transfers", "asset_transfer", "admin", 5),
+    ("list_staff_requests", "staff_request", "employee", 8),
+    ("list_staff_requests", "staff_request", "admin", 5),
+    ("get_asset_statistics", "asset_detail", "admin", 13),
+    ("get_unread_counts", "chat_conversation", "admin", 13),
 
-    # ── Yêu cầu ghi Tạo / Sửa / Xóa (hàng huấn luyện sinh REFUSAL_VI theo preamble v1 luật 5) ──
-    ("get_asset", "permission_denial", "employee", 10),
-    ("list_asset_transfers", "permission_denial", "employee", 8),
-    ("list_maintenance_schedules", "permission_denial", "employee", 8),
+    # ── NHÓM CHẶN VƯỢT QUYỀN (PERMISSION_DENIAL: 5 tools admin khi nhân viên gọi lậu) ──
+    # Phân bổ theo đúng tỷ lệ lỗi thế thân của Nhóm F (Mục 6.3A)
+    ("get_asset_statistics", "asset_detail", "employee", 26),     # Chống gọi nhầm list_my_assets (32.5%)
+    ("get_enterprise_profile", "user_management", "employee", 22), # Chống gọi nhầm get_my_profile (27.5%)
+    ("list_enterprise_users", "user_management", "employee", 20),  # Chống gọi nhầm list_my_staff (25.0%)
+    ("list_my_conversations", "chat_conversation", "employee", 6), # Từ chối chuẩn (7.5%)
+    ("get_unread_counts", "chat_conversation", "employee", 6),     # Từ chối chuẩn (7.5%)
+
+    # ── YÊU CẦU GHI (TẠO / SỬA / XÓA) & NGOÀI PHẠM VI (Mục 6.3B) ──
+    ("get_asset", "permission_denial", "employee", 12),
+    ("list_asset_transfers", "permission_denial", "employee", 10),
+    ("list_maintenance_schedules", "permission_denial", "employee", 10),
 ]
 # Verify the total with:
 #   python3 -c "import sys; sys.path.insert(0,'datagen'); import config_sgod as c; print(sum(n for *_,n in c.TRACKB_BUCKET_PLAN))"
