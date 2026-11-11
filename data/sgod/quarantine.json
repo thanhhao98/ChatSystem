@@ -1,9 +1,93 @@
 [
   {
+    "id": "SN0160007",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Dung cmt cho 10 ct bt may lạnh FTKB50, mk co the truyen dk dc k?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0210059",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Em muốn biết nv bt gần đây là ai, nhét vt 3 đi nhe",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220000",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Thưa trưởng phòng, em cần ds các bt công việc thuộc lịch bảo trì 6ad613c146b7724f259475c2, nhá.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220001",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Anh ơi, list bt của lịch 6ad615353b0f8e12e2f190e4 nè, anh check xem ai đang làm và deadline thế nào?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220002",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Cô ơi, có thể gửi lại cho em ds công việc của lịch bt id 6ad615353b0f8e12e2f190e4 đi, nhá. Cô biết chưa nào?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220003",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Bác kỹ thuật, list công việc cho lịch 6ad615353b0f8e12e2f190e4 ạ, còn đang bt thì cho bác coi nhanh nhá.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
     "id": "SN0220004",
     "category": "maintenance_task",
     "user_role": "employee",
-    "input": "Xin chào, em xin được request list các task bảo trì của lịch nay là 6ad615353b0f8e12e2f190e4, hẵn ko thieu thuc thien ạ.",
+    "input": "Đồng chí nhân viên, em xin list các công việc của lịch bt 6ad615353b0f8e12e2f190e4 đi, em cần để kiểm tra thời hạn, nhá.",
     "expected_tool": "list_maintenance_tasks",
     "expected_params": {},
     "expected_permission": "allowed",
@@ -17,7 +101,49 @@
     "id": "SN0220005",
     "category": "maintenance_task",
     "user_role": "employee",
-    "input": "Xin chào, em cần list tất cả task bt liên quan đến lịch nay 6ad615353b0f8e12e2f190e4, coi 10 cv ạ?",
+    "input": "Em cần list công việc bt cho lịch 6ad615353b0f8e12e2f190e4, em cần kiểm tra deadline của các bt này, nhá.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220006",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin cô, cô cho em list các bt công việc thuộc lịch bảo trì id 6ad615353b0f8e12e2f190e4 đi, em cần kiểm tra thời gian hoàn thành, nhá.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220007",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Chắc anh nhớ mà, anh cần list công việc thuộc lịch bt 6ad615353b0f8e12e2f190e4 đi, anh kiểm tra xem đã bt đến đâu rồi nhá.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220008",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào, em cần danh sách các công việc của lịch bt 6ad615353b0f8e12e2f190e4, nhá. Cô cho em xem đi, cô biết không?",
     "expected_tool": "list_maintenance_tasks",
     "expected_params": {},
     "expected_permission": "allowed",
@@ -31,7 +157,1393 @@
     "id": "SN0220012",
     "category": "maintenance_task",
     "user_role": "employee",
-    "input": "Chuc nang ql cv va tb, thuong em tra loi roi. Cho em den danh sach cac task dang da phat sinh va dang da hoan thanh voi lech cap nhat 6ad615353b0f8e12e2f190e4, dc ko? Co the khong?",
+    "input": "Xin hỏi có bao nhiêu cv cho bt liên quan đến lịch tb=6ad615353b0f8e12e2f190e4 không?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220014",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Dựa vào lịch tb=6ad615353b0f8e12e2f190e4, có bao nhiêu cv cho bt cần làm không, cho em biết",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220015",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Em cần list task bt của lịch này ạ, 6ad615353b0f8e12e2f1910d nhé, dò giúp em dc ko?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220016",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Danh sách task bt trong lịch này 6ad615353b0f8e12e2f1910d có thể xem nhanh được không nhá?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220017",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nhanh nha, task bt liên quan đến lịch bảo trì này 6ad615353b0f8e12e2f1910d, em cần dò xem có gì chưa?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220018",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Lịch này 6ad615353b0f8e12e2f1910d, task bt cần xem có gì chưa? Em cần dò giúp",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220019",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Danh sách task bt trong lịch này 6ad615353b0f8e12e2f1910d, cần xem có gì dc chưa, giúp em nhanh đi!",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220020",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Lịch bảo trì 6ad615353b0f8e12e2f1910d, task bt cần xem có gì chưa? Tra cho em dc nhanh đi.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220021",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Dạ, cần list task bảo trì đợt lịch này đi, bt 6ad615353b0f8e12e2f190e4 ạ!",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220022",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Được, có thể list task bảo trì lịch 6ad615353b0f8e12e2f1910d đi ạ?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220023",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Thế, xin lỗi nếu đã hỏi nhiều, nhưng muốn copy list task bảo trì 6ad615353b0f8e12e2f1910d ạ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220024",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Ky vien, có thể copy list task bảo trì lịch 6ad615353b0f8e12e2f190e4 20 cái ko?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220025",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Cụm task bt cua lb thang 12 nhieu hon 10 ten nhieu thoi han va trang thai nhieu hon 10 cho em?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220027",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Anh cho em danh sach task thoi han den tuan sau va trang thai dang done trong lb 6ad615353b0f8e12e2f1910d, cho 5 task len",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220028",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Task bt cua lb 6ad615353b0f8e12e2f190e4 thi con lai sao nhieu thoi anh?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220029",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Trong lb 6ad615353b0f8e12e2f1910d, nhung nv nao la nghe ngat task tb? Em xem tat ca cong viec co 5 thoi han de",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220030",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nhieu nhat nhung task tb cua lb 6ad615353b0f8e12e2f190e4 la gi? Anh cho em danh sach co thoi han de 5",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220031",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Task tb la gi nhieu hon 3 lai cua lb 6ad615353b0f8e12e2f1910d cho em? Co luu y la dang pending",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220032",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nhu nhu anh da lam nen cho em danh sach tat ca task thoi han 30 ngay tu ngay bat dau va trang thai nhieu nhieu",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220033",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nhung nv nao da cap nhung task tb cua lb 6ad615353b0f8e12e2f1910d? Anh cho em xem nhieu hon 20 ten task",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220035",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Thi cua task tb cua lb 6ad615353b0f8e12e2f190e4 co bao nhieu lai? Co luu y co nhieu hon 5 thoi han",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220036",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Dong cap nhung task tb cua lb 6ad615353b0f8e12e2f1910d va cho em danh sach co 5 task de",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220037",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Các task bảo trì thuộc lịch bt này, nv ơi? Chắc là số lượng 3 nhỉ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220038",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào, nv, muốn biết cv đã làm các task này chưa thì sao? Rồi status nó đang thế nào? Kèm theo mã lịch bảo trì là 6ad615353b0f8e12e2f190e4 nhé.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220039",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nhìn nhanh đi nv, các task bt của lịch bt này à, mình cần biết cv đã hoàn thành bao nhiêu phần rồi.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220040",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Với lại, nv, mong cv làm nhanh đi các task bt này, chắc chắn lịch bt này còn deadline đâu. Đã có task nào cv đang làm chưa?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220041",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Các task bt của lịch này, nv ơi, số lượng tối đa là mấy vậy? Chắc là 20 nhỉ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220042",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Để mà nhớ, nv, muốn biết các task bt nào của lịch này đã hoàn thành thì làm sao? Đừng quên thêm mã lịch bảo trì vào nhé.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220043",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nhìn nhanh nv, muốn biết các task bt của lịch bt này đang ở trạng thái gì thì làm sao? Đừng quên thêm mã lịch bảo trì vào.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220044",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Vậy là muốn biết các task bt của lịch bt này thì làm sao nv ơi? Càng nhiều càng tốt nhỉ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220045",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Các task bt thuộc lịch bt này, nv ơi, mình cần biết số lượng cả quá. Đừng quên thêm mã lịch bảo trì vào nha.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220046",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Mình cần biết các task bt thuộc lịch này, nv ạ, đừng quên thêm mã lịch bảo trì vào, nhớ là tối đa là 10 nhé.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220047",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin chào nv, muốn biết cv đang làm các task nào thuộc lịch này thì làm sao? Đừng quên thêm mã lịch bảo trì vào.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220049",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Rất urg, tao dc ngay lm xong 3 cv cho 3 tasks bt thi dc dc len. Ma tb = 6ad615353b0f8e12e2f1910d, sl = 3.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220050",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nếu dc, ql tao dt list task bt dc? Ma tb = 6ad615353b0f8e12e2f190e4, sl = 10.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220051",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nghe dc dc nhó, tao dc lai 5 cv lm task bt thi dc dc len. Ma tb = 6ad615353b0f8e12e2f1910d, sl = 5.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220052",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Có dc cách tra cứu task bt dc tron ko nhỉ? Ma tb = 6ad615353b0f8e12e2f1910d, sl = 3.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220055",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Có dc cách truy vấn list task bt dc voi ngay ko? Ma tb = 6ad615353b0f8e12e2f190e4, sl = 3.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220056",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Rất urg, dc dc len cv lm task bt. Ma tb = 6ad615353b0f8e12e2f1910d, sl = 3.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220057",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Riêng dc dc len 5 cv lm task bt thi dc dc len, dc dm ngay. Ma tb = 6ad615353b0f8e12e2f1910d, sl = 5.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220058",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin lỗi, dc lm 3 cv cho 3 tasks bt dc dc len roi. Ma tb = 6ad615353b0f8e12e2f1910d, sl = 3.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220060",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Đây là lịch bt code 6ad615353b0f8e12e2f1910d, mong quý anh chị cho mình xem nv cap nhat dang co cv khong nhieu?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220061",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Làm ơn đưa cho mình ds cv dang trong dang ky cho lịch bt code 6ad615353b0f8e12e2f1910d, nhieu ve nhieu?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220065",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Mong quý anh chị giúp mình tra ve danh sach cv dang trong dang ky cho lịch bt code 6ad615353b0f8e12e2f190e4, nhieu ve nhieu?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220066",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Dang cho em xem ngay danh sach cv dang trong dang ky va dang xet cho lịch bt code 6ad615353b0f8e12e2f190e4, co van nhieu cv k?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220067",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Làm ơn cung cấp danh sach cv dang xet cho lịch bt code 6ad615353b0f8e12e2f1910d, nhieu cv nua?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220068",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin hãy cho em xem ds cv dang xet cho lịch bt code 6ad615353b0f8e12e2f190e4, nhieu cv vua nhieu?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220069",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Danh sach cv dang trong dang ky cho lịch bt code 6ad615353b0f8e12e2f190e4 co bao nhieu cv, vui lòng cung cấp cho em?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220070",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin lỗi ạ, muốn xem task bảo trì từ lịch bảo trì này mà? Mình cần biết người làm, thời gian và tình trạng hiện tại nhá.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220071",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Rất gấp đây, muốn thấy tất cả task bảo trì từ lịch này, số lượng đủ nhé ạ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220072",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Thưa quý anh, xin tra list các công việc bảo trì từ lịch bảo trì đã đặt, có đủ rồi ko?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220073",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Bây giờ con muốn tra list task bảo trì từ lịch bảo trì 6ad615353b0f8e12e2f190e4 với số lượng đủ, nhá.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220075",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Con cần tra các task bảo trì từ lịch bảo trì 6ad615353b0f8e12e2f190e4 với số lượng lớn ạ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220076",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin lỗi con ơi, muốn biết task bảo trì từ lịch bảo trì 6ad615353b0f8e12e2f190e4 với số lượng đủ, hãy tra giúp con.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220077",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Trừ khi có lý do đặc biệt, con muốn xem task bảo trì từ lịch bảo trì 6ad615353b0f8e12e2f190e4 với đủ số lượng task.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220078",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Chắc chắn tôi cần xem task bảo trì từ lịch bảo trì 6ad615353b0f8e12e2f190e4 với số lượng đủ, vui lòng tra giúp.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220079",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Nếu có thể, con muốn tra list task bảo trì từ lịch bảo trì 6ad615353b0f8e12e2f190e4 với đủ số lượng, xin ạ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220080",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Ái ước, nv, list_maintenance_tasks cho cv bt có ms 6ad615353b0f8e12e2f190e4 nhá?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220081",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Xin dc list_maintenance_tasks cho cv bt có ms 6ad615353b0f8e12e2f1910d dc ko? Nhe?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220082",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Tui mong list_maintenance_tasks có cv bt có ms 6ad615353b0f8e12e2f1910d nhá, limit la 5.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220083",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "List_maintenance_tasks co cv bt co ms 6ad615353b0f8e12e2f190e4 ko dc? Cho em xem!",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220084",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Em mong dc list_maintenance_tasks co cv bt co ms 6ad615353b0f8e12e2f1910d nhá, limit 5.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220085",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Mình muốn xem list_maintenance_tasks co cv bt co ms 6ad615353b0f8e12e2f1910d nhá, xin limit 10.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220086",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Cậu à, mình mong list_maintenance_tasks có cv bt có ms 6ad615353b0f8e12e2f1910d nhá, limit 5 đi.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220087",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Dạ, mình cần list_maintenance_tasks có cv bt có ms 6ad615353b0f8e12e2f1910d nhá, mong sl 10.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220088",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Từ cv bt có ms 6ad615353b0f8e12e2f190e4, mình mong dc list_maintenance_tasks nhá, mong limit 5.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0220089",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Có thể mình có thể có list_maintenance_tasks co cv bt co ms 6ad615353b0f8e12e2f1910d/sl=5 nha?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230005",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Tra cuu den nhan vien van phong, mong mn tra danh sach cv bt tb cho lịch 6ad615353b0f8e12e2f190e4 nhe.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230007",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Dạ, mn tra danh sach cv bt tb cho lịch tb 6ad615353b0f8e12e2f190e4 nhe, co the nhan hang 10 cv khac nha?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230018",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Xin chào, kiểm tra các task bảo trì liên quan đến lịch 6ad615353b0f8e12e2f1910d nha nhá. Nhớ cho em danh sách cả 3 cái đi ạ.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230019",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"tool_call\": \"list_maintenance_tasks?maintenanceScheduleId=6ad615353b0f8e12e2f1910d&limit=3\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230020",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Với lịch bảo trì này 6ad615353b0f8e12e2f1910d, mình cần biết thông tin task của nó đi. Nhớ cả 3 task nhé!",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230021",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Này, có mấy task bảo trì về lịch 6ad615353b0f8e12e2f1910d chưa, giúp em lấy đầy đủ đi ạ. Có 3 task thôi",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230022",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Có 3 task gì đó liên quan đến lịch bảo trì 6ad615353b0f8e12e2f1910d ko nhá? Cần gấp cho em, điền đầy đủ thông tin đi!",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230023",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Lịch 6ad615353b0f8e12e2f1910d có mấy task bảo trì chưa? Cần cho em danh sách nè, cả 3 task thôi. Điền thông tin đầy đủ nhé.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230024",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Mình cần biết về task của lịch bảo trì 6ad615353b0f8e12e2f1910d, có 3 task chưa nhá. Điền thông tin cụ thể nhé",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230025",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Lịch bảo trì 6ad615353b0f8e12e2f1910d, có vài task chưa, cho em biết đi, toàn bộ đi ạ. Có 3 task",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230034",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Xin chào, cho hỏi có thể xem các cv thực hiện cho các bt thuộc lịch tb 6ad615353b0f8e12e2f1910d với sl 3 ko?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230035",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Đúng rồi, bạn muốn biết công việc liên quan đến lịch tb 6ad615353b0f8e12e2f1910d với sl 3, vậy ta sẽ tra cứu. Bạn muốn thêm bất kì chi tiết nào không?\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230036",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Mình cần biết các task bt có trong lịch tb 6ad615353b0f8e12e2f190e4 với sl 10, ai đang làm thì nói với mình nhá!\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230037",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Chắc chắn rồi, tôi muốn biết các task bt trong lịch tb 6ad615353b0f8e12e2f1910d với sl 10, ai đang làm?\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230038",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Cho mình hỏi về lịch tb 6ad615353b0f8e12e2f190e4, có task bt chưa done với sl 20 ko?\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230039",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Mình muốn biết các công việc bt trong lịch tb 6ad615353b0f8e12e2f1910d với sl 5, ai đang làm thì nói cho mình nhá!\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230040",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Xin hỏi bạn, có thể xem các cv đã làm cho task bt trong lịch tb 6ad615353b0f8e12e2f190e4 với sl 20 ko?\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230041",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Mình muốn tra các task bt có trong lịch tb 6ad615353b0f8e12e2f1910d, ai đang làm thì hãy báo với mình, với sl 10 nhé!\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230042",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Chắc chắn bạn, mình cần biết các task bt trong lịch tb 6ad615353b0f8e12e2f190e4 với sl 20, ai đang làm thì nói đi!\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230043",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Mình cần biết các task bt trong lịch tb 6ad615353b0f8e12e2f190e4 với sl 10, ai đang làm?\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230044",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "{\"response\": \"Xin lỗi nếu nhầm lẫn, tôi muốn biết các task bt trong lịch tb 6ad615353b0f8e12e2f190e4 với sl 10, ai đang làm thì nói với tôi nhá!\"}",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230046",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Bác có thể giúp em tra các công việc chưa xong thuộc về lịch bt này 6ad615353b0f8e12e2f190e4 không ạ?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230047",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Bác, em cần danh sách các công việc bt còn lại liên quan tới lịch bt 6ad615353b0f8e12e2f190e4, nhá, với số lượng nhiều hơn, ok ạ?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230048",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Bác ơi, có thể tra các công việc đang bt thuộc về lịch bt 6ad615353b0f8e12e2f190e4 với sl nhỏ hơn 5, được không ạ?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230049",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Bác kiểm tra hộ em danh sách các công việc đang bt thuộc về lịch bt 6ad615353b0f8e12e2f190e4, nhá, số lượng vừa phải thôi.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230064",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Có task nào liên quan đến lịch @6ad615353b0f8e12e2f190e4 chưa ạ, nếu có thì gửi cái đi để kiểm tra nhanh nhá.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230065",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Mình đang cần xem task bảo trì từ lịch @6ad615353b0f8e12e2f190e4 nha, có thể nhiều công việc ko ạ?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230066",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Lịch @6ad615353b0f8e12e2f190e4 có task bảo trì nào chưa, mình muốn theo dõi nè.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230068",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Mình nhớ là lịch bảo trì @6ad615353b0f8e12e2f190e4 đã có task nào chưa, nếu có thì gửi cho mình đi nè!",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230069",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Các công việc bảo trì từ lịch @6ad615353b0f8e12e2f190e4 hiện tại có đang ở giai đoạn nào không ạ?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230071",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Lịch @6ad615353b0f8e12e2f190e4 cần phải theo dõi công việc bảo trì nào không ạ?",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230072",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Xin hãy tra cứu lịch bảo trì @6ad615353b0f8e12e2f190e4 có đã có task bảo trì nào chưa, nếu có thì báo lại cho mình nè!",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0230073",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Mình muốn xem công việc bảo trì từ lịch @6ad615353b0f8e12e2f190e4, nếu có thì gửi lại cho mình đi nè.",
     "expected_tool": "list_maintenance_tasks",
     "expected_params": {},
     "expected_permission": "allowed",
