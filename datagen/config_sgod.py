@@ -562,7 +562,7 @@ MIX_TARGETS = {
     "irrelevance": 0.10,
     "final_min": 300,      # pilot-friendly floor; POC v1: 4500
     "final_max": 6500,
-    "final_target": 3000,  # POC v1: 5800
+    "final_target": 5000,  # POC v1: 5800
 }
 
 # Yield budget from the POC v1 run: generation fill ~70% × verify pass ~84% ≈ 0.58 of the plan
