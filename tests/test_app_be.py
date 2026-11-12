@@ -154,17 +154,10 @@ class TestBackendAuthAndChat(unittest.TestCase):
         self.assertIn("Invalid credentials", resp.json()["detail"])
 
     @patch("tools.sgod.tool_executor.SGODToolExecutor.execute")
-<<<<<<< HEAD
-    @patch("app.be.gemini_client.GeminiClient.chat_completion")
-    @patch("app.be.routes.get_me_proxy")
-    def test_tc07_chat_endpoint_with_tool_loop(self, mock_get_me, mock_chat, mock_executor):
-        """TC-07: POST /api/chat executes tool-calling loop and returns response."""
-=======
     @patch("app.be.clients.gemini_client.GeminiClient.chat_completion_stream")
     @patch("app.be.services.auth_service.AuthService.get_me")
     def test_tc07_chat_stream_endpoint_with_tool_loop(self, mock_get_me, mock_chat_stream, mock_executor):
         """TC-07: POST /api/chat/stream executes tool-calling streaming loop and returns SSE events."""
->>>>>>> 499781f2e8f16911e949268264bfd77f9a98fd4f
         from tools.sgod.tool_executor import ToolExecutionResult
 
         mock_get_me.return_value = schemas.MeResponse(
@@ -178,22 +171,12 @@ class TestBackendAuthAndChat(unittest.TestCase):
             ),
         )
 
-<<<<<<< HEAD
-        # Mock Gemini first returning a tool_call, then returning final answer
-        mock_chat.side_effect = [
-            (
-                {
-                    "role": "assistant",
-                    "content": None,
-                    "tool_calls": [
-=======
         # Mock Gemini stream: 1st turn emits tool call, 2nd turn emits delta and usage
         mock_chat_stream.side_effect = [
             iter([
                 (
                     "tool_calls",
                     [
->>>>>>> 499781f2e8f16911e949268264bfd77f9a98fd4f
                         {
                             "id": "call_mock_1",
                             "type": "function",
@@ -203,25 +186,12 @@ class TestBackendAuthAndChat(unittest.TestCase):
                             },
                         }
                     ],
-<<<<<<< HEAD
-                },
-                None,
-            ),
-            (
-                {
-                    "role": "assistant",
-                    "content": "Dưới đây là danh sách tài sản của bạn từ hệ thống SGOD.",
-                },
-                None,
-            ),
-=======
                 )
             ]),
             iter([
                 ("delta", "Dưới đây là danh sách tài sản của bạn từ hệ thống SGOD."),
                 ("usage", {"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30}),
             ]),
->>>>>>> 499781f2e8f16911e949268264bfd77f9a98fd4f
         ]
 
         # Mock executor returning success
@@ -237,13 +207,6 @@ class TestBackendAuthAndChat(unittest.TestCase):
             json={"message": "Cho tôi xem danh sách tài sản của tôi"},
         )
         self.assertEqual(resp.status_code, 200)
-<<<<<<< HEAD
-        data = resp.json()
-        self.assertTrue(data["success"])
-        self.assertEqual(len(data["tools_executed"]), 1)
-        self.assertEqual(data["tools_executed"][0]["tool_name"], "list_my_assets")
-        self.assertIn("danh sách tài sản", data["reply"])
-=======
         self.assertIn("text/event-stream", resp.headers["content-type"])
         body_text = resp.text
         self.assertIn("tool_start", body_text)
@@ -251,7 +214,6 @@ class TestBackendAuthAndChat(unittest.TestCase):
         self.assertIn("tool_result", body_text)
         self.assertIn("done", body_text)
         self.assertIn("danh sách tài sản", body_text)
->>>>>>> 499781f2e8f16911e949268264bfd77f9a98fd4f
 
 
 if __name__ == "__main__":
