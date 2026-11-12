@@ -94,21 +94,23 @@ def main():
 
     mt = cfg.MIX_TARGETS
     d_frac, r_frac, i_frac = mt["domain_verified"], mt["replay"], mt["irrelevance"]
+    target_total = mt["final_target"]
     if args.no_mix_enforce:
         n_d, n_r, n_i = len(domain), len(replay), len(irrel)
     else:
-        final_from_domain = int(len(domain) / d_frac)
-        want_replay, want_irrel = int(final_from_domain * r_frac), int(final_from_domain * i_frac)
-        if want_replay > len(replay) or want_irrel > len(irrel):
-            cap_final = min(len(domain) / d_frac,
-                            (len(replay) / r_frac) if replay else float("inf"),
-                            (len(irrel) / i_frac) if irrel else float("inf"))
-            final = int(cap_final)
-            n_d, n_r, n_i = int(final * d_frac), int(final * r_frac), int(final * i_frac)
-            if not replay:
-                n_d, n_i = len(domain), min(len(irrel), int(len(domain) / d_frac * i_frac))
-        else:
-            n_d, n_r, n_i = len(domain), want_replay, want_irrel
+        # Cap at the declared delivery size and fail below it.  Previously a
+        # shortage in replay/irrelevance silently shrank the final artifact.
+        cap_total = min(len(domain) / d_frac,
+                        (len(replay) / r_frac) if replay else 0,
+                        (len(irrel) / i_frac) if irrel else 0)
+        if cap_total < target_total:
+            print(f"ERROR: cannot satisfy final_target={target_total}: "
+                  f"available capacity is {int(cap_total)} "
+                  f"(domain={len(domain)}, replay={len(replay)}, irrelevance={len(irrel)}).")
+            return 2
+        n_d = round(target_total * d_frac)
+        n_r = round(target_total * r_frac)
+        n_i = target_total - n_d - n_r
 
     rng.shuffle(domain)
     rng.shuffle(replay)

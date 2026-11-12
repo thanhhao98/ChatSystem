@@ -560,7 +560,9 @@ MIX_TARGETS = {
     "domain_verified": 0.55,
     "replay": 0.35,
     "irrelevance": 0.10,
-    "final_min": 300,      # pilot-friendly floor; POC v1: 4500
+    # Production delivery is 5,000 rows across train + val.  Do not silently
+    # accept a smaller three-stream mix when an input quota is short.
+    "final_min": 5000,
     "final_max": 6500,
     "final_target": 5000,  # POC v1: 5800
 }

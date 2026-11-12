@@ -10,7 +10,7 @@ No LLM labeling needed (the label is "no tool" by construction), but queries ARE
 LLM for diversity, then anti-leaked against the eval set(s) + train.
 
 Usage (LLM stage — runs on the reference infrastructure, needs OPENAI_API_KEY):
-  OPENAI_API_KEY=... python3 datagen/generate_irrelevance.py --count 300 --output data/sgod/irrelevance.json
+  OPENAI_API_KEY=... python3 datagen/generate_irrelevance.py --count 500 --output data/sgod/irrelevance.json
 """
 import argparse
 import json
@@ -53,7 +53,9 @@ def gen_batch(client, system_text, kind, hint, n, model):
 def main():
     p = argparse.ArgumentParser(description=__doc__.split("\n\n")[0],
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--count", type=int, default=300, help="total rows across all kinds")
+    p.add_argument("--count", type=int,
+                   default=round(cfg.MIX_TARGETS["final_target"] * cfg.MIX_TARGETS["irrelevance"]),
+                   help="total rows across all kinds (defaults from MIX_TARGETS)")
     p.add_argument("--output", default=f"{cfg.DATA_DIR}/irrelevance.json")
     p.add_argument("--batch", type=int, default=15)
     p.add_argument("--model", default=cfg.GEN_MODEL)

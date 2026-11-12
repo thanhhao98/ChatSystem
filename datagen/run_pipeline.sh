@@ -20,7 +20,8 @@
 #   GEN_MODEL / LABEL_MODELS (space-separated) / ARBITER_MODEL  [placeholders in datagen/config_sgod.py]
 #   SCORED_MODEL  the GPT under test (S Việc 8); a GEN/LABEL/ARBITER model with the same name (after the last
 #                 "/") is refused (contract 2). REQUIRED with --eval-aug.
-#   OUT_DIR [data/sgod]   SCALE [1.0]   MAX_TOTAL [0 = plan size; pilot 60]   IRREL_COUNT [300; pilot 8]
+#   OUT_DIR [data/sgod]   SCALE [auto for MIX_TARGETS.final_target; pilot 1.0]
+#   MAX_TOTAL [0 = plan size; pilot 60]   IRREL_COUNT [auto from irrelevance fraction; pilot 8]
 #   GEN_WORKERS [12; pilot 4]  LBL_WORKERS [16; pilot 4]  VER_WORKERS [16; pilot 4]
 #   PROMPT_DIR [datagen/prompts; eval-aug datagen/prompts_eval — PROMPT_DIR=datagen/prompts_eval selects eval-aug]
 #   PREAMBLE [prompts/system_preamble_v1.txt]   TOOL_DEFS_PATH / TOOL_POLICY_PATH / ROLES_PATH [tools/sgod/*.json]
@@ -97,12 +98,21 @@ ARBITER_MODEL="${ARBITER_MODEL:-$(cfg ARBITER_MODEL)}"
 PREAMBLE="${PREAMBLE:-$(cfg PREAMBLE_V1_PATH)}"
 REPLAY_RAW="$(cfg REPLAY_CONFIG | "$PY" -c "import sys,ast; print(ast.literal_eval(sys.stdin.read())['local_path'])" 2>/dev/null || echo data/public/xlam_raw_2k.jsonl)"
 REPLAY_SEED="$("$PY" -c "import sys; sys.path.insert(0,'datagen'); import config_sgod as c; print(c.REPLAY_CONFIG['converter_seed'])")"
-SCALE="${SCALE:-1.0}"
+if [ "$MODE" = pilot ]; then
+  SCALE="${SCALE:-1.0}"
+else
+  # final_target=5,000 with a 0.58 yield budget needs ~4,741 raw domain
+  # rows. Add a small margin because each bucket is rounded independently.
+  SCALE_DEFAULT="$("$PY" -c "import math,sys; sys.path.insert(0,'datagen'); import config_sgod as c; print(math.ceil(c.MIX_TARGETS['final_target'] * c.MIX_TARGETS['domain_verified'] / c.YIELD_BUDGET) / sum(n for *_, n in c.TRACKB_BUCKET_PLAN) + 0.01)")"
+  SCALE="${SCALE:-$SCALE_DEFAULT}"
+fi
 if [ "$MODE" = pilot ]; then   # pilot defaults; an explicit env value still wins (e.g. a tiny smoke run)
   MAX_TOTAL="${MAX_TOTAL:-60}"; IRREL_COUNT="${IRREL_COUNT:-8}"
   GEN_WORKERS="${GEN_WORKERS:-4}"; LBL_WORKERS="${LBL_WORKERS:-4}"; VER_WORKERS="${VER_WORKERS:-4}"
 else
-  MAX_TOTAL="${MAX_TOTAL:-0}"; IRREL_COUNT="${IRREL_COUNT:-300}"
+  MAX_TOTAL="${MAX_TOTAL:-0}"
+  IRREL_DEFAULT="$("$PY" -c "import sys; sys.path.insert(0,'datagen'); import config_sgod as c; print(round(c.MIX_TARGETS['final_target'] * c.MIX_TARGETS['irrelevance']))")"
+  IRREL_COUNT="${IRREL_COUNT:-$IRREL_DEFAULT}"
   GEN_WORKERS="${GEN_WORKERS:-12}"; LBL_WORKERS="${LBL_WORKERS:-16}"; VER_WORKERS="${VER_WORKERS:-16}"
 fi
 VERIFY_MODE="${VERIFY_MODE:-review-only}"
