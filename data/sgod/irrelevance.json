@@ -4988,5 +4988,15 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0099",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Quy trình bàn giao tài sản khi nhân viên chuyển công tác cần qua những bước nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
   }
 ]
