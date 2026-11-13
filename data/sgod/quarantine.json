@@ -8,6 +8,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "get_asset_histories",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_asset"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -50,6 +54,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "get_my_permissions",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -64,6 +72,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_records",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "list_maintenance_records"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -78,20 +90,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_records",
-    "_reject_stage": "B",
-    "_issues": [
-      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
-    ]
-  },
-  {
-    "id": "SN0160002",
-    "category": "maintenance_record",
-    "user_role": "admin",
-    "input": "Tìm xem nv vừa mới ký vào bt gần đây, bt của tb và nv, cho *ds* nhá",
-    "expected_tool": "list_maintenance_tasks",
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_seed_tool": "list_maintenance_records",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "list_enterprise_users"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -106,6 +108,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_records",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_my_profile"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -134,6 +140,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_records",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -162,6 +172,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_my_permissions"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -190,6 +204,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -204,6 +222,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -428,6 +450,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -582,6 +608,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "list_maintenance_schedules"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -918,6 +948,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -946,6 +980,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -960,6 +998,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_maintenance_schedule"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -988,6 +1030,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1170,6 +1216,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_asset"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1198,6 +1248,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1212,6 +1266,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "list_staff_requests"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1240,6 +1298,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "list_maintenance_records"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1268,6 +1330,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_maintenance_schedule"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1352,6 +1418,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_maintenance_schedule"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1366,6 +1436,7 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1436,6 +1507,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "list_staff_requests"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1478,6 +1553,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "list_maintenance_schedules"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1506,6 +1585,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "list_staff_requests"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1534,6 +1617,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1604,6 +1691,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1632,6 +1723,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1646,6 +1741,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1660,6 +1759,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_asset"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1674,6 +1777,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1772,6 +1879,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -1828,6 +1939,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -2360,6 +2475,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -2374,6 +2493,7 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_tasks",
+    "_needs_review": true,
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
@@ -2402,6 +2522,10 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_schedules",
+    "_needs_review": true,
+    "expected_tool_alternates": [
+      "get_staff_request_summary"
+    ],
     "_reject_stage": "B",
     "_issues": [
       "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
