@@ -3,8 +3,6 @@ import {
   Sun,
   Moon,
   Plus,
-  MessageSquare,
-  Trash2,
   LogOut,
   Sparkles,
   Wrench,
@@ -16,6 +14,9 @@ import {
   User as UserIcon,
   ChevronDown,
   ChevronUp,
+  ChevronRight,
+  Pin,
+  X,
   Clock,
   Zap,
   Cpu,
@@ -38,11 +39,18 @@ import {
   ChatMessage,
   TokenUsage,
   ToolExecutionRecord,
+  getHealthApi,
   sendChatApiStream,
 } from "../services/client"
 import { Hero } from "@/components/ui/hero"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { AssistantMarkdown } from "./AssistantMarkdown"
+import { SidebarConversationItem } from "./SidebarConversationItem"
+import {
+  matchesConversationSearch,
+  usePinnedConversations,
+} from "../hooks/useConversationManagement"
 
 export interface MessageAttachmentMeta {
   name: string
@@ -54,6 +62,7 @@ export interface MessageItem {
   id: string
   sender: "user" | "assistant"
   text: string
+  model?: string
   attachments?: MessageAttachmentMeta[]
   tools?: ToolExecutionRecord[]
   timestamp: string
@@ -70,6 +79,30 @@ export interface ChatSession {
   title: string
   messages: MessageItem[]
   updatedAt: string
+}
+
+const SIDEBAR_DEFAULT_WIDTH = 288
+const SIDEBAR_MIN_WIDTH = 220
+const SIDEBAR_MAX_WIDTH = 480
+const SIDEBAR_MAX_VIEWPORT_RATIO = 0.4
+const SIDEBAR_WIDTH_STORAGE_KEY = "sgod_sidebar_width"
+
+function getEffectiveMaxSidebarWidth(viewportWidth?: number): number {
+  const vw =
+    viewportWidth ??
+    (typeof window !== "undefined" ? window.innerWidth : 1280)
+  const ratioMax = Math.floor(vw * SIDEBAR_MAX_VIEWPORT_RATIO)
+  return Math.min(SIDEBAR_MAX_WIDTH, Math.max(SIDEBAR_MIN_WIDTH, ratioMax))
+}
+
+function clampSidebarWidth(width: number, viewportWidth?: number): number {
+  const vw =
+    viewportWidth ??
+    (typeof window !== "undefined" ? window.innerWidth : 1280)
+  const ratioMax = Math.floor(vw * SIDEBAR_MAX_VIEWPORT_RATIO)
+  const maxAllowed = Math.min(SIDEBAR_MAX_WIDTH, ratioMax)
+  const minAllowed = Math.min(SIDEBAR_MIN_WIDTH, maxAllowed)
+  return Math.min(Math.max(Math.round(width), minAllowed), maxAllowed)
 }
 
 const ENTERPRISE_PROMPTS = [
@@ -120,6 +153,70 @@ export const ChatWidget: React.FC = () => {
 
   // Search in session history
   const [searchHistory, setSearchHistory] = React.useState<string>("")
+  const [debouncedSearch, setDebouncedSearch] = React.useState<string>("")
+  const searchInputRef = React.useRef<HTMLInputElement>(null)
+  const [isPinnedSectionOpen, setIsPinnedSectionOpen] = React.useState<boolean>(true)
+
+  // Light debounce (80ms) for smooth real-time search on large lists; instant when cleared
+  React.useEffect(() => {
+    if (!searchHistory.trim()) {
+      setDebouncedSearch("")
+      return
+    }
+    const timer = window.setTimeout(() => {
+      setDebouncedSearch(searchHistory)
+    }, 80)
+    return () => window.clearTimeout(timer)
+  }, [searchHistory])
+
+  // Keyboard shortcut Cmd+K (macOS) / Ctrl+K (Windows/Linux) to focus conversation search
+  React.useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        const activeEl = document.activeElement as HTMLElement | null
+        if (activeEl) {
+          const tag = activeEl.tagName
+          const isEditable =
+            tag === "TEXTAREA" ||
+            tag === "INPUT" ||
+            tag === "SELECT" ||
+            activeEl.isContentEditable
+          if (isEditable && activeEl !== searchInputRef.current) {
+            return
+          }
+        }
+        e.preventDefault()
+        setSidebarOpen(true)
+        window.requestAnimationFrame(() => {
+          searchInputRef.current?.focus()
+          searchInputRef.current?.select()
+        })
+      }
+    }
+    window.addEventListener("keydown", handleGlobalKeyDown)
+    return () => {
+      window.removeEventListener("keydown", handleGlobalKeyDown)
+    }
+  }, [])
+
+  // Active AI model fetched from backend API (/api/health & stream done event)
+  const [activeModel, setActiveModel] = React.useState<string>("")
+
+  React.useEffect(() => {
+    let mounted = true
+    getHealthApi()
+      .then((res) => {
+        if (mounted && res.gemini_model) {
+          setActiveModel(res.gemini_model)
+        }
+      })
+      .catch(() => {
+        // Fallback silently if health endpoint is unreachable
+      })
+    return () => {
+      mounted = false
+    }
+  }, [])
 
   // Liquid Mercury Blobs Data for Ambient Background
   const blobsData = React.useMemo(() => {
@@ -167,6 +264,120 @@ export const ChatWidget: React.FC = () => {
 
   // Sidebar & Chat History state
   const [sidebarOpen, setSidebarOpen] = React.useState<boolean>(true)
+  const [viewportWidth, setViewportWidth] = React.useState<number>(() =>
+    typeof window !== "undefined" ? window.innerWidth : 1280,
+  )
+  const [sidebarWidth, setSidebarWidth] = React.useState<number>(() => {
+    try {
+      const saved = localStorage.getItem(SIDEBAR_WIDTH_STORAGE_KEY)
+      if (saved !== null) {
+        const parsed = Number(saved)
+        if (Number.isFinite(parsed) && parsed > 0) {
+          return clampSidebarWidth(parsed)
+        }
+      }
+    } catch {
+      // Ignore storage access errors
+    }
+    return clampSidebarWidth(SIDEBAR_DEFAULT_WIDTH)
+  })
+  const [isResizingSidebar, setIsResizingSidebar] = React.useState<boolean>(false)
+  const resizeCleanupRef = React.useRef<(() => void) | null>(null)
+
+  // Persist clamped sidebar width to localStorage
+  React.useEffect(() => {
+    try {
+      localStorage.setItem(SIDEBAR_WIDTH_STORAGE_KEY, String(sidebarWidth))
+    } catch {
+      // Ignore storage quota errors
+    }
+  }, [sidebarWidth])
+
+  // Re-clamp sidebar width when viewport size changes
+  React.useEffect(() => {
+    const handleViewportResize = () => {
+      const vw = window.innerWidth
+      setViewportWidth(vw)
+      setSidebarWidth((prev) => clampSidebarWidth(prev, vw))
+    }
+    window.addEventListener("resize", handleViewportResize, { passive: true })
+    return () => {
+      window.removeEventListener("resize", handleViewportResize)
+    }
+  }, [])
+
+  // Cleanup active drag listeners & body styles on unmount
+  React.useEffect(() => {
+    return () => {
+      if (resizeCleanupRef.current) {
+        resizeCleanupRef.current()
+        resizeCleanupRef.current = null
+      }
+    }
+  }, [])
+
+  const handleStartResizeSidebar = React.useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      if (e.button !== 0) return
+      e.preventDefault()
+      e.stopPropagation()
+
+      if (resizeCleanupRef.current) {
+        resizeCleanupRef.current()
+      }
+
+      setIsResizingSidebar(true)
+      const prevCursor = document.body.style.cursor
+      const prevUserSelect = document.body.style.userSelect
+      document.body.style.cursor = "col-resize"
+      document.body.style.userSelect = "none"
+
+      const handlePointerMove = (moveEvent: PointerEvent) => {
+        const nextWidth = clampSidebarWidth(moveEvent.clientX, window.innerWidth)
+        setSidebarWidth(nextWidth)
+      }
+
+      const cleanup = () => {
+        window.removeEventListener("pointermove", handlePointerMove)
+        window.removeEventListener("pointerup", handlePointerUp)
+        window.removeEventListener("pointercancel", handlePointerUp)
+        document.body.style.cursor = prevCursor
+        document.body.style.userSelect = prevUserSelect
+        setIsResizingSidebar(false)
+        resizeCleanupRef.current = null
+      }
+
+      const handlePointerUp = () => {
+        cleanup()
+      }
+
+      resizeCleanupRef.current = cleanup
+      window.addEventListener("pointermove", handlePointerMove)
+      window.addEventListener("pointerup", handlePointerUp)
+      window.addEventListener("pointercancel", handlePointerUp)
+    },
+    [],
+  )
+
+  const handleSidebarResizerKeyDown = React.useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const step = 16
+      if (e.key === "ArrowRight") {
+        e.preventDefault()
+        setSidebarWidth((prev) => clampSidebarWidth(prev + step, window.innerWidth))
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault()
+        setSidebarWidth((prev) => clampSidebarWidth(prev - step, window.innerWidth))
+      } else if (e.key === "Home") {
+        e.preventDefault()
+        setSidebarWidth(clampSidebarWidth(SIDEBAR_MIN_WIDTH, window.innerWidth))
+      } else if (e.key === "End") {
+        e.preventDefault()
+        setSidebarWidth(clampSidebarWidth(SIDEBAR_MAX_WIDTH, window.innerWidth))
+      }
+    },
+    [],
+  )
 
   const normalizeSessions = React.useCallback((rawList: unknown): ChatSession[] => {
     if (!Array.isArray(rawList)) return []
@@ -174,16 +385,27 @@ export const ChatWidget: React.FC = () => {
       .filter((item): item is ChatSession => Boolean(item && typeof item === "object" && "id" in item))
       .map((s) => {
         const validMessages = Array.isArray(s.messages) ? s.messages : []
-        if (validMessages.length === 0 && s.title) {
+        const firstUserText = validMessages
+          .find((m) => m.sender === "user" && m.text)
+          ?.text?.replace(/\s+/g, " ")
+          .trim()
+        const isLegacySlicedTitle =
+          Boolean(s.title && s.title.length === 48 && firstUserText && firstUserText.length > 48 && firstUserText.startsWith(s.title))
+        const resolvedTitle =
+          !s.title || isLegacySlicedTitle
+            ? firstUserText || s.title
+            : s.title
+        if (validMessages.length === 0 && resolvedTitle) {
           const fallbackTime =
             s.updatedAt || new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
           return {
             ...s,
+            title: resolvedTitle,
             messages: [
               {
                 id: `user_${s.id}`,
                 sender: "user" as const,
-                text: s.title,
+                text: resolvedTitle,
                 timestamp: fallbackTime,
               },
             ],
@@ -191,6 +413,7 @@ export const ChatWidget: React.FC = () => {
         }
         return {
           ...s,
+          title: resolvedTitle || "Cuộc trò chuyện mới",
           messages: validMessages,
         }
       })
@@ -314,24 +537,27 @@ export const ChatWidget: React.FC = () => {
   const upsertSession = React.useCallback(
     (sessionId: string, nextMessages: MessageItem[], titleFallback?: string) => {
       const nowStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      const cleanFallback = (titleFallback || nextMessages[0]?.text || "Cuộc trò chuyện mới")
+        .replace(/\s+/g, " ")
+        .trim()
       setSessions((prevSessions) => {
-        const exists = prevSessions.some((s) => s.id === sessionId)
+        const existingSession = prevSessions.find((s) => s.id === sessionId)
         let updated: ChatSession[]
-        if (exists) {
-          updated = prevSessions.map((s) =>
-            s.id === sessionId
-              ? {
-                  ...s,
-                  title: s.title || (titleFallback || "Cuộc trò chuyện mới").slice(0, 48),
-                  messages: nextMessages,
-                  updatedAt: nowStr,
-                }
-              : s,
-          )
+        if (existingSession) {
+          const updatedSession: ChatSession = {
+            ...existingSession,
+            title: existingSession.title || cleanFallback,
+            messages: nextMessages,
+            updatedAt: nowStr,
+          }
+          updated = [
+            updatedSession,
+            ...prevSessions.filter((s) => s.id !== sessionId),
+          ]
         } else {
           const newSession: ChatSession = {
             id: sessionId,
-            title: (titleFallback || nextMessages[0]?.text || "Cuộc trò chuyện mới").slice(0, 48),
+            title: cleanFallback,
             messages: nextMessages,
             updatedAt: nowStr,
           }
@@ -406,17 +632,48 @@ export const ChatWidget: React.FC = () => {
     setMessages(sessionMessages)
   }
 
-  const handleDeleteSession = (e: React.MouseEvent, sessionId: string) => {
-    e.stopPropagation()
-    const filtered = sessions.filter((s) => s.id !== sessionId)
-    saveSessions(filtered)
-    if (activeSessionId === sessionId) {
-      stopTypewriter()
-      activeSessionIdRef.current = null
-      setActiveSessionId(null)
-      setMessages([])
-    }
-  }
+  const validSessionIds = React.useMemo(() => sessions.map((s) => s.id), [sessions])
+  const { pinnedSet, togglePin, unpinConversation } = usePinnedConversations({
+    userId: user?.user_id,
+    enterpriseName: user?.enterprise_name,
+    tier: user?.tier,
+    validSessionIds,
+  })
+
+  const handleRenameSession = React.useCallback(
+    (sessionId: string, newTitle: string) => {
+      const cleanTitle = newTitle.replace(/\s+/g, " ").trim()
+      if (!cleanTitle) return
+      setSessions((prevSessions) => {
+        const updated = prevSessions.map((s) =>
+          s.id === sessionId ? { ...s, title: cleanTitle } : s,
+        )
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(updated))
+        } catch {
+          // Ignore quota errors
+        }
+        return updated
+      })
+    },
+    [storageKey],
+  )
+
+  const handleDeleteSession = React.useCallback(
+    (e: React.MouseEvent, sessionId: string) => {
+      e.stopPropagation()
+      unpinConversation(sessionId)
+      const filtered = sessions.filter((s) => s.id !== sessionId)
+      saveSessions(filtered)
+      if (activeSessionId === sessionId) {
+        stopTypewriter()
+        activeSessionIdRef.current = null
+        setActiveSessionId(null)
+        setMessages([])
+      }
+    },
+    [sessions, saveSessions, activeSessionId, unpinConversation],
+  )
 
   const handleSend = async (overrideText?: string) => {
     const textToSend = (overrideText ?? input).trim()
@@ -552,11 +809,16 @@ export const ChatWidget: React.FC = () => {
             stopTypewriter()
             displayedLengthRef.current = finalFullText.length
 
+            if (res.model) {
+              setActiveModel(res.model)
+            }
+
             turnMessages = turnMessages.map((m) =>
               m.id === botMsgId
                 ? {
                     ...m,
                     text: finalFullText,
+                    model: res.model || activeModel || m.model,
                     tools: res.tools_executed || m.tools,
                     responseTimeMs: clientResponseTimeMs,
                     outputTokens: tokenCount,
@@ -625,9 +887,27 @@ export const ChatWidget: React.FC = () => {
 
   const hasConversation = messages.length > 0
 
-  const filteredSessions = sessions.filter((s) =>
-    s.title.toLowerCase().includes(searchHistory.toLowerCase())
-  )
+  const isSearching = debouncedSearch.trim().length > 0
+
+  const { matchedSessions, pinnedSessions, regularSessions } = React.useMemo(() => {
+    const matched = sessions.filter((s) =>
+      matchesConversationSearch(s.title, debouncedSearch),
+    )
+    const pinned: ChatSession[] = []
+    const regular: ChatSession[] = []
+    for (const s of matched) {
+      if (pinnedSet.has(s.id)) {
+        pinned.push(s)
+      } else {
+        regular.push(s)
+      }
+    }
+    return {
+      matchedSessions: matched,
+      pinnedSessions: pinned,
+      regularSessions: regular,
+    }
+  }, [sessions, debouncedSearch, pinnedSet])
 
   const renderComposer = (variant: "welcome" | "bottom") => (
     <form
@@ -679,7 +959,9 @@ export const ChatWidget: React.FC = () => {
           <CornerDownLeft className="h-3 w-3" />
           <span>Nhấn <strong>Enter</strong> để gửi • <strong>Shift + Enter</strong> để xuống dòng</span>
         </span>
-        <span className="opacity-70 font-mono">Gemini 2.5 Flash • Dual Theme OS</span>
+        {activeModel && (
+          <span className="opacity-70 font-mono">{activeModel}</span>
+        )}
       </div>
     </form>
   )
@@ -793,9 +1075,9 @@ export const ChatWidget: React.FC = () => {
           --assistant-bg: rgba(255, 255, 255, 0.95);
           --assistant-border: rgba(0, 0, 0, 0.09);
           --assistant-text: #09090b;
-          --user-bg: linear-gradient(135deg, #1e293b, #0f172a);
-          --user-border: rgba(0, 0, 0, 0.15);
-          --user-text: #ffffff;
+          --user-bg: linear-gradient(135deg, rgba(255, 251, 235, 0.96), rgba(254, 243, 199, 0.88));
+          --user-border: rgba(245, 158, 11, 0.35);
+          --user-text: #18181b;
           --composer-bg: rgba(255, 255, 255, 0.94);
           --composer-border: rgba(0, 0, 0, 0.12);
           --card-bg: rgba(255, 255, 255, 0.84);
@@ -981,22 +1263,25 @@ export const ChatWidget: React.FC = () => {
       {/* Ambient Vignette Overlay for Crisp Contrast */}
       <div className="chat-ambient-vignette" aria-hidden="true" />
 
-      {/* Sidebar History (Liquid Glass) */}
+      {/* Sidebar History (Liquid Glass - Resizable) */}
       <aside
         aria-label="Lịch sử trò chuyện"
+        style={{
+          width: sidebarOpen ? `${sidebarWidth}px` : "0px",
+        }}
         className={cn(
-          "relative z-40 flex flex-col transition-all duration-300 shrink-0 liquid-glass-sidebar",
-          sidebarOpen ? "w-64 sm:w-72" : "w-0 overflow-hidden border-r-0",
+          "relative z-40 flex flex-col shrink-0 liquid-glass-sidebar",
+          isResizingSidebar ? "transition-none select-none" : "transition-[width] duration-300 ease-out",
+          !sidebarOpen && "w-0 overflow-hidden border-r-0",
         )}
       >
-        <div className="flex items-center justify-between p-4 border-b border-border/60">
-          <div className="flex items-center gap-2 font-semibold text-sm">
-            <div className="p-1.5 rounded-lg bg-amber-500/15 text-amber-500 border border-amber-500/20">
+        <div className="flex items-center justify-between gap-2 p-4 border-b border-border/60 min-w-0">
+          <div className="flex items-center gap-2 font-semibold text-sm min-w-0 flex-1">
+            <div className="p-1.5 rounded-lg bg-amber-500/15 text-amber-500 border border-amber-500/20 shrink-0">
               <Bot className="h-4 w-4" />
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <span className="truncate block font-bold text-sm tracking-tight text-foreground">SGOD Asset AI</span>
-              <span className="text-[10px] text-muted-foreground block -mt-0.5 font-mono">Liquid Glass OS</span>
             </div>
           </div>
           <Button
@@ -1004,91 +1289,197 @@ export const ChatWidget: React.FC = () => {
             variant="ghost"
             size="icon"
             onClick={() => setSidebarOpen(false)}
-            className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-accent"
+            className="h-8 w-8 shrink-0 text-muted-foreground hover:text-foreground hover:bg-accent"
             title="Thu gọn thanh bên"
           >
             <PanelLeftClose className="h-4 w-4" />
           </Button>
         </div>
 
-        <div className="p-3 space-y-2">
+        <div className="p-3 space-y-2 min-w-0">
           <Button
             type="button"
             variant="outline"
             onClick={handleNewChat}
-            className="w-full justify-start gap-2 rounded-xl border-dashed border-border bg-card/60 hover:bg-accent hover:border-amber-500/60 text-foreground"
+            className="w-full min-w-0 justify-start gap-2 rounded-xl border-dashed border-border bg-card/60 hover:bg-accent hover:border-amber-500/60 text-foreground"
           >
-            <Plus className="h-4 w-4 text-amber-500" />
-            <span className="font-semibold text-xs sm:text-sm">Cuộc trò chuyện mới</span>
+            <Plus className="h-4 w-4 shrink-0 text-amber-500" />
+            <span className="font-semibold text-xs sm:text-sm min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left">
+              Cuộc trò chuyện mới
+            </span>
           </Button>
 
-          {sessions.length > 3 && (
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Tìm kiếm hội thoại..."
-                value={searchHistory}
-                onChange={(e) => setSearchHistory(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-border bg-card/60 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-amber-500/50"
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-3 py-1 space-y-1">
-          <div className="flex items-center justify-between px-2 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            <span>Lịch sử tra cứu</span>
-            <span className="font-mono text-[10px] text-amber-500/80">{sessions.length}</span>
-          </div>
-
-          {filteredSessions.length === 0 ? (
-            <p className="px-2 py-4 text-xs text-muted-foreground text-center">
-              {searchHistory ? "Không tìm thấy kết quả" : "Chưa có lịch sử hội thoại."}
-            </p>
-          ) : (
-            filteredSessions.map((session) => (
-              <div
-                key={session.id}
-                role="button"
-                tabIndex={0}
-                onClick={() => handleSelectSession(session)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault()
-                    handleSelectSession(session)
-                  }
+          {/* Search Input (Always visible) */}
+          <div className="relative min-w-0">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Tìm kiếm cuộc trò chuyện..."
+              aria-label="Tìm kiếm cuộc trò chuyện"
+              value={searchHistory}
+              onChange={(e) => setSearchHistory(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Escape" && searchHistory) {
+                  e.preventDefault()
+                  setSearchHistory("")
+                }
+              }}
+              className="w-full pl-8 pr-8 py-1.5 text-xs rounded-lg border border-border/80 bg-card/60 hover:border-amber-500/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-amber-500/60 focus:ring-1 focus:ring-amber-500/20 transition-colors"
+            />
+            {searchHistory ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchHistory("")
+                  searchInputRef.current?.focus()
                 }}
-                className={cn(
-                  "group flex items-center justify-between rounded-lg px-3 py-2 text-xs sm:text-sm cursor-pointer transition-all",
-                  activeSessionId === session.id
-                    ? "bg-accent border-l-2 border-amber-500 text-foreground font-medium shadow-xs"
-                    : "text-muted-foreground hover:bg-accent/60 hover:text-foreground",
-                )}
+                title="Xóa từ khóa tìm kiếm"
+                aria-label="Xóa từ khóa tìm kiếm"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 rounded text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
               >
-                <div className="flex items-center gap-2 min-w-0 flex-1">
-                  <MessageSquare className="h-3.5 w-3.5 shrink-0 text-amber-500/70" />
-                  <span className="truncate">{session.title}</span>
+                <X className="h-3.5 w-3.5" />
+              </button>
+            ) : (
+              <kbd className="hidden sm:inline-flex items-center gap-0.5 absolute right-2 top-1/2 -translate-y-1/2 px-1 py-0.5 text-[9px] font-mono text-muted-foreground/70 bg-muted/60 border border-border/60 rounded pointer-events-none">
+                ⌘K
+              </kbd>
+            )}
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-1 space-y-3 min-w-0">
+          {sessions.length === 0 ? (
+            <p className="px-2 py-6 text-xs text-muted-foreground text-center">
+              Chưa có lịch sử hội thoại.
+            </p>
+          ) : matchedSessions.length === 0 ? (
+            <div className="px-2 py-6 text-center space-y-2.5">
+              <p className="text-xs text-muted-foreground">
+                Không tìm thấy cuộc trò chuyện phù hợp.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchHistory("")
+                  searchInputRef.current?.focus()
+                }}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 px-2.5 py-1 text-[11px] font-medium text-amber-600 dark:text-amber-400 transition-colors"
+              >
+                <X className="h-3 w-3" />
+                <span>Xóa từ khóa</span>
+              </button>
+            </div>
+          ) : (
+            <>
+              {/* Pinned Conversations Section (ĐÃ GHIM) */}
+              {pinnedSessions.length > 0 && (
+                <div className="space-y-1 min-w-0">
+                  <button
+                    type="button"
+                    onClick={() => setIsPinnedSectionOpen((prev) => !prev)}
+                    className="w-full flex items-center justify-between gap-2 px-2 py-1 text-[11px] font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400 hover:text-amber-500 transition-colors min-w-0"
+                  >
+                    <span className="flex items-center gap-1.5 min-w-0 truncate">
+                      {isPinnedSectionOpen || isSearching ? (
+                        <ChevronDown className="h-3 w-3 shrink-0" />
+                      ) : (
+                        <ChevronRight className="h-3 w-3 shrink-0" />
+                      )}
+                      <Pin className="h-3 w-3 shrink-0 fill-amber-500/25 rotate-45" />
+                      <span className="truncate">Đã ghim</span>
+                    </span>
+                    <span className="font-mono text-[10px] px-1.5 py-0.2 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 shrink-0">
+                      {pinnedSessions.length}
+                    </span>
+                  </button>
+
+                  {(isPinnedSectionOpen || isSearching) && (
+                    <div className="space-y-0.5 min-w-0">
+                      {pinnedSessions.map((session) => (
+                        <SidebarConversationItem
+                          key={session.id}
+                          session={session}
+                          isActive={activeSessionId === session.id}
+                          isPinned={true}
+                          onSelect={handleSelectSession}
+                          onTogglePin={togglePin}
+                          onRename={handleRenameSession}
+                          onDelete={handleDeleteSession}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <button
-                  type="button"
-                  onClick={(e) => handleDeleteSession(e, session.id)}
-                  className="opacity-0 group-hover:opacity-100 p-1 text-muted-foreground hover:text-rose-500 transition-opacity"
-                  title="Xóa hội thoại"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            ))
+              )}
+
+              {/* Regular Conversations Section (LỊCH SỬ TRA CỨU) */}
+              {regularSessions.length > 0 && (
+                <div className="space-y-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2 px-2 py-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground min-w-0">
+                    <span className="truncate">Lịch sử tra cứu</span>
+                    <span className="font-mono text-[10px] text-amber-500/80 shrink-0">
+                      {regularSessions.length}
+                    </span>
+                  </div>
+
+                  <div className="space-y-0.5 min-w-0">
+                    {regularSessions.map((session) => (
+                      <SidebarConversationItem
+                        key={session.id}
+                        session={session}
+                        isActive={activeSessionId === session.id}
+                        isPinned={false}
+                        onSelect={handleSelectSession}
+                        onTogglePin={togglePin}
+                        onRename={handleRenameSession}
+                        onDelete={handleDeleteSession}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
 
-        <div className="border-t border-border/60 p-3 text-xs text-muted-foreground bg-card/20">
+        <div className="border-t border-border/60 p-3 text-xs text-muted-foreground bg-card/20 min-w-0">
           <div className="font-semibold text-foreground truncate">{user?.full_name}</div>
           <div className="truncate text-[11px] text-muted-foreground">
-            {user?.enterprise_name || "SGOD Enterprise"} • Tier: {user?.tier}
+            {[user?.enterprise_name, user?.tier ? `Tier: ${user.tier}` : null]
+              .filter(Boolean)
+              .join(" • ")}
           </div>
         </div>
+
+        {/* Right-edge Drag Resize Handle */}
+        {sidebarOpen && (
+          <div
+            role="separator"
+            aria-orientation="vertical"
+            aria-label="Kéo để thay đổi chiều rộng thanh bên"
+            aria-valuemin={SIDEBAR_MIN_WIDTH}
+            aria-valuemax={getEffectiveMaxSidebarWidth(viewportWidth)}
+            aria-valuenow={sidebarWidth}
+            tabIndex={0}
+            title="Kéo để điều chỉnh độ rộng thanh bên (Nhấp đúp để đặt lại mặc định)"
+            onPointerDown={handleStartResizeSidebar}
+            onKeyDown={handleSidebarResizerKeyDown}
+            onDoubleClick={() =>
+              setSidebarWidth(clampSidebarWidth(SIDEBAR_DEFAULT_WIDTH, window.innerWidth))
+            }
+            className="group/resizer absolute top-0 -right-1 bottom-0 z-50 w-2.5 cursor-col-resize select-none touch-none flex items-center justify-center focus:outline-none"
+          >
+            <div
+              className={cn(
+                "h-full w-[2px] rounded-full transition-all duration-150",
+                isResizingSidebar
+                  ? "bg-amber-500 w-[3px] shadow-[0_0_12px_rgba(245,158,11,0.75)]"
+                  : "bg-transparent group-hover/resizer:bg-amber-500/60 group-focus-visible/resizer:bg-amber-500/80",
+              )}
+            />
+          </div>
+        )}
       </aside>
 
       {/* Main Workspace Area (Transparent over Liquid Stage) */}
@@ -1119,23 +1510,24 @@ export const ChatWidget: React.FC = () => {
                   <span className="font-semibold text-sm sm:text-base truncate text-foreground">
                     SGOD Asset Copilot
                   </span>
-                  <span className="inline-flex items-center rounded-full bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 text-[10px] font-semibold text-amber-600 dark:text-amber-400 shrink-0">
-                    {user?.role_vi || user?.role || "Enterprise"}
-                  </span>
+                  {(user?.role_vi || user?.role) && (
+                    <span className="inline-flex items-center rounded-full bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 text-[10px] font-semibold text-amber-600 dark:text-amber-400 shrink-0">
+                      {user?.role_vi || user?.role}
+                    </span>
+                  )}
                 </div>
-                <div className="hidden sm:block text-[11px] text-muted-foreground truncate">
-                  {user?.enterprise_name || "SGOD Enterprise Platform"} • ID: {user?.user_id}
-                </div>
+                {(user?.enterprise_name || user?.full_name) && (
+                  <div className="hidden sm:block text-[11px] text-muted-foreground truncate">
+                    {[user?.enterprise_name, user?.full_name]
+                      .filter(Boolean)
+                      .join(" • ")}
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            {/* Live Gateway Status Pill */}
-            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[11px] font-medium backdrop-blur-md">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Trực tuyến</span>
-            </div>
 
             {/* Desktop Wide View Mode Toggle */}
             <Button
@@ -1233,7 +1625,7 @@ export const ChatWidget: React.FC = () => {
                         "rounded-2xl px-5 py-4 transition-all",
                         m.sender === "user"
                           ? "max-w-[85%] sm:max-w-[70%] rounded-br-xs liquid-glass-user"
-                          : "w-full max-w-full sm:max-w-[92%] rounded-bl-xs liquid-glass-assistant",
+                          : "min-w-0 w-full max-w-full sm:max-w-[92%] rounded-bl-xs liquid-glass-assistant",
                       )}
                     >
                       {/* Assistant Header with Model Pill & Quick Copy Button */}
@@ -1241,8 +1633,14 @@ export const ChatWidget: React.FC = () => {
                         <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-border/60 text-xs">
                           <div className="flex items-center gap-1.5 text-muted-foreground font-medium">
                             <span className="font-semibold text-foreground">SGOD Copilot</span>
-                            <span>•</span>
-                            <span className="text-[10px] font-mono bg-accent text-amber-600 dark:text-amber-400 px-1.5 py-0.5 rounded border border-border">Gemini 2.5</span>
+                            {(m.model || activeModel) && (
+                              <>
+                                <span>•</span>
+                                <span className="text-[10px] font-mono bg-accent text-amber-600 dark:text-amber-400 px-1.5 py-0.5 rounded border border-border">
+                                  {m.model || activeModel}
+                                </span>
+                              </>
+                            )}
                           </div>
 
                           <div className="flex items-center gap-1">
@@ -1378,16 +1776,27 @@ export const ChatWidget: React.FC = () => {
 
                       {/* Text content with blinking cursor while streaming */}
                       {m.text && (
-                        <div className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap font-normal">
-                          {m.text}
-                          {m.isStreaming && (
-                            <span className="inline-block w-1.5 h-4 ml-1 bg-amber-500 animate-pulse align-middle" />
-                          )}
-                        </div>
+                        m.sender === "assistant" ? (
+                          <AssistantMarkdown
+                            content={m.text}
+                            isStreaming={m.isStreaming}
+                          />
+                        ) : (
+                          <div className="text-sm sm:text-base leading-relaxed whitespace-pre-wrap font-normal">
+                            {m.text}
+                          </div>
+                        )
                       )}
 
                       {/* Footer: Metrics */}
-                      <div className="mt-3 pt-2.5 border-t border-border/60 flex flex-wrap items-center justify-between gap-2 text-[10px] text-muted-foreground">
+                      <div
+                        className={cn(
+                          "mt-3 pt-2.5 border-t flex flex-wrap items-center justify-between gap-2 text-[10px]",
+                          m.sender === "user"
+                            ? "border-amber-500/25 text-amber-950/70 dark:text-amber-100/75"
+                            : "border-border/60 text-muted-foreground",
+                        )}
+                      >
                         <div className="flex flex-wrap items-center gap-2">
                           {typeof m.responseTimeMs === "number" && (
                             <span

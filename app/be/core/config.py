@@ -32,7 +32,7 @@ GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "").strip()
 GEMINI_BASE_URL: str = os.environ.get(
     "GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai"
 ).rstrip("/")
-GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash").strip()
+GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash-lite").strip()
 
 # Internal paths
 ROLES_PATH: Path = REPO_ROOT / "tools" / "sgod" / "roles.json"

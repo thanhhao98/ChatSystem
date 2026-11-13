@@ -20,6 +20,57 @@ from app.be.services.tool_policy_service import filter_tools_for_role
 from tools.sgod.tool_executor import SGODToolExecutor
 
 
+_LLM_NOISE_ITEM_KEYS = {
+    "qrCode",
+    "images",
+    "files",
+    "enterpriseId",
+    "categoryId",
+    "createdBy",
+    "createdAt",
+    "updatedAt",
+    "locations",
+    "onBlockchain",
+    "verifyTransfer",
+    "typeEncrypt",
+    "_importanceLevel",
+    "fromElasticsearch",
+    "_fromElasticsearch",
+}
+
+
+def _compact_tool_dict_for_llm(raw_dict: Dict[str, Any]) -> Dict[str, Any]:
+    """Strip internal hashes/IDs from LLM tool context while preserving all business fields.
+    Does not mutate raw_dict (which is sent in full to the frontend ToolExecutionRecord).
+    """
+    data = raw_dict.get("data")
+    if not isinstance(data, dict) or "items" not in data or not isinstance(data["items"], list):
+        return raw_dict
+
+    compact_items = []
+    for item in data["items"]:
+        if isinstance(item, dict):
+            compact_items.append({
+                k: v for k, v in item.items()
+                if k not in _LLM_NOISE_ITEM_KEYS and v is not None and v != []
+            })
+        else:
+            compact_items.append(item)
+
+    compact_data: Dict[str, Any] = {"items": compact_items}
+    if isinstance(data.get("meta"), dict):
+        meta = data["meta"]
+        compact_data["meta"] = {
+            k: v for k, v in meta.items() if k in ("hasNextPage", "limit", "total")
+        }
+
+    return {
+        "success": raw_dict.get("success", True),
+        "status_code": raw_dict.get("status_code", 200),
+        "data": compact_data,
+    }
+
+
 class ChatService:
     """Orchestrates LLM streaming prompts, tool execution loop, and state management."""
 
@@ -80,6 +131,7 @@ class ChatService:
             tool_calls = None
             stream_error = None
             turn_reply = ""
+            turn_usage: Optional[Dict[str, int]] = None
 
             for ev_type, data in self.gemini.chat_completion_stream(
                 messages=messages,
@@ -90,15 +142,18 @@ class ChatService:
                     stream_error = data
                     break
                 elif ev_type == "usage":
-                    total_tokens["prompt_tokens"] += data.get("prompt_tokens", 0)
-                    total_tokens["completion_tokens"] += data.get("completion_tokens", 0)
-                    total_tokens["total_tokens"] += data.get("total_tokens", 0)
+                    turn_usage = data
                 elif ev_type == "tool_calls":
                     tool_calls = data
                 elif ev_type == "delta":
                     turn_reply += data
                     final_reply += data
                     yield f"event: delta\ndata: {json.dumps({'content': data}, ensure_ascii=False)}\n\n"
+
+            if turn_usage:
+                total_tokens["prompt_tokens"] += turn_usage.get("prompt_tokens", 0)
+                total_tokens["completion_tokens"] += turn_usage.get("completion_tokens", 0)
+                total_tokens["total_tokens"] += turn_usage.get("total_tokens", 0)
 
             if stream_error:
                 yield f"event: error\ndata: {json.dumps({'error': stream_error}, ensure_ascii=False)}\n\n"
@@ -157,7 +212,8 @@ class ChatService:
 
                 yield f"event: tool_result\ndata: {json.dumps(record.model_dump() if hasattr(record, 'model_dump') else record.dict(), ensure_ascii=False)}\n\n"
 
-                tool_output_str = json.dumps(result.to_dict(), ensure_ascii=False)
+                llm_payload = _compact_tool_dict_for_llm(result.to_dict())
+                tool_output_str = json.dumps(llm_payload, ensure_ascii=False)
                 messages.append({
                     "role": "tool",
                     "name": t_name,
@@ -173,7 +229,8 @@ class ChatService:
             for r in executed_records
         ]
 
-        yield f"event: done\ndata: {json.dumps({'reply': final_reply, 'tools_executed': tools_dict_list, 'response_time_ms': total_duration_ms, 'token_usage': total_tokens, 'token_refreshed': token_refreshed, 'new_access_token': new_access}, ensure_ascii=False)}\n\n"
+        active_model = getattr(self.gemini, "_preferred_model", None) or getattr(self.gemini, "model", None) or config.GEMINI_MODEL
+        yield f"event: done\ndata: {json.dumps({'reply': final_reply, 'model': active_model, 'tools_executed': tools_dict_list, 'response_time_ms': total_duration_ms, 'token_usage': total_tokens, 'token_refreshed': token_refreshed, 'new_access_token': new_access}, ensure_ascii=False)}\n\n"
 
 
 # Alias ChatEngine for backward compatibility
