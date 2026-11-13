@@ -63,7 +63,7 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(
         ref={ref}
         data-lamp-state={active ? "focused" : "idle"}
         className={cn(
-          "relative z-0 flex min-h-[80vh] w-full flex-col items-center justify-center overflow-hidden rounded-md bg-transparent text-foreground transition-colors duration-300",
+          "relative z-0 flex min-h-[80vh] w-full flex-col items-center justify-center overflow-hidden bg-transparent border-0 shadow-none outline-none ring-0 text-foreground transition-colors duration-300",
           className,
         )}
         {...props}
@@ -72,12 +72,18 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(
           <div
             aria-hidden="true"
             className={cn(
-              "pointer-events-none absolute top-0 isolate z-0 flex w-full flex-1 items-start justify-center transition-opacity duration-500",
+              "pointer-events-none absolute top-0 isolate z-0 flex w-full flex-1 items-start justify-center bg-transparent border-0 shadow-none outline-none transition-opacity duration-500",
               compact ? "opacity-35 scale-y-75 origin-top" : "opacity-100",
             )}
           >
             {blur && (
-              <div className="pointer-events-none absolute top-0 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md" />
+              <div
+                style={{
+                  WebkitMaskImage: "radial-gradient(50% 100% at 50% 0%, black 20%, transparent 80%)",
+                  maskImage: "radial-gradient(50% 100% at 50% 0%, black 20%, transparent 80%)",
+                }}
+                className="pointer-events-none absolute top-0 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md"
+              />
             )}
 
             {/* Main glow: #FFE88A Baby Chick Yellow in Light Mode, primary white in Dark Mode */}
@@ -123,16 +129,15 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(
               transition={lampTransition}
               style={{
                 backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
+                WebkitMaskImage: `radial-gradient(100% 100% at 100% 0%, black 10%, transparent 75%)`,
+                maskImage: `radial-gradient(100% 100% at 100% 0%, black 10%, transparent 75%)`,
               }}
               className={cn(
                 "pointer-events-none absolute inset-auto right-1/2 h-56 max-w-[46vw] overflow-visible bg-gradient-conic [--conic-position:from_70deg_at_center_top]",
                 "[--tw-gradient-stops:rgba(255,232,138,0.45)_0%,rgba(255,244,189,0.35)_24%,rgba(255,244,189,0)_50%,transparent_100%]",
                 "dark:from-primary/60 dark:via-transparent dark:to-transparent",
               )}
-            >
-              <div className="pointer-events-none absolute bottom-0 left-0 z-20 h-40 w-full bg-white dark:bg-background transition-colors duration-300 [mask-image:linear-gradient(to_top,white,transparent)]" />
-              <div className="pointer-events-none absolute bottom-0 left-0 z-20 h-full w-24 sm:w-40 bg-white dark:bg-background transition-colors duration-300 [mask-image:linear-gradient(to_right,white,transparent)]" />
-            </motion.div>
+            />
 
             {/* Right gradient cone: #FFF4BD in Light Mode, primary white in Dark Mode */}
             <motion.div
@@ -144,16 +149,15 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(
               transition={lampTransition}
               style={{
                 backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
+                WebkitMaskImage: `radial-gradient(100% 100% at 0% 0%, black 10%, transparent 75%)`,
+                maskImage: `radial-gradient(100% 100% at 0% 0%, black 10%, transparent 75%)`,
               }}
               className={cn(
                 "pointer-events-none absolute inset-auto left-1/2 h-56 max-w-[46vw] overflow-visible bg-gradient-conic [--conic-position:from_290deg_at_center_top]",
                 "[--tw-gradient-stops:transparent_0%,rgba(255,244,189,0)_50%,rgba(255,244,189,0.35)_76%,rgba(255,232,138,0.45)_100%]",
                 "dark:from-transparent dark:via-transparent dark:to-primary/60",
               )}
-            >
-              <div className="pointer-events-none absolute bottom-0 right-0 z-20 h-full w-24 sm:w-40 bg-white dark:bg-background transition-colors duration-300 [mask-image:linear-gradient(to_left,white,transparent)]" />
-              <div className="pointer-events-none absolute bottom-0 right-0 z-20 h-40 w-full bg-white dark:bg-background transition-colors duration-300 [mask-image:linear-gradient(to_top,white,transparent)]" />
-            </motion.div>
+            />
           </div>
         )}
 
