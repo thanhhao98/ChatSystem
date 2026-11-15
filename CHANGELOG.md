@@ -1,4 +1,9 @@
 # CHANGELOG
+- 2026-11-14 — [F-V3] diễn tập toàn bộ chuỗi SGOD end-to-end trên tập mẫu nhỏ (`data/sgod/pilot_train.jsonl` 50 câu, `data/sgod/pilot_eval.json` 40 câu, `Qwen/Qwen2.5-0.5B-Instruct`, 1 epoch):
+  - **Bước 1 (`validate_dataset.py`):** PASS (`files=1 rows=50 errors=0`) với `--preamble prompts/system_preamble_v1.txt --tools tools/sgod/sgod_tools.json --roles tools/sgod/roles.json`.
+  - **Bước 2 (`finetune_qlora.py --dry-run`):** Phát hiện `--max-len 2560` mặc định của `public_anchor.yaml` bị tràn độ dài trên SGOD (`over_limit=50/50`, `max=3354`, `p95=3348` tokens do 22 tools SGOD + preamble v1 chiếm tới 3.304 tokens ở system turn); nâng `--max-len 3584` đạt `OK rows=50 unmasked_completion_tokens=20 over_limit=0`.
+  - **Bước 3–5 (GPU RTX PRO 6000 bf16):** Chạy trọn vẹn chuỗi `finetune_qlora.py` (1 epoch, `steps=4`, `train_loss=0.8400`, `wall=0.2min`) → `predict_toolcall.py` (base & fine-tuned, `n=40`, `errors=0`) → `eval_toolcall.py` (`--policy tools/sgod/tool_policy.json`) → `bootstrap_ci.py` (`runs=2/2 pairs=1/1 n_boot=2000 seed=20260625`) không phát sinh lỗi định dạng hay lệch phiên bản.
+  - **Nhật ký (`results/RUNLOG.md`):** Ghi nhận 3 dòng diễn tập `[F-V3]` (cột kết quả để `—`, không cập nhật `results/INDEX.md` vì chỉ là pilot kiểm thử).
 - 2026-11-06 — [D-V4 Hotfix] `data/sgod/pilot_eval.json` & `data/sgod/pilot_train.jsonl`: khắc phục triệt để lỗi rò rỉ dữ liệu (data leakage) phát hiện qua Checkpoint Task 4:
   - **Vấn đề:** 40/40 câu `pilot_eval.json` cũ được trích xuất trực tiếp từ phần `gpt_aug` của `eval_v1.json` (nhãn `source: "pilot_subset"`), vi phạm nguyên tắc `Input(eval_v1) ∩ Input(pilot_eval) = ∅`.
   - **Khắc phục (Cách 1):** Tạo lại toàn bộ 40 câu `pilot_eval.json` hoàn toàn mới (`source: "pilot_isolated"`), bảo toàn 100% `eval_v1.json` và mã băm SHA256 không thay đổi.
