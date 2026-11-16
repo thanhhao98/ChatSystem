@@ -52275,5 +52275,45 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_seed_tool": "list_maintenance_schedules"
+  },
+  {
+    "id": "SN0020109",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Đây là máy lạnh Daikin FTKB50 2HP, chị giúp em kiểm tra trạng thái công việc của nó trong vòng 12 tháng trở lại đây ạ?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_histories",
+    "expected_tool_alternates": [
+      "list_maintenance_tasks",
+      "get_asset"
+    ]
+  },
+  {
+    "id": "SN0020129",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Dựa trên máy lạnh Daikin FTKB50 2HP, anh có thể liệt kê ra danh sách các vấn đề cần xử lý ngay lập tức không nh?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_histories",
+    "expected_tool_alternates": [
+      "list_maintenance_tasks"
+    ]
+  },
+  {
+    "id": "SN0030038",
+    "category": "asset_detail",
+    "user_role": "admin",
+    "input": "Anh/chị có thể giúp tôi xem tình trạng công việc gần đây liên quan đến máy lạnh Daikin FTKB50 2HP được không?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_histories",
+    "expected_tool_alternates": [
+      "list_maintenance_tasks"
+    ]
   }
 ]

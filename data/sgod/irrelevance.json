@@ -2070,16 +2070,6 @@
     "_irrelevance_kind": "chitchat"
   },
   {
-    "id": "IRR-chi-0007",
-    "category": "out_of_scope",
-    "user_role": "admin",
-    "input": "Chào bạn, có một chút thời gian rảnh, bạn có gì muốn chia sẻ không?",
-    "expected_tool": null,
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_irrelevance_kind": "chitchat"
-  },
-  {
     "id": "IRR-chi-0008",
     "category": "out_of_scope",
     "user_role": "employee",
@@ -3574,26 +3564,6 @@
     "category": "edge_case",
     "user_role": "admin",
     "input": "Tôi muốn tra cứu danh sách nhân viên nào đó, nhưng không nhớ họ là quản lý hay chuyên gia?",
-    "expected_tool": null,
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_irrelevance_kind": "ambiguous"
-  },
-  {
-    "id": "IRR-amb-0058",
-    "category": "edge_case",
-    "user_role": "employee",
-    "input": "Hãy thử xem có thông tin gì về phiếu báo hỏng mới nhất của chúng ta?",
-    "expected_tool": null,
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_irrelevance_kind": "ambiguous"
-  },
-  {
-    "id": "IRR-amb-0059",
-    "category": "edge_case",
-    "user_role": "admin",
-    "input": "Tôi có thể tra cứu tình trạng tổng quát của tất cả các thiết bị không?",
     "expected_tool": null,
     "expected_params": {},
     "expected_permission": "allowed",
