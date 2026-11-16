@@ -74,20 +74,6 @@
     "_seed_tool": "get_maintenance_schedule"
   },
   {
-    "id": "SN0000007",
-    "category": "maintenance_schedule",
-    "user_role": "employee",
-    "input": "Trong lịch bảo trì 6ad615353b0f8e12e2f190e4, ngày thực hiện có thay đổi gì không?",
-    "expected_tool": "get_maintenance_schedule",
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_seed_tool": "get_maintenance_schedule",
-    "_needs_review": true,
-    "expected_tool_alternates": [
-      "list_maintenance_records"
-    ]
-  },
-  {
     "id": "SN0000008",
     "category": "maintenance_schedule",
     "user_role": "employee",
@@ -11079,16 +11065,6 @@
     "_seed_tool": "get_asset_transfer"
   },
   {
-    "id": "SN0070018",
-    "category": "asset_transfer",
-    "user_role": "admin",
-    "input": "Cho em xem thêm thông tin về phiếu chuyển giao 6ac9bece27541dacd0a78006 đi?",
-    "expected_tool": "get_asset_transfer",
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_seed_tool": "get_asset_transfer"
-  },
-  {
     "id": "SN0070019",
     "category": "asset_transfer",
     "user_role": "admin",
@@ -12136,16 +12112,6 @@
     "category": "asset_transfer",
     "user_role": "employee",
     "input": "{\"tool\": \"get_transfer_summary\"}",
-    "expected_tool": "get_transfer_summary",
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_seed_tool": "get_transfer_summary"
-  },
-  {
-    "id": "SN0080011",
-    "category": "asset_transfer",
-    "user_role": "employee",
-    "input": "Tình hình tổng hợp phiếu chuyển giao như thế nào nv?",
     "expected_tool": "get_transfer_summary",
     "expected_params": {},
     "expected_permission": "allowed",
@@ -16221,16 +16187,6 @@
     "category": "staff_request",
     "user_role": "employee",
     "input": "Hôm nay tôi muốn biết tổng hợp yêu cầu mới của tất cả nhân viên. Có thể sao?",
-    "expected_tool": "get_staff_request_summary",
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_seed_tool": "get_staff_request_summary"
-  },
-  {
-    "id": "SN0110000",
-    "category": "staff_request",
-    "user_role": "admin",
-    "input": "Nhắn anh chị tra cứu danh sách tất cả yêu cầu nhân viên chưa được duyệt.",
     "expected_tool": "get_staff_request_summary",
     "expected_params": {},
     "expected_permission": "allowed",
@@ -46647,17 +46603,6 @@
     "expected_tool_alternates": [
       "list_enterprise_users"
     ]
-  },
-  {
-    "id": "SN0400113",
-    "category": "user_management",
-    "user_role": "employee",
-    "input": "Danh sách nhân viên đang active dc.",
-    "expected_tool": "list_enterprise_users",
-    "expected_params": {},
-    "expected_permission": "denied",
-    "_seed_tool": "get_enterprise_profile",
-    "_blocked_tool": "list_enterprise_users"
   },
   {
     "id": "SN0400114",
