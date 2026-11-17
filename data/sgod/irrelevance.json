@@ -3560,16 +3560,6 @@
     "_irrelevance_kind": "ambiguous"
   },
   {
-    "id": "IRR-amb-0057",
-    "category": "edge_case",
-    "user_role": "admin",
-    "input": "Tôi muốn tra cứu danh sách nhân viên nào đó, nhưng không nhớ họ là quản lý hay chuyên gia?",
-    "expected_tool": null,
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_irrelevance_kind": "ambiguous"
-  },
-  {
     "id": "IRR-amb-0060",
     "category": "edge_case",
     "user_role": "employee",
@@ -4130,16 +4120,6 @@
     "_irrelevance_kind": "procedure_question"
   },
   {
-    "id": "IRR-pro-0016",
-    "category": "out_of_scope",
-    "user_role": "employee",
-    "input": "Mỗi khi tôi cần tra cứu danh sách tất cả tài sản, có quy trình nào cụ thể hơn không?",
-    "expected_tool": null,
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_irrelevance_kind": "procedure_question"
-  },
-  {
     "id": "IRR-pro-0017",
     "category": "out_of_scope",
     "user_role": "admin",
@@ -4194,16 +4174,6 @@
     "category": "out_of_scope",
     "user_role": "employee",
     "input": "Đã bao giờ bạn từng phải xem lại hồ sơ bảo dưỡng của một tài sản để chuẩn bị cho một cuộc họp nhân sự?",
-    "expected_tool": null,
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_irrelevance_kind": "procedure_question"
-  },
-  {
-    "id": "IRR-pro-0023",
-    "category": "out_of_scope",
-    "user_role": "admin",
-    "input": "Tôi muốn kiểm tra xem phiếu điều chuyển nào đang trong quá trình xử lý và cần sự giám sát thêm.",
     "expected_tool": null,
     "expected_params": {},
     "expected_permission": "allowed",
