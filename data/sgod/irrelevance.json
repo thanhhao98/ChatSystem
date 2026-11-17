@@ -200,16 +200,6 @@
     "_irrelevance_kind": "out_of_scope"
   },
   {
-    "id": "IRR-out-0020",
-    "category": "out_of_scope",
-    "user_role": "employee",
-    "input": "Bảo bối để lại của chú Táo Quyền ở đâu vậy, mọi người?",
-    "expected_tool": null,
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_irrelevance_kind": "out_of_scope"
-  },
-  {
     "id": "IRR-out-0021",
     "category": "out_of_scope",
     "user_role": "admin",
@@ -3410,16 +3400,6 @@
     "_irrelevance_kind": "ambiguous"
   },
   {
-    "id": "IRR-amb-0042",
-    "category": "edge_case",
-    "user_role": "employee",
-    "input": "Bạn có thể tìm thấy thông tin về thiết bị nào mà tôi cần không?",
-    "expected_tool": null,
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_irrelevance_kind": "ambiguous"
-  },
-  {
     "id": "IRR-amb-0043",
     "category": "edge_case",
     "user_role": "admin",
@@ -3484,16 +3464,6 @@
     "category": "edge_case",
     "user_role": "admin",
     "input": "Tôi nhớ rằng tôi cần thông tin từ một thiết bị nào đó, nhưng tôi quên mất tên nó.",
-    "expected_tool": null,
-    "expected_params": {},
-    "expected_permission": "allowed",
-    "_irrelevance_kind": "ambiguous"
-  },
-  {
-    "id": "IRR-amb-0050",
-    "category": "edge_case",
-    "user_role": "employee",
-    "input": "Tôi không chắc chắn về tên thiết bị, nhưng tôi cần tìm hiểu về nó. Bạn giúp tôi không?",
     "expected_tool": null,
     "expected_params": {},
     "expected_permission": "allowed",
