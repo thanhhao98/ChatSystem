@@ -4908,5 +4908,95 @@
     "expected_params": {},
     "expected_permission": "allowed",
     "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0100",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Quy trình liên hệ phòng IT khi gặp sự cố mạng văn phòng như thế nào vậy?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0101",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Thủ tục xin cấp thẻ gửi xe tháng cho nhân sự mới thực hiện ở bộ phận nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-pro-0102",
+    "category": "out_of_scope",
+    "user_role": "system_admin",
+    "input": "Để đăng ký tham gia lớp tập huấn phòng cháy chữa cháy của tòa nhà thì làm thế nào?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "procedure_question"
+  },
+  {
+    "id": "IRR-chi-0100",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Hôm nay trời Sài Gòn nắng đẹp quá, chúc bạn một ngày làm việc tràn đầy năng lượng nhé!",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0101",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Cảm ơn sự hỗ trợ nhiệt tình của bạn trong suốt tuần làm việc vừa qua.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-chi-0102",
+    "category": "out_of_scope",
+    "user_role": "system_admin",
+    "input": "Chào buổi chiều, bạn có thể gợi ý cho mình một quán cà phê yên tĩnh gần công ty không?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "chitchat"
+  },
+  {
+    "id": "IRR-out-0201",
+    "category": "out_of_scope",
+    "user_role": "employee",
+    "input": "Bộ phim hoạt hình nào đang chiếu rạp hot nhất dịp cuối tuần này vậy bạn?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0202",
+    "category": "out_of_scope",
+    "user_role": "company_admin",
+    "input": "Cho mình xin công thức pha chế trà chanh mật ong giải cảm đơn giản tại văn phòng.",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
+  },
+  {
+    "id": "IRR-out-0203",
+    "category": "out_of_scope",
+    "user_role": "system_admin",
+    "input": "Trận chung kết World Cup 2026 dự kiến sẽ được tổ chức ở sân vận động nào thế?",
+    "expected_tool": null,
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_irrelevance_kind": "out_of_scope"
   }
 ]
