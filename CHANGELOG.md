@@ -1,4 +1,11 @@
 # CHANGELOG
+- 2026-11-17 — [D-V5] data/sgod/train.jsonl & data/sgod/val.jsonl: sinh, gán nhãn, kiểm định và lắp ráp hoàn chỉnh bộ dữ liệu huấn luyện SGOD 5.000 records chống rò rỉ (leak-free) theo kiến trúc Track B:
+  - **Quy mô & Cơ cấu bàn giao:** Hoàn tất lắp ráp 5.000 records chuẩn Parity format (messages với Preamble v1 & placeholders) theo đúng tỷ lệ kiến trúc Track B: 55% Domain SGOD (2.613 train + 137 val = 2.750), 35% Replay xLAM (1.750 train từ 1.600 train + 150 val bù thiếu), 10% Irrelevance (500 train no-call).
+  - **Tỷ lệ Yield:** Đạt **99,02%** (4.663 verified / 4.709 raw sau khi gộp 127 ca cứu chữa của BaoMyTH), vượt xa sàn kỹ thuật bắt buộc 45%.
+  - **Kiểm toán Zero Data Leakage:** Quét SequenceMatcher độc lập so với 650 câu benchmark cấm (500 câu eval_v1.json + 150 câu eval_human_core.jsonl), 100% đạt Max Similarity < 0.65 (	rain.jsonl max_sim = 0.6496, al.jsonl max_sim = 0.6408, 0 vi phạm).
+  - **Kiểm định nghiêm ngặt:** Vượt qua datagen/audit_trainset_vs_api.py (3.250/3.250 domain rows align, 0 misaligned); vượt qua 	raining/validate_dataset.py (Exit Code 0, 0 errors, bật full preamble check không dùng --no-preamble-check).
+  - **Mã băm xác thực Git-stream (LF):** 	rain.jsonl (ed2022596cd1200381fa8157a14b38d829be25a5c1ba82cbcb71c05faae9b20), al.jsonl (d71df9124faa05edb3acbb063c403e0becfd6aee374c9221b6f888378cc2ed67).
+  - **Bàn giao hạ nguồn:** Hoàn tất báo cáo chất lượng indings/2026-11-17_sgod_trainset_quality.md, sẵn sàng bàn giao cho Nhóm F Task 4 ([F-V4]) và Nhóm S Task 9 ([S-V9]).
 - 2026-11-06 — [D-V4 Hotfix] `data/sgod/pilot_eval.json` & `data/sgod/pilot_train.jsonl`: khắc phục triệt để lỗi rò rỉ dữ liệu (data leakage) phát hiện qua Checkpoint Task 4:
   - **Vấn đề:** 40/40 câu `pilot_eval.json` cũ được trích xuất trực tiếp từ phần `gpt_aug` của `eval_v1.json` (nhãn `source: "pilot_subset"`), vi phạm nguyên tắc `Input(eval_v1) ∩ Input(pilot_eval) = ∅`.
   - **Khắc phục (Cách 1):** Tạo lại toàn bộ 40 câu `pilot_eval.json` hoàn toàn mới (`source: "pilot_isolated"`), bảo toàn 100% `eval_v1.json` và mã băm SHA256 không thay đổi.
