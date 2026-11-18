@@ -56,7 +56,9 @@ def main():
                    help="default: datagen/prompts (train/pilot) or datagen/prompts_eval (eval-aug)")
     p.add_argument("--scale", type=float, default=1.0)
     p.add_argument("--max-total", type=int, default=0)
-    p.add_argument("--irrel-count", type=int, default=300, help="for the call estimate (train/pilot)")
+    p.add_argument("--irrel-count", type=int,
+                   default=round(cfg.MIX_TARGETS["final_target"] * cfg.MIX_TARGETS["irrelevance"]),
+                   help="for the call estimate (train/pilot; defaults from MIX_TARGETS)")
     p.add_argument("--stages", default="", help="stages this run executes, space-separated (run_pipeline.sh "
                                                   "passes them); default: every stage of the mode")
     audit.add_catalogue_args(p)

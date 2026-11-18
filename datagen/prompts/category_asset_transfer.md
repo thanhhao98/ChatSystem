@@ -4,14 +4,14 @@ Sinh câu hỏi tiếng Việt về việc tra cứu phiếu chuyển giao tài 
 
 ## Tool Selection
 
-- `list_asset_transfers`: Tra cứu danh sách phiếu chuyển giao. Có thể yêu cầu chỉ xem phiếu của mình (`onlyMine: true`) và giới hạn số lượng (`limit`).
-- `get_asset_transfer`: Xem chi tiết một phiếu khi người dùng cung cấp `transfer_id` hợp lệ từ fixtures.
-- `get_transfer_summary`: Hỏi số lượng tổng hợp phiếu đã gửi, chờ nhận hoặc chờ xác thực. Tool này không có tham số.
+- `list_asset_transfers`: Tra cứu danh sách các phiếu chuyển giao. Có thể yêu cầu chỉ xem phiếu của mình (`onlyMine: true`) và giới hạn số lượng (`limit`). Chỉ dùng khi người dùng muốn xem danh sách nhiều phiếu.
+- `get_asset_transfer`: Xem thông tin chi tiết của DUY NHẤT MỘT phiếu khi người dùng cung cấp mã phiếu cụ thể (ví dụ `TRF-2026-001`, `6ad61535...`).
+- `get_transfer_summary`: Hỏi số lượng tổng hợp, thống kê đếm tổng số phiếu: "có bao nhiêu phiếu chuyển giao", "tổng số phiếu chờ nhận", "tổng số phiếu đã gửi", "tình hình tổng hợp điều chuyển". Tool này không có tham số.
 
 ## Persona & Style
 
 - Ưu tiên P6 `kinh_doanh_chi_nhanh` khi hỏi danh sách phiếu của mình hoặc số phiếu chờ nhận.
-- Với kịch bản tra cứu chi tiết phiếu, có thể sử dụng persona quản lý tài sản P2 hoặc thủ kho P5 theo ma trận nhu cầu.
+- Với kịch bản tra cứu chi tiết phiếu hoặc xem tổng hợp phiếu, có thể sử dụng persona quản lý tài sản P2 hoặc thủ kho P5 theo ma trận nhu cầu.
 - Văn phong tự nhiên, trộn lịch sự và thân mật, có viết tắt công sở, lỗi gõ nhẹ, một phần câu không dấu.
 
 ## Generation Rules

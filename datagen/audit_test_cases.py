@@ -170,7 +170,33 @@ def load_catalogue(args):
 # TODO(SGOD): the reference system (POC v1) had a PARAM_RENAME table ({"get_asset": {"asset_id": "id"}, ...})
 # that encoded app-specific slot renames. It is NOT ported. Phase 2 only schema-filters keys; if labelers
 # keep proposing a wrong-but-obvious key for an SGOD tool, add a rename here with a comment.
-PARAM_RENAME = {}
+PARAM_RENAME = {
+    "list_maintenance_tasks": {
+        "schedule_id": "maintenanceScheduleId",
+        "maintenance_schedule_id": "maintenanceScheduleId",
+    },
+    "get_maintenance_schedule": {
+        "maintenanceScheduleId": "schedule_id",
+        "maintenance_schedule_id": "schedule_id",
+        "id": "schedule_id",
+    },
+    "get_asset_transfer": {
+        "transferId": "transfer_id",
+        "id": "transfer_id",
+    },
+    "get_location": {
+        "locationId": "location_id",
+        "id": "location_id",
+    },
+    "get_asset": {
+        "asset_id": "asset_ref",
+        "id": "asset_ref",
+    },
+    "get_asset_histories": {
+        "asset_id": "asset_ref",
+        "id": "asset_ref",
+    },
+}
 
 
 def fix_params_for_tool(tool: str, params, tools: dict):
