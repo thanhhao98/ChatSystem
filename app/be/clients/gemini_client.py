@@ -20,7 +20,7 @@ class GeminiClient:
         api_key: Optional[str] = None,
         base_url: Optional[str] = None,
         model: Optional[str] = None,
-        timeout: float = 40.0,
+        timeout: float = 15.0,
     ) -> None:
         self.api_key = (api_key or config.GEMINI_API_KEY).strip()
         raw_base = (base_url or config.GEMINI_BASE_URL).rstrip("/")
@@ -30,6 +30,7 @@ class GeminiClient:
         self.base_url = raw_base
         self.model = model or config.GEMINI_MODEL
         self.timeout = timeout
+        self._preferred_model: Optional[str] = None
 
     @property
     def is_configured(self) -> bool:
@@ -53,9 +54,10 @@ class GeminiClient:
                 yield item
             return
 
-        candidates = [self.model]
-        for fb in ["gemini-3.5-flash-lite", "gemini-3.5-flash"]:
-            if fb not in candidates:
+        primary = self._preferred_model or self.model
+        candidates = [primary]
+        for fb in [self.model, "gemini-3.5-flash-lite", "gemini-3.5-flash"]:
+            if fb and fb not in candidates:
                 candidates.append(fb)
 
         last_err = None
@@ -79,6 +81,7 @@ class GeminiClient:
                     yield (event_type, data)
 
             if success:
+                self._preferred_model = current_model
                 return
 
         if last_err:
@@ -126,6 +129,7 @@ class GeminiClient:
 
         with resp:
             tool_calls_acc: Dict[int, Dict[str, Any]] = {}
+            latest_usage: Optional[Dict[str, Any]] = None
             for line in resp:
                 line_str = line.decode("utf-8", errors="replace").strip()
                 if not line_str.startswith("data: "):
@@ -139,7 +143,7 @@ class GeminiClient:
                     continue
 
                 if chunk.get("usage"):
-                    yield ("usage", chunk["usage"], False)
+                    latest_usage = chunk["usage"]
 
                 choices = chunk.get("choices") or []
                 if not choices:
@@ -173,6 +177,9 @@ class GeminiClient:
 
             if tool_calls_acc:
                 yield ("tool_calls", list(tool_calls_acc.values()), False)
+
+            if latest_usage:
+                yield ("usage", latest_usage, False)
 
     def _mock_turn(
         self,

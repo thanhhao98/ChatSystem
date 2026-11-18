@@ -61,12 +61,20 @@ export interface ChatMessage {
 export interface ChatResponse {
   success: boolean;
   reply: string;
+  model?: string;
   tools_executed?: ToolExecutionRecord[];
   token_refreshed?: boolean;
   new_access_token?: string;
   message?: string;
   response_time_ms?: number;
   token_usage?: TokenUsage;
+}
+
+export interface HealthResponse {
+  status: string;
+  sgod_gateway: string;
+  gemini_configured: boolean;
+  gemini_model: string;
 }
 
 export interface StreamCallbacks {
@@ -281,6 +289,17 @@ export async function sendChatApiStream(
       }
     }
   }
+}
+
+export async function getHealthApi(): Promise<HealthResponse> {
+  const res = await fetch(`${BASE_URL}/api/health`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  if (!res.ok) {
+    throw new Error("Không thể tải thông tin cấu hình hệ thống");
+  }
+  return await res.json();
 }
 
 export async function getToolsApi(accessToken: string): Promise<{ role: string; count: number; tools: any[] }> {
