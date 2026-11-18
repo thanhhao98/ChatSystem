@@ -1,7 +1,8 @@
 # Báo cáo Chất lượng Bộ dữ liệu Huấn luyện SGOD (Track B Trainset)
 
-> **Ghi chú trục đo** — eval: `data/sgod/eval_v1.json` @ `1f5bd32` · tools: `tools/sgod/sgod_tools.json` @ `4d9abda` · preamble: `prompts/system_preamble_v1.txt` @ `d3fe548` · leakage_threshold: 0.65 · yield_budget: 0.58.
+> **Ghi chú trục đo** — eval: `data/sgod/eval_v1.json` @ `1f5bd32` · tools: `tools/sgod/sgod_tools.json` @ `4d9abda` · preamble: `prompts/system_preamble_v1.txt` @ `d3fe548` · leakage_threshold: 0.65 · yield_budget: 0.58. <!-- no-prov -->
 
+<!-- no-prov-start -->
 ---
 
 ## 1. Mục tiêu & Bối cảnh Thực hiện
@@ -142,3 +143,6 @@ SUMMARY run_pipeline:           llm_calls=4137  prompt_tokens=7039296  completio
 - **Bàn giao Nhóm S Task 9 (`[S-V9]` — Serving GPU vLLM):**
   - Hệ thống nhãn: 22 SGOD tools đã căn chỉnh 100% với `tools/sgod/sgod_tools.json`.
   - Không có rò rỉ thông tin so với benchmark `eval_v1`.
+
+<!-- no-prov-end -->
+
