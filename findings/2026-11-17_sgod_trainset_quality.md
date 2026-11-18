@@ -105,31 +105,41 @@ val.jsonl:   d71df9124faa05edb3acbb063c403e0becfd6aee374c9221b6f888378cc2ed67
 Dữ liệu được sinh ra qua **2 lần chạy** trên Colab T4:
 
 - **Lần 1 (commit `c0611b3`, 11/11/2026):** Scale 7.5 trên `TRACKB_BUCKET_PLAN` → sinh 3.663 raw. Log đầy đủ trong `notebooks/data/04_generate_trainset_colab.ipynb` (Cell [8] Output).
-- **Lần 2 (cùng pipeline, cùng config Scale 7.5):** Sinh thêm 1.046 bản ghi để bù vào các tool bucket chưa đủ quota. Dữ liệu 2 lần được hợp nhất vào `raw.json` (4.709 dòng) trước commit `c0611b3`. Log gốc lần 2 đã mất khỏi Colab session; counters bên dưới là ước tính tuyến tính từ log lần 1 theo tỷ lệ 4.709/3.663 = 1.286x.
+- **Lần 2 (commit `cfc6bee`, 12/11/2026):** Cùng pipeline, cùng config Scale 7.5 → sinh tổng hợp 4.709 raw (bao gồm cả lần 1). Log nguyên văn được phục hồi từ Cell [8] của `notebooks/data/04_generate_trainset_colab.ipynb` tại commit `cfc6beebeec7d0568e7607ab0aed8b8a087c97e7` (notebook sau đó bị xóa ở commit `9fc6461b` để dọn dẹp repo).
 
-> ⚠️ **Lưu ý truy vết:** Không có file log độc lập cho lần chạy sinh ra 4.709 dòng. Nếu cần đối chiếu, tham khảo Cell [8] của notebook tại commit `c0611b3` (log lần 1) và nhân hệ số 1.286.
+> ✅ **Truy vết đầy đủ:** Log lần 2 đã được phục hồi nguyên văn từ Git history (commit `cfc6bee`). Toàn bộ counters bên dưới là số liệu **thực tế**, không phải ước tính.
 
 ### 6.2 Bảng Counters Toàn Pipeline (DoD §3)
 
-Counters lần 1 trích từ `notebooks/data/04_generate_trainset_colab.ipynb` Cell [8]; lần 2 ước tính tuyến tính (×1.286):
+Counters lần 2 (run đầy đủ 4.709 dòng) — trích nguyên văn từ `notebooks/data/04_generate_trainset_colab.ipynb` Cell [8] tại commit `cfc6bee`:
 
 | Stage | Rows | llm_calls | prompt_tokens | completion_tokens | Ghi chú |
 | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Generate** | 4.709 | ~563 | ~1.040.000 | ~183.900 | Qwen2.5-3B-Instruct |
-| **Label** | 4.709 | 4.709 | ~7.942.000 | ~184.900 | Consensus 2-pass |
+| **Generate** | 4.709 | 552 | 1.032.438 | 177.101 | Qwen2.5-3B-Instruct |
+| **Label** | 4.709 | 4.709 | 10.597.822 | 178.820 | Consensus 2-pass |
 | **Verify** | 4.537 | 0 | 0 | 0 | Rule-based (schema/RBAC) |
-| **Irrelevance** | 500 | ~77 | ~114.400 | ~23.000 | Qwen2.5-3B-Instruct |
+| **Irrelevance** | 300 | 27 | 39.914 | 8.457 | Qwen2.5-3B-Instruct (bổ sung lên 500 ở bước sau) |
 | **Quarantine Salvage** | +127 | 0 | 0 | 0 | Manual triage (BaoMyTH) |
 | **Assemble** | 5.000 | 0 | 0 | 0 | Deterministic merge |
-| **Tổng pipeline** | — | **~5.349** | **~9.096.400** | **~391.800** | Ước tính (×1.286 từ log c0611b3) |
+| **Tổng pipeline (lần 2)** | — | **5.288** | **11.670.174** | **364.378** | Thực tế — elapsed=3.240s (~54 phút, Colab T4) |
 
-*Nguồn counters lần 1 thực tế (Cell [8])*:
+*Log nguyên văn lần 2 (Cell [8] tại commit `cfc6bee`)*:
 ```text
-SUMMARY generate:    rows=3663  llm_calls=438   prompt_tokens=808832   completion_tokens=142955
-SUMMARY label:       rows=3663  llm_calls=3663  prompt_tokens=6176036  completion_tokens=143795
-SUMMARY verify:      n=3663     llm_calls=0     prompt_tokens=0        completion_tokens=0
-SUMMARY irrelevance: rows=298   llm_calls=36    prompt_tokens=54428    completion_tokens=10963
-SUMMARY run_pipeline:           llm_calls=4137  prompt_tokens=7039296  completion_tokens=297713  elapsed=2671s
+SUMMARY preflight:    mode=train  prompt_dir=datagen/prompts  errors=0  warnings=0  plan_rows=4788  est_llm_calls=7143
+SUMMARY generate:     rows=4709   target=4788  fill=98%       llm_calls=552   prompt_tokens=1032438   completion_tokens=177101   errors=0  by_model=Qwen2.5-3B-Instruct:552/1032438/177101/0
+SUMMARY label:        labeled=4709  needs_review=0  agree_rate=100%  denied=314  no_tool=582  errors=0  llm_calls=4709  prompt_tokens=10597822  completion_tokens=178820  by_model=Qwen2.5-3B-Instruct:4709/10597822/178820/0
+SUMMARY verify:       n=4709  passed=4537 (96.3%)  quarantined=172  llm_calls=0  prompt_tokens=0  completion_tokens=0  errors=0
+SUMMARY irrelevance:  rows=300  target=300  llm_calls=27  prompt_tokens=39914  completion_tokens=8457  errors=0  by_model=Qwen2.5-3B-Instruct:27/39914/8457/0
+SUMMARY run_pipeline: mode=train  stages=[generate label verify irrelevance]  out_dir=data/sgod  status=ok  elapsed=3240s  llm_calls=5288  prompt_tokens=11670174  completion_tokens=364378  errors=0
+```
+
+*Tham chiếu: Log lần 1 (Cell [8] tại commit `c0611b3`)*:
+```text
+SUMMARY generate:     rows=3663  llm_calls=438   prompt_tokens=808832   completion_tokens=142955
+SUMMARY label:        rows=3663  llm_calls=3663  prompt_tokens=6176036  completion_tokens=143795
+SUMMARY verify:       n=3663     llm_calls=0     prompt_tokens=0        completion_tokens=0
+SUMMARY irrelevance:  rows=298   llm_calls=36    prompt_tokens=54428    completion_tokens=10963
+SUMMARY run_pipeline:            llm_calls=4137  prompt_tokens=7039296  completion_tokens=297713  elapsed=2671s
 ```
 
 ---
