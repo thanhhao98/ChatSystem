@@ -1,0 +1,3974 @@
+[
+  {
+    "id": "SN0000017",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Tôi muốn biết danh sách các lịch bảo trì sắp tới, cho phép phân loại theo trạng thái?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "upcoming"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='upcoming' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0000019",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "[SEED] có lịch bảo trì nào bị gián đoạn không?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "interrupted"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='interrupted' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0000022",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Dành cho nv, tôi cần lịch bảo trì sắp tới, bao gồm cả đã qua và đang hiệu lực?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active,completed"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='active,completed' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0000026",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Báo cáo lịch bảo trì máy in HP 76A đã hoàn thành dc rồi ạ?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0000031",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Liệt kê lại lịch bảo dưỡng máy lạnh Daikin đã hết hạn trong vòng 2 tuần nè?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "expired"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='expired' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0000036",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "[SEED] Tôi muốn biết lịch bảo trì máy lạnh Daikin còn hạn 2 tuần nữa ạ?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0000072",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Xin anh P4, tôi muốn biết về lịch bảo trì của máy lạnh trong Kho tổng, có thể là lịch bảo trì đang hiệu lực hoặc đã hoàn thành?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active,completed"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='active,completed' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0000083",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nghe P4, lịch bảo trì này có deadline vào thứ 4 tuần tới chưa nhể?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0000089",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Chị, lịch bt nào sắp tới có liên quan đến máy in không? Mình cần thông báo cho kỹ thuật viên biết",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "upcoming"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='upcoming' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0000092",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Thưa nv, lịch bt nào sắp tới liên quan đến màn hình, mình cần chuẩn bị",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "upcoming"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='upcoming' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0000130",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Bật mí cho mình, lịch bt dự kiến ngày mai có gì không?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0000133",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Chuyện bảo trì máy lạnh gần nhất thì sao ạ?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0000135",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nếu có lịch bt sắp tới thì anh cho biết đi nhá.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "upcoming"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='upcoming' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0000137",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Hẹn giờ cho lịch bt laptop dell trong tháng này được không?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0000138",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Kính thưa P4, cho mình xin lịch bảo trì gần đây, active hoặc completed, tối đa 10 item ạ.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active,completed",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='active,completed' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0000141",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nói cho em nghe lịch bảo trì cho máy quét mã vạch, em thấy nó chậm quá, anh có thể kiểm tra cho em không?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0000145",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nhanh lên, anh P3, cho em xem lịch bảo trì sắp tới của máy tính bàn, cả hai loại đang hiệu lực lẫn đã hoàn thành đều được ạ.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active,completed"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='active,completed' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0010004",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Dùm e danh sách các lịch bảo trì của kho B, active và completed cùng nhau nhá.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active,completed"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='active,completed' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0010016",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Mấy hôm nay em thấy bt có dấu hiệu chậm trễ nên muốn tra xem có lịch nào sắp hết hạn không ạ.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "expired"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='expired' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0010049",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Lý lịch bt cần xem lại cho kỹ, lịch nào sắp hết hạn?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0010056",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Để lịch bt định kỳ tuần này, pà ơi, pà nhớ kiểm tra kỹ đi nhá.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0010082",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Admin, lịch bảo dưỡng màn hình LG 27UP850 đã được xác nhận vào hôm nay, nhớ nhắc nhở nv bảo dưỡng.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0010091",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Anh cần tra cứu danh sách lịch bảo dưỡng của tháng này có thể chưa được hoàn thành ư?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "pending"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='pending' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0010100",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Hãy đưa ra lịch bảo dưỡng sắp tới của các tb ở trung tâm kỹ thuật nhá.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "upcoming"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='upcoming' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0010105",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Cập nhật lịch bảo dưỡng đang diễn ra, xin kết hợp với sl 12 ạ.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0010109",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Tra cứu danh sách lịch bảo dưỡng sắp tới ở kho hàng, hãy kết hợp cả số lượng 10 ạ.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "upcoming",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_maintenance_schedule",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='upcoming' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0020059",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Có máy in HP LaserJet Pro M404dn này, tao muốn xem nó đã qua bàn giao chưa và chuyển giao cho ai, nhỉ?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_histories",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0040120",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Tôi nhớ có máy in ở một nơi nào đó ở tầng 3 - Phòng Kế toán nhưng không rõ vị trí mã ObjectId là bao nhiêu nhỉ?",
+    "expected_tool": "get_location",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_location",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_location missing required param 'location_id'"
+    ]
+  },
+  {
+    "id": "SN0050089",
+    "category": "location",
+    "user_role": "admin",
+    "input": "Chắc tôi đã nghe vị trí này ở đâu rồi, cho em tra giúp một lần nữa nhé.",
+    "expected_tool": "get_location",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_location",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_location missing required param 'location_id'"
+    ]
+  },
+  {
+    "id": "SN0060003",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Trường hợp của anh có phải đã chuyển giao tài sản rồi ko nhỉ?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_transfer",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0060031",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Xin chào, em muốn biết thông tin về phiếu chuyển giao này ạ.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_transfer",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0060102",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Em đang tìm một phiếu chuyển giao nào đó mà mình đã gửi, anh cho em hỏi ở đâu?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_transfer",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0070023",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Dạ ạ, phiếu chuyển giao này đang ở đâu ạ?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_transfer",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0080019",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "{\"tool\": \"get_asset_transfer\"}",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_transfer_summary",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0080070",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Tôi muốn tìm hiểu thêm về thông tin cụ thể của phiếu chuyển giao này",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_transfer_summary",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0090012",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Nhớ cho tớ xem phiếu chuyển giao của tớ nhé, chỉ cần phiếu tớ là dc.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_transfer_summary",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0120072",
+    "category": "user_permission",
+    "user_role": "employee",
+    "input": "tao dc pm dc trinh bao nhieu lan mot ngay ko?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_my_permissions",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0150036",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Anh cần nv bao tri tra ve dkc cua ban ghi thuc bao muon thay theo ds bb da duoc nghi thu tri den ngay hien tai a.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0150041",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Xin nv bao tri, em dang can nhap thong tin ds bb da duoc nghi thu tri den den ngay hom nay nhieu hon de xem nhieu hon",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0150053",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Ky thuat, có mừi bb thàng nha, tịu thàng nha? Nhìu thàng nha?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0150088",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Vui lai mn dc nhap sl=10 mn dc h vs, mn dc xem nhung nhat ky dc moi nhat nhung mh can xet nhieu?",
+    "expected_tool": "get_asset_histories",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_histories missing required param 'asset_ref'"
+    ]
+  },
+  {
+    "id": "SN0150101",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Bật mí cho tớ tb bt dc mot thang dau ky nhung cc bmt dc?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0150108",
+    "category": "maintenance_record",
+    "user_role": "employee",
+    "input": "Tớ muốn tìm cc bmt dc 3 mon cuoi ky, mn giúp tớ dc ko? a.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0160011",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Anh ơi, bả máy lạnh dc phòng ban xuống, nhở mày tra lịch bảo dưỡng gần đc ko? Sl 10.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0160057",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Nhớ thong báo nha, nhét nv bảo trì đc 5 bản rép vào file này",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0160061",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Nhớ em làm 15 bb cv của nv bt đc 3 th mới gửi lại boss",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0160066",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Xin ban hành 15 bb cv của nv bt đc 3 th gần đc",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0160074",
+    "category": "maintenance_record",
+    "user_role": "admin",
+    "input": "Ngày bt *sl* 10, bt dt này đã hoàn thành à? Kẹt tiền mua máy ạ.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_records",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0170010",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Chắc có công việc nào đang được thực hiện trong lịch bảo trì này nhỉ? Vui lòng đưa danh sách, anh.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0170045",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Dòi đầu việc cáp mạng trong lịch bảo trì này cho ta nhá.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0170046",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Các đầu việc trong lịch bảo trì này ai mới được, nhớ xem nè.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0170047",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Đầu việc nào còn dang dở trong lịch bảo trì này, anh cần nhắc nhở kỹ năng viên bảo trì.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0170049",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Các đầu việc cần xử lý trong lịch bảo trì này có mấy món ạ? Mình cần theo dõi kỹ nhé.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0170052",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Ráng nhớ cho ta các đầu việc đang cần xử lý trong lịch bảo trì này, nhớ là phải theo dõi kỹ!",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0170053",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Các đầu việc nào còn dang dở trong lịch bảo trì này, cho em xem để mình sắp xếp lại nè.",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0170096",
+    "category": "maintenance_task",
+    "user_role": "employee",
+    "input": "Chờ đt bt cho dt 6ad615353b0f8e12e2f190e4 ve nhieu ngay de duyet ds cty?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "pending"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='pending' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0180029",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Dc kc nhap thmn c tc dc kc? Khon mh xin thnh cong thuc thi c dc ko?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0180051",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Tôi cần xem danh sách các công việc còn chưa được xử lý trong lịch bảo trì này, bác giúp mình với!",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0180066",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Có mấy vụ công việc bảo trì trong lịch này, cv nào đang xử lý? Tao cần xem xét lại",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0180067",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Nếu bt nào chậm quá thì cần báo cáo, có cv nào đang gặp khó khăn không? Tao muốn xem xét",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0180068",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Thưa chị, bt này có gặp phải vấn đề gì không? Nếu có, cv nào đang phụ trách? Tao muốn nắm bắt",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0180069",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Mấy vụ bt nào đang bị chậm trễ nhất? Có cv nào đang cố gắng khắc phục không? Tao cần hỗ trợ",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "delayed"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='delayed' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0180070",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Tao muốn xem dt của những cv đang phụ trách bt trong lịch này, được không? Tao cần liên lạc",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0180072",
+    "category": "maintenance_task",
+    "user_role": "admin",
+    "input": "Mấy vụ công việc bảo trì nào đang cần sự hỗ trợ của cv khác? Tao muốn biết để sắp xếp",
+    "expected_tool": "list_maintenance_tasks",
+    "expected_params": {
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_tasks",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_tasks missing required param 'maintenanceScheduleId'"
+    ]
+  },
+  {
+    "id": "SN0190000",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách tài khoản mới kích hoạt cty",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190001",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "danh sách nv đang bị khóa dc",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "locked"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='locked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190002",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "lấy 10 người active đc nhá",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "active",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190004",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "danh sách nv đã xac thac dc nhìu",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "confirmed"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='confirmed' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190007",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "xem ds nv cty dc block",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "blocked"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='blocked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190011",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "danh sách nv trong kho dang kip xac thac",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "dang kip xac thac",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190013",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới được kích hoạt tý kí.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingActivation",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingActivation' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190015",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tất cả người dùng đang tạm ứng xử nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending..."
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190017",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 50 tài khoản đã kích hoạt tý kí nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 50
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190018",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tất cả người dùng P3 P4 P5 đang hoạt động nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "P3 P4 P5",
+      "status": "Pending...",
+      "limit": 100
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190019",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách tài khoản P1 P2 bị vô hiệu hóa nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending...",
+      "search": "P1 P2"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190021",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 30 tài khoản mới được xác nhận nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "confirmed",
+      "limit": 30
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='confirmed' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190023",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem lại danh sách tài khoản đang active, 20 phần, ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190024",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nói rõ đây là danh sách ai chứ, nhân viên phòng kinh doanh đang có 10 người đang active?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "phòng kinh doanh",
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190025",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Vui lòng cung cấp danh sách tất cả các tài khoản đã kích hoạt, không quá 50 phần.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 50
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190027",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Làm ơn cung cấp danh sách tất cả các tài khoản đã được duyệt, không hơn 40 phần nhỉ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "approved",
+      "limit": 40
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='approved' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190031",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Kính nhờ kiểm tra và gửi danh sách tài khoản mới kích hoạt lên cho tôi, tối đa 40 phần",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "activated",
+      "limit": 40
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='activated' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190032",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Thưa quản trị viên, có thể tôi xin phép xem danh sách tất cả các tài khoản đang chờ kích hoạt, được không ạ?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingActivation"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingActivation' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190034",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách những nhân viên đã kích hoạt mới *sl* 10.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190037",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tất cả tài khoản đã kích hoạt *dt*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "search": "*dt*"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190038",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem 10 người chưa xác minh *dt*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*dt*",
+      "status": "PendingVerification",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingVerification' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190039",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nhân viên nào *dt* đang hoạt động *dt*?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending..."
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190041",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nhân viên nào *dt* có email là *email@example.com*?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*email@example.com*",
+      "status": "*Pending...*"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='*Pending...*' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190042",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản đã kích hoạt *dt*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "search": "*dt*"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190044",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 20 nhân viên đang active",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190045",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Khám phá danh sách nhân sự đã xác thực",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190046",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy danh sách tài khoản chưa kích hoạt lại",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingActivation"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingActivation' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190053",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190054",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 10 người đang active.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190055",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nhân viên đã đăng ký xong, gửi cho tôi danh sách.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "registered"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='registered' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190060",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách các nhân viên đã được cấp phép bt lần gần nhất.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "approved",
+      "search": "bt",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='approved' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190061",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách nhân viên đang bị khóa *acc*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "locked",
+      "search": "*acc*"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='locked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190062",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản Verified, chỉ *sl*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*Verified*",
+      "status": "*Pending*",
+      "limit": "*sl*"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='*Pending*' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190064",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 5 người đang active *acc*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*acc*",
+      "status": "active",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190065",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nhân viên dang ky, chỉ *sl*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending...",
+      "limit": "*sl*"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190068",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách tài khoản chưa kích hoạt *cty*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingActivation",
+      "search": "*cty*"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingActivation' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190071",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Tất cả tài khoản đang hoạt động, mỗi lần chỉ *sl*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending...",
+      "limit": "*sl*"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190072",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt, 10 nv nhá!",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190073",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 10 người đang active, nháy acc.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "active",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190075",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 20 người đã kích hoạt, nháy cty.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "search": "nháy cty",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190077",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt, nháy acc. nháy 10 nv.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190080",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 10 người đã đăng ký, nháy nv. nháy cty.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "nv",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190081",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản tạm khóa, nháy dc! nháy 20 nv.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "search": "admin",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190083",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt ts dc",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190084",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 10 người đang active ts dc",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190085",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xin số điện thoại mấy nhân viên phòng kinh doanh dc",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "phòng kinh doanh",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190086",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy danh sách tài khoản verified ts dc",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "verified ts dc",
+      "status": "verified"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190087",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách nhân viên P3/P4 đang chờ phê duyệt ct",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "P3/P4",
+      "status": "PendingApproval"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingApproval' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190089",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản active đã hơn 3 tháng dc",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "search": "created_at:>3monthsAgo"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190090",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xin số điện thoại nhân viên phòng kinh doanh nh",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "phòng kinh doanh",
+      "status": "Pending...",
+      "limit": 1
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190091",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 20 người mới đăng ký ts dc",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "new",
+      "status": "pending",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190092",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản chưa được xác thực ts dc",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingVerification",
+      "search": "ts dc"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingVerification' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190095",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem nhân viên đã verification, acc.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "search": "verification",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190097",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới activation, nv.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "activation",
+      "status": "new",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='new' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190099",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 20 người trong tình trạng blocked, ct.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "blocked",
+      "status": "blocked",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='blocked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190101",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Tìm ai đang ở trong status verified, nh.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "verified",
+      "status": "verified"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190102",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách nhân viên đã xác thực và đang hoạt động, nv.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "search": "nv"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190103",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách nhân viên đang bị khóa, nháy ngay nhé.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "locked"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='locked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190104",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách nhân viên, nhét thêm cả đã kích hoạt vô.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "limit": 100,
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190106",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt, tít to cho rõ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "search": "new activated",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190107",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem nhân viên đang bị khóa, tao cần gấp.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "locked"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='locked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190108",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách nhân viên, nhét thêm cả đã kích hoạt vô, tao muốn biết.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190110",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản đã block, 20 người *nv*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "blocked",
+      "search": "*nv*",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='blocked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190111",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 50 người đã verification, cần gấp *nv*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*nv*",
+      "status": "verified",
+      "limit": 50
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190112",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản chưa validate, kiểm tra ngay *nv*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*nv*",
+      "status": "PendingValidation"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingValidation' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190114",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xin phép xem danh sách nhân viên phòng IT, 30 người *nv*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*nv*",
+      "status": "Pending...",
+      "limit": 30
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190121",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 50 người đang active dc nhe.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 50
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190123",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Đưa ra danh sách tất cả người dùng đã được cấp quyền dc dc.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "dc_dc"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='dc_dc' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190124",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản chưa được verify nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingVerification"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingVerification' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190125",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Cùng nhau lật xem nhân viên đc phê duyệt dc ko?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending..."
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190126",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách nhân viên đang active ở phòng kỹ thuật dc nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "kỹ thuật",
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190128",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản bị block dc cty.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "blocked"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='blocked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190130",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách nhân viên đã kích hoạt *dt*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "search": "*dt*"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190133",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xin cấp sao kê danh sách 10 nhân viên đang hoạt động *nv*.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*nv*",
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190135",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy danh sách 20 nhân viên mới đăng ký, 3 nhóm ngành *cv* khác nhau.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*cv*",
+      "status": "Pending...",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190136",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Tổng hợp danh sách nhân viên đã được phê duyệt *cty*, 5 người trở lên.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "approved",
+      "search": "*cty*",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='approved' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190139",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xin danh sách 20 nhân viên đã đăng ký nhưng chưa xác thực *nv*. Để lại cho em.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "*nv*",
+      "status": "PendingVerification",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingVerification' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190141",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt, cho tôi xem 5 cái nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190142",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nếu đang active thì lấy 20 nhân viên điền đầy đủ thông tin nh่ะ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "full",
+      "status": "PendingApproval",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingApproval' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190144",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Tìm nhân viên đang inactive, cần 10 người như thế.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "inactive",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='inactive' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190145",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản đã kích hoạt, xin 10 cái ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190147",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nếu nhân viên của phòng kho thì lấy 10 người cho tôi.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "phòng kho",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190149",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nếu có tài khoản blocked thì lấy 10 cái đi.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "blocked",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='blocked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190150",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách nhân viên có quyền admin, cho tôi biết 20 cái thôi nhé.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "admin",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='admin' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190152",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt, 10 entry.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190155",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Khách hàng yêu cầu, xem danh sách tài khoản đã bị block.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "blocked"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='blocked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190156",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nhân viên mới, hãy lấy 10 tài khoản mới kích hoạt.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190157",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Các tài khoản đã kích hoạt, xin lấy ngay danh sách 10 entry.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190159",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách người đã được xác thực, cần lấy ngay.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190160",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem lại danh sách tài khoản mới bị khóa, gấp.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "locked",
+      "search": "new"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='locked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190162",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xin gửi ngay danh sách người dùng đã được xác thực đến tôi.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190163",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt, ctty này, nhét 15 người vao ds nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "search": "new activated",
+      "limit": 15
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0190164",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Những tài khoản đã xác thực nhưng chưa active, admin ơi, lấy 20 người dc ko?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200000",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản của nhân viên đã cấp lại mật khẩu ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingResetPassword",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingResetPassword' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200001",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy danh sách người dùng đã kích hoạt trong ngày hôm nay nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "search": "today"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200002",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Có thể xem danh sách những tài khoản mới được cấp lại sao?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200004",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nếu có, cho mình xem danh sách các nhân viên trong phòng Kế toán đang kích hoạt chứ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "Kế toán",
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200008",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Tôi muốn xem danh sách các nhân viên trong công ty đang hoạt động để xác minh thông tin ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200009",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt dc nv, dc?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "search": "new activated employee"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200010",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Tất cả tài khoản đang active, list cho mình nhieu nhie?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 100
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200013",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Những tài khoản đã kích hoạt nhưng vẫn còn block, list lai dc nhieu nhie?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "block",
+      "search": "active"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='block' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200017",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Ngay danh sach cac nguoi dang active, dc nhieu thay nhieu nhieu dc? Co dc ko nhie?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200018",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Da them mot so nguoi moi, danh sach lai de em xem nhieu nhieu dc nhie?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "nguoi moi",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200020",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Đưa về danh sách tài khoản mới kích hoạt.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200021",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nên đưa ra danh sách nhân viên đang active.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200022",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt thôi nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "search": "new activated"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200024",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 10 người đang active lên em.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200026",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nói cho em biết danh sách nhân viên đã kích hoạt hết ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200027",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 20 tài khoản đang active đi.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200029",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt 10 cái",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200030",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 5 người đã được xác thực",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200031",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tất cả tài khoản đang hoạt động",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending..."
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200036",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 10 người đã xác thực trong hệ thống nhá",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200044",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Đưa ra danh sách nhân viên mới được cấp quyền nhé.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending..."
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200047",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Dưới đây là danh sách những nhân viên đang có quyền sử dụng hệ thống.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending..."
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200050",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Dự án cần tôi liên lạc với một số nhân viên phòng kinh doanh, hãy lấy danh sách họ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "phòng kinh doanh",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200054",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Đưa ra danh sách tài khoản đã kích hoạt gần đây.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200055",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới được duyệt đã kích hoạt.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "approved",
+      "search": "new"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='approved' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200057",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách người dùng mới được phê duyệt.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingApproval",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingApproval' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200058",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 5 người dùng đã xác thực.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200059",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản bị chặn chưa qua phê duyệt.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingApproval"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingApproval' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200062",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách tài khoản mới được phê duyệt gần đây.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "approved",
+      "search": "new",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='approved' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200064",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách tài khoản đang bị khóa, dc?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "locked"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='locked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200074",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Ve danh sach nv active, minh co the tra cuu dc nhieu hon khong?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "active",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200075",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sach nv verif dc, con lai co nhieu nv dc dc k?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200079",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt, cho em xem đi",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200084",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Liệt kê tài khoản mới được phê duyệt, cho em.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingApproval"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingApproval' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200085",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem những người dùng chưa hoạt động được lâu, nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200086",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Đưa ra danh sách tất cả các tài khoản đang hoạt động, ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending..."
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200088",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tất cả các tài khoản đã kích hoạt, ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200091",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách tài khoản mới kích hoạt, nv ạ.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200093",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách tài khoản đã kích hoạt, cty này.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "search": "cty này"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200095",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Tình hình tài khoản mới tạo, ct đó, mình cần kiểm tra.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200097",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản chưa kích hoạt, cv gì vậy?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingActivation"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingActivation' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200098",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nhân viên mới tạo xong, cty này, có ai không?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "nhân viên mới tạo xong",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200100",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy danh sách tài khoản tạm thời, xin lỗi, em đang cần.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending...",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200101",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách nhân viên được kích hoạt nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending..."
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200107",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tất cả người dùng đã xác nhận được ko?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "confirmed"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='confirmed' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200110",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy 3 tài khoản chưa kích hoạt đi cho tớ nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingApproval",
+      "limit": 3
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingApproval' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200111",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem nhân viên đang bị khóa, dc",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "locked",
+      "search": "dc"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='locked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200112",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản mới kích hoạt, cho mình hỏi?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200118",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Ném ra 20 tài khoản được chứng thực cho em đi.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200120",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Có ai bị block ko, 5 người đc ko?.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "blocked",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='blocked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200124",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy ngay 5 tài khoản đã được chứng thực, có đc ko nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200125",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách tài khoản nhân viên đã kích hoạt, nv?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "search": "nv"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200127",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Tất cả nhân viên đang active, 5 cái nhá?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200128",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Có 10 người chưa xác thực, đc không, cv?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "PendingApproval",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='PendingApproval' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200129",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Đây là 5 tài khoản mới kích hoạt, nhá?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "kích hoạt",
+      "status": "pending",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200133",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Những người đã xác thực, 3 cái nhá?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "verified",
+      "limit": 3
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='verified' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200134",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách nhân viên đã bị khóa, ctv nhỉ?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "locked",
+      "search": "ctv"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='locked' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200136",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách tài khoản active, ctty?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "search": "ctty"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200139",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "[SEED] Duyệt lại 10 người đang active, ctty?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "active",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200140",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "[SEED] Duyệt danh sách người mới kích hoạt, cv",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200145",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Lấy danh sách tài khoản mới được cấp, nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "new",
+      "search": "new"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='new' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200146",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Danh sách người dùng đang hoạt động, nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200148",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Dưới đây là danh sách tài khoản mới tạo, nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200152",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Nên lấy 5 tài khoản mới kích hoạt đc nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "pending",
+      "limit": 5
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='pending' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200154",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Có thể lấy 10 người đang active được đk nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200157",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xin phép tra số điện thoại của các đồng nghiệp phòng kinh doanh dc.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "phòng kinh doanh",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200158",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Xem danh sách người dùng đang active nhá.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0200160",
+    "category": "user_management",
+    "user_role": "admin",
+    "input": "Mình muốn biết danh sách 10 người đang active.",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "status": "active",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_enterprise_users",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='active' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0220034",
+    "category": "user_profile",
+    "user_role": "admin",
+    "input": "e lam nv van phong, tao cho em danh sach cc nv van phong tren cty?",
+    "expected_tool": "list_enterprise_users",
+    "expected_params": {
+      "search": "nv van phong",
+      "status": "Pending...",
+      "limit": 10
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_my_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_enterprise_users.status='Pending...' not in enum ['Pending', 'Verified', 'Active', 'Blocked']"
+    ]
+  },
+  {
+    "id": "SN0230030",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Máy lạnh Daikin FTKB50 2HP này em cần hỏi nó ở đâu?",
+    "expected_tool": "get_location",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_location missing required param 'location_id'"
+    ]
+  },
+  {
+    "id": "SN0250047",
+    "category": "location",
+    "user_role": "employee",
+    "input": "Ở đâu đây mà mấy cái kho bấy lâu vậy ạ? 请问一下仓库的位置在哪里？",
+    "expected_tool": "get_location",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_locations",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_location missing required param 'location_id'"
+    ]
+  },
+  {
+    "id": "SN0310006",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Chị quản lý ơi, tìm cho mình lịch bt đã qua và đang hoạt động, cần 20 cuộc lịch là tốt nhất.",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "completed,active",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='completed,active' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0310016",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "P3 ơi, giúp tôi tra lịch bảo trì đang hiệu lực và đã hoàn thành. 20 cái ơi, được không ạ?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "active,completed",
+      "limit": 20
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='active,completed' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0310036",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Ngày nay, tôi muốn biết có lịch bảo dưỡng nào sắp tới cần chú ý không, nhá?",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "upcoming"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='upcoming' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0310047",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Này P4, tra cứu lịch bảo trì hoàn thành vừa qua nhá.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0310058",
+    "category": "maintenance_schedule",
+    "user_role": "employee",
+    "input": "Nhân sự ơi, gửi lịch bt đã kết thúc với tôi ngay đi nhé!",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0320002",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Đợt bảo dưỡng cuối cùng mà đã hoàn thành và còn hạn chế tới thứ tư tuần này, cho tôi biết nhé!",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0320009",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "Bác P4 ơi, có lịch nào mà đã hoàn thành và còn hạn chế đến ngày 15/04 không ạ?",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0320016",
+    "category": "maintenance_schedule",
+    "user_role": "admin",
+    "input": "{\"response\": \"Nhắc lại lịch bảo dưỡng gần nhất đã được xác nhận không nv?\"}",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  },
+  {
+    "id": "SN0330000",
+    "category": "asset_transfer",
+    "user_role": "employee",
+    "input": "Chào, có thể cho em xem phiếu chuyển giao mà em vừa thực hiện không ạ?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_asset_transfers",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0340011",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Xin hỏi boss, hôm nay chúng ta cần tra cứu phiếu chuyển giao tài sản nào?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_asset_transfers",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0340020",
+    "category": "asset_transfer",
+    "user_role": "admin",
+    "input": "Em đang cần tìm phiếu chuyển giao đã hoàn tất trong tháng này để cập nhật sổ sách ạ.",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_asset_transfers",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0390036",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "{asset_ref} đã chuyển từ nv nào sang nv nào?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_statistics",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0390039",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "{asset_ref} đã được bàn giao cho ai từ trước?",
+    "expected_tool": "get_asset_transfer",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_statistics",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset_transfer missing required param 'transfer_id'"
+    ]
+  },
+  {
+    "id": "SN0390142",
+    "category": "asset_detail",
+    "user_role": "employee",
+    "input": "Cung cấp cho tôi danh sách tất cả máy lạnh đã hết hạn bảo hành và trạng thái hiện tại",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "expired"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_asset_statistics",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='expired' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0400138",
+    "category": "user_management",
+    "user_role": "employee",
+    "input": "Danh sách tạm ngưng hoạt động, tên, số điện thoại mình hỏi đi",
+    "expected_tool": "list_maintenance_schedules",
+    "expected_params": {
+      "status": "inactive"
+    },
+    "expected_permission": "allowed",
+    "_seed_tool": "get_enterprise_profile",
+    "_reject_stage": "B",
+    "_issues": [
+      "list_maintenance_schedules.status='inactive' not in enum ['active', 'completed']"
+    ]
+  },
+  {
+    "id": "SN0450008",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Đây là yêu cầu không chính xác, vì mình không có quyền chỉnh sửa thông tin tài sản ở đây. Hãy thử với tool xem tài sản?",
+    "expected_tool": "get_asset",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_asset_transfers",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_asset missing required param 'asset_ref'"
+    ]
+  },
+  {
+    "id": "SN0460066",
+    "category": "permission_denial",
+    "user_role": "employee",
+    "input": "Người dùng [id: 6ad615353b0f8e12e2f1910d] đã hoàn tất quá trình, vì vậy tôi không thể truy cập thông tin của họ.",
+    "expected_tool": "get_maintenance_schedule",
+    "expected_params": {},
+    "expected_permission": "allowed",
+    "_seed_tool": "list_maintenance_schedules",
+    "_reject_stage": "B",
+    "_issues": [
+      "get_maintenance_schedule missing required param 'schedule_id'"
+    ]
+  }
+]
