@@ -172,23 +172,26 @@ def load_roles(path):
 
 
 def load_catalogue(path):
-    """Return (catalogue {name: properties-set}, policy {name: roles} or None)."""
+    """Return (catalogue {name: properties-set}, policy {name: roles} or None, required {name: required-list})."""
     with open(path, encoding="utf-8") as f:
         tools = json.load(f)
     if isinstance(tools, dict) and "tools" in tools:
         tools = tools["tools"]
     catalogue = {}
+    required = {}
     for t in tools:
         fn = t.get("function", t)
         props = (fn.get("parameters") or {}).get("properties") or {}
+        req = (fn.get("parameters") or {}).get("required") or []
         catalogue[fn["name"]] = set(props)
+        required[fn["name"]] = list(req)
     policy = None
     policy_path = os.path.join(os.path.dirname(os.path.abspath(path)), TOOL_POLICY_FILENAME)
     if os.path.exists(policy_path):
         with open(policy_path, encoding="utf-8") as f:
             raw = json.load(f)
         policy = {name: set(e.get("roles", []) if isinstance(e, dict) else e) for name, e in raw.items()}
-    return catalogue, policy
+    return catalogue, policy, required
 
 
 # ── Per-row checks ────────────────────────────────────────────────────────────────────────────
@@ -320,6 +323,16 @@ def validate_row(row, ctx):
                 if unknown_args:
                     errors.append(("arg_unknown", f"'{name}' arguments {sorted(unknown_args)} not in schema "
                                                   f"properties {sorted(catalogue[name])}"))
+                required_map = ctx.get("required") or {}
+                if name in required_map:
+                    _ID_SUFFIXES = ("_id", "_ids", "_ref")
+                    call_args = call.get("arguments", {})
+                    for req in required_map[name]:
+                        if req in call_args:
+                            continue
+                        if req == "id" or req.endswith(_ID_SUFFIXES):
+                            continue
+                        errors.append(("arg_missing_required", f"'{name}' missing required argument {req!r}"))
                 if policy is not None and role in ctx["roles"] and role not in policy.get(name, set()):
                     errors.append(("tool_not_offered_to_role",
                                    f"'{name}' is not offered to role '{role}' by {TOOL_POLICY_FILENAME}"))
@@ -420,9 +433,10 @@ def main(argv=None):
         tools_path = resolve_path(args.tools)
         if not os.path.exists(tools_path):
             sys.exit(f"ERROR: --tools file not found: {args.tools}")
-        catalogue, policy = load_catalogue(tools_path)
+        catalogue, policy, required = load_catalogue(tools_path)
     ctx = {"preamble": preamble, "preamble_slots": slots, "role_names_vi": role_names_vi, "preamble_cache": {},
-           "fixed_replies": load_fixed_replies(fixed_path), "roles": roles, "catalogue": catalogue, "policy": policy}
+           "fixed_replies": load_fixed_replies(fixed_path), "roles": roles, "catalogue": catalogue, "policy": policy,
+           "required": required if args.tools else None}
 
     total_rows, total_errors, grand = 0, 0, Counter()
     for path in args.files:

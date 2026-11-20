@@ -49,7 +49,7 @@ def review(client, catalogue, q, role, model, system_text=None):
     t = t[t.find("{"): t.rfind("}") + 1] if "{" in t else "{}"
     try:
         d = json.loads(t)
-        return d.get("tool"), (d.get("params") or {})
+        return d.get("tool"), (d.get("parameters") or d.get("params") or {})
     except json.JSONDecodeError:
         return None, {}
 
