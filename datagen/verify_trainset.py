@@ -91,7 +91,8 @@ def stage_b_schema(tc, tools, perms, meta=None):
             if enum and isinstance(v, str) and v not in enum:
                 issues.append(f"{et}.{k}={v!r} not in enum {enum}")
         for req in schema.get("required", []) or []:
-            if req in params or is_id_slot(req, et, meta):
+            exempt = (not meta.get("_strict_required")) and is_id_slot(req, et, meta)
+            if req in params or exempt:
                 continue
             issues.append(f"{et} missing required param {req!r}")
     return issues
@@ -107,6 +108,8 @@ def main():
     p.add_argument("--models", nargs="+", default=list(cfg.LABEL_MODELS))
     p.add_argument("--consensus-min", type=int, default=2,
                    help="min #models that must agree with the label to PASS stage C")
+    p.add_argument("--strict-required", action="store_true",
+                   help="treat missing required params (including _id/_ref) as Stage B schema errors")
     p.add_argument("--no-semantic", action="store_true", help="skip stage C entirely (offline, no key)")
     p.add_argument("--semantic-review-only", action="store_true",
                    help="run stage C only on _needs_review rows; label-agreed rows pass on A+B (cuts cost ~60%%)")
@@ -124,6 +127,8 @@ def main():
         client = cfg.require_openai_client()   # exits 2 with the Vietnamese message when the key is missing
     tools, perms = audit.load_catalogue(args)
     meta = audit.load_tool_meta(args.tools)
+    if args.strict_required:
+        meta["_strict_required"] = True
     catalogue = audit.build_tool_catalogue(tools)
     valid = set(tools)
     cases = json.loads(cfg.repo_path(args.input).read_text(encoding="utf-8"))
