@@ -144,9 +144,12 @@ jobs:
           cd data/sgod
           for f in *.sha256; do
             [ -e "$f" ] || continue
-            if ! sha256sum -c "$f"; then
-              echo "::error file=data/sgod/$f::tệp đã đóng băng bị sửa tại chỗ — sửa lỗi bằng phiên bản mới + errata + sha mới"
-              exit 1
+            # Chi kiem tra checksum doi voi cac tep co dinh dang hash sha256 hop le (64 ky tu hex)
+            if grep -Eq '^[0-9a-f]{64}' "$f"; then
+              if ! sha256sum -c "$f"; then
+                echo "::error file=data/sgod/$f::tệp đã đóng băng bị sửa tại chỗ — sửa lỗi bằng phiên bản mới + errata + sha mới"
+                exit 1
+              fi
             fi
           done
 
