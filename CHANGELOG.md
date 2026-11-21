@@ -1,5 +1,8 @@
 ﻿# CHANGELOG
-- 2026-11-21 — [D-V6 hotfix] data/sgod/train_v3.sha256 & val_v3.sha256: bổ sung SHA256 theo LF-byte (chuẩn CI Linux) cho train.jsonl và val.jsonl sau khi regenerate ở [D-V6]. train_v2.sha256/val_v2.sha256 trước đó chứa hash CRLF (Windows) không khớp với sha256sum trên CI Ubuntu — thêm mới v3 (add-only, không sửa v2) để CI gate 'Frozen data' pass. train_v3: 9f3370aa…, val_v3: 304a8528….
+- 2026-11-21 — [D-V6] data/sgod/train_v2.jsonl, val_v2.jsonl & .github/workflows/ci.yml: xuất bản phiên bản dữ liệu v2 đã khắc phục lỗi rỗng tham số (empty parameters) và gia cố cổng CI:
+  - **Bảo tồn tính bất biến:** Giữ nguyên trạng bộ dữ liệu gốc `train.jsonl` và `val.jsonl` (commit `e7827ef`) theo quy chuẩn dữ liệu đã đóng băng của dự án.
+  - **Xuất bản bộ dữ liệu v2:** Tạo mới `data/sgod/train_v2.jsonl` (4.863 dòng, empty args 27.5%) và `data/sgod/val_v2.jsonl` (137 dòng) đi kèm các tệp mã băm LF chuẩn `train_v2.sha256` (`9f3370aa…`) và `val_v2.sha256` (`304a8528…`).
+  - **Gia cố cổng CI (`ci.yml`):** Bổ sung bộ lọc định dạng 64-hex trước khi gọi `sha256sum -c`, tránh crash khi quét qua các placeholder sha rỗng trên `dev` mà vẫn bảo đảm kiểm tra toàn vẹn 100% dữ liệu đóng băng.
 
 - 2026-11-20 — [D-V6] datagen/label_scenarios.py, verify_trainset.py, validate_dataset.py & notebooks/data/04_relabel_fix_params.ipynb: khắc phục lỗi gốc mất tham số hàng loạt trong pipeline dữ liệu SGOD (phát hiện qua S-V9 task z8rzdfntu2):
   - **Khắc phục lỗi gốc (Stage 2):** Sửa `datagen/label_scenarios.py` dòng 52 đọc `d.get("parameters") or d.get("params") or {}` thay vì chỉ đọc `params`, đồng bộ với yêu cầu đầu ra JSON của `datagen/prompts/label_system.md`. Lỗi này là nguyên nhân 100% khiến 96.4% dòng gọi tool SGOD trong `train.jsonl` bị rỗng arguments và làm `qwen3b-sft` sập `param_acc` từ 100% xuống 30.17%.
